@@ -432,8 +432,10 @@ The project does not include:
 | PRD | `docs/PRD.md` |
 | Plan | `docs/PLAN.md` |
 | TODO | `docs/TODO.md` |
-| agent workflow PRD | `docs/PRD_agent_workflow.md` |
+| CrewAI pipeline PRD | `docs/PRD_crewai_pipeline.md` |
 | LaTeX generation PRD | `docs/PRD_latex_generation.md` |
+| PDF validation PRD | `docs/PRD_pdf_validation.md` |
+| Bibliography and citations PRD | `docs/PRD_bibliography_and_citations.md` |
 | Python package | `src/<package_name>/` |
 | Tests | `tests/` |
 | Configuration | `config/` |
@@ -747,11 +749,17 @@ The MVP should use only the packages required for stable PDF generation. Advance
 
 Because the project contains complex mechanisms, the following dedicated PRDs are Required:
 
-1. `docs/PRD_agent_workflow.md`  
-   Describes the CrewAI agent/task/context workflow, expected intermediate artifacts, and validation rules.
+1. `docs/PRD_crewai_pipeline.md`  
+   Describes the CrewAI agent/task/context workflow, expected intermediate artifacts, the Markdown-first generation stage, and the handoff to deterministic validation after the Reviewer Agent.
 
 2. `docs/PRD_latex_generation.md`  
-   Describes the LaTeX project structure, BiDi handling, macros, bibliography, nomenclature, index, and PDF build process.
+   Describes the LaTeX project structure, the LuaLaTeX MVP engine, BiDi handling with `fontspec` + `polyglossia` and the `David CLM` / `Latin Modern Roman` font pair, macros, theorem environments, nomenclature, index, table/TikZ separation rules, and the multi-pass PDF build process.
+
+3. `docs/PRD_pdf_validation.md`  
+   Describes the deterministic `ValidatorService` that runs after the Reviewer Agent stage, the file and PDF content checks it performs, and the validation report it emits. The LLM is not the source of truth for validation.
+
+4. `docs/PRD_bibliography_and_citations.md`  
+   Describes the Bibliography Agent's source-discovery and verification workflow, the `references.bib` toolchain (`biblatex` + `biber`), the citation-key convention, the no-fabricated-sources policy, and how unresolved `\cite{...}` references are surfaced as build-time errors by the deterministic validator.
 
 These should not replace this main PRD. They should refine the most complex mechanisms.
 
