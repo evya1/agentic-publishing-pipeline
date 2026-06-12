@@ -89,7 +89,7 @@ responsibilities rules, validation policy, and acceptance criteria as
 `docs/PRD.md`. `README.md` and `SUBMISSION_CHECKLIST.md` refresh is
 explicitly deferred to Phase 13 and remains tracked in TODO.
 
-### Phase 1.5 — Demo article topic and source manifest lock *(in progress)*
+### Phase 1.5 — Demo article topic and source manifest lock *(complete — commit `303a425`)*
 
 Lock the default demo runtime topic, the source set, and the local-only
 archive layout so the Research Agent (Phase 6) and the Bibliography
@@ -145,10 +145,10 @@ explicitly the phase where the issues and milestones **do** get created.
 
 Planned work:
 
-- Create **GitHub Milestones** for every still-open phase — Phases 1.5
+- Create **GitHub Milestones** for every still-open phase — Phases 2
   through 14 (one milestone per phase; milestone title matches the
-  phase title). Phase 0 and Phase 1 do not get milestones because they
-  are already complete.
+  phase title). Phase 0, Phase 1, and Phase 1.5 do not get milestones
+  because they are already complete.
 - Create **GitHub Issues** from the concrete tasks in `docs/TODO.md`;
   preserve TODO wording so issue titles remain traceable to TODO items.
 - Apply a small **label** vocabulary on each issue:
@@ -159,7 +159,7 @@ Planned work:
   let a corresponding TODO item or PRD acceptance criterion be ticked.
 
 **Exit criterion:** milestones exist for every still-open phase
-(Phases 1.5–14), every open TODO item has a tracking issue with the
+(Phases 2–14), every open TODO item has a tracking issue with the
 right labels, and the mapping TODO ↔ issue ↔ milestone ↔ PRD
 requirement is documented in `docs/TODO.md`'s introduction.
 
@@ -335,13 +335,13 @@ group member has submitted in Moodle.
 ## Notes
 
 - Phase 1 is complete (mechanism PRDs reconciled — commit `4e5517c`).
-  Phase 1.5 is in progress (demo topic and source manifest lock).
-  Phases 2 through 14 remain open. None of the open phases is allowed
-  to be marked complete preemptively. PRD acceptance-criteria
-  checkboxes (`docs/PRD.md` §14, `docs/HW3_REQUIREMENTS.md`,
-  `SUBMISSION_CHECKLIST.md`) are ticked only after the underlying
-  artifact is verified on disk and, where applicable, by a passing
-  build, test, or validator run.
+  Phase 1.5 is complete (demo topic and source manifest locked —
+  commit `303a425`). Phases 2 through 14 remain open. None of the
+  open phases is allowed to be marked complete preemptively. PRD
+  acceptance-criteria checkboxes (`docs/PRD.md` §14,
+  `docs/HW3_REQUIREMENTS.md`, `SUBMISSION_CHECKLIST.md`) are ticked
+  only after the underlying artifact is verified on disk and, where
+  applicable, by a passing build, test, or validator run.
 - Real Python dependencies (`crewai`, model SDKs, search SDKs,
   `matplotlib`, etc.) are added via `uv add` only when the phase that
   needs them begins.

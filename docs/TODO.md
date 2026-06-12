@@ -77,11 +77,12 @@ These docs **exist** but **require update/review** to match the current
 - [ ] Confirm `docs/HW3_REQUIREMENTS.md` still matches the official
       assignment text and capture any deltas in the PRDs. [Phase 1]
 
-## B.5 Phase 1.5 — Demo topic and source manifest lock *(in progress)*
+## B.5 Phase 1.5 — Demo topic and source manifest lock *(complete — commit `303a425`; downstream follow-ups tracked below and in §C.5)*
 
-The default demo runtime topic and the arXiv source set are locked in
-this pass. Items marked `[x]` are verified on disk in this pass; items
-marked `[ ]` are downstream follow-ups (Phases 3, 6, 7).
+The default demo runtime topic and the arXiv source set were locked in
+commit `303a425`. Items marked `[x]` are verified on disk; items
+marked `[ ]` are downstream follow-ups owned by Phase 3 / Phase 7 and
+do not block the Phase 1.5 lock.
 
 - [x] Add `docs/PRD.md` §22 "Canonical Demo Article Topic" with the
       working title, target angle, scope, source-set summary, and
