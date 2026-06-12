@@ -1,0 +1,52 @@
+[project]
+name = "agentic-publishing-pipeline"
+version = "0.0.0"
+description = "Scaffold for a CrewAI-based article/book generation pipeline that produces a LaTeX PDF (HW3)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "TBD" }]
+dependencies = []
+
+# NOTE: crewai, model-provider SDKs, search SDKs, and heavy LaTeX-related Python
+# packages are intentionally NOT listed here during the scaffold stage. They
+# will be added later with `uv add` once real implementation begins. See
+# docs/PLAN.md and docs/TODO.md for the planned dependency timeline.
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-cov>=5",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agentic_publishing_pipeline"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["B"]
