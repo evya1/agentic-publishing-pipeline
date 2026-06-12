@@ -43,25 +43,27 @@
 These docs **exist** but **require update/review** to match the current
 `docs/PRD.md`.
 
-- [ ] Reconcile `docs/PRD_crewai_pipeline.md` with `docs/PRD.md` §8.3:
+- [x] Reconcile `docs/PRD_crewai_pipeline.md` with `docs/PRD.md` §8.3:
       replace the 5-agent list with the eight agents (Researcher, Outline,
       Writer, Technical-Asset, Hebrew/BiDi, LaTeX, Bibliography,
       Reviewer); reflect FR-8 sequential default; reflect FR-40 / NFR-19
       deterministic validation after the Reviewer Agent. [Phase 1]
       [FR-5, FR-6, FR-8, FR-40, NFR-19, AC §14.5]
-- [ ] Reconcile `docs/PRD_latex_generation.md` with `docs/PRD.md` §8.5:
+      *Done — commit `4e5517c`.*
+- [x] Reconcile `docs/PRD_latex_generation.md` with `docs/PRD.md` §8.5:
       lock LuaLaTeX as the required MVP engine; record `David CLM` +
       `Latin Modern Roman` font preferences via `fontspec` + `polyglossia`;
       codify FR-17a–d separation of tables/TikZ into dedicated `.tex`
       files. [Phase 1] [FR-15..FR-20, FR-17a, FR-17b, FR-17c, FR-17d,
-      AC §14.3]
-- [ ] Reconcile `docs/PRD_pdf_validation.md` with `docs/PRD.md` FR-40 /
+      AC §14.3] *Done — commit `4e5517c`.*
+- [x] Reconcile `docs/PRD_pdf_validation.md` with `docs/PRD.md` FR-40 /
       NFR-19: validator is **deterministic**, runs after the Reviewer
       Agent, and is **not** an LLM source-of-truth. [Phase 1] [FR-34..FR-40,
-      NFR-19, AC §14.5]
-- [ ] Reconcile `docs/PRD_bibliography_and_citations.md` with
+      NFR-19, AC §14.5] *Done — commit `4e5517c`.*
+- [x] Reconcile `docs/PRD_bibliography_and_citations.md` with
       `docs/PRD.md` §8.6: no fabricated sources; unresolved `\cite{...}`
       must surface as build-time errors. [Phase 1] [FR-33, AC §14.2]
+      *Done — commit `4e5517c`.*
 - [ ] Refresh `README.md` to point at the canonical Markdown path
       `results/generated_markdown/` (per FR-12 and §12.3), describe the
       8-agent flow, and call out LuaLaTeX + `David CLM` as a
@@ -75,13 +77,53 @@ These docs **exist** but **require update/review** to match the current
 - [ ] Confirm `docs/HW3_REQUIREMENTS.md` still matches the official
       assignment text and capture any deltas in the PRDs. [Phase 1]
 
+## B.5 Phase 1.5 — Demo topic and source manifest lock *(in progress)*
+
+The default demo runtime topic and the arXiv source set are locked in
+this pass. Items marked `[x]` are verified on disk in this pass; items
+marked `[ ]` are downstream follow-ups (Phases 3, 6, 7).
+
+- [x] Add `docs/PRD.md` §22 "Canonical Demo Article Topic" with the
+      working title, target angle, scope, source-set summary, and
+      manifest pointer; mark the topic as a runtime default
+      (NFR-27), not a hardcoded implementation detail. [Phase 1.5]
+- [x] Populate `config/article_sources.yaml` with one entry per source
+      in the manifest: `citation_key` (provisional, `tbd…` prefix),
+      `title`, `year`, `arxiv_id`, `arxiv_url`, `source_archive`,
+      `intended_use`, and `verification: {status: unverified, ...}`.
+      [Phase 1.5] [FR-19, FR-33]
+- [x] Confirm the 10 arXiv archive files live under
+      `data/sources/arxiv/source_zips/` locally and are gitignored
+      (not staged, not committed). [Phase 1.5]
+- [x] Update `data/sources/arxiv/README.md` so it reflects that
+      archives are present locally while remaining gitignored.
+      [Phase 1.5]
+- [x] Confirm `.gitignore` covers `data/sources/arxiv/source_zips/`,
+      `data/sources/arxiv/unpacked/`, `data/sources/arxiv/raw_eprint/`,
+      `__pycache__/`, `*.pyc`, `.DS_Store`. [Phase 1.5]
+- [ ] Populate `authors:` for each entry in
+      `config/article_sources.yaml` once authoritative metadata
+      (arXiv API or paper PDF metadata) is verified. No fabricated
+      authors. [Phase 1.5 → Phase 7] [`docs/PRD_bibliography_and_citations.md`]
+- [ ] Rekey provisional `tbd…` citation keys to the
+      `authorYYYYkey` convention once authors are verified. Owned by
+      the Bibliography Agent in Phase 7.
+      [Phase 7] [`docs/PRD_bibliography_and_citations.md` §9]
+- [ ] Resolve the remaining Phase 3 open questions (audience, depth
+      target, BiDi balance, citation density target) and record them
+      in `docs/PRD.md` §22 or §3. [Phase 3] [PRD §21 open questions]
+
 ## C. Future implementation work *(open)*
 
 ### C.1 Topic and scope
 
-- [ ] Choose the article topic, research question, audience, depth target,
-      and BiDi balance (mostly-English with one Hebrew BiDi section vs.
-      balanced bilingual). [Phase 3] [PRD §21 open questions]
+- [x] Lock the default demo article topic, the working title, and the
+      arXiv source set in `docs/PRD.md` §22 and
+      `config/article_sources.yaml`. [Phase 1.5]
+- [ ] Decide audience, depth target, BiDi balance (mostly-English with
+      one Hebrew BiDi section vs. balanced bilingual), and citation
+      density target per chapter. [Phase 3] [PRD §21 open questions,
+      PRD §22]
 
 ### C.2 CrewAI architecture and prompts
 
@@ -131,13 +173,36 @@ These docs **exist** but **require update/review** to match the current
 ### C.5 Real-source and bibliography pipeline
 
 - [ ] Define the source-collection policy and the verification procedure.
-      [Phase 7]
-- [ ] Populate `latex_project/references.bib` with only verified real
-      entries; stable keys; no fabricated sources. [Phase 7] [FR-19,
-      FR-33]
+      [Phase 7] [`docs/PRD_bibliography_and_citations.md` §7]
+- [ ] Consume `config/article_sources.yaml` from the Research Agent (T1)
+      and the Bibliography Agent (T6) per
+      `docs/PRD_crewai_pipeline.md` §6. [Phase 6, Phase 7]
+- [ ] Verify each manifest entry: URL/DOI resolution, title/author/year
+      cross-check, archive-file presence under
+      `data/sources/arxiv/source_zips/`. Update
+      `config/article_sources.yaml` `verification.status` to
+      `verified` (or `rejected`) and record `verified_at` /
+      `verified_by`. [Phase 7] [`docs/PRD_bibliography_and_citations.md` §7]
+- [ ] Record the per-source audit trail (citation key → archive →
+      verification method → timestamp / run id) in `docs/AI_USAGE.md`
+      (or `docs/SOURCES.md` if that location is chosen).
+      [Phase 7] [`docs/PRD_bibliography_and_citations.md` §8]
+- [ ] Extract `.bib` entries from the verified arXiv sources into
+      `latex_project/references.bib` (stable keys, no fabricated
+      entries). [Phase 7] [FR-19, FR-33]
+- [ ] Rekey provisional `tbd…` citation keys in
+      `config/article_sources.yaml` and in any Markdown placeholders to
+      the final `authorYYYYkey` convention. [Phase 7]
+      [`docs/PRD_bibliography_and_citations.md` §9]
 - [ ] Wire `\cite{...}` placeholders in Markdown drafts and resolve them
       into the LaTeX project so every citation links to a real `.bib`
       entry. [Phase 7, Phase 9] [FR-33, AC §14.2]
+- [ ] Treat all archive contents under
+      `data/sources/arxiv/source_zips/` and
+      `data/sources/arxiv/unpacked/` as **untrusted external source
+      material**: no LaTeX builds run from third-party archives, no
+      code from archives is executed, and unpacked content is only
+      read for metadata / citation extraction. [Phase 7] [security]
 
 ### C.6 Python graph generation pipeline
 

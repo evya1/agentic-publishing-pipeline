@@ -67,19 +67,74 @@ smoke suite, `uv run ruff check .` is clean. Note that scaffold "complete"
 means *the scaffold itself* is complete, not that any HW3 requirement is
 satisfied.
 
-### Phase 1 — Documentation alignment *(open)*
+### Phase 1 — Documentation alignment *(mechanism PRDs complete; README / SUBMISSION_CHECKLIST refresh deferred to Phase 13)*
 
 Reconcile the four mechanism PRDs and supporting docs with the current
-`docs/PRD.md`. They predate the expanded PRD and still describe a 5-agent
-flow (`PRD_crewai_pipeline.md`), do not lock LuaLaTeX as the default
-(`PRD_latex_generation.md`), and do not codify FR-40 / NFR-19's deterministic
-`ValidatorService` (`PRD_pdf_validation.md`). They **exist** but **require
-update/review** before they can be treated as complete.
+`docs/PRD.md`. They previously described a 5-agent flow
+(`PRD_crewai_pipeline.md`), did not lock LuaLaTeX as the default
+(`PRD_latex_generation.md`), and did not codify FR-40 / NFR-19's
+deterministic `ValidatorService` (`PRD_pdf_validation.md`). The mechanism
+PRDs were rewritten in commit `4e5517c` and now reflect the eight-agent
+flow, LuaLaTeX-as-MVP, the deterministic `ValidatorService`, the
+Markdown-first canonical path, and the FR-17a–d separation rules.
 
-**Exit criterion:** every mechanism PRD references the same agent list,
-engine choice, separation-of-responsibilities rules, validation policy, and
-acceptance criteria as `docs/PRD.md`; `README.md` and `SUBMISSION_CHECKLIST.md`
-agree with that same picture.
+The `README.md` and `SUBMISSION_CHECKLIST.md` refresh that the original
+exit criterion called for is **carried forward into Phase 13** (README,
+AI-usage, and prompt-log finalization), where it is already tracked by
+the existing items in `docs/TODO.md` §B.
+
+**Exit criterion (met for mechanism PRDs):** every mechanism PRD
+references the same agent list, engine choice, separation-of-
+responsibilities rules, validation policy, and acceptance criteria as
+`docs/PRD.md`. `README.md` and `SUBMISSION_CHECKLIST.md` refresh is
+explicitly deferred to Phase 13 and remains tracked in TODO.
+
+### Phase 1.5 — Demo article topic and source manifest lock *(in progress)*
+
+Lock the default demo runtime topic, the source set, and the local-only
+archive layout so the Research Agent (Phase 6) and the Bibliography
+Agent (Phase 7) have a fixed input to consume. This is **not** topic
+implementation work — it is the documentation / configuration step that
+records what the default run targets.
+
+Locked artifacts (this phase):
+
+- `docs/PRD.md` §22 ("Canonical Demo Article Topic") records the
+  working title, target angle, article scope, source-set summary, and
+  the location of the tracked manifest. The PRD section explicitly
+  marks the topic as a **runtime default**, not a hardcoded
+  implementation detail (NFR-27).
+- `config/article_sources.yaml` contains one entry per source in the
+  manifest, with `citation_key` (provisional, `tbd…` prefix until
+  Phase 7 verification), `title`, `year`, `arxiv_id`, `arxiv_url`,
+  `source_archive`, `intended_use`, and a `verification` block whose
+  initial status is `unverified`. Author metadata is `[]` where it is
+  not yet authoritatively known; populating it is tracked in TODO.
+- `data/sources/arxiv/source_zips/` contains the 10 downloaded arXiv
+  LaTeX source archives, locally only. These bytes are gitignored and
+  **must not be committed**.
+- `data/sources/arxiv/README.md` documents the layout and reflects
+  that archives are now present locally while remaining gitignored.
+- `.gitignore` continues to cover `data/sources/arxiv/source_zips/`,
+  `data/sources/arxiv/unpacked/`, and `data/sources/arxiv/raw_eprint/`.
+
+What this phase does **not** do:
+
+- It does not run any LaTeX build from the third-party archives.
+- It does not execute anything inside the archives.
+- It does not verify the sources (URL/DOI checks happen in Phase 7).
+- It does not perform research synthesis or write any article content.
+- It does not finalize citation keys; `tbd…` provisional keys are
+  rekeyed during Phase 7 once authors are confirmed.
+
+**Exit criterion:** `docs/PRD.md` §22 exists,
+`config/article_sources.yaml` lists the 10 sources with provisional
+citation keys and `verification.status: unverified`,
+`data/sources/arxiv/source_zips/` contains the archives locally
+(gitignored and not staged), `data/sources/arxiv/README.md` no longer
+claims the directory is empty, and `docs/TODO.md` tracks the follow-up
+work for author metadata, URL/DOI verification, audit trail, and
+bibliography extraction.
 
 ### Phase 2 — Project management setup *(open)*
 
@@ -90,9 +145,10 @@ explicitly the phase where the issues and milestones **do** get created.
 
 Planned work:
 
-- Create **GitHub Milestones** for every open phase — Phases 1 through 14
-  (one milestone per phase; milestone title matches the phase title).
-  Phase 0 does not get a milestone because it is already complete.
+- Create **GitHub Milestones** for every still-open phase — Phases 1.5
+  through 14 (one milestone per phase; milestone title matches the
+  phase title). Phase 0 and Phase 1 do not get milestones because they
+  are already complete.
 - Create **GitHub Issues** from the concrete tasks in `docs/TODO.md`;
   preserve TODO wording so issue titles remain traceable to TODO items.
 - Apply a small **label** vocabulary on each issue:
@@ -102,20 +158,34 @@ Planned work:
   disk (or by a passing build/test). Closing an issue does **not** by itself
   let a corresponding TODO item or PRD acceptance criterion be ticked.
 
-**Exit criterion:** milestones exist for every open phase (Phases 1–14),
-every open TODO item has a tracking issue with the right labels, and the
-mapping TODO ↔ issue ↔ milestone ↔ PRD requirement is documented in
-`docs/TODO.md`'s introduction.
+**Exit criterion:** milestones exist for every still-open phase
+(Phases 1.5–14), every open TODO item has a tracking issue with the
+right labels, and the mapping TODO ↔ issue ↔ milestone ↔ PRD
+requirement is documented in `docs/TODO.md`'s introduction.
 
-### Phase 3 — Topic and scope *(open)*
+### Phase 3 — Topic and scope *(partially resolved by Phase 1.5; audience / depth / BiDi balance still open)*
 
-Group agrees on the article topic, the research question, the audience, the
-depth target, and the BiDi balance (mostly-English with a Hebrew BiDi
-section vs. balanced bilingual — see PRD §21 Open Questions).
+Phase 1.5 locks the **default demo topic** in `docs/PRD.md` §22 and the
+source set in `config/article_sources.yaml`. The following decisions
+from PRD §21 Open Questions remain open and belong to Phase 3:
 
-**Exit criterion:** topic, scope, audience, and BiDi balance recorded in
-`docs/PRD.md` (or a successor section), and the same decisions reflected in
-the mechanism PRDs.
+- **Audience.** Practitioner-facing technical reader (assumed); needs
+  to be confirmed and recorded in `docs/PRD.md` §22 (or §3 Product
+  Vision).
+- **Depth target.** Survey-style organization across the five
+  reasoning dimensions vs. deeper treatment of a subset; affects page
+  budget within the ≥15-page, target 15–20-page envelope.
+- **BiDi balance.** Mostly-English with one Hebrew/English BiDi
+  section (current default) vs. balanced bilingual; which reasoning
+  dimension hosts the BiDi section.
+- **Citation density per chapter.** How many of the 10 manifest
+  sources each chapter cites; bounded by the no-fabricated-sources
+  rule (`docs/PRD_bibliography_and_citations.md`).
+
+**Exit criterion:** audience, depth target, BiDi balance, and
+citation-density target recorded in `docs/PRD.md` §22 (or a successor
+section), and the same decisions reflected in the mechanism PRDs where
+relevant.
 
 ### Phase 4 — CrewAI architecture design *(open)*
 
@@ -264,12 +334,14 @@ group member has submitted in Moodle.
 
 ## Notes
 
-- Phases 1 through 14 are all open. None of them is allowed to be marked
-  complete preemptively. PRD acceptance-criteria checkboxes
-  (`docs/PRD.md` §14, `docs/HW3_REQUIREMENTS.md`,
-  `SUBMISSION_CHECKLIST.md`) are ticked only after the underlying artifact
-  is verified on disk and, where applicable, by a passing build, test, or
-  validator run.
+- Phase 1 is complete (mechanism PRDs reconciled — commit `4e5517c`).
+  Phase 1.5 is in progress (demo topic and source manifest lock).
+  Phases 2 through 14 remain open. None of the open phases is allowed
+  to be marked complete preemptively. PRD acceptance-criteria
+  checkboxes (`docs/PRD.md` §14, `docs/HW3_REQUIREMENTS.md`,
+  `SUBMISSION_CHECKLIST.md`) are ticked only after the underlying
+  artifact is verified on disk and, where applicable, by a passing
+  build, test, or validator run.
 - Real Python dependencies (`crewai`, model SDKs, search SDKs,
   `matplotlib`, etc.) are added via `uv add` only when the phase that
   needs them begins.

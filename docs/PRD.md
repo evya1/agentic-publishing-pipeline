@@ -778,7 +778,98 @@ These should not replace this main PRD. They should refine the most complex mech
 
 ---
 
-## 22. Definition of Done
+## 22. Canonical Demo Article Topic
+
+This section concretizes the first item in §21 Open Questions ("What
+exact topic will the final article cover?") for the **default demo
+run** of the pipeline. It is a **runtime default**, not a hardcoded
+implementation detail: the topic, source set, and intended angle are
+loaded from configuration (`config/article_sources.yaml`,
+`.env` / CLI overrides per FR-1 and FR-2) and can be replaced without
+modifying source code (NFR-27).
+
+### 22.1 Status and overridability
+
+- The demo topic below is the **default** the pipeline targets on a
+  fresh run; it is not the only topic the pipeline must be able to
+  produce (NFR-27).
+- The article, the bibliography, the LaTeX project, the final PDF, the
+  CrewAI workflow, and the deterministic `ValidatorService` are **not
+  yet implemented**. This section only locks the topic and source
+  manifest; real research synthesis, bibliography curation, and
+  article generation happen in later phases of `docs/PLAN.md`.
+
+### 22.2 Topic and target angle
+
+- **Working title:** *Reasoning-Centric Agentic LLM Systems: Planning,
+  Memory, Retrieval, Tool Use, and Multimodal Reasoning in 2025–2026.*
+- **Angle.** A practitioner-facing technical survey-style article that
+  organizes recent (2024–2026) work around five reasoning dimensions
+  for agentic LLM systems: **planning**, **memory**, **retrieval**,
+  **tool use**, and **multimodal reasoning**. The article emphasizes
+  how these dimensions are evaluated and combined, rather than
+  benchmarking a single model.
+- **Tone.** Closer to a curated technical white paper than a peer-reviewed
+  survey; aligned with the product vision in §3.
+
+### 22.3 Article scope
+
+- Background framing of "reasoning-centric agentic LLM systems" in the
+  2025–2026 landscape, anchored on recent reasoning surveys.
+- One coherent chapter per reasoning dimension (planning, memory,
+  retrieval, tool use, multimodal reasoning), each grounded in the
+  source set in §22.4.
+- A short evaluation chapter discussing how agentic-LLM reasoning is
+  measured (planning benchmarks, agentic-reasoning evaluation, event
+  forecasting).
+- A Hebrew/English BiDi section satisfying §5.3 / §14.4; the BiDi
+  section discusses one of the reasoning dimensions in mixed
+  Hebrew/English text using `David CLM` + `Latin Modern Roman` per
+  §16.3.
+- Required LaTeX content as listed in §14.2 (image, Python-generated
+  graph, TikZ figure, table, labeled equation with cross-reference,
+  theorem-like environment, nomenclature ≥2 symbols, index ≥1 Hebrew
+  + ≥1 English term, bibliography section).
+
+### 22.4 Source set summary
+
+The default run uses the following 10 arXiv papers. The canonical,
+machine-readable manifest with citation keys and verification status
+lives in **`config/article_sources.yaml`** (owned by the Bibliography
+Agent per `docs/PRD_bibliography_and_citations.md` §5).
+
+| arXiv ID | Title | Intended dimension |
+|---|---|---|
+| 2504.09037 | A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason, and Agentic Systems | Background / reasoning survey |
+| 2502.04644 | Agentic Reasoning: Reasoning LLMs with Tools for the Deep Research | Tool use / deep research |
+| 2511.09378 | The 2025 Planning Performance of Frontier Large Language Models | Planning evaluation |
+| 2511.01448 | LiCoMemory: Lightweight and Cognitive Agentic Memory for Efficient Long-Term Reasoning | Memory |
+| 2601.06037 | TeleMem: Building Long-Term and Multimodal Memory for Agentic AI | Memory + multimodal |
+| 2510.10991 | A Survey on Agentic Multimodal Large Language Models | Multimodal reasoning (survey) |
+| 2510.18303 | Proactive Reasoning-with-Retrieval Framework for Medical Multimodal Large Language Models | Retrieval + multimodal |
+| 2510.19361 | AgenticMath: Enhancing LLM Reasoning via Agentic-based Math Data Generation | Reasoning data / math |
+| 2407.01231 | MIRAI: Evaluating LLM Agents for Event Forecasting | Evaluation |
+| 2601.12538 | Agentic Reasoning for Large Language Models | Agentic reasoning core |
+
+### 22.5 Source archives and manifest
+
+- **Archive bytes are local-only.** The arXiv LaTeX source archives
+  (`*.zip`) live under **`data/sources/arxiv/source_zips/`**. That
+  directory is gitignored; the bytes are **not** committed to the
+  repository.
+- **The manifest is tracked.** `config/article_sources.yaml` is the
+  single tracked record of which sources the default demo run uses,
+  with citation keys, intended use, and verification status.
+- **Verification is not done yet.** Each entry's verification status
+  starts as `unverified`. The Bibliography Agent performs URL/DOI
+  verification and finalizes citation keys during Phase 7 of
+  `docs/PLAN.md`, per `docs/PRD_bibliography_and_citations.md` §7–§9.
+- **Author metadata may be incomplete.** Where authoritative author
+  metadata is not yet available, manifest entries use `authors: []`
+  and a TODO is tracked in `docs/TODO.md`. No fabricated authors,
+  ever (CLAUDE.md, `docs/PRD_bibliography_and_citations.md`).
+
+## 23. Definition of Done
 
 The project is considered done when:
 
