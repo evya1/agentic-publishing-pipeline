@@ -110,9 +110,9 @@ do not block the Phase 1.5 lock.
       `authorYYYYkey` convention once authors are verified. Owned by
       the Bibliography Agent in Phase 7.
       [Phase 7] [`docs/PRD_bibliography_and_citations.md` §9]
-- [ ] Resolve the remaining Phase 3 open questions (audience, depth
+- [x] Resolve the remaining Phase 3 open questions (audience, depth
       target, BiDi balance, citation density target) and record them
-      in `docs/PRD.md` §22 or §3. [Phase 3] [PRD §21 open questions]
+      in `docs/PRD.md` §22.6–§22.9. [Phase 3] [PRD §21 open questions]
 
 ## C. Future implementation work *(open)*
 
@@ -121,10 +121,9 @@ do not block the Phase 1.5 lock.
 - [x] Lock the default demo article topic, the working title, and the
       arXiv source set in `docs/PRD.md` §22 and
       `config/article_sources.yaml`. [Phase 1.5]
-- [ ] Decide audience, depth target, BiDi balance (mostly-English with
-      one Hebrew BiDi section vs. balanced bilingual), and citation
-      density target per chapter. [Phase 3] [PRD §21 open questions,
-      PRD §22]
+- [x] Decide audience, depth target, BiDi balance, and citation
+      density target per chapter. Decisions recorded in `docs/PRD.md`
+      §22.6–§22.9. [Phase 3] [PRD §21 open questions, PRD §22]
 
 ### C.2 CrewAI architecture and prompts
 

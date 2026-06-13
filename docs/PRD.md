@@ -869,6 +869,58 @@ Agent per `docs/PRD_bibliography_and_citations.md` §5).
   and a TODO is tracked in `docs/TODO.md`. No fabricated authors,
   ever (CLAUDE.md, `docs/PRD_bibliography_and_citations.md`).
 
+### 22.6 Audience *(Phase 3 decision)*
+
+- **Target reader:** Practitioner-facing technical audience. The article
+  assumes familiarity with ML/LLM fundamentals (transformers, inference,
+  fine-tuning) and is aimed at engineers, researchers, and technically
+  literate decision-makers who want to understand how agentic reasoning
+  architectures combine planning, memory, retrieval, tool use, and
+  multimodal capabilities.
+- **Reading level:** Technical white-paper rather than formal
+  peer-reviewed journal article. Mathematical notation is kept minimal
+  and explained upon first use.
+
+### 22.7 Depth target *(Phase 3 decision)*
+
+- **Approach:** Survey-style coverage across all five reasoning dimensions
+  (planning, memory, retrieval, tool use, multimodal reasoning). Each
+  dimension receives a dedicated chapter of approximately 2–3 pages.
+- **Structure:** Background/intro chapter, five dimension chapters,
+  evaluation chapter, conclusion. Total target envelope is 15–20 pages
+  (≥15-page KPI).
+- **Rationale:** The 10-source manifest naturally distributes across the
+  five dimensions (1–3 sources per dimension), making a balanced survey
+  the most coherent organization. Deeper treatment of a subset would
+  leave sources underutilized.
+
+### 22.8 BiDi balance and section placement *(Phase 3 decision)*
+
+- **Language balance:** Mostly English with one substantial Hebrew/English
+  BiDi section. This minimizes LaTeX compilation risk while satisfying
+  AC §14.4 and NFR-28–31.
+- **BiDi section placement:** The **Memory** dimension chapter. The
+  Memory dimension has two dedicated sources (LiCoMemory `2511.01448`
+  and TeleMem `2601.06037`) and is conceptually accessible for Hebrew
+  explanation, making it a natural fit for the mixed-language section.
+- **Hebrew font:** `David CLM` via `fontspec` + `polyglossia` under
+  LuaLaTeX; English font is `Latin Modern Roman`.
+
+### 22.9 Citation density *(Phase 3 decision)*
+
+- **Target:** 2–3 verified sources cited per chapter. All 10 manifest
+  sources must be cited at least once across the article.
+- **Distribution:**
+  - Background/intro: survey papers (`2504.09037`, `2601.12538`)
+  - Planning chapter: `2511.09378` + core reasoning survey
+  - Memory chapter: `2511.01448`, `2601.06037`
+  - Retrieval chapter: `2510.18303` + supporting sources
+  - Tool use chapter: `2502.04644` + core reasoning survey
+  - Multimodal chapter: `2510.10991`, `2510.18303`
+  - Evaluation chapter: `2407.01231`, `2510.19361`
+- **No fabricated sources.** Every citation must resolve to a verified
+  entry in `references.bib` (see `docs/PRD_bibliography_and_citations.md`).
+
 ## 23. Definition of Done
 
 The project is considered done when:
