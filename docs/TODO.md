@@ -334,8 +334,9 @@ milestones are created in this documentation-rewrite pass** — the actual
 creation work belongs to Phase 2 below; this is not a permanent ban.
 
 - [ ] Create one **GitHub Milestone** per open phase in `docs/PLAN.md`
-      (Phases 1 through 14). Milestone titles match phase titles. Phase 0
-      does not get a milestone because it is already complete. [Phase 2]
+      (Phases 2 through 14). Milestone titles match phase titles. Phases 0,
+      1, and 1.5 do not get milestones because they are already complete.
+      [Phase 2]
 - [ ] Create **GitHub Issues** from every open item in §B, §C, §D, and
       §E above. Preserve the TODO wording in the issue title so the
       mapping back to this file is obvious. [Phase 2]

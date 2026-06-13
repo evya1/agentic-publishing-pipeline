@@ -1,8 +1,9 @@
 # PLAN — agentic-publishing-pipeline
 
-> **Status:** scaffold-stage only. Documentation alignment, all CrewAI
-> implementation, all LaTeX content, all bibliography work, all validation
-> work, the final PDF, and all submission packaging are still open.
+> **Status:** Phase 0, 1, and 1.5 complete. Phases 2–14 (project management,
+> scope, CrewAI architecture, provider layer, Markdown pipeline, bibliography,
+> visualization, LaTeX assembly, PDF build, validation, tests, README
+> finalization, submission) remain open.
 
 ## How PRD, PLAN, TODO, and GitHub fit together
 

@@ -31,11 +31,18 @@ LaTeX-generated PDF (~15 pages) meeting all HW3 requirements documented in
 ```
 Topic / scope
   -> Researcher agent
+  -> Outline agent
   -> Writer agent
+  -> Technical-Asset agent
+  -> Hebrew/BiDi agent
+  -> LaTeX agent
+  -> Bibliography agent
   -> Reviewer agent
-  -> LaTeX Formatter agent
-  -> PDF Validator agent
 ```
+
+Full architecture is documented in [`docs/PRD.md`](docs/PRD.md) §8.3 and
+[`docs/PRD_crewai_pipeline.md`](docs/PRD_crewai_pipeline.md); Phase 13
+finalizes this section against the running system.
 
 The planned CrewAI flow:
 
@@ -78,8 +85,9 @@ The LaTeX build process will be documented in
 [`docs/PRD_latex_generation.md`](docs/PRD_latex_generation.md). The current
 guidance:
 
-- Prefer **LuaLaTeX** for Hebrew/English support if available.
-- **XeLaTeX** is acceptable if explicitly chosen and the reason is documented.
+- **LuaLaTeX** is the required MVP engine; XeLaTeX is an optional later
+  fallback (PRD §16.3 / FR-20). The README's full LaTeX build commands land
+  in Phase 13.
 - Use a real `.bib` file together with **biber** (or BibTeX) for bibliography.
 - Do **not** assume the local machine has a TeX distribution installed.
 - A successful LaTeX compile is **not** required during the scaffold stage.
@@ -87,8 +95,12 @@ guidance:
 ### Markdown-first content workflow
 
 Article drafts will be authored and reviewed as Markdown first (under
-[`content/markdown_drafts/`](content/markdown_drafts/)). Only after manual
-inspection will Markdown be converted to LaTeX. No draft chapters exist yet.
+[`results/generated_markdown/`](results/generated_markdown/), canonical per
+FR-12 / PRD §12.3). The scaffold also has
+[`content/markdown_drafts/`](content/markdown_drafts/) as a transitional
+placeholder; the retire-or-alias decision is tracked in P6-I00. Only after
+manual inspection will Markdown be converted to LaTeX. No draft chapters
+exist yet.
 
 ### Citations and bibliography reminder
 

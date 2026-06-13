@@ -9,9 +9,11 @@
 
 ## Pipeline
 
-- [ ] CrewAI pipeline planned (Researcher → Writer → Reviewer →
-      LaTeX Formatter → PDF Validator).
-- [ ] Topic selected (TBD).
+- [ ] CrewAI pipeline planned per PRD §8.3: Researcher → Outline → Writer →
+      Technical-Asset → Hebrew/BiDi → LaTeX → Bibliography → Reviewer;
+      deterministic `ValidatorService` runs after the Reviewer Agent (PRD
+      FR-40 / NFR-19).
+- [x] Demo article topic selected and source manifest locked in Phase 1.5.
 - [ ] Real source collection performed (no fabricated sources).
 - [ ] Markdown-first draft workflow used before LaTeX conversion.
 - [ ] LaTeX project present at `latex_project/`.
