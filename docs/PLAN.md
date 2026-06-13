@@ -164,29 +164,27 @@ Planned work:
 right labels, and the mapping TODO ↔ issue ↔ milestone ↔ PRD
 requirement is documented in `docs/TODO.md`'s introduction.
 
-### Phase 3 — Topic and scope *(partially resolved by Phase 1.5; audience / depth / BiDi balance still open)*
+### Phase 3 — Topic and scope *(complete — decisions recorded in PRD §22.6–§22.9)*
 
 Phase 1.5 locks the **default demo topic** in `docs/PRD.md` §22 and the
-source set in `config/article_sources.yaml`. The following decisions
-from PRD §21 Open Questions remain open and belong to Phase 3:
+source set in `config/article_sources.yaml`. Phase 3 resolves the
+remaining open questions from PRD §21 and records them in
+`docs/PRD.md` §22.6–§22.9:
 
-- **Audience.** Practitioner-facing technical reader (assumed); needs
-  to be confirmed and recorded in `docs/PRD.md` §22 (or §3 Product
-  Vision).
-- **Depth target.** Survey-style organization across the five
-  reasoning dimensions vs. deeper treatment of a subset; affects page
-  budget within the ≥15-page, target 15–20-page envelope.
-- **BiDi balance.** Mostly-English with one Hebrew/English BiDi
-  section (current default) vs. balanced bilingual; which reasoning
-  dimension hosts the BiDi section.
-- **Citation density per chapter.** How many of the 10 manifest
-  sources each chapter cites; bounded by the no-fabricated-sources
-  rule (`docs/PRD_bibliography_and_citations.md`).
+- **Audience (§22.6).** Practitioner-facing technical reader.
+  Assumes ML/LLM basics; targets engineers and researchers.
+- **Depth target (§22.7).** Survey-style across all five reasoning
+  dimensions (planning, memory, retrieval, tool use, multimodal).
+  Each dimension gets ~2–3 pages; total 15–20 pages.
+- **BiDi balance (§22.8).** Mostly English with one Hebrew/English
+  BiDi section placed in the Memory dimension chapter.
+- **Citation density (§22.9).** 2–3 verified sources per chapter;
+  all 10 manifest sources cited at least once.
 
-**Exit criterion:** audience, depth target, BiDi balance, and
-citation-density target recorded in `docs/PRD.md` §22 (or a successor
-section), and the same decisions reflected in the mechanism PRDs where
-relevant.
+**Exit criterion:** Met — all four decisions recorded in
+`docs/PRD.md` §22.6–§22.9. The mechanism PRDs (`PRD_crewai_pipeline.md`,
+`PRD_bibliography_and_citations.md`) already contain sufficient
+constraints; no further updates required.
 
 ### Phase 4 — CrewAI architecture design *(open)*
 
