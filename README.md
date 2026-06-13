@@ -142,3 +142,41 @@ tests/               Smoke test only
 - [`docs/PRD_bibliography_and_citations.md`](docs/PRD_bibliography_and_citations.md)
 - [`docs/PRD_pdf_validation.md`](docs/PRD_pdf_validation.md)
 - [`SUBMISSION_CHECKLIST.md`](SUBMISSION_CHECKLIST.md) — final submission gate.
+
+## Contributing and onboarding
+
+This project synchronises a Markdown-first planning workflow
+(`docs/PRD.md`, `docs/PLAN.md`, `docs/TODO.md`) with GitHub tracking
+objects (issues, milestones, labels, branches, pull requests). Both
+sides are operated by the same workflow, and neither is allowed to
+drift into being the only place where project status is recorded.
+
+Before you change any artifact in this repository or any GitHub
+tracking object, read the following in order:
+
+1. [`CONTRIBUTING.md`](CONTRIBUTING.md) — the canonical detailed
+   workflow for **every** human contributor, project partner, future
+   maintainer, and AI agent. Covers onboarding, issue selection,
+   self-assignment, the linked-branch workflow, the Project Tracking
+   Synchronization Contract, the PR template, drift recovery, and the
+   handoff protocol.
+2. [`CLAUDE.md`](CLAUDE.md) — mandatory AI-agent operating rules
+   layered on top of `CONTRIBUTING.md`. Read this whenever an AI agent
+   (Claude Code session or otherwise) is part of the workflow.
+3. [`docs/PRD.md`](docs/PRD.md) — what the system must do.
+4. [`docs/PLAN.md`](docs/PLAN.md) — the phase you are working in and
+   its exit criterion. PLAN phases mirror GitHub Milestones.
+5. [`docs/TODO.md`](docs/TODO.md) — the concrete backlog item you are
+   working on. TODO items mirror GitHub Issues by internal ID
+   (`P<phase>-I<nn>`).
+6. The **GitHub issue** for the work item — read the full body and all
+   existing comments, check its milestone, labels, dependencies,
+   linked branches, and linked pull requests.
+
+The same six-step sequence applies to project owners, partners, new
+developers, and AI-assisted sessions. Skipping any step is a violation
+of the Synchronization Contract in `CONTRIBUTING.md` §8.
+
+Issues and pull requests are governed by the templates in
+`.github/ISSUE_TEMPLATE/` and `.github/pull_request_template.md`. Use
+them.

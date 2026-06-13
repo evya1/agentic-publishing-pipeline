@@ -24,6 +24,39 @@ GitHub Milestones/Issues are a GUI representation of this plan and TODO; they
 are **not** a replacement for these documents. The Markdown files remain
 authoritative.
 
+### Phase ↔ Milestone synchronization rules
+
+These rules are the PLAN-side of the Project Tracking Synchronization
+Contract documented in full in [`CONTRIBUTING.md`](../CONTRIBUTING.md) §8.
+
+- **One PLAN phase ↔ one GitHub Milestone.** Each open phase has a
+  milestone named `Phase <N> — <title>` mirroring the phase heading in
+  this file. Completed phases (Phase 0, 1, 1.5) intentionally do not
+  have milestones — completion is captured here, not in GitHub.
+- **Phase status changes here.** Status text in this file (`*(open)*`,
+  `*(partially resolved …)*`, `*(complete — commit <sha>)*`) is the
+  authoritative phase status. Closing a GitHub Milestone does **not**
+  by itself permit changing phase status here.
+- **Milestone closure rule.** A milestone may be closed only after:
+  every issue in it has been verified per `docs/TODO.md` §F-6; every
+  TODO item in the phase is satisfied on disk; the phase's exit
+  criterion in this file is met; required PRD acceptance criteria
+  (`docs/PRD.md` §14) are met; tests, builds, and validators relevant
+  to the phase pass. Then mark the phase complete here **and** close
+  the milestone in the same reconciliation step.
+- **Moving work between milestones.** If scope must move between
+  phases, edit `docs/TODO.md` to relocate the item, update its issue's
+  milestone, and record the reason in the issue comments. A single PR
+  should carry both edits. Do not relocate scope only on the GitHub
+  side.
+- **New phases or renamed phases.** Adding a new phase or renaming an
+  existing one is a PRD/PLAN change. Update this file first via PR,
+  then create or rename the milestone to match. The reverse order is
+  not allowed.
+- **Supersession of PRD §19.** `docs/PRD.md` §19 ("Proposed Milestones"
+  M1–M9) is **superseded by** this file's Phase 0–14 model and the
+  corresponding milestones. Treat PRD §19 as historical context only.
+
 ## Canonical paths
 
 `docs/PRD.md` §12.3, §13, and FR-12 designate

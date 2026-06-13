@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Read CONTRIBUTING.md first
+    url: https://github.com/evya1/agentic-publishing-pipeline/blob/main/CONTRIBUTING.md
+    about: All issues must follow the Project Tracking Synchronization Contract. Read CONTRIBUTING.md before opening an issue.
+  - name: Source-of-truth hierarchy
+    url: https://github.com/evya1/agentic-publishing-pipeline/blob/main/docs/PRD.md
+    about: PRD owns requirements; PLAN owns phases; TODO owns the backlog. GitHub mirrors PLAN/TODO.
