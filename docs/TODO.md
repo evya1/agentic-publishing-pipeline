@@ -127,14 +127,14 @@ do not block the Phase 1.5 lock.
 
 ### C.2 CrewAI architecture and prompts
 
-- [ ] Specify all eight agents from PRD §8.3 with explicit `role`, `goal`,
+- [x] Specify all eight agents from PRD §8.3 with explicit `role`, `goal`,
       `backstory`, and tools. [Phase 4] [FR-5, AC §14.5]
-- [ ] Define ≥5 tasks with `description`, `expected_output`, `agent`, and
+- [x] Define ≥5 tasks with `description`, `expected_output`, `agent`, and
       `context`. At least three tasks must consume earlier task outputs
       via `context`. [Phase 4] [FR-6, KPI, AC §14.5]
-- [ ] Confirm `Process` is sequential or justify any deviation in
+- [x] Confirm `Process` is sequential or justify any deviation in
       `docs/PRD_crewai_pipeline.md`. [Phase 4] [FR-8]
-- [ ] Capture initial prompts (agent `backstory` + `goal`, task
+- [x] Capture initial prompts (agent `backstory` + `goal`, task
       `description` + `expected_output`, tool prompts) verbatim in
       `docs/PROMPTS.md`. [Phase 4, Phase 13]
 

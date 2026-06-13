@@ -1,10 +1,12 @@
 # PRD — CrewAI Pipeline
 
-> **Status:** design/specification only. No CrewAI agents, tasks, crew
-> assembly, kickoff entry point, tools, or run logs have been implemented
-> yet. This document defines what will be built; checking any of its
-> acceptance-criteria boxes requires the corresponding artifact to exist
-> on disk and be verified.
+> **Status:** Phase 4 design complete. Agent and task specifications are
+> captured with explicit `role`, `goal`, `backstory`, and `tools` fields.
+> Verbatim prompts are documented in `docs/PROMPTS.md`. No implementation
+> code exists yet — Phases 5–10 will build the agents, tasks, crew
+> assembly, kickoff entry point, tools, and run logs. Checking any
+> implementation-level acceptance-criteria box requires the corresponding
+> artifact to exist on disk and be verified.
 
 ## 1. Scope and relationship to other documents
 
@@ -82,6 +84,8 @@ The pipeline uses **eight** agents. Each agent has explicit `role`,
 `goal`, `backstory`, and `tools` fields (FR-5). Agent prompts are kept
 verbatim in `docs/PROMPTS.md`.
 
+### 5.1 Agent Summary Table
+
 | # | Agent | Responsibility | Primary outputs |
 |---|---|---|---|
 | 1 | **Research Agent** | Collects background, key points, terminology, and candidate references for the topic. Calls the search tool through the provider layer. | Research notes (Markdown) |
@@ -92,6 +96,153 @@ verbatim in `docs/PROMPTS.md`.
 | 6 | **Bibliography Agent** | Discovers and verifies real sources; curates `references.bib` entries with stable keys; resolves citation placeholders from the Writer Agent and the BiDi Agent. **Fabricated sources are forbidden** (see `docs/PRD_bibliography_and_citations.md`). | Verified `.bib` entries + citation key map |
 | 7 | **LaTeX Agent** | Converts the approved Markdown drafts and asset specs into the structured LaTeX project under `latex_project/`, following the separation rules in `docs/PRD_latex_generation.md` (FR-17a–d). | `latex_project/` source tree |
 | 8 | **Reviewer Agent** | Reviews coherence, structure, formatting requirements, and missing deliverables before deterministic validation. May identify likely issues, but **is not the source of truth for validation** (NFR-19). | Review notes; pass/flag signal for downstream validation |
+
+### 5.2 Detailed Agent Specifications
+
+Each agent below is defined with the four CrewAI fields: `role`, `goal`,
+`backstory`, and `tools`. The verbatim prompt text is stored in
+`docs/PROMPTS.md`.
+
+#### Agent 1 — Research Agent
+
+- **role**: `Research Specialist`
+- **goal**: Collect comprehensive, accurate background information about
+  the article topic. Synthesize key concepts, terminology, and candidate
+  references into structured research notes that downstream agents can
+  use to draft coherent content.
+- **backstory**: You are an experienced technical researcher specializing
+  in artificial intelligence and large language model systems. You have
+  a track record of producing clear, well-organized research summaries
+  that distill complex topics into actionable insights. Your work is
+  known for being thorough yet concise, always citing verifiable sources
+  and avoiding speculation.
+- **tools**: `search_tool` (web/arXiv search through provider layer),
+  `file_write` (write research notes to
+  `results/generated_markdown/research_notes.md`)
+
+#### Agent 2 — Outline Agent
+
+- **role**: `Technical Writing Strategist`
+- **goal**: Design a coherent, logically structured article outline from
+  the research notes. The outline must define chapter headings, section
+  flow, and content allocation so that the Writer Agent can produce
+  focused, non-repetitive chapters.
+- **backstory**: You are a senior technical editor with deep experience
+  in structuring survey-style articles and white papers. You excel at
+  organizing complex material into a narrative arc that guides the
+  reader from background through core concepts to evaluation and
+  conclusion. Your outlines are known for eliminating redundancy and
+  ensuring each section has a clear purpose.
+- **tools**: `file_read` (read research notes), `file_write` (write
+  outline to `results/generated_markdown/outline.md`)
+
+#### Agent 3 — Writer Agent
+
+- **role**: `Technical Content Author`
+- **goal**: Produce readable, well-structured Markdown chapter drafts
+  from the research notes and outline. Each chapter must include
+  headings, body text, and placeholders for figures, tables, equations,
+  and citations. The content must follow a logical progression and avoid
+  filler.
+- **backstory**: You are a professional technical writer who specializes
+  in AI and machine learning topics. You write clear, engaging prose
+  that is accessible to practitioners while maintaining technical
+  rigor. You are skilled at translating research findings into
+  narrative explanations and at embedding structured placeholders for
+  assets that will be filled in by specialized agents.
+- **tools**: `file_read` (read research notes and outline),
+  `file_write` (write chapter drafts to
+  `results/generated_markdown/chapters/*.md`)
+
+#### Agent 4 — Technical Asset Agent
+
+- **role**: `Technical Asset Specialist`
+- **goal**: Produce or specify all technical assets required by the
+  article: figures (including TikZ diagrams and a Python-generated
+  graph), tables, mathematical equations, and theorem-like environments.
+  Emit structured asset specifications and Markdown placeholders that
+  the LaTeX Agent can consume.
+- **backstory**: You are a technical documentation engineer with expertise
+  in LaTeX, TikZ, and data visualization. You understand how to design
+  figures and tables that clarify complex concepts, and you know how to
+  write clean, modular LaTeX code. You produce assets that are self-
+  contained and follow separation-of-responsibility principles.
+- **tools**: `file_read` (read chapter drafts and outline),
+  `file_write` (write asset specs to
+  `results/generated_markdown/assets/*`), `code_execution` (for Python
+  graph generation — see `docs/PRD_latex_generation.md`)
+
+#### Agent 5 — Hebrew/BiDi Agent
+
+- **role**: `Hebrew/English BiDi Author`
+- **goal**: Produce at least one substantial Hebrew/English mixed section
+  that demonstrates correct bidirectional text handling. The section must
+  include readable Hebrew prose with embedded English technical terms,
+  proper RTL alignment, and stable English formulas/citations.
+- **backstory**: You are a bilingual technical writer fluent in both
+  Hebrew and English, with deep knowledge of BiDi typography and
+  LuaLaTeX typesetting. You specialize in writing technical content in
+  Hebrew while naturally incorporating English terminology, formulas,
+  and citations without breaking the visual flow. Your work respects
+  the conventions of both languages.
+- **tools**: `file_read` (read outline and chapter drafts for context),
+  `file_write` (write BiDi section to
+  `results/generated_markdown/bidi.md`)
+
+#### Agent 6 — Bibliography Agent
+
+- **role**: `Bibliography Curator`
+- **goal**: Discover, verify, and curate real sources for the article.
+  Produce a valid `references.bib` file with stable citation keys and
+  resolve all citation placeholders from the Writer Agent and BiDi
+  Agent. **Fabricated sources are strictly forbidden.**
+- **backstory**: You are a meticulous academic librarian and bibliography
+  specialist with expertise in BibTeX/Biber toolchains. You have a
+  zero-tolerance policy for fabricated or unverifiable sources. You
+  cross-reference every entry against authoritative databases (arXiv,
+  DOI registries) and ensure citation keys follow a consistent naming
+  convention.
+- **tools**: `search_tool` (verify sources through provider layer),
+  `file_read` (read citation placeholders from drafts), `file_write`
+  (write `latex_project/references.bib` and citation key map)
+
+#### Agent 7 — LaTeX Agent
+
+- **role**: `LaTeX Project Engineer`
+- **goal**: Convert the approved Markdown drafts and asset specifications
+  into a structured, compilable LaTeX project under `latex_project/`.
+  Follow the separation rules: chapter files contain narrative text
+  only; tables and TikZ figures live in dedicated files under
+  `tables/` and `figures/`; `main.tex` is a thin root that inputs
+  everything else.
+- **backstory**: You are a LaTeX expert with extensive experience in
+  academic document engineering. You build modular, maintainable LaTeX
+  projects that follow professional conventions. You understand the
+  LuaLaTeX toolchain, BiDi font configuration, theorem environments,
+  nomenclature, and index generation. Your projects compile cleanly
+  and are easy to maintain.
+- **tools**: `file_read` (read all Markdown drafts, asset specs, and
+  bibliography), `file_write` (write LaTeX project files under
+  `latex_project/`)
+
+#### Agent 8 — Reviewer Agent
+
+- **role**: `Quality Review Editor`
+- **goal**: Perform qualitative review of the complete pipeline output:
+  coherence, structure, formatting requirements, and presence of all
+  required deliverables. Identify issues and produce a pass/flag signal
+  for the downstream deterministic `ValidatorService`. You are advisory;
+  you do not make binding validation decisions.
+- **backstory**: You are a senior technical reviewer with a keen eye for
+  consistency, completeness, and structural quality. You check whether
+  the article flows logically, whether all required elements are present
+  (figures, tables, equations, citations, BiDi section, nomenclature,
+  index), and whether the LaTeX project follows the separation rules.
+  You flag issues clearly but defer final validation to deterministic
+  checks.
+- **tools**: `file_read` (read all Markdown drafts, LaTeX project files,
+  and bibliography), `file_write` (write review notes to
+  `results/run_logs/reviewer_notes.md`)
 
 After the Reviewer Agent finishes, the deterministic `ValidatorService`
 (see `docs/PRD_pdf_validation.md`) runs as a non-agent stage. The
@@ -106,6 +257,8 @@ declared with `description`, `expected_output`, `agent`, and `context`
 fields (FR-6). At least three tasks consume earlier task outputs via
 `context` (AC §14.5).
 
+### 6.1 Task Summary Table
+
 | # | Task | Agent | Consumes context from | Output |
 |---|---|---|---|---|
 | T1 | Research the topic | Research Agent | — | Research notes |
@@ -119,6 +272,149 @@ fields (FR-6). At least three tasks consume earlier task outputs via
 
 Task count: **8 ≥ 5** (`docs/PRD.md` KPI). Tasks consuming earlier
 `context`: **T2, T3, T4, T5, T6, T7, T8 — at least 7 ≥ 3** (AC §14.5).
+
+### 6.2 Detailed Task Specifications
+
+Each task below is defined with the four CrewAI fields: `description`,
+`expected_output`, `agent`, and `context`. The verbatim prompt text is
+stored in `docs/PROMPTS.md`.
+
+#### Task T1 — Research the topic
+
+- **description**: Research the article topic defined in configuration.
+  Collect comprehensive background information, key concepts, technical
+  terminology, and candidate references. Use the search tool to find
+  authoritative sources (arXiv papers, technical reports, documentation).
+  Synthesize findings into structured research notes that cover all
+  reasoning dimensions: planning, memory, retrieval, tool use, and
+  multimodal reasoning.
+- **expected_output**: A Markdown file at
+  `results/generated_markdown/research_notes.md` containing:
+  organized research notes with section headers for each reasoning
+  dimension, key terminology definitions, and a list of candidate
+  references with arXiv IDs or DOIs.
+- **agent**: Research Agent
+- **context**: *(none — this is the first task in the pipeline)*
+
+#### Task T2 — Design the article outline
+
+- **description**: Read the research notes from T1 and design a coherent
+  article outline. The outline must define chapter headings, section
+  structure, and content allocation for each chapter. Ensure the outline
+  covers all required elements: background/introduction, five reasoning
+  dimension chapters, evaluation chapter, Hebrew/English BiDi section
+  (placed in the Memory chapter), conclusion, nomenclature, and index.
+  The outline must ensure logical flow and eliminate redundancy.
+- **expected_output**: A Markdown file at
+  `results/generated_markdown/outline.md` containing:
+  a hierarchical outline with chapter titles, section headings, brief
+  descriptions of each section's content, and notes about where figures,
+  tables, equations, and citations should be placed.
+- **agent**: Outline Agent
+- **context**: Output of T1 (research notes)
+
+#### Task T3 — Draft Markdown chapters with placeholders
+
+- **description**: Using the research notes (T1) and the outline (T2),
+  draft complete Markdown chapters for the article. Each chapter must
+  include headings, body text, and structured placeholders for figures,
+  tables, equations, and citations. The content must follow a logical
+  progression and avoid filler. Do not write LaTeX directly; produce
+  clean Markdown that the LaTeX Agent can later convert.
+- **expected_output**: Markdown chapter files under
+  `results/generated_markdown/chapters/*.md` containing:
+  complete chapter drafts with heading structure, narrative text, and
+  placeholders in the form `<!-- FIGURE: description -->`,
+  `<!-- TABLE: description -->`, `<!-- EQUATION: description -->`, and
+  `<!-- CITATION: author_topic -->`.
+- **agent**: Writer Agent
+- **context**: Output of T1 (research notes), T2 (outline)
+
+#### Task T4 — Produce technical assets and figure/table/equation specs
+
+- **description**: Based on the chapter drafts (T3) and outline (T2),
+  produce or specify all technical assets required by the article:
+  TikZ figures (e.g., automata diagrams), a Python-generated graph,
+  tables, mathematical equations with labels, and theorem-like
+  environments. Emit structured asset specifications and Markdown
+  placeholders that the LaTeX Agent can consume. Do not write LaTeX
+  directly into chapter files.
+- **expected_output**: Asset specification files under
+  `results/generated_markdown/assets/*` containing:
+  structured descriptions of each required asset (type, content, LaTeX
+  code or generation instructions), plus placeholder markers that map
+  to the chapter draft placeholders.
+- **agent**: Technical Asset Agent
+- **context**: Output of T2 (outline), T3 (chapter drafts)
+
+#### Task T5 — Draft Hebrew/English BiDi section
+
+- **description**: Produce a substantial Hebrew/English mixed section
+  for the Memory dimension chapter. The section must demonstrate correct
+  bidirectional text handling: readable Hebrew prose with embedded
+  English technical terms, proper RTL alignment, and stable English
+  formulas/citations. Use the outline (T2) and chapter drafts (T3) for
+  context about the Memory dimension content.
+- **expected_output**: A Markdown file at
+  `results/generated_markdown/bidi.md` containing:
+  a complete BiDi section with Hebrew text, embedded English technical
+  terms, and proper directional markers. The content must be substantive
+  (not a token demonstration) and must cover a meaningful portion of the
+  Memory dimension discussion.
+- **agent**: Hebrew/BiDi Agent
+- **context**: Output of T2 (outline), T3 (chapter drafts)
+
+#### Task T6 — Curate `references.bib` and resolve citation placeholders
+
+- **description**: Discover, verify, and curate real sources for the
+  article. Read the citation placeholders from the Writer Agent (T3)
+  and BiDi Agent (T5), and resolve each placeholder to a verified source.
+  Produce a valid `references.bib` file with stable citation keys.
+  Cross-reference every entry against authoritative databases (arXiv,
+  DOI registries). **Fabricated sources are strictly forbidden.**
+- **expected_output**: A BibTeX file at `latex_project/references.bib`
+  containing verified bibliography entries with stable citation keys,
+  plus a citation key map that resolves all placeholders from T3 and T5.
+- **agent**: Bibliography Agent
+- **context**: Output of T1 (research notes), T3 (chapter drafts with
+  citation placeholders), T5 (BiDi section with citation placeholders)
+
+#### Task T7 — Assemble the LaTeX project
+
+- **description**: Convert all approved Markdown drafts and asset
+  specifications into a structured, compilable LaTeX project under
+  `latex_project/`. Follow the separation rules strictly: chapter files
+  contain narrative text only; each table lives in its own file under
+  `tables/`; each TikZ figure lives in its own file under `figures/`;
+  `main.tex` is a thin root that inputs everything else. Include
+  `preamble.tex`, `macros.tex`, `references.bib`, nomenclature,
+  nomenclature setup, and index configuration. Target LuaLaTeX with
+  `fontspec` + `polyglossia` for BiDi support.
+- **expected_output**: A complete LaTeX project tree under
+  `latex_project/` containing: `main.tex`, `preamble.tex`, `macros.tex`,
+  `references.bib`, `chapters/*.tex`, `tables/*.tex`, `figures/*.tex`,
+  and any supporting configuration files.
+- **agent**: LaTeX Agent
+- **context**: Output of T3 (chapter drafts), T4 (asset specs), T5
+  (BiDi section), T6 (bibliography)
+
+#### Task T8 — Review coherence, structure, and required deliverables
+
+- **description**: Perform qualitative review of the complete pipeline
+  output. Check coherence, structure, formatting requirements, and the
+  presence of all required deliverables: figures, tables, equations,
+  citations, BiDi section, nomenclature, index, theorem-like environment,
+  and bibliography. Identify issues clearly and produce a pass/flag
+  signal for the downstream deterministic `ValidatorService`. You are
+  advisory; you do not make binding validation decisions.
+- **expected_output**: A Markdown file at
+  `results/run_logs/reviewer_notes.md` containing:
+  structured review notes listing checked items, identified issues,
+  and an overall pass/flag recommendation. The notes must be specific
+  enough to guide human review or automated validation.
+- **agent**: Reviewer Agent
+- **context**: Output of T3 (chapter drafts), T4 (asset specs), T5
+  (BiDi section), T6 (bibliography), T7 (LaTeX project)
 
 After T8 completes, the deterministic `ValidatorService` runs as a
 non-CrewAI stage and produces the validation report (FR-37, see
@@ -249,36 +545,48 @@ These mirror the CrewAI acceptance criteria in `docs/PRD.md` §14.5.
 disk and has been verified** (and, where relevant, until a kickoff run
 has succeeded).
 
-- [ ] All eight specialized agents from §8.3 are defined with explicit
+### Design-level criteria *(satisfied by Phase 4)*
+
+- [x] All eight specialized agents from §8.3 are defined with explicit
       `role`, `goal`, `backstory`, and `tools` (FR-5, AC §14.5).
-- [ ] At least five CrewAI tasks are defined with `description`,
+- [x] At least five CrewAI tasks are defined with `description`,
       `expected_output`, `agent`, and `context` (FR-6, KPI, AC §14.5).
-- [ ] At least three tasks consume earlier task outputs via explicit
-      `context` (AC §14.5).
-- [ ] The crew uses a sequential `Process` by default, or any deviation
-      is justified in this document (FR-8).
+- [x] At least three tasks consume earlier task outputs via explicit
+      `context` (AC §14.5). T2, T3, T4, T5, T6, T7, T8 all consume
+      context from earlier tasks (7 ≥ 3).
+- [x] The crew uses a sequential `Process` by default, or any deviation
+      is justified in this document (FR-8). Sequential process is
+      confirmed in §7.
+- [x] Agent prompts and task descriptions are documented verbatim in
+      `docs/PROMPTS.md` (AC §14.5).
+
+### Implementation-level criteria *(require Phases 5–10)*
+
 - [ ] The crew is launched from a single documented kickoff entry point
-      (FR-9).
+      (FR-9). *Requires Phase 5 implementation.*
 - [ ] Raw and processed outputs are saved at the canonical paths in §9
-      (FR-10).
+      (FR-10). *Requires Phase 6+ implementation.*
 - [ ] Markdown drafts are produced before any LaTeX assembly and live
       under `results/generated_markdown/` (FR-11, FR-12, AC §14.5).
+      *Requires Phase 6 implementation.*
 - [ ] Markdown drafts include heading, figure, table, equation, and
       citation placeholders, and follow a logical topic progression
-      (FR-13, FR-14).
-- [ ] Agent prompts and task descriptions are documented verbatim in
-      `docs/PROMPTS.md` (AC §14.5).
+      (FR-13, FR-14). *Requires Phase 6 implementation.*
 - [ ] All model and search calls go through the controlled
-      provider/service layer (NFR-23, NFR-24).
+      provider/service layer (NFR-23, NFR-24). *Requires Phase 5
+      implementation.*
 - [ ] `.env-example` exists and documents the required environment
-      variables (FR-4, NFR-21).
+      variables (FR-4, NFR-21). *Requires Phase 5 implementation.*
 - [ ] Every agent invocation, tool call, and produced artifact is
-      logged under `results/run_logs/` (NFR-16).
+      logged under `results/run_logs/` (NFR-16). *Requires Phase 5
+      implementation.*
 - [ ] The Reviewer Agent runs as the last LLM stage and produces review
-      notes (FR-37).
+      notes (FR-37). *Requires Phase 6+ implementation.*
 - [ ] After the Reviewer Agent finishes, the deterministic
       `ValidatorService` defined in `docs/PRD_pdf_validation.md` runs
       and emits a validation report; **the LLM is not the source of
-      truth for validation** (FR-40, NFR-19, AC §14.5).
+      truth for validation** (FR-40, NFR-19, AC §14.5). *Requires
+      Phase 11 implementation.*
 - [ ] No fabricated sources enter `references.bib` at any stage
-      (see `docs/PRD_bibliography_and_citations.md`).
+      (see `docs/PRD_bibliography_and_citations.md`). *Requires Phase 7
+      implementation.*
