@@ -521,30 +521,48 @@ do not block the Phase 1.5 lock.
 - [ ] f-strings for interpolation; comprehensions only where they
       improve readability. [NFR-9, NFR-10]
 
-## F. GitHub project management *(future, no GitHub changes in this documentation-rewrite pass)*
+## F. GitHub project management *(Phase 2 — implementation complete on branch `docs/4-p2-i03-project-workflow` / PR #66; per-issue verification per [`CONTRIBUTING.md`](../CONTRIBUTING.md) §8.6 pending before milestone closure)*
 
-Mirror this plan into GitHub as the GUI tracking layer. **No issues or
-milestones are created in this documentation-rewrite pass** — the actual
-creation work belongs to Phase 2 below; this is not a permanent ban.
+The local Markdown plan is mirrored into GitHub as the GUI tracking
+layer. The discrete Phase 2 work (`P2-I00` … `P2-I03`) created the
+milestones, the issues, the label vocabulary, the contribution
+workflow, and the mapping back into this file. The items below are
+ticked once the underlying GitHub or repository artifact is
+demonstrably present; closing the corresponding **issue** still
+requires evidence per §F-6.
 
-- [ ] Create one **GitHub Milestone** per open phase in `docs/PLAN.md`
+- [x] Create one **GitHub Milestone** per open phase in `docs/PLAN.md`
       (Phases 2 through 14). Milestone titles match phase titles. Phases 0,
       1, and 1.5 do not get milestones because they are already complete.
-      [Phase 2]
-- [ ] Create **GitHub Issues** from every open item in §B, §C, §D, and
+      [Phase 2] — verified: 13 milestones exist (`gh api
+      repos/evya1/agentic-publishing-pipeline/milestones`). Owned by
+      **P2-I01** (#2).
+- [x] Create **GitHub Issues** from every open item in §B, §C, §D, and
       §E above. Preserve the TODO wording in the issue title so the
-      mapping back to this file is obvious. [Phase 2]
-- [ ] Assign each issue to the milestone for its phase tag (e.g.,
+      mapping back to this file is obvious. [Phase 2] — verified: 62
+      issues (#1–#62) exist with TODO wording in titles. Owned by
+      **P2-I02** (#3).
+- [x] Assign each issue to the milestone for its phase tag (e.g.,
       `[Phase 9]` items go to the "Phase 9 — LaTeX project assembly"
-      milestone). [Phase 2]
-- [ ] Apply labels from this fixed vocabulary as appropriate:
+      milestone). [Phase 2] — verified: every issue carries its
+      expected milestone. Owned by **P2-I02** (#3).
+- [x] Apply labels from this fixed vocabulary as appropriate:
       `docs`, `architecture`, `crewai`, `latex`, `validation`, `bidi`,
-      `bibliography`, `testing`, `submission`. [Phase 2]
-- [ ] Document the mapping TODO ↔ issue ↔ milestone ↔ PRD requirement
+      `bibliography`, `submission`, plus `testing`, `decision`, and
+      `security` added during P2-I02 (canonical vocabulary now lives in
+      [`CONTRIBUTING.md`](../CONTRIBUTING.md) §11). [Phase 2] — verified:
+      11 custom labels present. Owned by **P2-I02** (#3).
+- [x] Document the mapping TODO ↔ issue ↔ milestone ↔ PRD requirement
       in this file's introduction once the issues are filed. [Phase 2]
-- [ ] An issue may be closed **only** when the underlying artifact is
+      — verified: see the **Traceability** section near the top of this
+      file. Owned by **P2-I03** (#4) (branch
+      `docs/4-p2-i03-project-workflow` / PR #66).
+- [x] An issue may be closed **only** when the underlying artifact is
       verified on disk (or by a passing build, test, or validator run).
       Closing an issue does **not** by itself allow ticking a TODO box,
       a PRD acceptance-criterion checkbox in `docs/PRD.md` §14, a
       `docs/HW3_REQUIREMENTS.md` checkbox, or a `SUBMISSION_CHECKLIST.md`
-      checkbox. [Phase 2, all later phases]
+      checkbox. [Phase 2, all later phases] — codified as the §F-6
+      closure rule in the Traceability section above and in
+      [`CONTRIBUTING.md`](../CONTRIBUTING.md) §6. Owned by **P2-I03**
+      (#4); the rule remains in force for every later phase.

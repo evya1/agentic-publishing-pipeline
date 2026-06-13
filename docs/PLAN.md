@@ -170,32 +170,44 @@ claims the directory is empty, and `docs/TODO.md` tracks the follow-up
 work for author metadata, URL/DOI verification, audit trail, and
 bibliography extraction.
 
-### Phase 2 — Project management setup *(open)*
+### Phase 2 — Project management setup *(P2-I00–P2-I03 implementation complete on PR #66; per-issue verification per [`CONTRIBUTING.md`](../CONTRIBUTING.md) §8.6 pending before milestone closure)*
 
-Set up GitHub as the GUI tracking layer for this plan and TODO. The
-"no GitHub changes yet" guidance in this document refers to the current
-**documentation-rewrite pass** that produced this PLAN/TODO; Phase 2 is
-explicitly the phase where the issues and milestones **do** get created.
+Set up GitHub as the GUI tracking layer for this plan and TODO, and
+establish the contribution / synchronization / handoff governance that
+every later phase will rely on.
 
-Planned work:
+Implementation state (artifacts demonstrably present):
 
-- Create **GitHub Milestones** for every still-open phase — Phases 2
-  through 14 (one milestone per phase; milestone title matches the
-  phase title). Phase 0, Phase 1, and Phase 1.5 do not get milestones
-  because they are already complete.
-- Create **GitHub Issues** from the concrete tasks in `docs/TODO.md`;
-  preserve TODO wording so issue titles remain traceable to TODO items.
-- Apply a small **label** vocabulary on each issue:
-  `docs`, `architecture`, `crewai`, `latex`, `validation`, `bidi`,
-  `bibliography`, `testing`, `submission`.
-- An issue may be closed only when the underlying artifact is verified on
-  disk (or by a passing build/test). Closing an issue does **not** by itself
-  let a corresponding TODO item or PRD acceptance criterion be ticked.
+- **P2-I00 (#1) — Apply minimal doc patches before milestone/issue
+  creation.** Landed on `main` as commit `2b0baeb`.
+- **P2-I01 (#2) — Create 13 GitHub Milestones (Phases 2–14).**
+  Verified via `gh api repos/.../milestones`; one milestone per
+  still-open phase; titles match phase titles. Phase 0, Phase 1, and
+  Phase 1.5 intentionally have no milestone.
+- **P2-I02 (#3) — Create GitHub Issues from open TODO items and apply
+  labels.** Verified: 62 issues (#1–#62) carry TODO wording in titles,
+  correct milestones, and labels from the 11-entry vocabulary now
+  codified in [`CONTRIBUTING.md`](../CONTRIBUTING.md) §11 (`docs`,
+  `architecture`, `crewai`, `latex`, `validation`, `bidi`,
+  `bibliography`, `testing`, `submission`, `decision`, `security`).
+- **P2-I03 (#4) — Document the mapping in TODO intro and establish
+  the contribution workflow.** Implementation lives on branch
+  `docs/4-p2-i03-project-workflow` (PR #66). Adds the Traceability
+  section to `docs/TODO.md`, `CONTRIBUTING.md`, AI-agent rules in
+  `CLAUDE.md`, a contributing section in `README.md`, the Phase ↔
+  Milestone rules above, `.github/pull_request_template.md`, and
+  `.github/ISSUE_TEMPLATE/work_item.md` + `config.yml`. Awaiting merge.
 
-**Exit criterion:** milestones exist for every still-open phase
-(Phases 2–14), every open TODO item has a tracking issue with the
-right labels, and the mapping TODO ↔ issue ↔ milestone ↔ PRD
-requirement is documented in `docs/TODO.md`'s introduction.
+**Exit criterion (state):** milestones for every still-open phase
+exist; every open TODO item has a tracking issue with the right
+labels; the mapping TODO ↔ issue ↔ milestone ↔ PRD requirement is
+documented in `docs/TODO.md`'s introduction (Traceability section).
+The exit criterion's **artifacts** are present. Closing the Phase 2
+milestone additionally requires the per-issue verification and
+evidence comments described in [`CONTRIBUTING.md`](../CONTRIBUTING.md)
+§8.5–§8.6 — for each of P2-I00, P2-I01, P2-I02, P2-I03. That
+verification step happens after PR #66 merges; the milestone is not
+closed by this PR.
 
 ### Phase 3 — Topic and scope *(complete — decisions recorded in PRD §22.6–§22.9)*
 
