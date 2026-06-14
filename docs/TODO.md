@@ -402,8 +402,13 @@ do not block the Phase 1.5 lock.
         *Done on `phase/05-...` — `tools/fileio.FileIO` provides
         atomic writes, path-traversal refusal, and a `fileio.wrote`
         audit event into the run-context event log.*
-  - [ ] Markdown conversion tool (used by the Markdown→LaTeX path).
+  - [x] Markdown conversion tool (used by the Markdown→LaTeX path).
         [Phase 5, Phase 9]
+        *Done on `phase/05-...` — `tools/markdown.py` provides
+        deterministic placeholder parsing
+        (`parse_placeholders`/`strip_placeholders`/`has_placeholder`)
+        and LaTeX special-character escaping. Phase 9 reuses the
+        same seam.*
   - [ ] LaTeX compilation tool (LuaLaTeX + biber multi-pass). [Phase 5,
         Phase 10] [FR-20]
   - [ ] Graph generation tool. [Phase 5, Phase 8] [FR-29, FR-30]

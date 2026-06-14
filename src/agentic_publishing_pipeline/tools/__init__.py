@@ -16,6 +16,13 @@ or paid-provider access.
 
 from .fileio import FileIO
 from .gatekeeper import ApiGatekeeper, GatekeeperRejection, request_identity
+from .markdown import (
+    ParsedPlaceholder,
+    escape_latex,
+    has_placeholder,
+    parse_placeholders,
+    strip_placeholders,
+)
 from .search import (
     ManifestLoadError,
     load_source_manifest_hits,
@@ -28,8 +35,13 @@ __all__ = [
     "FileIO",
     "GatekeeperRejection",
     "ManifestLoadError",
+    "ParsedPlaceholder",
+    "escape_latex",
+    "has_placeholder",
     "load_source_manifest_hits",
     "manifest_coverage",
+    "parse_placeholders",
     "request_identity",
+    "strip_placeholders",
     "verify_arxiv_id",
 ]
