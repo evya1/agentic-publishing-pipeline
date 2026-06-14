@@ -320,9 +320,9 @@ do not block the Phase 1.5 lock.
       [Phase 7] [`docs/PRD_bibliography_and_citations.md` §9]
 - [x] Resolve the remaining Phase 3 open questions (audience, depth
       target, BiDi balance, citation density target) and record them
-      in `docs/PRD.md` §22.6–§22.9. The decisions are implemented, but
-      P3-I01 (#5) and P3-I02 (#6) remain open until the synchronized
-      mechanism-PRD reconciliation is merged and verified on `main`.
+      in `docs/PRD.md` §22.6–§22.9. The synchronized mechanism-PRD
+      reconciliation landed via PR #70; P3-I01 (#5) and P3-I02 (#6)
+      are closed with evidence; milestone #2 is closed.
       [Phase 3] [PRD §21 open questions]
 
 ## C. Future implementation work *(open)*
