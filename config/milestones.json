@@ -19,7 +19,7 @@
     },
     {
       "title": "Phase 5 — Provider/service layer and tools",
-      "description": "Implement controlled provider/service layer (NFR-23), add .env-example (FR-4), and implement 5 agent tools: search, file I/O, Markdown conversion, LaTeX compile, graph. Dependencies added via 'uv add' per tool — no speculative installs. See docs/PLAN.md §Phase 5.",
+      "description": "Implement controlled provider/service layer (NFR-23), add `.env.example` (FR-4), and implement 5 agent tools: search, file I/O, Markdown conversion, LaTeX compile, graph. Dependencies added via `uv add` per tool — no speculative installs. See `docs/PLAN.md` §Phase 5.",
       "due_on": null
     },
     {

@@ -452,12 +452,15 @@ do not block the Phase 1.5 lock.
       *Done on `phase/05-provider-service-layer-and-tools` —
       `src/agentic_publishing_pipeline/runtime/` ships the workspace,
       manifest, logs, and explicit promotion path.*
-- [ ] **P5-I11** — Add CLI operational modes (`dry-run`,
+- [x] **P5-I11** — Add CLI operational modes (`dry-run`,
       `offline-fixture`, `live`, `compile-only`, `validate-only`,
       `--topic`/`--manifest` override, `resume`) and deterministic
       offline fixtures. Offline mode requires no API keys and makes
       no network or paid-provider calls. Includes deterministic
       fixtures and integration tests. [Phase 5] [FR-46]
+      *Implemented on `phase/05-provider-service-layer-and-tools`;
+      pending PR review, merge to `main`, post-merge evidence, and
+      issue closure.*
 - [x] **P5-I12** — Implement machine-readable, versioned prompt/config
       registry under `config/prompt_registry/`; validate schema/version
       compatibility at startup; refuse to start on mismatch. Preserve
