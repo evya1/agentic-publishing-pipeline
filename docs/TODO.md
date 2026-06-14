@@ -410,13 +410,16 @@ do not block the Phase 1.5 lock.
       carrying `run_id`, `agent_id`, `task_id`, `attempt`, model,
       tokens, latency, status, estimated cost. Provider facade
       separate from policy. [Phase 5] [FR-44, NFR-23, NFR-24, ADR-0004]
-- [ ] **P5-I10** — Introduce `PipelineRunContext`: unique run ID,
+- [x] **P5-I10** — Introduce `PipelineRunContext`: unique run ID,
       isolated workspace under `results/<run_id>/`, configuration
       snapshot, structured event log, usage/cost log, artifact
       manifest, safe path resolution, explicit promote/publish
       operations. Failed runs preserved or removed only by explicit
       cleanup. Canonical artifacts never silently overwritten.
       [Phase 5] [FR-45, FR-48, NFR-16, NFR-17, ADR-0005]
+      *Done on `phase/05-provider-service-layer-and-tools` —
+      `src/agentic_publishing_pipeline/runtime/` ships the workspace,
+      manifest, logs, and explicit promotion path.*
 - [ ] **P5-I11** — Add CLI operational modes (`dry-run`,
       `offline-fixture`, `live`, `compile-only`, `validate-only`,
       `--topic`/`--manifest` override, `resume`) and deterministic
