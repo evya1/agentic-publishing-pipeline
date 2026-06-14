@@ -371,12 +371,17 @@ do not block the Phase 1.5 lock.
 
 ### C.3 Provider/service layer, configuration, and tools
 
-- [ ] Implement a controlled provider/service layer for model and search
+- [x] Implement a controlled provider/service layer for model and search
       calls. [Phase 5] [NFR-23, NFR-24]
-- [ ] Add `.env-example` documenting required environment variables.
+      *Done on `phase/05-...` — `src/agentic_publishing_pipeline/providers/`
+      with typed facade, fixture adapters, env-driven `ProviderConfig`.*
+- [x] Add `.env-example` documenting required environment variables.
       [Phase 5] [FR-4, NFR-21]
-- [ ] Load all secrets from `.env` only; never hardcode. [Phase 5]
+      *Done — see `.env.example` at repo root.*
+- [x] Load all secrets from `.env` only; never hardcode. [Phase 5]
       [FR-3, NFR-20]
+      *Done — provider config reads exclusively from env; secret-shaped
+      values are redacted in the run snapshot (P5-I10).*
 - [x] Track a reproducible `uv.lock` baseline and codify the per-tool,
       no-speculative-install dependency policy. Heavy SDKs (`crewai`,
       model/search SDKs, `matplotlib` where applicable) are added by
