@@ -18,7 +18,15 @@ fingerprint that the runtime checks for compatibility at startup
 (FR-47). Implementation is scheduled for **P5-I12**.
 
 Each registry entry references the matching ledger entry by its
-**ID** (e.g., `PROMPT-AGENT-RESEARCH-001`). When a prompt changes:
+**ID** (e.g., `PROMPT-AGENT-RESEARCH-001`). The runtime registry
+ships under
+[`config/prompt_registry/`](../config/prompt_registry/) — `registry.v1.yaml`
+indexes the 8 agent + 8 task entries and pins the
+`compatibility.contract_versions` list. P5-I12 implemented the
+loader (`agentic_publishing_pipeline.runtime.registry`) which
+performs the startup compatibility check (FR-47).
+
+When a prompt changes:
 
 1. Update the matching entry here verbatim, with a `Notes` line
    explaining what changed and why (this is the evidence record).

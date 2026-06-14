@@ -1,0 +1,29 @@
+id: PROMPT-TASK-WRITE-001
+ledger_id: PROMPT-TASK-WRITE-001
+kind: task
+version: v1
+prompt:
+  description: |
+    Using the research notes and the outline, draft complete Markdown chapters
+    for the article. Each chapter must include headings, body text, and
+    structured placeholders for figures, tables, equations, and citations.
+    The content must follow a logical progression and avoid filler. Do not
+    write LaTeX directly; produce clean Markdown that the LaTeX Agent can
+    later convert.
+
+    Use the following placeholder conventions:
+      - <!-- FIGURE: description -->
+      - <!-- TABLE: description -->
+      - <!-- EQUATION: description -->
+      - <!-- CITATION: author_topic -->
+  expected_output: |
+    Markdown chapter files under results/generated_markdown/chapters/*.md
+    containing complete chapter drafts with heading structure, narrative text,
+    and the placeholder markers listed above.
+config:
+  agent: PROMPT-AGENT-WRITER-001
+  consumes_contracts:
+    - ResearchNotes.v1
+    - Outline.v1
+  emits_contract: ChapterDrafts.v1
+  repair_attempts_allowed: 1

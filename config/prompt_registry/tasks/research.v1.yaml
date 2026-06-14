@@ -1,0 +1,22 @@
+id: PROMPT-TASK-RESEARCH-001
+ledger_id: PROMPT-TASK-RESEARCH-001
+kind: task
+version: v1
+prompt:
+  description: |
+    Research the article topic defined in configuration. Collect comprehensive
+    background information, key concepts, technical terminology, and candidate
+    references. Use the search tool to find authoritative sources (arXiv
+    papers, technical reports, documentation). Synthesize findings into
+    structured research notes that cover all reasoning dimensions: planning,
+    memory, retrieval, tool use, and multimodal reasoning.
+  expected_output: |
+    A Markdown file at results/generated_markdown/research_notes.md containing
+    organized research notes with section headers for each reasoning dimension,
+    key terminology definitions, and a list of candidate references with arXiv
+    IDs or DOIs.
+config:
+  agent: PROMPT-AGENT-RESEARCH-001
+  consumes_contracts: []
+  emits_contract: ResearchNotes.v1
+  repair_attempts_allowed: 1

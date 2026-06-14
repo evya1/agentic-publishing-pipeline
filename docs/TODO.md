@@ -438,11 +438,14 @@ do not block the Phase 1.5 lock.
       offline fixtures. Offline mode requires no API keys and makes
       no network or paid-provider calls. Includes deterministic
       fixtures and integration tests. [Phase 5] [FR-46]
-- [ ] **P5-I12** — Implement machine-readable, versioned prompt/config
+- [x] **P5-I12** — Implement machine-readable, versioned prompt/config
       registry under `config/prompt_registry/`; validate schema/version
       compatibility at startup; refuse to start on mismatch. Preserve
       `docs/PROMPTS.md` as the human evidence ledger. Link recorded
       runs to exact registry versions. [Phase 5] [FR-47]
+      *Done on `phase/05-...` — registry YAML tree under
+      `config/prompt_registry/` + loader and `verify_compatibility`
+      in `runtime/registry.py`; pyyaml added to runtime deps.*
 - [ ] **P5-I13** — Add baseline CI for PR/main: frozen dependency
       sync, Ruff, tests, current coverage gate, automated 150-line
       cap, deterministic offline smoke run. Do not introduce a

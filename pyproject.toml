@@ -8,6 +8,7 @@ license = { text = "MIT" }
 authors = [{ name = "TBD" }]
 dependencies = [
     "pydantic>=2.7",
+    "pyyaml>=6.0",
 ]
 
 # NOTE: crewai, model-provider SDKs, search SDKs, and heavy LaTeX-related Python

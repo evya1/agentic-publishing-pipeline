@@ -1,0 +1,24 @@
+id: PROMPT-TASK-ASSET-001
+ledger_id: PROMPT-TASK-ASSET-001
+kind: task
+version: v1
+prompt:
+  description: |
+    Based on the chapter drafts and the outline, produce or specify all
+    technical assets required by the article: TikZ figures (e.g., automata
+    diagrams), a Python-generated graph, tables, mathematical equations with
+    labels, and theorem-like environments. Emit structured asset
+    specifications and Markdown placeholders that the LaTeX Agent can consume.
+    Do not write LaTeX directly into chapter files.
+  expected_output: |
+    Asset specification files under results/generated_markdown/assets/*
+    containing structured descriptions of each required asset (type, content,
+    LaTeX code or generation instructions), plus placeholder markers that
+    map to the chapter draft placeholders.
+config:
+  agent: PROMPT-AGENT-ASSET-001
+  consumes_contracts:
+    - Outline.v1
+    - ChapterDrafts.v1
+  emits_contract: AssetSpecs.v1
+  repair_attempts_allowed: 1

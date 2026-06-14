@@ -1,0 +1,28 @@
+id: PROMPT-TASK-REVIEW-001
+ledger_id: PROMPT-TASK-REVIEW-001
+kind: task
+version: v1
+prompt:
+  description: |
+    Perform qualitative review of the complete pipeline output. Check
+    coherence, structure, formatting requirements, and the presence of all
+    required deliverables: figures, tables, equations, citations, BiDi
+    section, nomenclature, index, theorem-like environment, and bibliography.
+    Identify issues clearly and produce a pass/flag signal for the downstream
+    deterministic ValidatorService. You are advisory; you do not make binding
+    validation decisions.
+  expected_output: |
+    A Markdown file at results/run_logs/reviewer_notes.md containing
+    structured review notes listing checked items, identified issues, and an
+    overall pass/flag recommendation. The notes must be specific enough to
+    guide human review or automated validation.
+config:
+  agent: PROMPT-AGENT-REVIEWER-001
+  consumes_contracts:
+    - ChapterDrafts.v1
+    - AssetSpecs.v1
+    - BiDiSection.v1
+    - BibliographyBundle.v1
+    - LaTeXProjectSpec.v1
+  emits_contract: ReviewerSignal.v1
+  repair_attempts_allowed: 1

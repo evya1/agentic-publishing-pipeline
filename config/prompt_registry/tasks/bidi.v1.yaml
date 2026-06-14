@@ -1,0 +1,27 @@
+id: PROMPT-TASK-BIDI-001
+ledger_id: PROMPT-TASK-BIDI-001
+kind: task
+version: v1
+prompt:
+  description: |
+    Produce a substantial Hebrew/English mixed section for the Memory
+    dimension chapter. The section must demonstrate correct bidirectional text
+    handling: readable Hebrew prose with embedded English technical terms,
+    proper RTL alignment, and stable English formulas/citations. Use the
+    outline and chapter drafts for context about the Memory dimension content.
+
+    The Hebrew font target is David CLM; the English font is Latin Modern
+    Roman. Write the content as Markdown with directional markers that the
+    LaTeX Agent can convert to proper polyglossia environments.
+  expected_output: |
+    A Markdown file at results/generated_markdown/bidi.md containing a
+    complete BiDi section with Hebrew text, embedded English technical terms,
+    and proper directional markers. The content must be substantive and
+    cover a meaningful portion of the Memory dimension discussion.
+config:
+  agent: PROMPT-AGENT-BIDI-001
+  consumes_contracts:
+    - Outline.v1
+    - ChapterDrafts.v1
+  emits_contract: BiDiSection.v1
+  repair_attempts_allowed: 1

@@ -1,0 +1,27 @@
+id: PROMPT-TASK-BIBLIOGRAPHY-001
+ledger_id: PROMPT-TASK-BIBLIOGRAPHY-001
+kind: task
+version: v1
+prompt:
+  description: |
+    Discover, verify, and curate real sources for the article. Read the
+    citation placeholders from the Writer Agent and BiDi Agent, and resolve
+    each placeholder to a verified source. Produce a valid references.bib file
+    with stable citation keys. Cross-reference every entry against authoritative
+    databases (arXiv, DOI registries). Fabricated sources are strictly forbidden.
+
+    Use the article source manifest (config/article_sources.yaml) as the
+    primary source set. All 10 manifest sources must be cited at least once
+    across the article.
+  expected_output: |
+    A BibTeX file at latex_project/references.bib containing verified
+    bibliography entries with stable citation keys, plus a citation key map
+    that resolves all placeholders from the chapter drafts and BiDi section.
+config:
+  agent: PROMPT-AGENT-BIBLIOGRAPHY-001
+  consumes_contracts:
+    - ResearchNotes.v1
+    - ChapterDrafts.v1
+    - BiDiSection.v1
+  emits_contract: BibliographyBundle.v1
+  repair_attempts_allowed: 1
