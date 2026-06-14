@@ -1,6 +1,61 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) and any other AI
+agent operating on this repository.
+
+## Mandatory AI-agent operating rules
+
+These rules are **binding on every Claude session and every other AI agent**
+working on this repository. They are a thin AI-specific layer on top of
+[`CONTRIBUTING.md`](CONTRIBUTING.md), which is the canonical workflow document
+for **both humans and AI agents**. Read `CONTRIBUTING.md` in full before doing
+anything that changes a file in the repository or any GitHub tracking object.
+
+1. **Identify the issue first.** Before changing any file, identify the
+   GitHub issue you are working under, its internal ID (`P<phase>-I<nn>`),
+   its milestone, its labels, its dependencies, its linked branch, and its
+   linked PR. If no issue exists for the requested work, create one per
+   `CONTRIBUTING.md` §7 (or surface the gap to the human operator). Never
+   start undocumented scope.
+2. **Inspect assignees before claiming.** Read the issue's current
+   assignees. If unassigned, self-assign via
+   `gh issue edit <N> --add-assignee "@me"`. If assigned to another
+   contributor, stop and report — never silently take over.
+3. **The authenticated human account is the GitHub assignee.** AI agents
+   operate on behalf of the human whose `gh auth status` is active.
+   Identify AI assistance in the start-of-work comment where project
+   policy requires it.
+4. **Use a linked branch.** Create branches via
+   `gh issue develop <N> --name <branch> --base main --checkout` so the
+   branch appears under the issue's GitHub Development metadata. Never
+   substitute an unlinked branch for issue-changing work.
+5. **Onboard explicitly.** The first comment on an issue you pick up must
+   confirm the `CONTRIBUTING.md` §2 onboarding checklist (docs read,
+   scope reviewed, assignment confirmed, `main` synchronized, linked
+   branch present).
+6. **Synchronize local docs and GitHub in the same PR.** When work
+   changes a TODO item, a PLAN phase, a PRD requirement, or any other
+   tracking artifact, ship the local-document update **in the same PR**
+   as the implementation (`CONTRIBUTING.md` §8.4). Do not defer obvious
+   tracking updates to a future PR.
+7. **Run reconciliation before stopping.** Before ending a session,
+   complete `CONTRIBUTING.md` §8.7 (working tree, push state, assignment,
+   linked branch/PR, TODO/PLAN/milestone status). No silent drift.
+8. **Hand off when unfinished.** If you stop with work incomplete or a
+   blocker outstanding, post a handoff comment on the issue using the
+   `CONTRIBUTING.md` §13 template.
+9. **Never silently fabricate sources, prompts, or evidence.** AI agents
+   may not invent bibliography entries (see PRD §8.6 and
+   `docs/PRD_bibliography_and_citations.md`), may not invent prompt logs
+   in `docs/PROMPTS.md`, and may not claim verification that did not
+   happen.
+10. **Do not bypass the Markdown source-of-truth hierarchy.** GitHub is a
+    GUI mirror, not a replacement for `docs/PRD.md`, `docs/PLAN.md`, and
+    `docs/TODO.md` (`CONTRIBUTING.md` §1). Material new scope requires a
+    document PR before or alongside the GitHub change.
+
+The remainder of this file describes the project-specific context an AI
+agent needs to do useful work. It does **not** replace `CONTRIBUTING.md`.
 
 ## Project state
 

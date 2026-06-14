@@ -1,0 +1,79 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# --- Testing / coverage ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# --- Tooling caches ---
+.ruff_cache/
+.mypy_cache/
+.tox/
+
+# --- Editors / OS ---
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# --- GitHub repository configuration ---
+# A user-level global gitignore may exclude all dotdirs (e.g. `.[!.]*`).
+# Force `.github/` to remain tracked because it holds the issue and PR
+# templates required by CONTRIBUTING.md.
+!.github/
+!.github/**
+
+# --- uv ---
+# Keep uv.lock checked in; ignore only transient artifacts if any.
+
+# --- LaTeX build artifacts ---
+# These are produced by latex/lualatex/xelatex/biber runs and must not be tracked.
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+
+# NOTE: Do NOT ignore source LaTeX files. The following remain tracked:
+#   latex_project/main.tex
+#   latex_project/references.bib
+#   latex_project/chapters/
+#   latex_project/figures/
+#   latex_project/tables/
+#   latex_project/styles/
+#
+# The final compiled PDF is NOT ignored by default. If the team later decides
+# to store generated PDFs outside Git, update this file explicitly.
+
+# --- arXiv source archives ---
+# Bytes of downloaded arXiv source archives stay local. The manifest at
+# config/article_sources.yaml and the README at data/sources/arxiv/README.md
+# remain tracked. See docs/PRD_bibliography_and_citations.md.
+data/sources/arxiv/source_zips/
+data/sources/arxiv/unpacked/
+data/sources/arxiv/raw_eprint/
