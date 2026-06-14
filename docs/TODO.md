@@ -73,20 +73,20 @@ milestone (`Phase <phase> — <title>`) with the labels from
 
 ### Live mapping (TODO internal ID → GitHub issue → Milestone)
 
-The mapping below was last reconciled against `origin/main` at commit
-[`33098a0`](https://github.com/evya1/agentic-publishing-pipeline/commit/33098a0721851be1dd6c64acc6e059d41336ddb3)
-and reflects the 62 issues opened during P2-I02. Use
+The mapping below was last reconciled during P2-I04 (#68) after
+P2-I00 through P2-I03 were verified and closed with evidence. Use
 `gh issue list --milestone "<title>" --state all` to confirm the
 current state before acting.
 
 #### Phase 2 — Project management setup ([milestone #1](https://github.com/evya1/agentic-publishing-pipeline/milestone/1))
 
-| Internal ID | Issue | Title (abridged)                                                         |
-|-------------|-------|--------------------------------------------------------------------------|
-| P2-I00      | [#1](https://github.com/evya1/agentic-publishing-pipeline/issues/1) | Apply minimal doc patches before milestone/issue creation               |
-| P2-I01      | [#2](https://github.com/evya1/agentic-publishing-pipeline/issues/2) | Create 13 GitHub milestones (Phases 2–14)                               |
-| P2-I02      | [#3](https://github.com/evya1/agentic-publishing-pipeline/issues/3) | Create GitHub issues from open TODO items and apply labels              |
-| P2-I03      | [#4](https://github.com/evya1/agentic-publishing-pipeline/issues/4) | Document TODO ↔ issue ↔ milestone ↔ PRD mapping in TODO intro           |
+| Internal ID | Issue | Status | Title (abridged)                                                        |
+|-------------|-------|--------|-------------------------------------------------------------------------|
+| P2-I00      | [#1](https://github.com/evya1/agentic-publishing-pipeline/issues/1) | Closed with evidence | Apply minimal doc patches before milestone/issue creation |
+| P2-I01      | [#2](https://github.com/evya1/agentic-publishing-pipeline/issues/2) | Closed with evidence | Create 13 GitHub milestones (Phases 2–14)                 |
+| P2-I02      | [#3](https://github.com/evya1/agentic-publishing-pipeline/issues/3) | Closed with evidence | Create GitHub issues from open TODO items and apply labels |
+| P2-I03      | [#4](https://github.com/evya1/agentic-publishing-pipeline/issues/4) | Closed with evidence | Document TODO ↔ issue ↔ milestone ↔ PRD mapping in TODO intro |
+| P2-I04      | [#68](https://github.com/evya1/agentic-publishing-pipeline/issues/68) | Open pending post-merge verification | Reconcile verified Phase 2 completion in PLAN and TODO |
 
 #### Phase 3 — Topic and scope ([milestone #2](https://github.com/evya1/agentic-publishing-pipeline/milestone/2))
 
@@ -522,15 +522,17 @@ do not block the Phase 1.5 lock.
 - [ ] f-strings for interpolation; comprehensions only where they
       improve readability. [NFR-9, NFR-10]
 
-## F. GitHub project management *(Phase 2 — implementation complete on branch `docs/4-p2-i03-project-workflow` / [PR #66](https://github.com/evya1/agentic-publishing-pipeline/pull/66); per-issue verification per [`CONTRIBUTING.md`](../CONTRIBUTING.md) §8.6 pending before milestone closure)*
+## F. GitHub project management *(Phase 2 — verified complete; final milestone closure pending P2-I04 post-merge verification)*
 
 The local Markdown plan is mirrored into GitHub as the GUI tracking
 layer. The discrete Phase 2 work (`P2-I00` … `P2-I03`) created the
 milestones, the issues, the label vocabulary, the contribution
-workflow, and the mapping back into this file. The items below are
-ticked once the underlying GitHub or repository artifact is
-demonstrably present; closing the corresponding **issue** still
-requires evidence per §F-6.
+workflow, and the mapping back into this file. Those issues are closed
+with evidence. `P2-I04` (#68) is the final Phase 2 reconciliation step:
+it records that verified closure state in `docs/PLAN.md` and this file
+before the Phase 2 milestone may close. The items below are ticked once
+the underlying GitHub or repository artifact is demonstrably present;
+closing the corresponding **issue** still requires evidence per §F-6.
 
 - [x] Create one **GitHub Milestone** per open phase in `docs/PLAN.md`
       (Phases 2 through 14). Milestone titles match phase titles. Phases 0,
@@ -556,8 +558,7 @@ requires evidence per §F-6.
 - [x] Document the mapping TODO ↔ issue ↔ milestone ↔ PRD requirement
       in this file's introduction once the issues are filed. [Phase 2]
       — verified: see the **Traceability** section near the top of this
-      file. Owned by **P2-I03** (#4) (branch
-      `docs/4-p2-i03-project-workflow` / [PR #66](https://github.com/evya1/agentic-publishing-pipeline/pull/66)).
+      file. Owned by **P2-I03** (#4), closed with evidence.
 - [x] An issue may be closed **only** when the underlying artifact is
       verified on disk (or by a passing build, test, or validator run).
       Closing an issue does **not** by itself allow ticking a TODO box,
