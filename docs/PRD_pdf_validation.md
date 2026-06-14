@@ -200,6 +200,11 @@ chosen in Phase 11) and checks:
 ### 7.7 BiDi indicators (AC §14.4)
 
 - [ ] At least one section in the PDF contains Hebrew text.
+- [ ] For the canonical HW3 run, the substantial Hebrew/English BiDi
+      section is present in the configured **Memory** chapter, per
+      `docs/PRD.md` §22.8. Generic runs validate the selected BiDi host
+      from configuration and do not assume Memory unless that is the
+      configured host.
 - [ ] At least one Hebrew paragraph contains embedded English technical
       terms (best-effort check: Hebrew Unicode characters and ASCII
       characters in the same paragraph).
@@ -217,6 +222,19 @@ enforces these deterministically.
 
 - [ ] Every `\cite{...}` in the LaTeX sources resolves to an entry in
       `latex_project/references.bib`.
+- [ ] The selected source manifest is loaded and checked before
+      citation-coverage validation. Generic runs validate against their
+      selected verified manifest and must not assume every run has ten
+      sources.
+- [ ] For the canonical HW3 run, every one of the ten configured
+      canonical manifest sources is cited at least once across the
+      complete final article. This can be checked deterministically by
+      comparing the selected manifest entries with the resolved
+      citation keys in the LaTeX sources.
+- [ ] The canonical HW3 run targets approximately 2–3 relevant verified
+      sources per chapter as a balance check; justified variation is
+      allowed and the validator must not enforce it as an exact per-
+      chapter count.
 - [ ] A rendered bibliography section is present in the PDF.
 - [ ] Citations are present in the body text (the body contains
       `\cite{...}` commands and the rendered PDF shows their resolved

@@ -77,6 +77,26 @@ is organized.
 - Defining LaTeX templates, fonts, or build commands — see
   `docs/PRD_latex_generation.md`.
 - Defining the validator's check list — see `docs/PRD_pdf_validation.md`.
+- Implementing automatic source discovery for the MVP. The pipeline
+  consumes the configured topic and verified source manifest; future
+  discovery support may propose candidates for a later manifest, but
+  unverified discoveries cannot enter the canonical HW3 run.
+
+## 4.1 Topic and source scope contract
+
+The reusable CrewAI workflow is generic. It accepts a configured topic
+and a configured, verified source manifest as runtime inputs
+(`docs/PRD.md` §22.1). Reusable agents, tasks, and prompts must not
+hardcode canonical arXiv IDs, citation keys, source counts, or article
+identifiers.
+
+For the canonical HW3 demonstration run, the topic and fixed ten-source
+manifest are supplied through configuration (`docs/PRD.md` §22.4). That
+run preserves the Phase 3 decisions in `docs/PRD.md` §§22.6–22.9:
+practitioner-facing audience, survey-style depth, Memory as the
+substantial Hebrew/English BiDi host, approximately 2–3 relevant
+verified sources per chapter, and citation of all ten canonical
+manifest sources at least once across the complete final article.
 
 ## 5. Agents (per `docs/PRD.md` §8.3)
 
@@ -93,7 +113,7 @@ verbatim in `docs/PROMPTS.md`.
 | 3 | **Writer Agent** | Produces readable Markdown chapters from the research notes and outline, including heading structure, figure / table / equation / citation placeholders (FR-13). | Chapter drafts under `results/generated_markdown/` |
 | 4 | **Technical Asset Agent** | Produces or specifies figures, the Python-generated graph, tables, formulas, and theorem-like content. Does not write LaTeX directly; it emits structured asset specifications and Markdown placeholders consumed by the LaTeX Agent. | Asset specs + placeholder Markdown |
 | 5 | **Hebrew/BiDi Agent** | Produces and validates at least one substantial Hebrew/English mixed section, ensuring readable Hebrew, embedded English technical terms, and correct visual order (NFR-28–31). | BiDi section draft (Markdown) |
-| 6 | **Bibliography Agent** | Discovers and verifies real sources; curates `references.bib` entries with stable keys; resolves citation placeholders from the Writer Agent and the BiDi Agent. **Fabricated sources are forbidden** (see `docs/PRD_bibliography_and_citations.md`). | Verified `.bib` entries + citation key map |
+| 6 | **Bibliography Agent** | Consumes the configured source manifest, validates source metadata before use, curates `references.bib` entries with stable keys, and resolves citation placeholders from the Writer Agent and the BiDi Agent. **Fabricated or silently substituted sources are forbidden** (see `docs/PRD_bibliography_and_citations.md`). | Verified `.bib` entries + citation key map |
 | 7 | **LaTeX Agent** | Converts the approved Markdown drafts and asset specs into the structured LaTeX project under `latex_project/`, following the separation rules in `docs/PRD_latex_generation.md` (FR-17a–d). | `latex_project/` source tree |
 | 8 | **Reviewer Agent** | Reviews coherence, structure, formatting requirements, and missing deliverables before deterministic validation. May identify likely issues, but **is not the source of truth for validation** (NFR-19). | Review notes; pass/flag signal for downstream validation |
 
@@ -107,9 +127,10 @@ Each agent below is defined with the four CrewAI fields: `role`, `goal`,
 
 - **role**: `Research Specialist`
 - **goal**: Collect comprehensive, accurate background information about
-  the article topic. Synthesize key concepts, terminology, and candidate
-  references into structured research notes that downstream agents can
-  use to draft coherent content.
+  the configured article topic and verified source manifest. Synthesize
+  key concepts and terminology into structured research notes that
+  downstream agents can use to draft coherent content. Do not fabricate,
+  silently replace, or silently discover sources for the run.
 - **backstory**: You are an experienced technical researcher specializing
   in artificial intelligence and large language model systems. You have
   a track record of producing clear, well-organized research summaries
@@ -192,17 +213,18 @@ Each agent below is defined with the four CrewAI fields: `role`, `goal`,
 #### Agent 6 — Bibliography Agent
 
 - **role**: `Bibliography Curator`
-- **goal**: Discover, verify, and curate real sources for the article.
-  Produce a valid `references.bib` file with stable citation keys and
-  resolve all citation placeholders from the Writer Agent and BiDi
-  Agent. **Fabricated sources are strictly forbidden.**
+- **goal**: Verify and curate real sources for the article. Consume the
+  configured manifest, validate source metadata, produce a
+  valid `references.bib` file with stable citation keys, and resolve all
+  citation placeholders from the Writer Agent and BiDi Agent.
+  **Fabricated or silently substituted sources are strictly forbidden.**
 - **backstory**: You are a meticulous academic librarian and bibliography
   specialist with expertise in BibTeX/Biber toolchains. You have a
-  zero-tolerance policy for fabricated or unverifiable sources. You
-  cross-reference every entry against authoritative databases (arXiv,
-  DOI registries) and ensure citation keys follow a consistent naming
-  convention.
-- **tools**: `search_tool` (verify sources through provider layer),
+  zero-tolerance policy for fabricated, unverifiable, or silently
+  substituted sources. You validate every configured entry against
+  authoritative metadata (arXiv, DOI registries) and ensure citation
+  keys follow a consistent naming convention.
+- **tools**: `search_tool` (verify configured sources through provider layer),
   `file_read` (read citation placeholders from drafts), `file_write`
   (write `latex_project/references.bib` and citation key map)
 
@@ -281,10 +303,11 @@ stored in `docs/PROMPTS.md`.
 
 #### Task T1 — Research the topic
 
-- **description**: Research the article topic defined in configuration.
-  Collect comprehensive background information, key concepts, technical
-  terminology, and candidate references. Use the search tool to find
-  authoritative sources (arXiv papers, technical reports, documentation).
+- **description**: Research the article topic and verified source
+  manifest defined in configuration. Collect comprehensive background
+  information, key concepts, and technical terminology. Use provider
+  tools only to validate configured source metadata or enrich notes from
+  approved sources; do not add unverified discovered sources to the run.
   Synthesize findings into structured research notes that cover all
   reasoning dimensions: planning, memory, retrieval, tool use, and
   multimodal reasoning.
@@ -303,8 +326,11 @@ stored in `docs/PROMPTS.md`.
   structure, and content allocation for each chapter. Ensure the outline
   covers all required elements: background/introduction, five reasoning
   dimension chapters, evaluation chapter, Hebrew/English BiDi section
-  (placed in the Memory chapter), conclusion, nomenclature, and index.
-  The outline must ensure logical flow and eliminate redundancy.
+  (placed in the Memory chapter for the canonical HW3 run), conclusion,
+  nomenclature, and index. The outline must ensure logical flow and
+  eliminate redundancy. For the canonical run, it targets approximately
+  2–3 relevant verified sources per chapter without treating that target
+  as an exact hardcoded count.
 - **expected_output**: A Markdown file at
   `results/generated_markdown/outline.md` containing:
   a hierarchical outline with chapter titles, section headings, brief
@@ -366,12 +392,15 @@ stored in `docs/PROMPTS.md`.
 
 #### Task T6 — Curate `references.bib` and resolve citation placeholders
 
-- **description**: Discover, verify, and curate real sources for the
-  article. Read the citation placeholders from the Writer Agent (T3)
-  and BiDi Agent (T5), and resolve each placeholder to a verified source.
-  Produce a valid `references.bib` file with stable citation keys.
-  Cross-reference every entry against authoritative databases (arXiv,
-  DOI registries). **Fabricated sources are strictly forbidden.**
+- **description**: Consume the configured source manifest, validate
+  source metadata, and curate real sources for the article. Read the
+  citation placeholders from the Writer Agent (T3) and BiDi Agent (T5),
+  and resolve each placeholder to a verified source. Produce a valid
+  `references.bib` file with stable citation keys. Cross-reference every
+  entry against authoritative databases (arXiv, DOI registries).
+  **Fabricated or silently substituted sources are strictly forbidden.**
+  For the canonical HW3 run, ensure every source in the fixed ten-source
+  manifest is cited at least once across the complete final article.
 - **expected_output**: A BibTeX file at `latex_project/references.bib`
   containing verified bibliography entries with stable citation keys,
   plus a citation key map that resolves all placeholders from T3 and T5.

@@ -25,8 +25,9 @@ Sister mechanism PRDs:
 
 Planning and tracking:
 
-- `docs/PLAN.md` — Phase 7 implements source discovery, verification,
-  and `references.bib` curation.
+- `docs/PLAN.md` — Phase 7 implements source-manifest consumption,
+  verification, and `references.bib` curation. Automatic source
+  discovery is deferred beyond the MVP.
 - `docs/TODO.md` — concrete backlog with PRD requirement tags.
 - `CLAUDE.md` — repository conventions; the "no fabricated sources"
   rule mirrors this PRD.
@@ -61,9 +62,12 @@ convention, an audit trail, and a deterministic check that every
 
 ## 4. Non-goals
 
-- Choosing the article's specific source list — that is owned by the
-  topic decision (`docs/PLAN.md` Phase 3) and by the Bibliography Agent
-  at runtime.
+- Choosing the canonical HW3 source list — that is owned by the topic
+  decision (`docs/PRD.md` §22) and stored in
+  `config/article_sources.yaml`.
+- Implementing automatic source discovery for the MVP. Future discovery
+  support may propose candidates for a later verified manifest, but
+  unverified discovered sources may not enter the canonical HW3 run.
 - Implementing the validator itself — see `docs/PRD_pdf_validation.md`.
 - Maintaining the LaTeX preamble or build commands — see
   `docs/PRD_latex_generation.md`.
@@ -73,18 +77,20 @@ convention, an audit trail, and a deterministic check that every
 The **Bibliography Agent** (`docs/PRD.md` §8.3) is the single owner of
 `latex_project/references.bib`. Its responsibilities:
 
-- **Discover** candidate sources, either from the Research Agent's
-  notes (T1 in `docs/PRD_crewai_pipeline.md` §6) or from its own search
-  tool calls routed through the controlled provider/service layer
-  (NFR-23).
-- **Verify** every candidate source before it enters `references.bib`
-  (see §7).
+- **Consume** the configured source manifest selected for the run. For
+  the canonical HW3 run, that manifest is `config/article_sources.yaml`
+  as described in `docs/PRD.md` §22.4–§22.5.
+- **Verify** every configured source before it enters `references.bib`
+  (see §7). Search/provider calls may verify metadata; they do not
+  silently add new sources to the run.
 - **Curate** `references.bib`: stable keys, the minimum metadata
   required by the chosen `biblatex` style, no duplicates.
 - **Resolve** the citation placeholders left by the Writer Agent and
   the Hebrew/BiDi Agent into real `\cite{...}` commands keyed against
   the verified `.bib` entries.
 - **Refuse** to insert a citation whose source has not been verified.
+  Do not fabricate sources, silently replace rejected sources, or
+  silently discover substitute sources.
 
 No other agent is permitted to add entries to `references.bib`.
 
@@ -164,6 +170,8 @@ LaTeX project ends up with concrete `\cite{...}` commands.
 
 ## 10. Coverage rules
 
+### 10.1 Rules for every run
+
 - **Cited in the body.** Every `\cite{...}` in the LaTeX sources must
   resolve to an entry in `references.bib` (FR-33, AC §14.2).
 - **Rendered in the bibliography section.** The bibliography section
@@ -173,6 +181,22 @@ LaTeX project ends up with concrete `\cite{...}` commands.
   audit trail.
 - **No fabricated entries.** This applies at every stage and overrides
   every other convenience consideration.
+
+### 10.2 Canonical HW3 demonstration rules
+
+The canonical HW3 run is configured with the fixed ten-source manifest
+in `config/article_sources.yaml` (`docs/PRD.md` §22.4). For that run:
+
+- all ten canonical manifest sources must be cited at least once across
+  the complete final article;
+- each chapter should target approximately 2–3 relevant verified
+  sources, with justified variation allowed;
+- the all-ten coverage rule is deterministic because the manifest is
+  fixed and known before generation.
+
+These canonical rules do not apply unchanged to every generic run.
+Generic runs validate against their selected verified manifest and must
+not assume exactly ten sources.
 
 ## 11. Handoff to the deterministic ValidatorService
 
@@ -186,6 +210,9 @@ The `ValidatorService` is expected to enforce:
 
 - every `\cite{...}` in the LaTeX sources resolves to a `.bib` entry;
 - the bibliography section is rendered in the final PDF;
+- canonical HW3 runs cite every configured canonical manifest source at
+  least once, while generic runs are checked against the selected
+  manifest without assuming a ten-source count;
 - the verification audit trail covers every entry in `references.bib`
   (where the audit-trail format permits an automated check);
 - unresolved citations are **build-time / validation-time errors**, not

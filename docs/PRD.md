@@ -759,7 +759,12 @@ Because the project contains complex mechanisms, the following dedicated PRDs ar
    Describes the deterministic `ValidatorService` that runs after the Reviewer Agent stage, the file and PDF content checks it performs, and the validation report it emits. The LLM is not the source of truth for validation.
 
 4. `docs/PRD_bibliography_and_citations.md`  
-   Describes the Bibliography Agent's source-discovery and verification workflow, the `references.bib` toolchain (`biblatex` + `biber`), the citation-key convention, the no-fabricated-sources policy, and how unresolved `\cite{...}` references are surfaced as build-time errors by the deterministic validator.
+   Describes the Bibliography Agent's verified-manifest and source
+   verification workflow, the `references.bib` toolchain (`biblatex` +
+   `biber`), the citation-key convention, the no-fabricated-sources
+   policy, and how unresolved `\cite{...}` references are surfaced as
+   build-time errors by the deterministic validator. Automatic source
+   discovery is deferred beyond the MVP.
 
 These should not replace this main PRD. They should refine the most complex mechanisms.
 
@@ -771,7 +776,10 @@ These should not replace this main PRD. They should refine the most complex mech
 - Should the article be mostly Hebrew with English terms, mostly English with one Hebrew/BiDi chapter, or balanced bilingual?
 - Should XeLaTeX fallback support be implemented now, or deferred as a future improvement?
 - Which LLM provider/model will be used for the final run?
-- Will web search be used, or will the project rely only on provided/local sources?
+- Will automatic source discovery be used, or will the project rely only
+  on configured source manifests? **Phase 3 answer:** automatic source
+  discovery is deferred beyond the MVP; the canonical HW3 run uses the
+  configured manifest in `config/article_sources.yaml`.
 - How strict should the PDF page-count validation be?
 - Should graph generation be deterministic with fixed data, or generated from actual research data?
 - Should the theorem-like environment be a `definition`, `theorem`, `lemma`, or `example`?
@@ -781,18 +789,31 @@ These should not replace this main PRD. They should refine the most complex mech
 ## 22. Canonical Demo Article Topic
 
 This section concretizes the first item in §21 Open Questions ("What
-exact topic will the final article cover?") for the **default demo
-run** of the pipeline. It is a **runtime default**, not a hardcoded
-implementation detail: the topic, source set, and intended angle are
-loaded from configuration (`config/article_sources.yaml`,
-`.env` / CLI overrides per FR-1 and FR-2) and can be replaced without
-modifying source code (NFR-27).
+exact topic will the final article cover?") for the **canonical HW3
+demonstration run** of the pipeline. The reusable product remains
+generic: it accepts a configurable topic and a configurable, verified
+source manifest. The canonical topic, source set, and intended angle are
+configuration for the HW3 demonstration, not hardcoded runtime behavior
+or reusable prompt content. They are loaded from configuration
+(`config/article_sources.yaml`, `.env` / CLI overrides per FR-1 and
+FR-2) and can be replaced without modifying source code (NFR-27).
 
 ### 22.1 Status and overridability
 
 - The demo topic below is the **default** the pipeline targets on a
   fresh run; it is not the only topic the pipeline must be able to
   produce (NFR-27).
+- Reusable runtime code, reusable agents, and reusable prompts must not
+  hardcode canonical article identifiers, arXiv IDs, citation keys, or
+  the number of canonical sources. They consume the selected topic and
+  verified source manifest as inputs.
+- Source metadata must be validated before use. The pipeline must not
+  fabricate sources, silently replace rejected sources, or silently add
+  newly discovered sources to a run.
+- Automatic source discovery is outside the MVP. Future discovery
+  support may suggest candidates for a later verified manifest, but
+  unverified discovered sources may not enter the canonical HW3 run and
+  discovery is not required to complete HW3.
 - The article, the bibliography, the LaTeX project, the final PDF, the
   CrewAI workflow, and the deterministic `ValidatorService` are **not
   yet implemented**. This section only locks the topic and source
@@ -831,12 +852,15 @@ modifying source code (NFR-27).
   theorem-like environment, nomenclature ≥2 symbols, index ≥1 Hebrew
   + ≥1 English term, bibliography section).
 
-### 22.4 Source set summary
+### 22.4 Canonical source set summary
 
-The default run uses the following 10 arXiv papers. The canonical,
-machine-readable manifest with citation keys and verification status
-lives in **`config/article_sources.yaml`** (owned by the Bibliography
-Agent per `docs/PRD_bibliography_and_citations.md` §5).
+The canonical HW3 demonstration run uses the following 10 arXiv papers.
+The canonical, machine-readable manifest with citation keys and
+verification status lives in **`config/article_sources.yaml`** (owned by
+the Bibliography Agent per `docs/PRD_bibliography_and_citations.md` §5).
+The all-ten-source coverage rule in §22.9 applies only to this canonical
+demonstration run, because it is defined by this fixed ten-source
+manifest.
 
 | arXiv ID | Title | Intended dimension |
 |---|---|---|
@@ -889,6 +913,10 @@ Agent per `docs/PRD_bibliography_and_citations.md` §5).
 - **Structure:** Background/intro chapter, five dimension chapters,
   evaluation chapter, conclusion. Total target envelope is 15–20 pages
   (≥15-page KPI).
+- **Generic product note:** This is the approved canonical
+  demonstration depth. It does not prevent the reusable product from
+  accepting a different configured topic and manifest with different
+  chapter allocation.
 - **Rationale:** The 10-source manifest naturally distributes across the
   five dimensions (1–3 sources per dimension), making a balanced survey
   the most coherent organization. Deeper treatment of a subset would
@@ -905,11 +933,19 @@ Agent per `docs/PRD_bibliography_and_citations.md` §5).
   explanation, making it a natural fit for the mixed-language section.
 - **Hebrew font:** `David CLM` via `fontspec` + `polyglossia` under
   LuaLaTeX; English font is `Latin Modern Roman`.
+- **Scope stability:** The approved audience and depth decisions in
+  §22.6 and §22.7 remain unchanged. The Memory chapter is the canonical
+  BiDi host for the HW3 demonstration run.
 
 ### 22.9 Citation density *(Phase 3 decision)*
 
-- **Target:** 2–3 verified sources cited per chapter. All 10 manifest
-  sources must be cited at least once across the article.
+- **Canonical HW3 target:** Approximately 2–3 relevant verified sources
+  cited per chapter. This is a target for content balance, not a
+  hardcoded exact count; justified chapter-level variation is allowed.
+- **Canonical HW3 coverage rule:** All 10 manifest sources must be cited
+  at least once across the complete final article. This all-ten rule is
+  specific to the canonical HW3 demonstration run and must not be
+  applied to every generic run.
 - **Distribution:**
   - Background/intro: survey papers (`2504.09037`, `2601.12538`)
   - Planning chapter: `2511.09378` + core reasoning survey

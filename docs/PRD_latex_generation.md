@@ -211,6 +211,11 @@ Chapter files under `chapters/` hold narrative text and high-level
 ## 12. Hebrew/English BiDi section (`docs/PRD.md` §5.3, §8.6, §14.4)
 
 - At least one substantial section mixes Hebrew and English text.
+- For the canonical HW3 run, the substantial mixed Hebrew/English BiDi
+  section is hosted in the **Memory** dimension chapter, preserving the
+  Phase 3 decision in `docs/PRD.md` §22.8. This is supplied by
+  configuration and outline context, not by hardcoding canonical source
+  identifiers in reusable LaTeX rendering code.
 - Hebrew paragraphs are right-aligned; English technical terms inside
   Hebrew sentences preserve correct character order (NFR-28, NFR-29,
   NFR-30).
@@ -244,6 +249,15 @@ Chapter files under `chapters/` hold narrative text and high-level
 
 - The LaTeX Agent consumes the reviewed Markdown drafts from
   **`results/generated_markdown/`** (canonical, per FR-12 and §12.3).
+- The selected topic and verified source manifest travel with the
+  reviewed Markdown and bibliography context. LaTeX generation must
+  preserve citation keys, BiDi section placement, and source coverage
+  expectations already decided upstream; it must not fabricate,
+  replace, or silently discover sources.
+- The canonical HW3 run remains configuration-driven. Its fixed
+  ten-source manifest, Memory-hosted BiDi section, and all-ten citation
+  coverage rule come from `docs/PRD.md` §§22.4 and 22.8–22.9, not from
+  reusable runtime special cases in the renderer.
 - A human review gate runs before the LaTeX Agent starts assembling the
   project (see `docs/PRD_crewai_pipeline.md` §10).
 - The exact converter (custom Python, `pandoc`, CrewAI tool-driven) is

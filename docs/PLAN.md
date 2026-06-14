@@ -213,7 +213,7 @@ independently verified and closed with evidence. The Phase 2 milestone
 remains open until P2-I04 is merged, post-merge verified, and closed
 manually; only then may the Phase 2 milestone be closed.
 
-### Phase 3 — Topic and scope *(complete — decisions recorded in PRD §22.6–§22.9)*
+### Phase 3 — Topic and scope *(implemented — post-merge evidence pending)*
 
 Phase 1.5 locks the **default demo topic** in `docs/PRD.md` §22 and the
 source set in `config/article_sources.yaml`. Phase 3 resolves the
@@ -227,13 +227,21 @@ remaining open questions from PRD §21 and records them in
   Each dimension gets ~2–3 pages; total 15–20 pages.
 - **BiDi balance (§22.8).** Mostly English with one Hebrew/English
   BiDi section placed in the Memory dimension chapter.
-- **Citation density (§22.9).** 2–3 verified sources per chapter;
-  all 10 manifest sources cited at least once.
+- **Citation density (§22.9).** Canonical HW3 target of approximately
+  2–3 verified sources per chapter; all 10 canonical manifest sources
+  cited at least once across that demonstration article.
 
-**Exit criterion:** Met — all four decisions recorded in
-`docs/PRD.md` §22.6–§22.9. The mechanism PRDs (`PRD_crewai_pipeline.md`,
-`PRD_bibliography_and_citations.md`) already contain sufficient
-constraints; no further updates required.
+Follow-up reconciliation for P3-I01 (#5) and P3-I02 (#6) clarifies the
+generic configurable product contract versus the canonical HW3
+demonstration run and synchronizes the mechanism PRDs that depend on
+these decisions. Until that reconciliation PR is merged and verified on
+`main`, Phase 3 remains implemented but not verified complete.
+
+**Exit criterion:** Pending post-merge verification — all four decisions
+must be recorded in `docs/PRD.md` §22.6–§22.9 and reflected or linked
+from the mechanism PRDs whose behavior depends on them. The Phase 3
+milestone remains open until #5 and #6 are verified with evidence on
+`main` and closed manually.
 
 ### Phase 4 — CrewAI architecture design *(open)*
 
@@ -278,10 +286,12 @@ conversion; `docs/AI_USAGE.md` records the run.
 
 ### Phase 7 — Real-source and bibliography pipeline *(open)*
 
-Implement the Bibliography Agent's source discovery, verification, and
-`references.bib` curation per `docs/PRD_bibliography_and_citations.md`.
-**No fabricated sources, ever** — citation insertion must refuse unverified
-sources and surface unresolved `\cite{...}` as build-time errors.
+Implement the Bibliography Agent's configured-manifest consumption,
+source verification, and `references.bib` curation per
+`docs/PRD_bibliography_and_citations.md`. Automatic source discovery is
+deferred beyond the MVP. **No fabricated sources, ever** — citation
+insertion must refuse unverified sources and surface unresolved
+`\cite{...}` as build-time errors.
 
 **Exit criterion:** `latex_project/references.bib` contains only verified
 real entries; every `\cite{...}` in the LaTeX sources resolves.
