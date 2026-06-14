@@ -410,11 +410,15 @@ do not block the Phase 1.5 lock.
       `src/agentic_publishing_pipeline/contracts/` ships the E1..E12
       models with a single `parse_with_repair` helper; pydantic added
       to runtime deps.*
-- [ ] **P5-I09** — Implement API Gatekeeper: budgets, retries,
+- [x] **P5-I09** — Implement API Gatekeeper: budgets, retries,
       timeouts, retry classification, structured usage/cost events
       carrying `run_id`, `agent_id`, `task_id`, `attempt`, model,
       tokens, latency, status, estimated cost. Provider facade
       separate from policy. [Phase 5] [FR-44, NFR-23, NFR-24, ADR-0004]
+      *Done on `phase/05-...` — `tools/gatekeeper.py` (policy) +
+      `tools/_gatekeeper_policy.py` (budget/identity/cost helpers).
+      Offline-fixture mode emits cost=0 usage events through the
+      same Gatekeeper path as live.*
 - [x] **P5-I10** — Introduce `PipelineRunContext`: unique run ID,
       isolated workspace under `results/<run_id>/`, configuration
       snapshot, structured event log, usage/cost log, artifact
