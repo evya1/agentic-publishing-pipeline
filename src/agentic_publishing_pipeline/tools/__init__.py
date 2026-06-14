@@ -16,10 +16,20 @@ or paid-provider access.
 
 from .fileio import FileIO
 from .gatekeeper import ApiGatekeeper, GatekeeperRejection, request_identity
+from .search import (
+    ManifestLoadError,
+    load_source_manifest_hits,
+    manifest_coverage,
+    verify_arxiv_id,
+)
 
 __all__ = [
     "ApiGatekeeper",
     "FileIO",
     "GatekeeperRejection",
+    "ManifestLoadError",
+    "load_source_manifest_hits",
+    "manifest_coverage",
     "request_identity",
+    "verify_arxiv_id",
 ]

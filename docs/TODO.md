@@ -391,9 +391,13 @@ do not block the Phase 1.5 lock.
       binding rule.*
 - [ ] Implement agent tools under
       `src/agentic_publishing_pipeline/tools/`:
-  - [ ] Search tool for configured-source metadata verification; automatic
+  - [x] Search tool for configured-source metadata verification; automatic
         source discovery is deferred beyond the MVP. [Phase 5, Phase 7]
         [FR-5]
+        *Done on `phase/05-...` — `tools/search.py` reads
+        `config/article_sources.yaml`, exposes `SearchHit`s through
+        the `FixtureSearchAdapter`, and surfaces `verify_arxiv_id`
+        + `manifest_coverage` helpers for the Bibliography Agent.*
   - [x] File I/O tool. [Phase 5]
         *Done on `phase/05-...` — `tools/fileio.FileIO` provides
         atomic writes, path-traversal refusal, and a `fileio.wrote`
