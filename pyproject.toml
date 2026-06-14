@@ -6,7 +6,9 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "TBD" }]
-dependencies = []
+dependencies = [
+    "pydantic>=2.7",
+]
 
 # NOTE: crewai, model-provider SDKs, search SDKs, and heavy LaTeX-related Python
 # packages are intentionally NOT listed here during the scaffold stage. They

@@ -115,12 +115,12 @@ current state before acting.
 | P5-I05      | [#14](https://github.com/evya1/agentic-publishing-pipeline/issues/14) | Implement Markdown conversion tool                                     |
 | P5-I06      | [#15](https://github.com/evya1/agentic-publishing-pipeline/issues/15) | Implement LaTeX compilation tool (LuaLaTeX + biber multi-pass)         |
 | P5-I07      | [#16](https://github.com/evya1/agentic-publishing-pipeline/issues/16) | Implement graph generation tool                                        |
-| P5-I08      | *(planned — GitHub number TBD)* | Implement versioned Pydantic artifact contracts and bounded validation repair |
-| P5-I09      | *(planned — GitHub number TBD)* | Implement API Gatekeeper, budgets, retries, and usage/cost logging |
-| P5-I10      | *(planned — GitHub number TBD)* | Introduce `PipelineRunContext`, isolated workspaces, and artifact manifests |
-| P5-I11      | *(planned — GitHub number TBD)* | Add CLI operational modes and deterministic offline fixtures |
-| P5-I12      | *(planned — GitHub number TBD)* | Implement versioned prompt/config registry and compatibility checks |
-| P5-I13      | *(planned — GitHub number TBD)* | Add baseline CI, pre-commit, lockfile, line-cap, and offline smoke gates |
+| P5-I08      | [#73](https://github.com/evya1/agentic-publishing-pipeline/issues/73) | Implement versioned Pydantic artifact contracts and bounded validation repair |
+| P5-I09      | [#74](https://github.com/evya1/agentic-publishing-pipeline/issues/74) | Implement API Gatekeeper, budgets, retries, and usage/cost logging |
+| P5-I10      | [#75](https://github.com/evya1/agentic-publishing-pipeline/issues/75) | Introduce `PipelineRunContext`, isolated workspaces, and artifact manifests |
+| P5-I11      | [#76](https://github.com/evya1/agentic-publishing-pipeline/issues/76) | Add CLI operational modes and deterministic offline fixtures |
+| P5-I12      | [#77](https://github.com/evya1/agentic-publishing-pipeline/issues/77) | Implement versioned prompt/config registry and compatibility checks |
+| P5-I13      | [#78](https://github.com/evya1/agentic-publishing-pipeline/issues/78) | Add baseline CI, lockfile, line-cap, and offline smoke gates |
 
 #### Phase 6 — Markdown-first content pipeline ([milestone #5](https://github.com/evya1/agentic-publishing-pipeline/milestone/5))
 
@@ -395,12 +395,16 @@ do not block the Phase 1.5 lock.
   - [ ] LaTeX compilation tool (LuaLaTeX + biber multi-pass). [Phase 5,
         Phase 10] [FR-20]
   - [ ] Graph generation tool. [Phase 5, Phase 8] [FR-29, FR-30]
-- [ ] **P5-I08** — Implement versioned Pydantic artifact contracts
+- [x] **P5-I08** — Implement versioned Pydantic artifact contracts
       (ResearchNotes, Outline, ChapterDrafts, AssetSpecs, BiDiSection,
       BibliographyBundle, LaTeXProjectSpec, ReviewerSignal, BuildResult,
       ValidationReport, PromotionRecord) and bounded validation repair
       (≤1 attempt). No stage may consume unvalidated raw LLM output.
       [Phase 5] [FR-41, FR-42, NFR-19, ADR-0002]
+      *Done on `phase/05-provider-service-layer-and-tools` —
+      `src/agentic_publishing_pipeline/contracts/` ships the E1..E12
+      models with a single `parse_with_repair` helper; pydantic added
+      to runtime deps.*
 - [ ] **P5-I09** — Implement API Gatekeeper: budgets, retries,
       timeouts, retry classification, structured usage/cost events
       carrying `run_id`, `agent_id`, `task_id`, `attempt`, model,
