@@ -503,9 +503,13 @@ group member has submitted in Moodle.
 
 - Phase 1 is complete (mechanism PRDs reconciled — commit `4e5517c`).
   Phase 1.5 is complete (demo topic and source manifest locked —
-  commit `303a425`). Phases 2 through 14 remain open. None of the
-  open phases is allowed to be marked complete preemptively. PRD
-  acceptance-criteria checkboxes (`docs/PRD.md` §14,
+  commit `303a425`). Phase 2 and Phase 3 are complete and closed
+  (milestones #1 and #2 closed). Phase 4 is currently reopened only
+  for the P4-I04 architecture amendment and remains open until that
+  PR is merged and post-merge verification succeeds. Phases 5 through
+  14 remain open and pending future implementation. None of the
+  currently-open phases is allowed to be marked complete preemptively.
+  PRD acceptance-criteria checkboxes (`docs/PRD.md` §14,
   `docs/HW3_REQUIREMENTS.md`, `SUBMISSION_CHECKLIST.md`) are ticked
   only after the underlying artifact is verified on disk and, where
   applicable, by a passing build, test, or validator run.
