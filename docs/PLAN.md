@@ -1,9 +1,17 @@
 # PLAN — agentic-publishing-pipeline
 
-> **Status:** Phase 0, 1, and 1.5 complete. Phases 2–14 (project management,
-> scope, CrewAI architecture, provider layer, Markdown pipeline, bibliography,
-> visualization, LaTeX assembly, PDF build, validation, tests, README
-> finalization, submission) remain open.
+> **Status:** Phases 0, 1, 1.5, 2, and 3 are complete and closed.
+> Phase 4 (CrewAI architecture design) is **reopened** to land the
+> P4-I04 architecture amendment (C4 views, runtime sequence diagrams,
+> typed artifact contracts, ADRs); original P4-I01–P4-I03 remain
+> closed with evidence. Phases 5–14 (provider/service layer, Markdown
+> pipeline, bibliography, visualization, LaTeX assembly, PDF build,
+> validation, tests, README finalization, submission) remain open. The
+> implementation order for Phase 5 onward is now documented in
+> [`docs/architecture/`](architecture/) and tracked under planned
+> internal IDs P5-I08, P5-I09, P5-I10, P5-I11, P5-I12, P5-I13, P8-I02,
+> P10-I03, P12-I05, P12-I06, P13-I05 (GitHub issue numbers will be
+> allocated when each item is opened).
 
 ## How PRD, PLAN, TODO, and GitHub fit together
 
@@ -170,7 +178,7 @@ claims the directory is empty, and `docs/TODO.md` tracks the follow-up
 work for author metadata, URL/DOI verification, audit trail, and
 bibliography extraction.
 
-### Phase 2 — Project management setup *(verified complete; final milestone closure pending P2-I04 post-merge verification)*
+### Phase 2 — Project management setup *(complete and closed — P2-I04 reconciled via PR #69; milestone #1 closed)*
 
 Set up GitHub as the GUI tracking layer for this plan and TODO, and
 establish the contribution / synchronization / handoff governance that
@@ -199,21 +207,17 @@ Verified state:
   Phase ↔ Milestone rules above, `.github/pull_request_template.md`,
   and `.github/ISSUE_TEMPLATE/work_item.md` + `config.yml`.
 - **P2-I04 (#68) — Reconcile verified Phase 2 completion in PLAN and
-  TODO.** Final Phase 2 reconciliation issue. Records the verified
-  closure state of P2-I00 through P2-I03 in `docs/PLAN.md` and
-  `docs/TODO.md` while leaving the Phase 2 milestone open until this
-  issue is merged, post-merge verified, and closed manually.
+  TODO.** Closed with evidence after PR #69 merged. Milestone #1 was
+  closed in the same reconciliation step.
 
-**Exit criterion (verified complete):** milestones for every
-still-open phase exist; every open TODO item has a tracking issue with
-the right labels; the mapping TODO ↔ issue ↔ milestone ↔ PRD
-requirement is documented in `docs/TODO.md`'s introduction
-(Traceability section); and P2-I00, P2-I01, P2-I02, and P2-I03 are
-independently verified and closed with evidence. The Phase 2 milestone
-remains open until P2-I04 is merged, post-merge verified, and closed
-manually; only then may the Phase 2 milestone be closed.
+**Exit criterion (verified complete and milestone closed):** milestones
+for every still-open phase exist; every open TODO item has a tracking
+issue with the right labels; the mapping TODO ↔ issue ↔ milestone ↔
+PRD requirement is documented in `docs/TODO.md`'s introduction
+(Traceability section); P2-I00 through P2-I04 are independently
+verified and closed with evidence; the Phase 2 milestone is closed.
 
-### Phase 3 — Topic and scope *(implemented — post-merge evidence pending)*
+### Phase 3 — Topic and scope *(complete and closed — P3-I01/P3-I02 reconciled via PR #70; milestone #2 closed)*
 
 Phase 1.5 locks the **default demo topic** in `docs/PRD.md` §22 and the
 source set in `config/article_sources.yaml`. Phase 3 resolves the
@@ -231,33 +235,71 @@ remaining open questions from PRD §21 and records them in
   2–3 verified sources per chapter; all 10 canonical manifest sources
   cited at least once across that demonstration article.
 
-Follow-up reconciliation for P3-I01 (#5) and P3-I02 (#6) clarifies the
-generic configurable product contract versus the canonical HW3
-demonstration run and synchronizes the mechanism PRDs that depend on
-these decisions. Until that reconciliation PR is merged and verified on
-`main`, Phase 3 remains implemented but not verified complete.
+Reconciliation for P3-I01 (#5) and P3-I02 (#6) clarified the generic
+configurable product contract versus the canonical HW3 demonstration
+run and synchronized the mechanism PRDs that depend on these
+decisions. PR #70 merged the reconciliation on `main`
+(`91ae128`); both issues are closed with evidence; milestone #2 is
+closed.
 
-**Exit criterion:** Pending post-merge verification — all four decisions
-must be recorded in `docs/PRD.md` §22.6–§22.9 and reflected or linked
-from the mechanism PRDs whose behavior depends on them. The Phase 3
-milestone remains open until #5 and #6 are verified with evidence on
-`main` and closed manually.
+**Exit criterion (verified complete and milestone closed):** all four
+decisions are recorded in `docs/PRD.md` §22.6–§22.9 and reflected in
+the mechanism PRDs whose behavior depends on them; P3-I01 and P3-I02
+are closed with evidence; the Phase 3 milestone is closed.
 
-### Phase 4 — CrewAI architecture design *(open)*
+### Phase 4 — CrewAI architecture design *(reopened for P4-I04; original P4-I01–P4-I03 remain closed with evidence)*
 
-Design the **eight** agents from `docs/PRD.md` §8.3 — Researcher, Outline,
-Writer, Technical-Asset, Hebrew/BiDi, LaTeX, Bibliography, Reviewer — with
-explicit `role`, `goal`, `backstory`, and tool list each. Design the task
-graph (research → outline → write → review → LaTeX → validate; ≥5 tasks per
-KPI; ≥3 tasks consume earlier task `context` per AC §14.5). Default
-`Process` is **sequential** (FR-8); any deviation must be justified in
-`docs/PRD_crewai_pipeline.md`. Draft initial prompts in `docs/PROMPTS.md`.
+Phase 4 originally captured the **eight** agents from `docs/PRD.md` §8.3
+— Researcher, Outline, Writer, Technical-Asset, Hebrew/BiDi, LaTeX,
+Bibliography, Reviewer — with explicit `role`, `goal`, `backstory`, and
+tool list each (P4-I01 / #7, closed), defined the eight-task graph with
+sequential `Process` (P4-I02 / #8, closed), and captured initial
+verbatim prompts in `docs/PROMPTS.md` (P4-I03 / #9, closed).
 
-**Exit criterion:** agent and task design captured in
-`docs/PRD_crewai_pipeline.md` and reflected in updates to `docs/PROMPTS.md`;
-no implementation code yet.
+P4-I04 (the current amendment) **extends** Phase 4 with the additional
+runtime architecture contracts required before Phase 5 may begin:
 
-### Phase 5 — Provider/service layer and tools *(open)*
+- C4 system-context, container, and component views;
+- runtime sequence diagrams (offline-fixture success, live success,
+  invalid-output + one bounded repair, repair-exhaustion failure,
+  provider/budget rejection, LaTeX compilation failure, deterministic
+  validation failure, explicit artifact promotion);
+- named, versioned typed artifact contracts for every task edge;
+- prompt/config identifier for every agent and task;
+- permitted tools, side effects, and run-relative artifact roots;
+- one bounded repair attempt policy;
+- deterministic rendering / file-authority boundary;
+- run lifecycle, isolated workspace, configuration snapshot,
+  structured event log, usage/cost log, artifact manifest, and
+  explicit promotion;
+- operational modes (`dry-run`, `offline-fixture`, `live`,
+  `compile-only`, `validate-only`, `--topic`/`--manifest` override,
+  `resume`);
+- machine-readable, versioned prompt/config registry distinct from
+  `docs/PROMPTS.md` (preserved as the human evidence ledger);
+- initial ADRs ADR-0001 through ADR-0007.
+
+Deliverable tree:
+
+- `docs/architecture/c4_views.md`
+- `docs/architecture/runtime_sequences.md`
+- `docs/architecture/artifact_contracts.md`
+- `docs/architecture/run_lifecycle.md`
+- `docs/architecture/prompt_config_registry.md`
+- `docs/architecture/adrs/ADR-0001..ADR-0007*.md`
+
+**Exit criterion (Phase 4 reopened):**
+
+1. Original P4-I01, P4-I02, and P4-I03 closure evidence is preserved
+   (`docs/PRD_crewai_pipeline.md`, `docs/PROMPTS.md`).
+2. P4-I04 lands the architecture documents listed above; PRDs, PLAN,
+   and TODO agree.
+3. The amendment introduces no runtime source code.
+4. The Phase 4 milestone is re-closed only after the P4-I04 PR is
+   merged, post-merge verified on `main`, P4-I04 is closed with
+   evidence, and no other Phase 4 work remains.
+
+### Phase 5 — Provider/service layer and tools *(open; expanded to include the runtime foundations designed under P4-I04)*
 
 Implement the controlled provider/service layer (NFR-23) so model and search
 calls route through one place. Add `.env-example` (FR-4) and load secrets
@@ -267,9 +309,42 @@ dependencies (`crewai`, model SDK, search SDK, `matplotlib`, etc.) enter
 `pyproject.toml` only as each tool is implemented — `uv add` per package,
 no speculative installs.
 
+Phase 5 also implements the runtime foundations designed under P4-I04,
+in this dependency order (see [`docs/architecture/`](architecture/)):
+
+- **P5-I08** — typed Pydantic artifact contracts (E1..E12) with
+  one bounded repair attempt (ADR-0002, FR-41, FR-42).
+- **P5-I10** — `PipelineRunContext`, isolated workspace, configuration
+  snapshot, event log, usage log, artifact manifest, explicit
+  promotion (ADR-0005, FR-45, FR-48).
+- **P5-I12** — machine-readable, versioned prompt/config registry with
+  startup compatibility check (FR-47), preserving `docs/PROMPTS.md` as
+  the human evidence ledger.
+- **provider facade** — typed normalized model/search responses,
+  separated from policy (existing P5-I01 / #10 amended; ADR-0004).
+- **P5-I09** — API Gatekeeper with budgets, retries, timeouts, and
+  structured usage/cost events (FR-44, ADR-0004).
+- **P5-I11** — CLI operational modes (`dry-run`, `offline-fixture`,
+  `live`, `compile-only`, `validate-only`, `--topic`/`--manifest`
+  override, `resume`) and deterministic offline fixtures (FR-46).
+- **secure file I/O** — path guards, atomic writes, write-audit
+  (existing P5-I04 / #13 amended).
+- **deterministic renderer** — semantic `LaTeXProjectSpec v1` →
+  `.tex` files (existing P5-I05 / #14 amended; ADR-0003, FR-43).
+- **compilation service** — LuaLaTeX + biber multi-pass with fixed
+  args, timeout, bounded attempts, captured/parsed build log
+  (existing P5-I06 / #15 amended; ADR-0007).
+- **graph and asset tooling** — typed graph/asset specs and
+  deterministic rendering (existing P5-I07 / #16 amended; ties to
+  P8-I02).
+- **P5-I13** — baseline CI on PR/main with frozen dependency sync,
+  Ruff, tests, current coverage gate, automated 150-line cap, and
+  offline smoke run.
+
 **Exit criterion:** `.env-example` committed, provider layer importable
 from `src/agentic_publishing_pipeline/tools/`, every tool exercised by at
-least one unit test.
+least one unit test, and every typed contract and operational mode
+listed above is implemented and tested (offline-fixture green in CI).
 
 ### Phase 6 — Markdown-first content pipeline *(open)*
 
@@ -302,8 +377,15 @@ Implement `src/agentic_publishing_pipeline/visualization/`. It must produce
 at least one graph image saved under `latex_project/figures/` (FR-29,
 FR-30) and consumed by a chapter via `\includegraphics`.
 
+**P8-I02 (planned):** validated technical-asset specs (typed graph,
+table, TikZ, image), deterministic renderers, provenance metadata,
+path safety, and explicit failure/fallback behavior that cannot
+silently change factual content. Ties to the deterministic boundary in
+ADR-0003 and the typed-contract policy in ADR-0002.
+
 **Exit criterion:** a real Python-generated graph file exists under
-`latex_project/figures/` and is included by a chapter.
+`latex_project/figures/` and is included by a chapter, produced from a
+validated typed asset spec.
 
 ### Phase 9 — LaTeX project assembly *(open)*
 
@@ -339,8 +421,14 @@ LuaLaTeX, plus `makeindex` / `makenomenclature` as needed). Output is
 `results/final.pdf` (FR-38, §12.3). Build commands are documented in
 `README.md` so a new developer can reproduce.
 
+**P10-I03 (planned):** define front/back-matter exclusions, report
+total **and** substantive page counts, calibrate the canonical article
+to satisfy the assignment page-count requirement, and add deterministic
+page checks in the ValidatorService (FR-49).
+
 **Exit criterion:** `results/final.pdf` exists, opens cleanly, is ≥15 pages
-(KPI), and is regenerable from a clean checkout via documented commands.
+(KPI) by both total and substantive page rules, and is regenerable from
+a clean checkout via documented commands.
 
 ### Phase 11 — Deterministic ValidatorService *(open)*
 
@@ -367,8 +455,20 @@ Markdown→LaTeX conversion, visualization, and `ValidatorService`. Keep
 in `README.md`: install steps, LaTeX distribution requirements (LuaLaTeX +
 `David CLM` font), regeneration commands, and cost/usage notes.
 
+**P12-I05 (planned):** harden CI with ≥85% coverage, a supported
+Python-version matrix, preserved frozen dependency installation,
+line-cap enforcement, and offline integration (extends P5-I13's
+baseline; do not duplicate scope).
+
+**P12-I06 (planned):** prove genericity by running the same pipeline
+against a second verified topic and a different verified manifest
+without source-code changes; verify no canonical paper IDs, chapter
+names, or prompt assumptions are hardcoded (NFR-34, ADR-0006).
+
 **Exit criterion:** `uv run pytest` and `uv run ruff check .` both pass on
-a clean checkout; `README.md` reproducibility instructions are accurate.
+a clean checkout; `README.md` reproducibility instructions are accurate;
+P12-I05 coverage gate is enforced in CI; P12-I06 second-topic run
+completes successfully.
 
 ### Phase 13 — README, AI usage, and prompt log finalization *(open)*
 
@@ -377,8 +477,17 @@ real run output), and fill `docs/AI_USAGE.md` and `docs/PROMPTS.md` with
 the actual prompts, models, costs, and human verification notes used to
 generate the final PDF.
 
+**P13-I05 (planned):** publish a sanitized, self-contained final-run
+evidence bundle containing the selected run ID, configuration snapshot,
+prompt/config registry version, source manifest, artifact manifest,
+validation report, build log summary, usage/cost report, screenshots,
+and final PDF/LaTeX references. The bundle must contain no secrets, no
+local-only archive bytes, no private paths, and no external repository
+references or attribution (NFR-33).
+
 **Exit criterion:** README accurately describes the running system; AI
-usage and prompt log are complete and current at submission time.
+usage and prompt log are complete and current at submission time;
+P13-I05 sanitized evidence bundle is published.
 
 ### Phase 14 — Final submission packaging *(open)*
 
