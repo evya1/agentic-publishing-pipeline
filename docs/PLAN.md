@@ -170,44 +170,48 @@ claims the directory is empty, and `docs/TODO.md` tracks the follow-up
 work for author metadata, URL/DOI verification, audit trail, and
 bibliography extraction.
 
-### Phase 2 — Project management setup *(P2-I00–P2-I03 implementation complete on [PR #66](https://github.com/evya1/agentic-publishing-pipeline/pull/66); per-issue verification per [`CONTRIBUTING.md`](../CONTRIBUTING.md) §8.6 pending before milestone closure)*
+### Phase 2 — Project management setup *(verified complete; final milestone closure pending P2-I04 post-merge verification)*
 
 Set up GitHub as the GUI tracking layer for this plan and TODO, and
 establish the contribution / synchronization / handoff governance that
 every later phase will rely on.
 
-Implementation state (artifacts demonstrably present):
+Verified state:
 
 - **P2-I00 (#1) — Apply minimal doc patches before milestone/issue
-  creation.** Landed on `main` as commit `2b0baeb`.
+  creation.** Closed with evidence. Landed on `main` as commit
+  `2b0baeb`.
 - **P2-I01 (#2) — Create 13 GitHub Milestones (Phases 2–14).**
-  Verified via `gh api repos/.../milestones`; one milestone per
-  still-open phase; titles match phase titles. Phase 0, Phase 1, and
-  Phase 1.5 intentionally have no milestone.
+  Closed with evidence. Verified via `gh api repos/.../milestones`;
+  one milestone per still-open phase; titles match phase titles. Phase
+  0, Phase 1, and Phase 1.5 intentionally have no milestone.
 - **P2-I02 (#3) — Create GitHub Issues from open TODO items and apply
-  labels.** Verified: 62 issues (#1–#62) carry TODO wording in titles,
-  correct milestones, and labels from the 11-entry vocabulary now
-  codified in [`CONTRIBUTING.md`](../CONTRIBUTING.md) §11 (`docs`,
-  `architecture`, `crewai`, `latex`, `validation`, `bidi`,
-  `bibliography`, `testing`, `submission`, `decision`, `security`).
+  labels.** Closed with evidence. Verified: 62 issues (#1–#62) carry
+  TODO wording in titles, correct milestones, and labels from the
+  11-entry vocabulary now codified in
+  [`CONTRIBUTING.md`](../CONTRIBUTING.md) §11 (`docs`, `architecture`,
+  `crewai`, `latex`, `validation`, `bidi`, `bibliography`, `testing`,
+  `submission`, `decision`, `security`).
 - **P2-I03 (#4) — Document the mapping in TODO intro and establish
-  the contribution workflow.** Implementation lives on branch
-  `docs/4-p2-i03-project-workflow` ([PR #66](https://github.com/evya1/agentic-publishing-pipeline/pull/66)). Adds the Traceability
-  section to `docs/TODO.md`, `CONTRIBUTING.md`, AI-agent rules in
-  `CLAUDE.md`, a contributing section in `README.md`, the Phase ↔
-  Milestone rules above, `.github/pull_request_template.md`, and
-  `.github/ISSUE_TEMPLATE/work_item.md` + `config.yml`. Awaiting merge.
+  the contribution workflow.** Closed with evidence. Adds the
+  Traceability section to `docs/TODO.md`, `CONTRIBUTING.md`, AI-agent
+  rules in `CLAUDE.md`, a contributing section in `README.md`, the
+  Phase ↔ Milestone rules above, `.github/pull_request_template.md`,
+  and `.github/ISSUE_TEMPLATE/work_item.md` + `config.yml`.
+- **P2-I04 (#68) — Reconcile verified Phase 2 completion in PLAN and
+  TODO.** Final Phase 2 reconciliation issue. Records the verified
+  closure state of P2-I00 through P2-I03 in `docs/PLAN.md` and
+  `docs/TODO.md` while leaving the Phase 2 milestone open until this
+  issue is merged, post-merge verified, and closed manually.
 
-**Exit criterion (state):** milestones for every still-open phase
-exist; every open TODO item has a tracking issue with the right
-labels; the mapping TODO ↔ issue ↔ milestone ↔ PRD requirement is
-documented in `docs/TODO.md`'s introduction (Traceability section).
-The exit criterion's **artifacts** are present. Closing the Phase 2
-milestone additionally requires the per-issue verification and
-evidence comments described in [`CONTRIBUTING.md`](../CONTRIBUTING.md)
-§8.5–§8.6 — for each of P2-I00, P2-I01, P2-I02, P2-I03. That
-verification step happens after [PR #66](https://github.com/evya1/agentic-publishing-pipeline/pull/66) merges; the milestone is not
-closed by this PR.
+**Exit criterion (verified complete):** milestones for every
+still-open phase exist; every open TODO item has a tracking issue with
+the right labels; the mapping TODO ↔ issue ↔ milestone ↔ PRD
+requirement is documented in `docs/TODO.md`'s introduction
+(Traceability section); and P2-I00, P2-I01, P2-I02, and P2-I03 are
+independently verified and closed with evidence. The Phase 2 milestone
+remains open until P2-I04 is merged, post-merge verified, and closed
+manually; only then may the Phase 2 milestone be closed.
 
 ### Phase 3 — Topic and scope *(complete — decisions recorded in PRD §22.6–§22.9)*
 
