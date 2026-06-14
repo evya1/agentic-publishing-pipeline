@@ -419,6 +419,28 @@ governance change.
 
 ---
 
+## 11.5 Dependency policy
+
+Runtime Python dependencies are managed under a strict
+**per-tool, no-speculative-install** policy. The rules are binding on
+every contributor and AI agent:
+
+- A new runtime dependency is added via `uv add <pkg>` only inside the
+  issue commit that actually consumes it. The matching `pyproject.toml`
+  and `uv.lock` changes ship together in that issue's commit.
+- Development tooling (linters, test framework) lives in the `dev`
+  group and is added via `uv add --group dev <pkg>`.
+- `uv.lock` is tracked. Operators with a global `*.lock` ignore must
+  not modify the global ignore file; the lockfile was introduced via
+  `git add -f uv.lock`, after which ordinary Git behaviour applies.
+- Reproducible installs use `uv sync --frozen --group dev`. CI invokes
+  the same command; lockfile drift fails CI.
+- Heavy SDKs (`crewai`, model-provider SDKs, search SDKs, etc.) are
+  **not** added speculatively. They land only when the issue that uses
+  them is implemented. Phase 5 ships with a minimal runtime footprint
+  (Pydantic, PyYAML, Matplotlib) and an offline-fixture provider path
+  so the entire pipeline can run without paid LLM/search credentials.
+
 ## 12. Pull-request synchronization checklist
 
 The PR template at `.github/pull_request_template.md` requires the

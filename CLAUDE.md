@@ -74,7 +74,7 @@ uv run ruff check .                                # lint
 uv run ruff check --fix .                          # lint with autofix
 ```
 
-Dependencies for CrewAI, LLM provider SDKs, search SDKs, and LaTeX-adjacent Python tooling are **intentionally absent** from `pyproject.toml`. Add them with `uv add <pkg>` only when the phase that needs them starts (see `docs/PLAN.md`). Do not pre-install them speculatively.
+Dependencies are managed under a strict **per-tool, no-speculative-install** policy. Add a new runtime dependency with `uv add <pkg>` only inside the issue commit that actually consumes it (P5-I02). The reproducible lockfile lives at `uv.lock` and is tracked despite the operator's global `*.lock` ignore — committed with `git add -f` when first introduced; subsequent updates flow through `uv sync` / `uv add` normally. CI and any clean checkout must be reproducible via `uv sync --frozen --group dev`.
 
 LaTeX compilation is **not** wired up yet. The target engine per the PRD is **LuaLaTeX** (XeLaTeX is an optional later fallback). Do not assume a TeX distribution is installed locally.
 

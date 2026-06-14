@@ -377,9 +377,13 @@ do not block the Phase 1.5 lock.
       [Phase 5] [FR-4, NFR-21]
 - [ ] Load all secrets from `.env` only; never hardcode. [Phase 5]
       [FR-3, NFR-20]
-- [ ] Add `crewai`, the chosen model SDK, the chosen search SDK, and
-      `matplotlib` to `pyproject.toml` via `uv add` — one per tool as it
-      is implemented, no speculative installs. [Phase 5]
+- [x] Track a reproducible `uv.lock` baseline and codify the per-tool,
+      no-speculative-install dependency policy. Heavy SDKs (`crewai`,
+      model/search SDKs, `matplotlib` where applicable) are added by
+      the issue that consumes them, not preemptively. [Phase 5]
+      *Done on `phase/05-provider-service-layer-and-tools` —
+      `uv.lock` is now tracked and `CONTRIBUTING.md §11.5` is the
+      binding rule.*
 - [ ] Implement agent tools under
       `src/agentic_publishing_pipeline/tools/`:
   - [ ] Search tool for configured-source metadata verification; automatic

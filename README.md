@@ -79,6 +79,17 @@ uv run ruff check .                              # lint
 No CrewAI or model-provider command lines are documented yet, because no real
 agents have been implemented. They will be added once the pipeline exists.
 
+A reproducible install uses the tracked lockfile:
+
+```sh
+uv sync --frozen --group dev      # exact, reproducible install from uv.lock
+```
+
+Dependencies follow a strict per-tool, no-speculative-install policy: a new
+runtime dependency is added (via `uv add <pkg>`) only inside the issue commit
+that actually consumes it. See [`CONTRIBUTING.md`](CONTRIBUTING.md) §11.5
+"Dependency policy" for the binding rule.
+
 ### Future LaTeX build workflow (placeholder)
 
 The LaTeX build process will be documented in
