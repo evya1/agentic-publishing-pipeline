@@ -37,7 +37,13 @@ Common participants:
 ## Sequence 1 — Successful offline-fixture run
 
 **Mode:** `offline-fixture`. No network, no API keys required, no paid
-provider call. Deterministic fixture responses replace live LLM/search.
+provider call. Deterministic fixture responses replace live LLM/search,
+but **every call still flows through the API Gatekeeper** so that
+request policy, accounting, and structured event emission remain
+consistent with the live path (see
+[ADR-0004](adrs/ADR-0004-provider-vs-gatekeeper.md) §"Offline fixtures
+still flow through the Gatekeeper"). The Gatekeeper deterministically
+routes the call to the fixture store instead of the network.
 
 ```mermaid
 sequenceDiagram
@@ -49,6 +55,7 @@ sequenceDiagram
     participant Crew
     participant Contracts
     participant Provider
+    participant Gatekeeper
     participant Fixtures
     participant Renderer
     participant Compiler
@@ -61,8 +68,11 @@ sequenceDiagram
     CLI->>Crew: kickoff(sequential)
     loop For each task T1..T8
         Crew->>Provider: request (typed)
-        Provider->>Fixtures: lookup recorded response
-        Fixtures-->>Provider: typed normalized response
+        Provider->>Gatekeeper: gated call (offline routing, no network)
+        Gatekeeper->>Fixtures: lookup recorded response (deterministic)
+        Fixtures-->>Gatekeeper: typed normalized response
+        Gatekeeper->>RunCtx: usage event (mode=offline-fixture, cost=0)
+        Gatekeeper-->>Provider: typed normalized response
         Provider-->>Crew: response
         Crew->>Contracts: parse(output, version)
         Contracts-->>Crew: validated artifact (versioned)
@@ -76,6 +86,20 @@ sequenceDiagram
     Validator-->>RunCtx: validation report (PASS)
     Validator-->>Operator: human-readable report
 ```
+
+Offline-fixture invariants:
+
+- **No external network request** is issued by any container.
+- **No provider API key** is read or required.
+- The **Gatekeeper still applies request policy** (budget accounting,
+  retry classification — vacuously zero-cost — timeout, attempt
+  identity) and emits a `usage.jsonl` event for every request with
+  `mode=offline-fixture` and `estimated_cost=0`. Policy violations
+  (e.g., a configured per-run request cap) are enforced identically to
+  the `live` path.
+- The Gatekeeper is the **only** component that may route a request to
+  `Fixtures`; the provider facade never reads the fixture store
+  directly.
 
 ---
 

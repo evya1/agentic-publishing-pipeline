@@ -51,9 +51,34 @@ provider fallback, no silent model swap, and no silent offline switch**
 - A second model class (e.g., a faster cheaper model for `T2 Outline`)
   is introduced by adding a routing rule in the Gatekeeper, not by
   modifying agents.
-- Offline-fixture mode bypasses the live SDKs (the facade reads from
-  the fixture store) but **still flows through the Gatekeeper** so that
-  budget/usage events remain meaningful in tests.
+- Offline-fixture mode bypasses the live network (no SDK HTTP call,
+  no API key required) but **still flows through the Gatekeeper** so
+  that request policy, accounting, and structured usage events remain
+  meaningful and identical in shape to the live path.
+
+## Offline fixtures still flow through the Gatekeeper
+
+The offline-fixture path is `ProviderFacade → ApiGatekeeper →
+FixtureStore`. The provider facade never reads the fixture store
+directly; the Gatekeeper is the **only** component allowed to route a
+request to fixtures. This preserves the invariants enforced in the
+`live` path:
+
+- every call is gated against the configured budget, timeout, and
+  retry-classification policy (vacuously zero-cost for fixtures);
+- every call emits a `usage.jsonl` event carrying `run_id`,
+  `agent_id`, `task_id`, `attempt`, `mode=offline-fixture`,
+  `estimated_cost=0`, and the resolved fixture key;
+- a configured per-run request cap (or any other policy constraint)
+  rejects an offline run just as it would reject a live run;
+- there is no silent bypass of Gatekeeper controls and no separate
+  offline code path that the facade can take "around" the Gatekeeper.
+
+Offline-fixture mode therefore exercises the same enforcement surface
+as `live`, which is what makes offline tests meaningful as a
+regression check on the policy layer. See
+[`../runtime_sequences.md`](../runtime_sequences.md) Sequence 1 for the
+diagram and the explicit invariants list.
 
 ## Related
 

@@ -44,20 +44,20 @@ config/prompt_registry/
 │   ├── research.v1.yaml
 │   ├── outline.v1.yaml
 │   ├── writer.v1.yaml
-│   ├── technical.v1.yaml
+│   ├── asset.v1.yaml
 │   ├── bidi.v1.yaml
 │   ├── latex.v1.yaml
 │   ├── bibliography.v1.yaml
 │   └── reviewer.v1.yaml
 └── tasks/
-    ├── T1_research.v1.yaml
-    ├── T2_outline.v1.yaml
-    ├── T3_chapter_drafts.v1.yaml
-    ├── T4_technical_assets.v1.yaml
-    ├── T5_bidi.v1.yaml
-    ├── T6_bibliography.v1.yaml
-    ├── T7_latex_assembly.v1.yaml
-    └── T8_review.v1.yaml
+    ├── research.v1.yaml
+    ├── outline.v1.yaml
+    ├── write.v1.yaml
+    ├── asset.v1.yaml
+    ├── bidi.v1.yaml
+    ├── bibliography.v1.yaml
+    ├── latex.v1.yaml
+    └── review.v1.yaml
 ```
 
 `registry.v1.yaml` records the registry's own version and the list of
@@ -71,12 +71,52 @@ entries:
     - id: PROMPT-AGENT-RESEARCH-001
       path: agents/research.v1.yaml
       ledger_id: PROMPT-AGENT-RESEARCH-001
-    # … one per agent
+    - id: PROMPT-AGENT-OUTLINE-001
+      path: agents/outline.v1.yaml
+      ledger_id: PROMPT-AGENT-OUTLINE-001
+    - id: PROMPT-AGENT-WRITER-001
+      path: agents/writer.v1.yaml
+      ledger_id: PROMPT-AGENT-WRITER-001
+    - id: PROMPT-AGENT-ASSET-001
+      path: agents/asset.v1.yaml
+      ledger_id: PROMPT-AGENT-ASSET-001
+    - id: PROMPT-AGENT-BIDI-001
+      path: agents/bidi.v1.yaml
+      ledger_id: PROMPT-AGENT-BIDI-001
+    - id: PROMPT-AGENT-BIBLIOGRAPHY-001
+      path: agents/bibliography.v1.yaml
+      ledger_id: PROMPT-AGENT-BIBLIOGRAPHY-001
+    - id: PROMPT-AGENT-LATEX-001
+      path: agents/latex.v1.yaml
+      ledger_id: PROMPT-AGENT-LATEX-001
+    - id: PROMPT-AGENT-REVIEWER-001
+      path: agents/reviewer.v1.yaml
+      ledger_id: PROMPT-AGENT-REVIEWER-001
   tasks:
-    - id: PROMPT-TASK-T1-001
-      path: tasks/T1_research.v1.yaml
-      ledger_id: PROMPT-TASK-T1-001
-    # … one per task
+    - id: PROMPT-TASK-RESEARCH-001
+      path: tasks/research.v1.yaml
+      ledger_id: PROMPT-TASK-RESEARCH-001
+    - id: PROMPT-TASK-OUTLINE-001
+      path: tasks/outline.v1.yaml
+      ledger_id: PROMPT-TASK-OUTLINE-001
+    - id: PROMPT-TASK-WRITE-001
+      path: tasks/write.v1.yaml
+      ledger_id: PROMPT-TASK-WRITE-001
+    - id: PROMPT-TASK-ASSET-001
+      path: tasks/asset.v1.yaml
+      ledger_id: PROMPT-TASK-ASSET-001
+    - id: PROMPT-TASK-BIDI-001
+      path: tasks/bidi.v1.yaml
+      ledger_id: PROMPT-TASK-BIDI-001
+    - id: PROMPT-TASK-BIBLIOGRAPHY-001
+      path: tasks/bibliography.v1.yaml
+      ledger_id: PROMPT-TASK-BIBLIOGRAPHY-001
+    - id: PROMPT-TASK-LATEX-001
+      path: tasks/latex.v1.yaml
+      ledger_id: PROMPT-TASK-LATEX-001
+    - id: PROMPT-TASK-REVIEW-001
+      path: tasks/review.v1.yaml
+      ledger_id: PROMPT-TASK-REVIEW-001
 compatibility:
   contract_versions:
     - ResearchNotes.v1
@@ -118,8 +158,8 @@ config:
 Task entries also declare the contracts they emit and consume:
 
 ```yaml
-id: PROMPT-TASK-T3-001
-ledger_id: PROMPT-TASK-T3-001
+id: PROMPT-TASK-WRITE-001
+ledger_id: PROMPT-TASK-WRITE-001
 kind: task
 version: v1
 prompt:

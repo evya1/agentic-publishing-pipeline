@@ -334,9 +334,9 @@ do not block the Phase 1.5 lock.
       `config/article_sources.yaml`. [Phase 1.5]
 - [x] Decide audience, depth target, BiDi balance, and citation
       density target per chapter. Decisions recorded in `docs/PRD.md`
-      §22.6–§22.9; mechanism-PRD synchronization is pending post-merge
-      verification under P3-I01 (#5) and P3-I02 (#6). [Phase 3]
-      [PRD §21 open questions, PRD §22]
+      §22.6–§22.9; mechanism-PRD synchronization landed via PR #70;
+      P3-I01 (#5) and P3-I02 (#6) closed with evidence; milestone #2
+      closed. [Phase 3] [PRD §21 open questions, PRD §22]
 
 ### C.2 CrewAI architecture and prompts
 
@@ -616,17 +616,18 @@ do not block the Phase 1.5 lock.
 - [ ] f-strings for interpolation; comprehensions only where they
       improve readability. [NFR-9, NFR-10]
 
-## F. GitHub project management *(Phase 2 — verified complete; final milestone closure pending P2-I04 post-merge verification)*
+## F. GitHub project management *(Phase 2 — complete and closed; milestone #1 closed)*
 
 The local Markdown plan is mirrored into GitHub as the GUI tracking
 layer. The discrete Phase 2 work (`P2-I00` … `P2-I03`) created the
 milestones, the issues, the label vocabulary, the contribution
-workflow, and the mapping back into this file. Those issues are closed
-with evidence. `P2-I04` (#68) is the final Phase 2 reconciliation step:
-it records that verified closure state in `docs/PLAN.md` and this file
-before the Phase 2 milestone may close. The items below are ticked once
-the underlying GitHub or repository artifact is demonstrably present;
-closing the corresponding **issue** still requires evidence per §F-6.
+workflow, and the mapping back into this file. `P2-I04` (#68) was the
+final Phase 2 reconciliation step; it recorded the verified closure
+state in `docs/PLAN.md` and this file, was merged via PR #69, and is
+closed with evidence. The Phase 2 milestone (milestone #1) is closed.
+The items below are ticked once the underlying GitHub or repository
+artifact is demonstrably present; closing the corresponding **issue**
+still requires evidence per §F-6.
 
 - [x] Create one **GitHub Milestone** per open phase in `docs/PLAN.md`
       (Phases 2 through 14). Milestone titles match phase titles. Phases 0,

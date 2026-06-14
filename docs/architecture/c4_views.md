@@ -197,7 +197,7 @@ flowchart TB
         A1["Research Agent<br/>prompt: PROMPT-AGENT-RESEARCH-001"]
         A2["Outline Agent<br/>prompt: PROMPT-AGENT-OUTLINE-001"]
         A3["Writer Agent<br/>prompt: PROMPT-AGENT-WRITER-001"]
-        A4["Technical Asset Agent<br/>prompt: PROMPT-AGENT-TECHNICAL-001"]
+        A4["Technical Asset Agent<br/>prompt: PROMPT-AGENT-ASSET-001"]
         A5["Hebrew/BiDi Agent<br/>prompt: PROMPT-AGENT-BIDI-001"]
         A6["LaTeX Agent<br/>prompt: PROMPT-AGENT-LATEX-001"]
         A7["Bibliography Agent<br/>prompt: PROMPT-AGENT-BIBLIOGRAPHY-001"]
@@ -205,14 +205,14 @@ flowchart TB
     end
 
     subgraph Tasks["Tasks (PRD_crewai_pipeline §6)"]
-        T1["T1 Research<br/>PROMPT-TASK-T1-001"]
-        T2["T2 Outline<br/>PROMPT-TASK-T2-001"]
-        T3["T3 Draft Markdown<br/>PROMPT-TASK-T3-001"]
-        T4["T4 Technical assets<br/>PROMPT-TASK-T4-001"]
-        T5["T5 BiDi section<br/>PROMPT-TASK-T5-001"]
-        T6["T6 Bibliography<br/>PROMPT-TASK-T6-001"]
-        T7["T7 LaTeX assembly<br/>PROMPT-TASK-T7-001"]
-        T8["T8 Review<br/>PROMPT-TASK-T8-001"]
+        T1["T1 Research<br/>PROMPT-TASK-RESEARCH-001"]
+        T2["T2 Outline<br/>PROMPT-TASK-OUTLINE-001"]
+        T3["T3 Draft Markdown<br/>PROMPT-TASK-WRITE-001"]
+        T4["T4 Technical assets<br/>PROMPT-TASK-ASSET-001"]
+        T5["T5 BiDi section<br/>PROMPT-TASK-BIDI-001"]
+        T6["T6 Bibliography<br/>PROMPT-TASK-BIBLIOGRAPHY-001"]
+        T7["T7 LaTeX assembly<br/>PROMPT-TASK-LATEX-001"]
+        T8["T8 Review<br/>PROMPT-TASK-REVIEW-001"]
     end
 
     subgraph TypedBoundary["Typed contract boundary (P5-I08)"]
