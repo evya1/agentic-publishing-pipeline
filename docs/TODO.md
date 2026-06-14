@@ -90,10 +90,10 @@ current state before acting.
 
 #### Phase 3 — Topic and scope ([milestone #2](https://github.com/evya1/agentic-publishing-pipeline/milestone/2))
 
-| Internal ID | Issue | Title (abridged)                                                         |
-|-------------|-------|--------------------------------------------------------------------------|
-| P3-I01      | [#5](https://github.com/evya1/agentic-publishing-pipeline/issues/5) | Decide audience, depth target, BiDi balance, citation density           |
-| P3-I02      | [#6](https://github.com/evya1/agentic-publishing-pipeline/issues/6) | Reflect Phase 3 decisions in PRD §22/§3 and mechanism PRDs              |
+| Internal ID | Issue | Status | Title (abridged)                                                         |
+|-------------|-------|--------|--------------------------------------------------------------------------|
+| P3-I01      | [#5](https://github.com/evya1/agentic-publishing-pipeline/issues/5) | Open pending post-merge verification | Decide audience, depth target, BiDi balance, citation density |
+| P3-I02      | [#6](https://github.com/evya1/agentic-publishing-pipeline/issues/6) | Open pending post-merge verification | Reflect Phase 3 decisions in PRD §22/§3 and mechanism PRDs |
 
 #### Phase 4 — CrewAI architecture design ([milestone #3](https://github.com/evya1/agentic-publishing-pipeline/milestone/3))
 
@@ -308,7 +308,10 @@ do not block the Phase 1.5 lock.
       [Phase 7] [`docs/PRD_bibliography_and_citations.md` §9]
 - [x] Resolve the remaining Phase 3 open questions (audience, depth
       target, BiDi balance, citation density target) and record them
-      in `docs/PRD.md` §22.6–§22.9. [Phase 3] [PRD §21 open questions]
+      in `docs/PRD.md` §22.6–§22.9. The decisions are implemented, but
+      P3-I01 (#5) and P3-I02 (#6) remain open until the synchronized
+      mechanism-PRD reconciliation is merged and verified on `main`.
+      [Phase 3] [PRD §21 open questions]
 
 ## C. Future implementation work *(open)*
 
@@ -319,7 +322,9 @@ do not block the Phase 1.5 lock.
       `config/article_sources.yaml`. [Phase 1.5]
 - [x] Decide audience, depth target, BiDi balance, and citation
       density target per chapter. Decisions recorded in `docs/PRD.md`
-      §22.6–§22.9. [Phase 3] [PRD §21 open questions, PRD §22]
+      §22.6–§22.9; mechanism-PRD synchronization is pending post-merge
+      verification under P3-I01 (#5) and P3-I02 (#6). [Phase 3]
+      [PRD §21 open questions, PRD §22]
 
 ### C.2 CrewAI architecture and prompts
 
@@ -347,7 +352,9 @@ do not block the Phase 1.5 lock.
       is implemented, no speculative installs. [Phase 5]
 - [ ] Implement agent tools under
       `src/agentic_publishing_pipeline/tools/`:
-  - [ ] Search tool (real-source discovery). [Phase 5, Phase 7] [FR-5]
+  - [ ] Search tool for configured-source metadata verification; automatic
+        source discovery is deferred beyond the MVP. [Phase 5, Phase 7]
+        [FR-5]
   - [ ] File I/O tool. [Phase 5]
   - [ ] Markdown conversion tool (used by the Markdown→LaTeX path).
         [Phase 5, Phase 9]
