@@ -417,7 +417,12 @@ do not block the Phase 1.5 lock.
         timeouts, captured & parsed build log, and returns a
         `BuildResult v1`. Refuses on missing binaries unless an
         injected runner is supplied.*
-  - [ ] Graph generation tool. [Phase 5, Phase 8] [FR-29, FR-30]
+  - [x] Graph generation tool. [Phase 5, Phase 8] [FR-29, FR-30]
+        *Done on `phase/05-...` — `visualization/graph.render_line_plot`
+        and `render_python_graph_asset` use Matplotlib (Agg
+        backend, no GUI). Outputs land under
+        `latex_project/figures/` through the FileIO tool, audited,
+        and emit a JSON provenance file next to each PNG.*
 - [x] **P5-I08** — Implement versioned Pydantic artifact contracts
       (ResearchNotes, Outline, ChapterDrafts, AssetSpecs, BiDiSection,
       BibliographyBundle, LaTeXProjectSpec, ReviewerSignal, BuildResult,
