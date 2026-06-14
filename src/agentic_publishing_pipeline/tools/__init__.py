@@ -14,6 +14,12 @@ Each tool is small, deterministic, and fully tested without network
 or paid-provider access.
 """
 
+from .fileio import FileIO
 from .gatekeeper import ApiGatekeeper, GatekeeperRejection, request_identity
 
-__all__ = ["ApiGatekeeper", "GatekeeperRejection", "request_identity"]
+__all__ = [
+    "ApiGatekeeper",
+    "FileIO",
+    "GatekeeperRejection",
+    "request_identity",
+]

@@ -394,7 +394,10 @@ do not block the Phase 1.5 lock.
   - [ ] Search tool for configured-source metadata verification; automatic
         source discovery is deferred beyond the MVP. [Phase 5, Phase 7]
         [FR-5]
-  - [ ] File I/O tool. [Phase 5]
+  - [x] File I/O tool. [Phase 5]
+        *Done on `phase/05-...` — `tools/fileio.FileIO` provides
+        atomic writes, path-traversal refusal, and a `fileio.wrote`
+        audit event into the run-context event log.*
   - [ ] Markdown conversion tool (used by the Markdown→LaTeX path).
         [Phase 5, Phase 9]
   - [ ] LaTeX compilation tool (LuaLaTeX + biber multi-pass). [Phase 5,
