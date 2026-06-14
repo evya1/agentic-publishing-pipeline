@@ -409,8 +409,14 @@ do not block the Phase 1.5 lock.
         (`parse_placeholders`/`strip_placeholders`/`has_placeholder`)
         and LaTeX special-character escaping. Phase 9 reuses the
         same seam.*
-  - [ ] LaTeX compilation tool (LuaLaTeX + biber multi-pass). [Phase 5,
+  - [x] LaTeX compilation tool (LuaLaTeX + biber multi-pass). [Phase 5,
         Phase 10] [FR-20]
+        *Done on `phase/05-...` — `tools/latex_build.build_pdf`
+        runs the deterministic 4-pass sequence
+        (lualatex → biber → lualatex → lualatex) with fixed args,
+        timeouts, captured & parsed build log, and returns a
+        `BuildResult v1`. Refuses on missing binaries unless an
+        injected runner is supplied.*
   - [ ] Graph generation tool. [Phase 5, Phase 8] [FR-29, FR-30]
 - [x] **P5-I08** — Implement versioned Pydantic artifact contracts
       (ResearchNotes, Outline, ChapterDrafts, AssetSpecs, BiDiSection,

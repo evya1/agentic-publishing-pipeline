@@ -16,6 +16,7 @@ or paid-provider access.
 
 from .fileio import FileIO
 from .gatekeeper import ApiGatekeeper, GatekeeperRejection, request_identity
+from .latex_build import LaTeXBuildError, SubprocessRunner, build_pdf
 from .markdown import (
     ParsedPlaceholder,
     escape_latex,
@@ -34,8 +35,11 @@ __all__ = [
     "ApiGatekeeper",
     "FileIO",
     "GatekeeperRejection",
+    "LaTeXBuildError",
     "ManifestLoadError",
     "ParsedPlaceholder",
+    "SubprocessRunner",
+    "build_pdf",
     "escape_latex",
     "has_placeholder",
     "load_source_manifest_hits",
