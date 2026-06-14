@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "description": "Declarative manifest of the 13 GitHub milestones for Phases 2–14 (P2-I01). Titles and descriptions must match the live GitHub state exactly. due_on is always null per the project rule against fabricated due dates.",
+  "milestones": [
+    {
+      "title": "Phase 2 — Project management setup",
+      "description": "Mirror PLAN/TODO into GitHub milestones, issues, and the baseline label vocabulary; record the TODO ↔ issue ↔ milestone ↔ PRD mapping. See docs/PLAN.md §Phase 2.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 3 — Topic and scope",
+      "description": "Lock audience, depth, BiDi balance, citation density in docs/PRD.md §22. See docs/PLAN.md §Phase 3.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 4 — CrewAI architecture design",
+      "description": "Specify the 8 agents from PRD §8.3 with role/goal/backstory/tools, define ≥5 tasks (≥3 with context), and draft initial prompts. Default Process is sequential (FR-8). See docs/PLAN.md §Phase 4.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 5 — Provider/service layer and tools",
+      "description": "Implement controlled provider/service layer (NFR-23), add .env-example (FR-4), and implement 5 agent tools: search, file I/O, Markdown conversion, LaTeX compile, graph. Dependencies added via 'uv add' per tool — no speculative installs. See docs/PLAN.md §Phase 5.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 6 — Markdown-first content pipeline",
+      "description": "Generate approved Markdown drafts at results/generated_markdown/ (canonical per FR-12) with the required placeholders; run a human review gate before any LaTeX conversion (FR-14, NFR-19). See docs/PLAN.md §Phase 6.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 7 — Real-source and bibliography pipeline",
+      "description": "Verify the 10 manifest sources, populate references.bib, resolve every \\cite{...}; no fabricated sources per docs/PRD_bibliography_and_citations.md. See docs/PLAN.md §Phase 7.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 8 — Python graph generation pipeline",
+      "description": "Implement src/agentic_publishing_pipeline/visualization/; produce ≥1 graph image under latex_project/figures/ consumed by a chapter via \\includegraphics. See docs/PLAN.md §Phase 8.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 9 — LaTeX project assembly",
+      "description": "Build the structured LaTeX project per PRD §8.5 / §14.3 (LuaLaTeX MVP, David CLM + Latin Modern Roman, FR-17a–d separation). See docs/PLAN.md §Phase 9.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 10 — PDF build pipeline",
+      "description": "Multi-pass build (LuaLaTeX → biber → LuaLaTeX → LuaLaTeX, plus makeindex / makenomenclature) producing results/final.pdf. See docs/PLAN.md §Phase 10.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 11 — Deterministic ValidatorService",
+      "description": "Implement deterministic ValidatorService that runs after the Reviewer Agent; never the LLM as source of truth (FR-40 / NFR-19). See docs/PLAN.md §Phase 11.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 12 — Tests, lint, and reproducibility",
+      "description": "Real tests for provider layer, tools, Markdown→LaTeX conversion, visualization, ValidatorService; uv run pytest and uv run ruff check . green; reproducibility documented. See docs/PLAN.md §Phase 12.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 13 — README, AI usage, and prompt log finalization",
+      "description": "Bring README.md, docs/AI_USAGE.md, docs/PROMPTS.md to current architecture and real run state; align SUBMISSION_CHECKLIST.md with PRD §14. See docs/PLAN.md §Phase 13.",
+      "due_on": null
+    },
+    {
+      "title": "Phase 14 — Final submission packaging",
+      "description": "Moodle wrapper PDF from the official template, <GROUP_CODE>-ex03.pdf filename, per-member Moodle submissions, all SUBMISSION_CHECKLIST.md checkboxes individually satisfied. See docs/PLAN.md §Phase 14.",
+      "due_on": null
+    }
+  ]
+}
