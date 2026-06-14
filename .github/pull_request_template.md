@@ -15,7 +15,7 @@ Do not delete checklist sections.
 
 ## Linked issue
 
-- Refs #<!-- GitHub issue number, e.g. 4 -->
+- Related issue: <!-- Replace with a verified non-closing reference, for example: Refs #123 -->
 - Internal issue ID: <!-- e.g. P2-I03 -->
 - PRD reference: <!-- e.g. FR-12, NFR-19, AC §14.5 -->
 - PLAN phase: <!-- e.g. Phase 2 — Project management setup -->

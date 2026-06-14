@@ -170,7 +170,7 @@ claims the directory is empty, and `docs/TODO.md` tracks the follow-up
 work for author metadata, URL/DOI verification, audit trail, and
 bibliography extraction.
 
-### Phase 2 — Project management setup *(P2-I00–P2-I03 implementation complete on PR #66; per-issue verification per [`CONTRIBUTING.md`](../CONTRIBUTING.md) §8.6 pending before milestone closure)*
+### Phase 2 — Project management setup *(P2-I00–P2-I03 implementation complete on [PR #66](https://github.com/evya1/agentic-publishing-pipeline/pull/66); per-issue verification per [`CONTRIBUTING.md`](../CONTRIBUTING.md) §8.6 pending before milestone closure)*
 
 Set up GitHub as the GUI tracking layer for this plan and TODO, and
 establish the contribution / synchronization / handoff governance that
@@ -192,7 +192,7 @@ Implementation state (artifacts demonstrably present):
   `bibliography`, `testing`, `submission`, `decision`, `security`).
 - **P2-I03 (#4) — Document the mapping in TODO intro and establish
   the contribution workflow.** Implementation lives on branch
-  `docs/4-p2-i03-project-workflow` (PR #66). Adds the Traceability
+  `docs/4-p2-i03-project-workflow` ([PR #66](https://github.com/evya1/agentic-publishing-pipeline/pull/66)). Adds the Traceability
   section to `docs/TODO.md`, `CONTRIBUTING.md`, AI-agent rules in
   `CLAUDE.md`, a contributing section in `README.md`, the Phase ↔
   Milestone rules above, `.github/pull_request_template.md`, and
@@ -206,7 +206,7 @@ The exit criterion's **artifacts** are present. Closing the Phase 2
 milestone additionally requires the per-issue verification and
 evidence comments described in [`CONTRIBUTING.md`](../CONTRIBUTING.md)
 §8.5–§8.6 — for each of P2-I00, P2-I01, P2-I02, P2-I03. That
-verification step happens after PR #66 merges; the milestone is not
+verification step happens after [PR #66](https://github.com/evya1/agentic-publishing-pipeline/pull/66) merges; the milestone is not
 closed by this PR.
 
 ### Phase 3 — Topic and scope *(complete — decisions recorded in PRD §22.6–§22.9)*

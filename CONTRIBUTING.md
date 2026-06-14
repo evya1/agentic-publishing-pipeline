@@ -41,9 +41,9 @@ Rules:
   authoritative for *who is working on what right now*.
 - Neither side is authoritative about *completion*. Completion is
   established by **verified artifacts on disk** (or by a passing build,
-  test, or validator run). See `docs/TODO.md` §F-6 for the closure rule.
+  test, or validator run). See [`docs/TODO.md`](docs/TODO.md) §F-6 for the closure rule.
 - PRD §19 ("Proposed Milestones" M1–M9) is **superseded by**
-  `docs/PLAN.md` Phase 0–14 and the GitHub Milestones that mirror them.
+  [`docs/PLAN.md`](docs/PLAN.md) Phase 0–14 and the GitHub Milestones that mirror them.
   PRD §19 remains in the document only as historical context.
 
 ---
@@ -172,7 +172,7 @@ Recognised exceptions:
   `.github/pull_request_template.md` (§12 of this document).
 - Reference the issue with `Refs #<N>`. Do **not** use an automatic
   closing keyword (`Closes`, `Fixes`, `Resolves`) — closure happens only
-  after artifacts are verified on disk per §8.5 and `docs/TODO.md` §F-6.
+  after artifacts are verified on disk per §8.5 and [`docs/TODO.md`](docs/TODO.md) §F-6.
 - Keep the PR scoped to the issue. If you discover unrelated cleanup,
   file a follow-up issue; do not silently expand scope.
 - Resolve every PR review conversation before merge.
@@ -224,10 +224,10 @@ Synchronization Contract to function. The issue template under
 - definition of done;
 - acceptance criteria;
 - synchronization requirements;
-- closure rule (`docs/TODO.md` §F-6).
+- closure rule ([`docs/TODO.md`](docs/TODO.md) §F-6).
 
 If the new issue represents scope not already captured in
-`docs/TODO.md` / `docs/PLAN.md` / `docs/PRD.md`, update the appropriate
+[`docs/TODO.md`](docs/TODO.md) / [`docs/PLAN.md`](docs/PLAN.md) / [`docs/PRD.md`](docs/PRD.md), update the appropriate
 local document **through a reviewed PR** rather than creating GitHub-only
 scope.
 
@@ -328,7 +328,7 @@ Reconcile:
 
 Only after all of the above:
 
-- mark the PLAN phase complete in `docs/PLAN.md`;
+- mark the PLAN phase complete in [`docs/PLAN.md`](docs/PLAN.md);
 - close the corresponding GitHub milestone.
 
 ### 8.7 Before every contributor stops

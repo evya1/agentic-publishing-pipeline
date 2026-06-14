@@ -73,12 +73,13 @@ milestone (`Phase <phase> — <title>`) with the labels from
 
 ### Live mapping (TODO internal ID → GitHub issue → Milestone)
 
-The mapping below was captured against `origin/main` at commit
-`2b0baeb` and reflects the 62 issues opened during P2-I02. Use
+The mapping below was last reconciled against `origin/main` at commit
+[`33098a0`](https://github.com/evya1/agentic-publishing-pipeline/commit/33098a0721851be1dd6c64acc6e059d41336ddb3)
+and reflects the 62 issues opened during P2-I02. Use
 `gh issue list --milestone "<title>" --state all` to confirm the
 current state before acting.
 
-#### Phase 2 — Project management setup (milestone #1)
+#### Phase 2 — Project management setup ([milestone #1](https://github.com/evya1/agentic-publishing-pipeline/milestone/1))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
@@ -87,14 +88,14 @@ current state before acting.
 | P2-I02      | [#3](https://github.com/evya1/agentic-publishing-pipeline/issues/3) | Create GitHub issues from open TODO items and apply labels              |
 | P2-I03      | [#4](https://github.com/evya1/agentic-publishing-pipeline/issues/4) | Document TODO ↔ issue ↔ milestone ↔ PRD mapping in TODO intro           |
 
-#### Phase 3 — Topic and scope (milestone #2)
+#### Phase 3 — Topic and scope ([milestone #2](https://github.com/evya1/agentic-publishing-pipeline/milestone/2))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
 | P3-I01      | [#5](https://github.com/evya1/agentic-publishing-pipeline/issues/5) | Decide audience, depth target, BiDi balance, citation density           |
 | P3-I02      | [#6](https://github.com/evya1/agentic-publishing-pipeline/issues/6) | Reflect Phase 3 decisions in PRD §22/§3 and mechanism PRDs              |
 
-#### Phase 4 — CrewAI architecture design (milestone #3)
+#### Phase 4 — CrewAI architecture design ([milestone #3](https://github.com/evya1/agentic-publishing-pipeline/milestone/3))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
@@ -102,7 +103,7 @@ current state before acting.
 | P4-I02      | [#8](https://github.com/evya1/agentic-publishing-pipeline/issues/8) | Define ≥5 tasks with context flow; confirm sequential Process           |
 | P4-I03      | [#9](https://github.com/evya1/agentic-publishing-pipeline/issues/9) | Capture initial Phase 4 prompts verbatim in `docs/PROMPTS.md`           |
 
-#### Phase 5 — Provider/service layer and tools (milestone #4)
+#### Phase 5 — Provider/service layer and tools ([milestone #4](https://github.com/evya1/agentic-publishing-pipeline/milestone/4))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
@@ -114,7 +115,7 @@ current state before acting.
 | P5-I06      | [#15](https://github.com/evya1/agentic-publishing-pipeline/issues/15) | Implement LaTeX compilation tool (LuaLaTeX + biber multi-pass)         |
 | P5-I07      | [#16](https://github.com/evya1/agentic-publishing-pipeline/issues/16) | Implement graph generation tool                                        |
 
-#### Phase 6 — Markdown-first content pipeline (milestone #5)
+#### Phase 6 — Markdown-first content pipeline ([milestone #5](https://github.com/evya1/agentic-publishing-pipeline/milestone/5))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
@@ -123,7 +124,7 @@ current state before acting.
 | P6-I02      | [#19](https://github.com/evya1/agentic-publishing-pipeline/issues/19) | Human review gate before LaTeX conversion                              |
 | P6-I03      | [#20](https://github.com/evya1/agentic-publishing-pipeline/issues/20) | Record Phase 6 run in `docs/AI_USAGE.md`                               |
 
-#### Phase 7 — Real-source and bibliography pipeline (milestone #6)
+#### Phase 7 — Real-source and bibliography pipeline ([milestone #6](https://github.com/evya1/agentic-publishing-pipeline/milestone/6))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
@@ -136,13 +137,13 @@ current state before acting.
 | P7-I06      | [#27](https://github.com/evya1/agentic-publishing-pipeline/issues/27) | Wire and resolve `\cite{...}` placeholders                             |
 | P7-I07      | [#28](https://github.com/evya1/agentic-publishing-pipeline/issues/28) | Codify and enforce untrusted-archive policy                            |
 
-#### Phase 8 — Python graph generation pipeline (milestone #7)
+#### Phase 8 — Python graph generation pipeline ([milestone #7](https://github.com/evya1/agentic-publishing-pipeline/milestone/7))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
 | P8-I01      | [#29](https://github.com/evya1/agentic-publishing-pipeline/issues/29) | Implement `visualization/` and ≥1 real graph under `latex_project/figures/` |
 
-#### Phase 9 — LaTeX project assembly (milestone #8)
+#### Phase 9 — LaTeX project assembly ([milestone #8](https://github.com/evya1/agentic-publishing-pipeline/milestone/8))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
@@ -161,14 +162,14 @@ current state before acting.
 | P9-I13      | [#42](https://github.com/evya1/agentic-publishing-pipeline/issues/42) | Index ≥1 Hebrew + ≥1 English term                                       |
 | P9-I14      | [#43](https://github.com/evya1/agentic-publishing-pipeline/issues/43) | Substantial Hebrew/English BiDi section                                 |
 
-#### Phase 10 — PDF build pipeline (milestone #9)
+#### Phase 10 — PDF build pipeline ([milestone #9](https://github.com/evya1/agentic-publishing-pipeline/milestone/9))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
 | P10-I01     | [#44](https://github.com/evya1/agentic-publishing-pipeline/issues/44) | Multi-pass build (LuaLaTeX → biber → LuaLaTeX → LuaLaTeX)             |
 | P10-I02     | [#45](https://github.com/evya1/agentic-publishing-pipeline/issues/45) | Produce `results/final.pdf` ≥15 pages from clean checkout              |
 
-#### Phase 11 — Deterministic ValidatorService (milestone #10)
+#### Phase 11 — Deterministic ValidatorService ([milestone #10](https://github.com/evya1/agentic-publishing-pipeline/milestone/10))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
@@ -179,7 +180,7 @@ current state before acting.
 | P11-I05     | [#50](https://github.com/evya1/agentic-publishing-pipeline/issues/50) | Every `\cite{...}` resolves; bibliography renders                       |
 | P11-I06     | [#51](https://github.com/evya1/agentic-publishing-pipeline/issues/51) | Human-readable validation report                                       |
 
-#### Phase 12 — Tests, lint, and reproducibility (milestone #11)
+#### Phase 12 — Tests, lint, and reproducibility ([milestone #11](https://github.com/evya1/agentic-publishing-pipeline/milestone/11))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
@@ -188,7 +189,7 @@ current state before acting.
 | P12-I03     | [#54](https://github.com/evya1/agentic-publishing-pipeline/issues/54) | Tests for `ValidatorService`                                           |
 | P12-I04     | [#55](https://github.com/evya1/agentic-publishing-pipeline/issues/55) | `uv run pytest` + `uv run ruff check .` green on clean checkout         |
 
-#### Phase 13 — README, AI usage, and prompt log finalization (milestone #12)
+#### Phase 13 — README, AI usage, and prompt log finalization ([milestone #12](https://github.com/evya1/agentic-publishing-pipeline/milestone/12))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
@@ -197,7 +198,7 @@ current state before acting.
 | P13-I03     | [#58](https://github.com/evya1/agentic-publishing-pipeline/issues/58) | Fill `docs/PROMPTS.md` with actual prompts verbatim                     |
 | P13-I04     | [#59](https://github.com/evya1/agentic-publishing-pipeline/issues/59) | Reconcile `SUBMISSION_CHECKLIST.md` with PRD §14 one-for-one           |
 
-#### Phase 14 — Final submission packaging (milestone #13)
+#### Phase 14 — Final submission packaging ([milestone #13](https://github.com/evya1/agentic-publishing-pipeline/milestone/13))
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
@@ -521,7 +522,7 @@ do not block the Phase 1.5 lock.
 - [ ] f-strings for interpolation; comprehensions only where they
       improve readability. [NFR-9, NFR-10]
 
-## F. GitHub project management *(Phase 2 — implementation complete on branch `docs/4-p2-i03-project-workflow` / PR #66; per-issue verification per [`CONTRIBUTING.md`](../CONTRIBUTING.md) §8.6 pending before milestone closure)*
+## F. GitHub project management *(Phase 2 — implementation complete on branch `docs/4-p2-i03-project-workflow` / [PR #66](https://github.com/evya1/agentic-publishing-pipeline/pull/66); per-issue verification per [`CONTRIBUTING.md`](../CONTRIBUTING.md) §8.6 pending before milestone closure)*
 
 The local Markdown plan is mirrored into GitHub as the GUI tracking
 layer. The discrete Phase 2 work (`P2-I00` … `P2-I03`) created the
@@ -556,7 +557,7 @@ requires evidence per §F-6.
       in this file's introduction once the issues are filed. [Phase 2]
       — verified: see the **Traceability** section near the top of this
       file. Owned by **P2-I03** (#4) (branch
-      `docs/4-p2-i03-project-workflow` / PR #66).
+      `docs/4-p2-i03-project-workflow` / [PR #66](https://github.com/evya1/agentic-publishing-pipeline/pull/66)).
 - [x] An issue may be closed **only** when the underlying artifact is
       verified on disk (or by a passing build, test, or validator run).
       Closing an issue does **not** by itself allow ticking a TODO box,
