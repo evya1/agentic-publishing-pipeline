@@ -768,6 +768,45 @@ Because the project contains complex mechanisms, the following dedicated PRDs ar
 
 These should not replace this main PRD. They should refine the most complex mechanisms.
 
+In addition, the runtime architecture contracts and Architecture
+Decision Records introduced under P4-I04 live under
+`docs/architecture/` and refine `docs/PRD_crewai_pipeline.md`:
+
+- `docs/architecture/c4_views.md` — C4 context/container/component views.
+- `docs/architecture/runtime_sequences.md` — happy-path, failure, and
+  promotion sequences.
+- `docs/architecture/artifact_contracts.md` — named/versioned typed
+  contracts for every task edge, with run-relative paths and
+  bounded-repair policy.
+- `docs/architecture/run_lifecycle.md` — `PipelineRunContext`,
+  workspace, operational modes, and explicit promotion.
+- `docs/architecture/prompt_config_registry.md` — machine-readable
+  prompt/config registry design; preserves `docs/PROMPTS.md` as the
+  human evidence ledger.
+- `docs/architecture/adrs/` — ADR-0001 through ADR-0007.
+
+## 20.1 Runtime architecture requirements (P4-I04 amendment)
+
+These additive requirements are documentation-only at this stage. They
+become implementation requirements as the Phase 5+ items in
+`docs/TODO.md` (P5-I08–P5-I13, P8-I02, P10-I03, P12-I05, P12-I06,
+P13-I05) are scheduled. They do not invalidate FR-1..FR-40 or any
+existing NFR.
+
+| ID | Requirement |
+|---|---|
+| FR-41 | Every task edge in the CrewAI pipeline shall carry a named, versioned typed artifact contract; no downstream stage shall consume unvalidated raw agent output. |
+| FR-42 | The orchestrator shall allow **at most one** bounded repair attempt per stage on contract-validation failure; if the repair also fails, the run shall halt without silent fallback. |
+| FR-43 | The LaTeX project shall be produced by a deterministic renderer (not the LLM) from a semantic `LaTeXProjectSpec v1`; agents do not author file paths, file names, or escaped LaTeX strings. |
+| FR-44 | Every LLM and search call shall flow through the provider facade and the API Gatekeeper; the Gatekeeper shall enforce configurable budget, timeout, retry classification, and emit structured usage/cost events carrying `run_id`, `agent_id`, `task_id`, `attempt`, model, tokens, latency, status, and estimated cost. |
+| FR-45 | Every run shall own an isolated workspace under `results/<run_id>/`, a configuration snapshot, a structured event log, a usage/cost log, and an artifact manifest. |
+| FR-46 | The CLI shall support `dry-run`, `offline-fixture`, `live`, `compile-only`, `validate-only`, `--topic` override, `--manifest` override, and `resume` modes. `offline-fixture` and `dry-run` shall require no API keys and shall make no network calls. |
+| FR-47 | A machine-readable, versioned prompt/config registry shall be loaded at startup; runtime shall refuse to start if the registry's `compatibility.contract_versions` does not cover every contract the deterministic code requires. |
+| FR-48 | Canonical artifacts (`latex_project/`, `results/final.pdf`, `results/generated_markdown/`) shall be written only by an explicit promotion operation that requires a `pass` `ValidationReport v1`, manifest integrity, and never silently overwrites existing canonical files. |
+| FR-49 | The `ValidatorService` shall report **total** and **substantive** page counts separately and shall enforce both budgets (P10-I03). |
+| NFR-33 | The repository shall maintain reproducibility evidence sufficient to reconstruct a single canonical run from a sanitized self-contained evidence bundle (P13-I05). |
+| NFR-34 | Documentation and CI shall demonstrate genericity by running the same pipeline against a second verified topic and manifest without source-code changes (P12-I06). |
+
 ---
 
 ## 21. Open Questions

@@ -3,6 +3,33 @@
 > **Status:** Phase 4 design complete. Verbatim prompts drafted for all 8
 > agents and 8 tasks. Prompts have not been run against real models yet.
 
+## Role of this file vs the runtime registry
+
+This file (`docs/PROMPTS.md`) is the **human-readable evidence ledger**.
+It records every distinct prompt verbatim, who used it, when it was
+iterated, and why. It is what a course reviewer or auditor reads.
+
+The **runtime prompt/config registry** is a separate, machine-readable,
+versioned artifact under `config/prompt_registry/` whose design is
+specified in
+[`docs/architecture/prompt_config_registry.md`](architecture/prompt_config_registry.md).
+The registry is what the running code loads; it carries a structural
+fingerprint that the runtime checks for compatibility at startup
+(FR-47). Implementation is scheduled for **P5-I12**.
+
+Each registry entry references the matching ledger entry by its
+**ID** (e.g., `PROMPT-AGENT-RESEARCH-001`). When a prompt changes:
+
+1. Update the matching entry here verbatim, with a `Notes` line
+   explaining what changed and why (this is the evidence record).
+2. Bump the registry entry's `version` and add a new file in
+   `config/prompt_registry/` (this is the runtime contract).
+3. Record the registry version that was active for any published run.
+
+This document remains the source of truth for **historical evidence**;
+the registry is the source of truth for **what runs**. Both must agree
+at every release.
+
 Every distinct prompt used to drive the CrewAI pipeline (agent `backstory`,
 agent `goal`, task `description`, task `expected_output`, tool prompts, and
 any free-form prompts used in research/drafting/review) is recorded here

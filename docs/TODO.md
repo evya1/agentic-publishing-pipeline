@@ -86,22 +86,23 @@ current state before acting.
 | P2-I01      | [#2](https://github.com/evya1/agentic-publishing-pipeline/issues/2) | Closed with evidence | Create 13 GitHub milestones (Phases 2–14)                 |
 | P2-I02      | [#3](https://github.com/evya1/agentic-publishing-pipeline/issues/3) | Closed with evidence | Create GitHub issues from open TODO items and apply labels |
 | P2-I03      | [#4](https://github.com/evya1/agentic-publishing-pipeline/issues/4) | Closed with evidence | Document TODO ↔ issue ↔ milestone ↔ PRD mapping in TODO intro |
-| P2-I04      | [#68](https://github.com/evya1/agentic-publishing-pipeline/issues/68) | Open pending post-merge verification | Reconcile verified Phase 2 completion in PLAN and TODO |
+| P2-I04      | [#68](https://github.com/evya1/agentic-publishing-pipeline/issues/68) | Closed with evidence | Reconcile verified Phase 2 completion in PLAN and TODO |
 
 #### Phase 3 — Topic and scope ([milestone #2](https://github.com/evya1/agentic-publishing-pipeline/milestone/2))
 
 | Internal ID | Issue | Status | Title (abridged)                                                         |
 |-------------|-------|--------|--------------------------------------------------------------------------|
-| P3-I01      | [#5](https://github.com/evya1/agentic-publishing-pipeline/issues/5) | Open pending post-merge verification | Decide audience, depth target, BiDi balance, citation density |
-| P3-I02      | [#6](https://github.com/evya1/agentic-publishing-pipeline/issues/6) | Open pending post-merge verification | Reflect Phase 3 decisions in PRD §22/§3 and mechanism PRDs |
+| P3-I01      | [#5](https://github.com/evya1/agentic-publishing-pipeline/issues/5) | Closed with evidence | Decide audience, depth target, BiDi balance, citation density |
+| P3-I02      | [#6](https://github.com/evya1/agentic-publishing-pipeline/issues/6) | Closed with evidence | Reflect Phase 3 decisions in PRD §22/§3 and mechanism PRDs |
 
 #### Phase 4 — CrewAI architecture design ([milestone #3](https://github.com/evya1/agentic-publishing-pipeline/milestone/3))
 
-| Internal ID | Issue | Title (abridged)                                                         |
-|-------------|-------|--------------------------------------------------------------------------|
-| P4-I01      | [#7](https://github.com/evya1/agentic-publishing-pipeline/issues/7) | Specify the 8 agents (role/goal/backstory/tools)                        |
-| P4-I02      | [#8](https://github.com/evya1/agentic-publishing-pipeline/issues/8) | Define ≥5 tasks with context flow; confirm sequential Process           |
-| P4-I03      | [#9](https://github.com/evya1/agentic-publishing-pipeline/issues/9) | Capture initial Phase 4 prompts verbatim in `docs/PROMPTS.md`           |
+| Internal ID | Issue | Status | Title (abridged)                                                         |
+|-------------|-------|--------|--------------------------------------------------------------------------|
+| P4-I01      | [#7](https://github.com/evya1/agentic-publishing-pipeline/issues/7) | Closed with evidence | Specify the 8 agents (role/goal/backstory/tools)                        |
+| P4-I02      | [#8](https://github.com/evya1/agentic-publishing-pipeline/issues/8) | Closed with evidence | Define ≥5 tasks with context flow; confirm sequential Process           |
+| P4-I03      | [#9](https://github.com/evya1/agentic-publishing-pipeline/issues/9) | Closed with evidence | Capture initial Phase 4 prompts verbatim in `docs/PROMPTS.md`           |
+| P4-I04      | [#71](https://github.com/evya1/agentic-publishing-pipeline/issues/71) | Open (this amendment) | Add C4 views, runtime sequence diagrams, typed artifact boundaries, and ADRs |
 
 #### Phase 5 — Provider/service layer and tools ([milestone #4](https://github.com/evya1/agentic-publishing-pipeline/milestone/4))
 
@@ -114,6 +115,12 @@ current state before acting.
 | P5-I05      | [#14](https://github.com/evya1/agentic-publishing-pipeline/issues/14) | Implement Markdown conversion tool                                     |
 | P5-I06      | [#15](https://github.com/evya1/agentic-publishing-pipeline/issues/15) | Implement LaTeX compilation tool (LuaLaTeX + biber multi-pass)         |
 | P5-I07      | [#16](https://github.com/evya1/agentic-publishing-pipeline/issues/16) | Implement graph generation tool                                        |
+| P5-I08      | *(planned — GitHub number TBD)* | Implement versioned Pydantic artifact contracts and bounded validation repair |
+| P5-I09      | *(planned — GitHub number TBD)* | Implement API Gatekeeper, budgets, retries, and usage/cost logging |
+| P5-I10      | *(planned — GitHub number TBD)* | Introduce `PipelineRunContext`, isolated workspaces, and artifact manifests |
+| P5-I11      | *(planned — GitHub number TBD)* | Add CLI operational modes and deterministic offline fixtures |
+| P5-I12      | *(planned — GitHub number TBD)* | Implement versioned prompt/config registry and compatibility checks |
+| P5-I13      | *(planned — GitHub number TBD)* | Add baseline CI, pre-commit, lockfile, line-cap, and offline smoke gates |
 
 #### Phase 6 — Markdown-first content pipeline ([milestone #5](https://github.com/evya1/agentic-publishing-pipeline/milestone/5))
 
@@ -142,6 +149,7 @@ current state before acting.
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
 | P8-I01      | [#29](https://github.com/evya1/agentic-publishing-pipeline/issues/29) | Implement `visualization/` and ≥1 real graph under `latex_project/figures/` |
+| P8-I02      | *(planned — GitHub number TBD)* | Implement validated technical-asset specs and deterministic fallbacks |
 
 #### Phase 9 — LaTeX project assembly ([milestone #8](https://github.com/evya1/agentic-publishing-pipeline/milestone/8))
 
@@ -168,6 +176,7 @@ current state before acting.
 |-------------|-------|--------------------------------------------------------------------------|
 | P10-I01     | [#44](https://github.com/evya1/agentic-publishing-pipeline/issues/44) | Multi-pass build (LuaLaTeX → biber → LuaLaTeX → LuaLaTeX)             |
 | P10-I02     | [#45](https://github.com/evya1/agentic-publishing-pipeline/issues/45) | Produce `results/final.pdf` ≥15 pages from clean checkout              |
+| P10-I03     | *(planned — GitHub number TBD)* | Calibrate and validate substantive subject-page budget |
 
 #### Phase 11 — Deterministic ValidatorService ([milestone #10](https://github.com/evya1/agentic-publishing-pipeline/milestone/10))
 
@@ -188,6 +197,8 @@ current state before acting.
 | P12-I02     | [#53](https://github.com/evya1/agentic-publishing-pipeline/issues/53) | Tests for Markdown→LaTeX conversion                                    |
 | P12-I03     | [#54](https://github.com/evya1/agentic-publishing-pipeline/issues/54) | Tests for `ValidatorService`                                           |
 | P12-I04     | [#55](https://github.com/evya1/agentic-publishing-pipeline/issues/55) | `uv run pytest` + `uv run ruff check .` green on clean checkout         |
+| P12-I05     | *(planned — GitHub number TBD)* | Harden CI with ≥85% coverage and supported-Python matrix |
+| P12-I06     | *(planned — GitHub number TBD)* | Prove genericity through a second-topic integration run |
 
 #### Phase 13 — README, AI usage, and prompt log finalization ([milestone #12](https://github.com/evya1/agentic-publishing-pipeline/milestone/12))
 
@@ -197,6 +208,7 @@ current state before acting.
 | P13-I02     | [#57](https://github.com/evya1/agentic-publishing-pipeline/issues/57) | Fill `docs/AI_USAGE.md` with real run history                          |
 | P13-I03     | [#58](https://github.com/evya1/agentic-publishing-pipeline/issues/58) | Fill `docs/PROMPTS.md` with actual prompts verbatim                     |
 | P13-I04     | [#59](https://github.com/evya1/agentic-publishing-pipeline/issues/59) | Reconcile `SUBMISSION_CHECKLIST.md` with PRD §14 one-for-one           |
+| P13-I05     | *(planned — GitHub number TBD)* | Publish a sanitized self-contained final-run evidence bundle |
 
 #### Phase 14 — Final submission packaging ([milestone #13](https://github.com/evya1/agentic-publishing-pipeline/milestone/13))
 
@@ -308,9 +320,9 @@ do not block the Phase 1.5 lock.
       [Phase 7] [`docs/PRD_bibliography_and_citations.md` §9]
 - [x] Resolve the remaining Phase 3 open questions (audience, depth
       target, BiDi balance, citation density target) and record them
-      in `docs/PRD.md` §22.6–§22.9. The decisions are implemented, but
-      P3-I01 (#5) and P3-I02 (#6) remain open until the synchronized
-      mechanism-PRD reconciliation is merged and verified on `main`.
+      in `docs/PRD.md` §22.6–§22.9. The synchronized mechanism-PRD
+      reconciliation landed via PR #70; P3-I01 (#5) and P3-I02 (#6)
+      are closed with evidence; milestone #2 is closed.
       [Phase 3] [PRD §21 open questions]
 
 ## C. Future implementation work *(open)*
@@ -322,9 +334,9 @@ do not block the Phase 1.5 lock.
       `config/article_sources.yaml`. [Phase 1.5]
 - [x] Decide audience, depth target, BiDi balance, and citation
       density target per chapter. Decisions recorded in `docs/PRD.md`
-      §22.6–§22.9; mechanism-PRD synchronization is pending post-merge
-      verification under P3-I01 (#5) and P3-I02 (#6). [Phase 3]
-      [PRD §21 open questions, PRD §22]
+      §22.6–§22.9; mechanism-PRD synchronization landed via PR #70;
+      P3-I01 (#5) and P3-I02 (#6) closed with evidence; milestone #2
+      closed. [Phase 3] [PRD §21 open questions, PRD §22]
 
 ### C.2 CrewAI architecture and prompts
 
@@ -338,6 +350,24 @@ do not block the Phase 1.5 lock.
 - [x] Capture initial prompts (agent `backstory` + `goal`, task
       `description` + `expected_output`, tool prompts) verbatim in
       `docs/PROMPTS.md`. [Phase 4, Phase 13]
+- [ ] **P4-I04** — Add C4 system-context, container, and component
+      views; runtime sequence diagrams (offline-fixture success, live
+      success, invalid-output + one bounded repair, repair-exhaustion
+      failure, provider/budget rejection, LaTeX compilation failure,
+      deterministic validation failure, explicit artifact promotion);
+      named, versioned typed artifact contracts for every task edge;
+      prompt/config identifier for every agent and task; permitted
+      tools, side effects, and run-relative artifact roots; one
+      bounded repair attempt policy; deterministic rendering /
+      file-authority boundary; run lifecycle, isolated workspace,
+      configuration snapshot, structured event log, usage/cost log,
+      artifact manifest, and explicit promotion; operational modes
+      (`dry-run`, `offline-fixture`, `live`, `compile-only`,
+      `validate-only`, `--topic`/`--manifest` override, `resume`);
+      machine-readable, versioned prompt/config registry distinct
+      from `docs/PROMPTS.md`; and initial ADRs ADR-0001 through
+      ADR-0007. Documentation-only; no runtime source code.
+      [Phase 4] [FR-41..FR-49, NFR-33, NFR-34]
 
 ### C.3 Provider/service layer, configuration, and tools
 
@@ -361,6 +391,40 @@ do not block the Phase 1.5 lock.
   - [ ] LaTeX compilation tool (LuaLaTeX + biber multi-pass). [Phase 5,
         Phase 10] [FR-20]
   - [ ] Graph generation tool. [Phase 5, Phase 8] [FR-29, FR-30]
+- [ ] **P5-I08** — Implement versioned Pydantic artifact contracts
+      (ResearchNotes, Outline, ChapterDrafts, AssetSpecs, BiDiSection,
+      BibliographyBundle, LaTeXProjectSpec, ReviewerSignal, BuildResult,
+      ValidationReport, PromotionRecord) and bounded validation repair
+      (≤1 attempt). No stage may consume unvalidated raw LLM output.
+      [Phase 5] [FR-41, FR-42, NFR-19, ADR-0002]
+- [ ] **P5-I09** — Implement API Gatekeeper: budgets, retries,
+      timeouts, retry classification, structured usage/cost events
+      carrying `run_id`, `agent_id`, `task_id`, `attempt`, model,
+      tokens, latency, status, estimated cost. Provider facade
+      separate from policy. [Phase 5] [FR-44, NFR-23, NFR-24, ADR-0004]
+- [ ] **P5-I10** — Introduce `PipelineRunContext`: unique run ID,
+      isolated workspace under `results/<run_id>/`, configuration
+      snapshot, structured event log, usage/cost log, artifact
+      manifest, safe path resolution, explicit promote/publish
+      operations. Failed runs preserved or removed only by explicit
+      cleanup. Canonical artifacts never silently overwritten.
+      [Phase 5] [FR-45, FR-48, NFR-16, NFR-17, ADR-0005]
+- [ ] **P5-I11** — Add CLI operational modes (`dry-run`,
+      `offline-fixture`, `live`, `compile-only`, `validate-only`,
+      `--topic`/`--manifest` override, `resume`) and deterministic
+      offline fixtures. Offline mode requires no API keys and makes
+      no network or paid-provider calls. Includes deterministic
+      fixtures and integration tests. [Phase 5] [FR-46]
+- [ ] **P5-I12** — Implement machine-readable, versioned prompt/config
+      registry under `config/prompt_registry/`; validate schema/version
+      compatibility at startup; refuse to start on mismatch. Preserve
+      `docs/PROMPTS.md` as the human evidence ledger. Link recorded
+      runs to exact registry versions. [Phase 5] [FR-47]
+- [ ] **P5-I13** — Add baseline CI for PR/main: frozen dependency
+      sync, Ruff, tests, current coverage gate, automated 150-line
+      cap, deterministic offline smoke run. Do not introduce a
+      Python-version matrix here (deferred to P12-I05). [Phase 5,
+      Phase 12]
 
 ### C.4 Markdown-first content pipeline
 
@@ -413,6 +477,10 @@ do not block the Phase 1.5 lock.
       produce at least one graph image saved under
       `latex_project/figures/`, consumed by a chapter via
       `\includegraphics`. [Phase 8] [FR-29, FR-30, AC §14.2]
+- [ ] **P8-I02** — Define typed graph/table/TikZ/image specs,
+      deterministic renderers, provenance metadata, path safety, and
+      explicit failure/fallback behavior that cannot silently change
+      factual content. Ties to ADR-0002 and ADR-0003. [Phase 8]
 
 ### C.7 LaTeX project assembly (LuaLaTeX MVP)
 
@@ -459,6 +527,10 @@ do not block the Phase 1.5 lock.
       `makenomenclature` as needed). [Phase 10] [FR-20, §16.3]
 - [ ] Produce `results/final.pdf` (≥15 pages). [Phase 10] [FR-38, KPI,
       AC §14.2]
+- [ ] **P10-I03** — Define front/back-matter exclusions, report total
+      and substantive page counts separately, calibrate the canonical
+      article to satisfy the assignment, and add deterministic page
+      checks in the ValidatorService. [Phase 10, Phase 11] [FR-49]
 
 ## D. Future validation and submission work *(open)*
 
@@ -491,6 +563,14 @@ do not block the Phase 1.5 lock.
 - [ ] README documents the LaTeX-distribution requirement (LuaLaTeX) and
       the `David CLM` Hebrew font requirement so reproduction is
       possible. [Phase 12, Phase 13]
+- [ ] **P12-I05** — Raise/enforce coverage to at least 85%, test the
+      supported Python-version matrix, preserve frozen dependency
+      installation, line-cap enforcement, and offline integration.
+      [Phase 12]
+- [ ] **P12-I06** — Run the same pipeline with a second topic and a
+      different verified manifest without source-code changes. Verify
+      no canonical paper IDs, chapter names, or prompt assumptions are
+      hardcoded. [Phase 12] [NFR-34, ADR-0006]
 
 ### D.3 Documentation finalization
 
@@ -501,6 +581,13 @@ do not block the Phase 1.5 lock.
       summary, outputs, human verification, cost). [Phase 13]
 - [ ] Fill `docs/PROMPTS.md` with the actual prompts used in the run.
       [Phase 13]
+- [ ] **P13-I05** — Publish a sanitized, self-contained final-run
+      evidence bundle: selected run ID, configuration snapshot,
+      prompt/config registry version, source manifest, artifact
+      manifest, validation report, build log summary, usage/cost
+      report, screenshots, and final PDF/LaTeX references. Verify no
+      secrets, no local-only archives, no private paths, no external
+      repository references or attribution. [Phase 13] [NFR-33]
 
 ### D.4 Final submission packaging
 
@@ -529,17 +616,18 @@ do not block the Phase 1.5 lock.
 - [ ] f-strings for interpolation; comprehensions only where they
       improve readability. [NFR-9, NFR-10]
 
-## F. GitHub project management *(Phase 2 — verified complete; final milestone closure pending P2-I04 post-merge verification)*
+## F. GitHub project management *(Phase 2 — complete and closed; milestone #1 closed)*
 
 The local Markdown plan is mirrored into GitHub as the GUI tracking
 layer. The discrete Phase 2 work (`P2-I00` … `P2-I03`) created the
 milestones, the issues, the label vocabulary, the contribution
-workflow, and the mapping back into this file. Those issues are closed
-with evidence. `P2-I04` (#68) is the final Phase 2 reconciliation step:
-it records that verified closure state in `docs/PLAN.md` and this file
-before the Phase 2 milestone may close. The items below are ticked once
-the underlying GitHub or repository artifact is demonstrably present;
-closing the corresponding **issue** still requires evidence per §F-6.
+workflow, and the mapping back into this file. `P2-I04` (#68) was the
+final Phase 2 reconciliation step; it recorded the verified closure
+state in `docs/PLAN.md` and this file, was merged via PR #69, and is
+closed with evidence. The Phase 2 milestone (milestone #1) is closed.
+The items below are ticked once the underlying GitHub or repository
+artifact is demonstrably present; closing the corresponding **issue**
+still requires evidence per §F-6.
 
 - [x] Create one **GitHub Milestone** per open phase in `docs/PLAN.md`
       (Phases 2 through 14). Milestone titles match phase titles. Phases 0,
