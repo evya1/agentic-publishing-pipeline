@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/1n+nujVmYrQ8HlARTmS9X9MXUYE</id>
+  <title>arXiv Query: search_query=&amp;id_list=2510.18303&amp;start=0&amp;max_results=10</title>
+  <updated>2026-06-15T22:09:00Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2510.18303" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.18303v1</id>
+    <title>Proactive Reasoning-with-Retrieval Framework for Medical Multimodal Large Language Models</title>
+    <updated>2025-10-21T05:18:18Z</updated>
+    <link href="https://arxiv.org/abs/2510.18303v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.18303v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Incentivizing the reasoning ability of Multimodal Large Language Models (MLLMs) is essential for medical applications to transparently analyze medical scans and provide reliable diagnosis. However, existing medical MLLMs rely solely on internal knowledge during reasoning, leading to hallucinated reasoning and factual inaccuracies when encountering cases beyond their training scope. Although recent Agentic Retrieval-Augmented Generation (RAG) methods elicit the medical model's proactive retrieval ability during reasoning, they are confined to unimodal LLMs, neglecting the crucial visual information during reasoning and retrieval. Consequently, we propose the first Multimodal Medical Reasoning-with-Retrieval framework, Med-RwR, which actively retrieves external knowledge by querying observed symptoms or domain-specific medical concepts during reasoning. Specifically, we design a two-stage reinforcement learning strategy with tailored rewards that stimulate the model to leverage both visual diagnostic findings and textual clinical information for effective retrieval. Building on this foundation, we further propose a Confidence-Driven Image Re-retrieval (CDIR) method for test-time scaling when low prediction confidence is detected. Evaluation on various public medical benchmarks demonstrates Med-RwR's significant improvements over baseline models, proving the effectiveness of enhancing reasoning capabilities with external knowledge integration. Furthermore, Med-RwR demonstrates remarkable generalizability to unfamiliar domains, evidenced by 8.8% performance gain on our proposed EchoCardiography Benchmark (ECBench), despite the scarcity of echocardiography data in the training corpus. Our data, model, and codes will be made publicly available at https://github.com/xmed-lab/Med-RwR.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-21T05:18:18Z</published>
+    <arxiv:comment>Work in progress</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Lehan Wang</name>
+    </author>
+    <author>
+      <name>Yi Qin</name>
+    </author>
+    <author>
+      <name>Honglong Yang</name>
+    </author>
+    <author>
+      <name>Xiaomeng Li</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/ys7ErCX1fPZillDINwvR1etMPmc</id>
+  <title>arXiv Query: search_query=&amp;id_list=2510.10991&amp;start=0&amp;max_results=10</title>
+  <updated>2026-06-15T22:08:56Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2510.10991" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.10991v1</id>
+    <title>A Survey on Agentic Multimodal Large Language Models</title>
+    <updated>2025-10-13T04:07:01Z</updated>
+    <link href="https://arxiv.org/abs/2510.10991v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.10991v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>With the recent emergence of revolutionary autonomous agentic systems, research community is witnessing a significant shift from traditional static, passive, and domain-specific AI agents toward more dynamic, proactive, and generalizable agentic AI. Motivated by the growing interest in agentic AI and its potential trajectory toward AGI, we present a comprehensive survey on Agentic Multimodal Large Language Models (Agentic MLLMs). In this survey, we explore the emerging paradigm of agentic MLLMs, delineating their conceptual foundations and distinguishing characteristics from conventional MLLM-based agents. We establish a conceptual framework that organizes agentic MLLMs along three fundamental dimensions: (i) Agentic internal intelligence functions as the system's commander, enabling accurate long-horizon planning through reasoning, reflection, and memory; (ii) Agentic external tool invocation, whereby models proactively use various external tools to extend their problem-solving capabilities beyond their intrinsic knowledge; and (iii) Agentic environment interaction further situates models within virtual or physical environments, allowing them to take actions, adapt strategies, and sustain goal-directed behavior in dynamic real-world scenarios. To further accelerate research in this area for the community, we compile open-source training frameworks, training and evaluation datasets for developing agentic MLLMs. Finally, we review the downstream applications of agentic MLLMs and outline future research directions for this rapidly evolving field. To continuously track developments in this rapidly evolving field, we will also actively update a public repository at https://github.com/HJYao00/Awesome-Agentic-MLLMs.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-13T04:07:01Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Huanjin Yao</name>
+    </author>
+    <author>
+      <name>Ruifei Zhang</name>
+    </author>
+    <author>
+      <name>Jiaxing Huang</name>
+    </author>
+    <author>
+      <name>Jingyi Zhang</name>
+    </author>
+    <author>
+      <name>Yibo Wang</name>
+    </author>
+    <author>
+      <name>Bo Fang</name>
+    </author>
+    <author>
+      <name>Ruolin Zhu</name>
+    </author>
+    <author>
+      <name>Yongcheng Jing</name>
+    </author>
+    <author>
+      <name>Shunyu Liu</name>
+    </author>
+    <author>
+      <name>Guanbin Li</name>
+    </author>
+    <author>
+      <name>Dacheng Tao</name>
+    </author>
+  </entry>
+</feed>

@@ -315,6 +315,10 @@ do not block the Phase 1.5 lock.
       `config/article_sources.yaml` once authoritative metadata
       (arXiv API or paper PDF metadata) is verified. No fabricated
       authors. [Phase 1.5 → Phase 7] [`docs/PRD_bibliography_and_citations.md`]
+      *P7-I02 (issue #23):* populated for all 10 entries from the
+      authoritative arXiv Atom feed; raw fixtures committed under
+      `tests/fixtures/arxiv/`. Box stays unchecked until merge and
+      post-merge evidence per `docs/TODO.md` §F-6.
 - [ ] Rekey provisional `tbd…` citation keys to the
       `authorYYYYkey` convention once authors are verified. Owned by
       the Bibliography Agent in Phase 7.
@@ -519,6 +523,15 @@ is next.
       `config/article_sources.yaml` `verification.status` to
       `verified` (or `rejected`) and record `verified_at` /
       `verified_by`. [Phase 7] [`docs/PRD_bibliography_and_citations.md` §7]
+      *P7-I02 (issue #23):* implemented by
+      `src/agentic_publishing_pipeline/bibliography/verify.py`
+      (pure compare) and `_arxiv_parse.py` / `_arxiv_fetch.py`.
+      Live run on 2026-06-16 yielded 10/10 verified after
+      authoritative-arXiv corrections of three placeholder fields
+      (recorded in `docs/AI_USAGE.md` and `docs/SOURCES.md`); raw
+      Atom responses committed under `tests/fixtures/arxiv/`. Box
+      stays unchecked until merge and post-merge evidence per
+      `docs/TODO.md` §F-6.
 - [ ] Record the per-source audit trail (citation key → archive →
       verification method → timestamp / run id) in `docs/AI_USAGE.md`
       (or `docs/SOURCES.md` if that location is chosen).

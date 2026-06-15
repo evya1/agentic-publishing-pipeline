@@ -31,6 +31,65 @@ For each AI-assisted activity, record:
 
 ## Entries
 
+### 2026-06-16 — Phase 7 source verification run (P7-I02, live arXiv API)
+
+- **Date:** 2026-06-16.
+- **Tool / model:** Claude Code (Opus 4.7) drove the implementation
+  and the orchestration; the authoritative metadata for each source
+  came from the **arXiv Atom API**
+  (`http://export.arxiv.org/api/query?id_list=<id>`). No model
+  produced bibliographic facts. The script lives at
+  `src/agentic_publishing_pipeline/bibliography/run_verification.py`
+  and uses stdlib `urllib.request` with a 3-second polite delay
+  per request and a `User-Agent` identifying the project.
+- **Verifier identity:** `claude-opus-4.7+arxiv-api:evya1`
+  (honest-identity convention per
+  `docs/PRD_bibliography_and_citations.md` §7.3).
+- **Purpose:** populate `authors:` and flip `verification.status`
+  for every entry in `config/article_sources.yaml` against
+  authoritative arXiv metadata; commit the raw responses as
+  reproducible test fixtures.
+- **Inputs:** the 10-source locked manifest; the arXiv Atom feed for
+  each `arxiv_id`.
+- **Outputs:**
+  - `tests/fixtures/arxiv/<arxiv_id>.xml` — 10 raw Atom responses
+    (committed as deterministic offline test fixtures).
+  - `results/run_logs/p7i02_verification.json` — machine-readable
+    per-source report (mismatches, populated authors, primary
+    category, arxiv DOI when present).
+  - `config/article_sources.yaml` — manifest rewritten with
+    authoritative `title`, `year`, and `authors` for each source
+    and `verification.status = verified`.
+- **Live verification result:** 10/10 verified against the committed
+  fixtures. The first live run flagged three placeholder
+  mismatches in the original manifest, which are recorded in
+  `docs/SOURCES.md`:
+  - `tbd2025agenticreasoningtools` (2502.04644) — manifest title
+    placeholder corrected to the authoritative arXiv title.
+  - `tbd2025planningperformance` (2511.09378) — manifest title
+    placeholder corrected to the authoritative arXiv title.
+  - `tbd2026telemem` (2601.06037) — manifest year placeholder
+    `2026` corrected to authoritative `2025` (arXiv `<published>`).
+  No fabricated authors or titles were introduced; every
+  authoritative value came from the committed XML fixture.
+- **Human verification:** Phase 7 verification ran under the
+  authenticated GitHub account `evya1`; the rejected-then-corrected
+  cases are surfaced in `docs/SOURCES.md` and the matching
+  `verification.json` so a reviewer can reproduce the
+  authoritative comparison against the committed fixtures.
+- **Cost / token estimate:** $0.00 for arXiv fetches (arXiv API is
+  free); ten HTTP requests; no LLM calls were made to derive
+  bibliographic facts.
+- **Known limitations:**
+  - Provisional `tbd…` citation keys remain until P7-I05 rekeys
+    them to the `authorYYYYkey` convention.
+  - `references.bib` emission is the scope of P7-I04; this entry
+    does not produce `.bib` output.
+  - The verification script always runs live; offline regression
+    tests use the committed XML fixtures.
+
+
+
 ### 2026-06-15 — Phase 6 Markdown-first run (P6-I01, offline fixture)
 
 - **Date:** 2026-06-15.

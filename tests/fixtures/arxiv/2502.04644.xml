@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/2sXr0MVGW7Rj6EyVa/JpWW+F1Ng</id>
+  <title>arXiv Query: search_query=&amp;id_list=2502.04644&amp;start=0&amp;max_results=10</title>
+  <updated>2026-06-15T22:08:40Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2502.04644" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2502.04644v2</id>
+    <title>Agentic Reasoning: A Streamlined Framework for Enhancing LLM Reasoning with Agentic Tools</title>
+    <updated>2025-07-14T20:06:23Z</updated>
+    <link href="https://arxiv.org/abs/2502.04644v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2502.04644v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We introduce Agentic Reasoning, a framework that enhances large language model (LLM) reasoning by integrating external tool-using agents. Agentic Reasoning dynamically leverages web search, code execution, and structured memory to address complex problems requiring deep research. A key innovation in our framework is the Mind-Map agent, which constructs a structured knowledge graph to store reasoning context and track logical relationships, ensuring coherence in long reasoning chains with extensive tool usage. Additionally, we conduct a comprehensive exploration of the Web-Search agent, leading to a highly effective search mechanism that surpasses all prior approaches. When deployed on DeepSeek-R1, our method achieves a new state-of-the-art (SOTA) among public models and delivers performance comparable to OpenAI Deep Research, the leading proprietary model in this domain. Extensive ablation studies validate the optimal selection of agentic tools and confirm the effectiveness of our Mind-Map and Web-Search agents in enhancing LLM reasoning. The code is at: https://github.com/theworldofagents/Agentic-Reasoning</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-02-07T04:08:46Z</published>
+    <arxiv:comment>ACL 2025</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Junde Wu</name>
+    </author>
+    <author>
+      <name>Jiayuan Zhu</name>
+    </author>
+    <author>
+      <name>Yuyuan Liu</name>
+    </author>
+    <author>
+      <name>Min Xu</name>
+    </author>
+    <author>
+      <name>Yueming Jin</name>
+    </author>
+  </entry>
+</feed>

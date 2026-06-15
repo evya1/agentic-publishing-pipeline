@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/iXA1S/qZzlGs24oStterbhdHxO0</id>
+  <title>arXiv Query: search_query=&amp;id_list=2511.09378&amp;start=0&amp;max_results=10</title>
+  <updated>2026-06-15T22:08:44Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2511.09378" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.09378v2</id>
+    <title>Frontier Large Language Models Rival State-of-the-Art Planners</title>
+    <updated>2026-05-15T14:16:27Z</updated>
+    <link href="https://arxiv.org/abs/2511.09378v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.09378v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>A series of influential studies established that large language models cannot reliably solve even simple planning tasks. We show that the latest generation of frontier models overturns this conclusion. We evaluate three families of frontier LLMs on a challenging set of planning tasks based on the most recent International Planning Competition following rigorous evaluation guidelines: solutions are verified with a validation tool, tasks are freshly created to avoid data contamination, and performance is compared against state-of-the-art classical planners. On standard task descriptions, Gemini 3.1 Pro outperforms the strongest planner baseline (245 vs. 234 solved tasks out of 360), while GPT-5 achieves comparable performance to the baselines. When all semantic information is obfuscated from the descriptions to test for pure symbolic planning, performance degrades but Gemini 3.1 Pro remains competitive with the strongest baselines. A longitudinal comparison across model generations -- from GPT-3.5, which solves zero tasks, to GPT-5 -- reveals a striking upward trajectory. Frontier LLMs might finally be able to plan; the question now is how far this capability will extend.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-12T14:45:07Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Augusto B. Corrêa</name>
+    </author>
+    <author>
+      <name>André G. Pereira</name>
+    </author>
+    <author>
+      <name>Jendrik Seipp</name>
+    </author>
+  </entry>
+</feed>

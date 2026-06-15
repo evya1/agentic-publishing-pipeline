@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/pRCl56LxLEsdMtNkfZk+7vJF5uM</id>
+  <title>arXiv Query: search_query=&amp;id_list=2511.01448&amp;start=0&amp;max_results=10</title>
+  <updated>2026-06-15T22:08:48Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2511.01448" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.01448v2</id>
+    <title>LiCoMemory: Lightweight and Cognitive Agentic Memory for Efficient Long-Term Reasoning</title>
+    <updated>2026-01-06T07:27:33Z</updated>
+    <link href="https://arxiv.org/abs/2511.01448v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.01448v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large Language Model (LLM) agents exhibit remarkable conversational and reasoning capabilities but remain constrained by limited context windows and the lack of persistent memory. Recent efforts address these limitations via external memory architectures, often employing graph-based representations, yet most adopt flat, entangled structures that intertwine semantics with topology, leading to redundant representations, unstructured retrieval, and degraded efficiency and accuracy. To resolve these issues, we propose LiCoMemory, an end-to-end agentic memory framework for real-time updating and retrieval, which introduces CogniGraph, a lightweight hierarchical graph that utilizes entities and relations as semantic indexing layers, and employs temporal and hierarchy-aware search with integrated reranking for adaptive and coherent knowledge retrieval. Experiments on long-term dialogue benchmarks, LoCoMo and LongMemEval, show that LiCoMemory not only outperforms established baselines in temporal reasoning, multi-session consistency, and retrieval efficiency, but also notably reduces update latency. Our official code and data are available at https://github.com/EverM0re/LiCoMemory.</summary>
+    <category term="cs.IR" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-03T11:02:40Z</published>
+    <arxiv:primary_category term="cs.IR"/>
+    <author>
+      <name>Zhengjun Huang</name>
+    </author>
+    <author>
+      <name>Zhoujin Tian</name>
+    </author>
+    <author>
+      <name>Qintian Guo</name>
+    </author>
+    <author>
+      <name>Fangyuan Zhang</name>
+    </author>
+    <author>
+      <name>Yingli Zhou</name>
+    </author>
+    <author>
+      <name>Di Jiang</name>
+    </author>
+    <author>
+      <name>Zeying Xie</name>
+    </author>
+    <author>
+      <name>Xiaofang Zhou</name>
+    </author>
+  </entry>
+</feed>
