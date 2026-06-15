@@ -1,0 +1,68 @@
+{
+  "applied_at": "2026-06-15T23:13:51.528515+00:00",
+  "applied_by": "claude-opus-4.7+rekey:evya1",
+  "generated_markdown_root": "results/generated_markdown",
+  "key_map": {
+    "tbd2024mirai": "ye2024mirai",
+    "tbd2025agenticmath": "liu2025agenticmath",
+    "tbd2025agenticreasoningtools": "wu2025agenticreasoningtools",
+    "tbd2025licomemory": "huang2025licomemory",
+    "tbd2025multimodalsurvey": "yao2025multimodalsurvey",
+    "tbd2025planningperformance": "correa2025planningperformance",
+    "tbd2025proactiveretrievalmedical": "wang2025proactiveretrievalmedical",
+    "tbd2025reasoningfrontiers": "ke2025reasoningfrontiers",
+    "tbd2026agenticreasoning": "wei2026agenticreasoning",
+    "tbd2026telemem": "chen2025telemem"
+  },
+  "manifest_path": "config/article_sources.yaml",
+  "new_draft_sha256": "7f6c1368aa710f605da7909167fc745ac86ee6ce9aa9e155ea47c081a5a5ed04",
+  "note": "Provisional 'tbd...' citation keys migrated to authorYYYYkey. The Phase 6 review record (results/run_logs/review_record.json) is intentionally NOT rewritten; the Phase 6 gate will request honest human reapproval against the new draft_sha256.",
+  "previous_draft_sha256": "a137339da7d176ecf44a84a29f0bb1c73bdf3045891cc40ef1ce0fcd4519cbe8",
+  "schema": "p7i05-rekey/v1",
+  "touched": [
+    {
+      "path": "config/article_sources.yaml",
+      "replacements": 10
+    },
+    {
+      "path": "docs/SOURCES.md",
+      "replacements": 10
+    },
+    {
+      "path": "docs/AI_USAGE.md",
+      "replacements": 13
+    },
+    {
+      "path": "docs/PRD_bibliography_and_citations.md",
+      "replacements": 0
+    },
+    {
+      "path": "results/generated_markdown/outline.md",
+      "replacements": 10
+    },
+    {
+      "path": "results/generated_markdown/research_notes.md",
+      "replacements": 15
+    },
+    {
+      "path": "results/generated_markdown/chapters/planning.md",
+      "replacements": 2
+    },
+    {
+      "path": "results/generated_markdown/chapters/memory.md",
+      "replacements": 2
+    },
+    {
+      "path": "src/agentic_publishing_pipeline/crews/_phase6_data/outline.md",
+      "replacements": 10
+    },
+    {
+      "path": "src/agentic_publishing_pipeline/crews/_phase6_data/research_notes.md",
+      "replacements": 15
+    },
+    {
+      "path": "tests/fixtures/offline/task_responses.json",
+      "replacements": 14
+    }
+  ]
+}

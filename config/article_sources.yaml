@@ -57,7 +57,7 @@
 #     notes: "<freeform>"                     # optional
 
 sources:
-- citation_key: tbd2025reasoningfrontiers
+- citation_key: ke2025reasoningfrontiers
   title: 'A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason, and Agentic Systems'
   authors:
   - Ke, Zixuan
@@ -82,7 +82,7 @@ sources:
     method: arxiv_api
     verified_at: '2026-06-15T22:10:40.997179+00:00'
     verified_by: claude-opus-4.7+arxiv-api:evya1
-- citation_key: tbd2025agenticreasoningtools
+- citation_key: wu2025agenticreasoningtools
   title: 'Agentic Reasoning: A Streamlined Framework for Enhancing LLM Reasoning with Agentic Tools'
   authors:
   - Wu, Junde
@@ -100,7 +100,7 @@ sources:
     method: arxiv_api
     verified_at: '2026-06-15T22:10:40.997179+00:00'
     verified_by: claude-opus-4.7+arxiv-api:evya1
-- citation_key: tbd2025planningperformance
+- citation_key: correa2025planningperformance
   title: Frontier Large Language Models Rival State-of-the-Art Planners
   authors:
   - Corrêa, Augusto B.
@@ -116,7 +116,7 @@ sources:
     method: arxiv_api
     verified_at: '2026-06-15T22:10:40.997179+00:00'
     verified_by: claude-opus-4.7+arxiv-api:evya1
-- citation_key: tbd2025licomemory
+- citation_key: huang2025licomemory
   title: 'LiCoMemory: Lightweight and Cognitive Agentic Memory for Efficient Long-Term Reasoning'
   authors:
   - Huang, Zhengjun
@@ -137,7 +137,7 @@ sources:
     method: arxiv_api
     verified_at: '2026-06-15T22:10:40.997179+00:00'
     verified_by: claude-opus-4.7+arxiv-api:evya1
-- citation_key: tbd2026telemem
+- citation_key: chen2025telemem
   title: 'TeleMem: Building Long-Term and Multimodal Memory for Agentic AI'
   authors:
   - Chen, Chunliang
@@ -161,7 +161,7 @@ sources:
     method: arxiv_api
     verified_at: '2026-06-15T22:10:40.997179+00:00'
     verified_by: claude-opus-4.7+arxiv-api:evya1
-- citation_key: tbd2025multimodalsurvey
+- citation_key: yao2025multimodalsurvey
   title: A Survey on Agentic Multimodal Large Language Models
   authors:
   - Yao, Huanjin
@@ -185,7 +185,7 @@ sources:
     method: arxiv_api
     verified_at: '2026-06-15T22:10:40.997179+00:00'
     verified_by: claude-opus-4.7+arxiv-api:evya1
-- citation_key: tbd2025proactiveretrievalmedical
+- citation_key: wang2025proactiveretrievalmedical
   title: Proactive Reasoning-with-Retrieval Framework for Medical Multimodal Large Language Models
   authors:
   - Wang, Lehan
@@ -202,7 +202,7 @@ sources:
     method: arxiv_api
     verified_at: '2026-06-15T22:10:40.997179+00:00'
     verified_by: claude-opus-4.7+arxiv-api:evya1
-- citation_key: tbd2025agenticmath
+- citation_key: liu2025agenticmath
   title: 'AgenticMath: Enhancing LLM Reasoning via Agentic-based Math Data Generation'
   authors:
   - Liu, Xianyang
@@ -223,7 +223,7 @@ sources:
     method: arxiv_api
     verified_at: '2026-06-15T22:10:40.997179+00:00'
     verified_by: claude-opus-4.7+arxiv-api:evya1
-- citation_key: tbd2024mirai
+- citation_key: ye2024mirai
   title: 'MIRAI: Evaluating LLM Agents for Event Forecasting'
   authors:
   - Ye, Chenchen
@@ -243,7 +243,7 @@ sources:
     method: arxiv_api
     verified_at: '2026-06-15T22:10:40.997179+00:00'
     verified_by: claude-opus-4.7+arxiv-api:evya1
-- citation_key: tbd2026agenticreasoning
+- citation_key: wei2026agenticreasoning
   title: Agentic Reasoning for Large Language Models
   authors:
   - Wei, Tianxin

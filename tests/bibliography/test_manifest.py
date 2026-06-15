@@ -29,10 +29,12 @@ def test_loads_real_locked_manifest_with_10_records() -> None:
     assert len(manifest) == 10
     for record in manifest.records:
         assert isinstance(record, SourceRecord)
-        # Provisional `tbd…` keys remain until P7-I05 rekeys them.
-        assert record.citation_key.startswith("tbd")
-        # P7-I02 flips status to verified; see tests/bibliography/test_verify.py.
-        assert record.verification.status in {"verified", "unverified"}
+        # Post-P7-I05 keys: lowercase ASCII, no `tbd` prefix.
+        assert not record.citation_key.startswith("tbd"), record.citation_key
+        assert record.citation_key == record.citation_key.lower()
+        assert record.citation_key.isascii()
+        # P7-I02 flips status to verified.
+        assert record.verification.status == "verified"
         assert record.is_arxiv_source
         assert record.source_archive is not None
 

@@ -111,16 +111,16 @@ mismatch_or_rejection_rationale: <text or null>
 
 | Provisional key                  | arXiv ID    | Year | Local archive                              |
 |----------------------------------|-------------|------|--------------------------------------------|
-| `tbd2025reasoningfrontiers`      | 2504.09037  | 2025 | `data/sources/arxiv/source_zips/2504.09037.zip` |
-| `tbd2025agenticreasoningtools`   | 2502.04644  | 2025 | `data/sources/arxiv/source_zips/2502.04644.zip` |
-| `tbd2025planningperformance`     | 2511.09378  | 2025 | `data/sources/arxiv/source_zips/2511.09378.zip` |
-| `tbd2025licomemory`              | 2511.01448  | 2025 | `data/sources/arxiv/source_zips/2511.01448.zip` |
-| `tbd2026telemem`                 | 2601.06037  | 2026 | `data/sources/arxiv/source_zips/2601.06037.zip` |
-| `tbd2025multimodalsurvey`        | 2510.10991  | 2025 | `data/sources/arxiv/source_zips/2510.10991.zip` |
-| `tbd2025proactiveretrievalmedical` | 2510.18303 | 2025 | `data/sources/arxiv/source_zips/2510.18303.zip` |
-| `tbd2025agenticmath`             | 2510.19361  | 2025 | `data/sources/arxiv/source_zips/2510.19361.zip` |
-| `tbd2024mirai`                   | 2407.01231  | 2024 | `data/sources/arxiv/source_zips/2407.01231.zip` |
-| `tbd2026agenticreasoning`        | 2601.12538  | 2026 | `data/sources/arxiv/source_zips/2601.12538.zip` |
+| `ke2025reasoningfrontiers`      | 2504.09037  | 2025 | `data/sources/arxiv/source_zips/2504.09037.zip` |
+| `wu2025agenticreasoningtools`   | 2502.04644  | 2025 | `data/sources/arxiv/source_zips/2502.04644.zip` |
+| `correa2025planningperformance`     | 2511.09378  | 2025 | `data/sources/arxiv/source_zips/2511.09378.zip` |
+| `huang2025licomemory`              | 2511.01448  | 2025 | `data/sources/arxiv/source_zips/2511.01448.zip` |
+| `chen2025telemem`                 | 2601.06037  | 2026 | `data/sources/arxiv/source_zips/2601.06037.zip` |
+| `yao2025multimodalsurvey`        | 2510.10991  | 2025 | `data/sources/arxiv/source_zips/2510.10991.zip` |
+| `wang2025proactiveretrievalmedical` | 2510.18303 | 2025 | `data/sources/arxiv/source_zips/2510.18303.zip` |
+| `liu2025agenticmath`             | 2510.19361  | 2025 | `data/sources/arxiv/source_zips/2510.19361.zip` |
+| `ye2024mirai`                   | 2407.01231  | 2024 | `data/sources/arxiv/source_zips/2407.01231.zip` |
+| `wei2026agenticreasoning`        | 2601.12538  | 2026 | `data/sources/arxiv/source_zips/2601.12538.zip` |
 
 The verification status for every entry is `pending` until P7-I02
 populates this ledger with authoritative metadata, sets `verified` or

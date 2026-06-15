@@ -37,9 +37,16 @@ def _split_header(text: str) -> tuple[str, str]:
 
 
 def _index_results(report: dict[str, object]) -> dict[str, dict[str, object]]:
+    """Index verification results by arXiv id.
+
+    arXiv id is stable across P7-I05 rekeys; using it as the join key
+    keeps apply_verification idempotent after the citation_key
+    migration.
+    """
+
     out: dict[str, dict[str, object]] = {}
     for entry in report["results"]:  # type: ignore[assignment]
-        out[str(entry["citation_key"])] = entry  # type: ignore[index]
+        out[str(entry["arxiv_id"])] = entry  # type: ignore[index]
     return out
 
 
@@ -54,9 +61,10 @@ def _apply(
     data = yaml.safe_load(sources_block)
     assert isinstance(data, dict) and "sources" in data, "manifest layout unexpected"
     for record in data["sources"]:
-        key = record["citation_key"]
-        result = results.get(key)
-        assert result is not None, f"verification result missing for {key!r}"
+        arxiv_id = record.get("arxiv_id")
+        assert arxiv_id, f"manifest record {record.get('citation_key')!r} missing arxiv_id"
+        result = results.get(arxiv_id)
+        assert result is not None, f"verification result missing for arxiv_id {arxiv_id!r}"
         # The arxiv_id is the canonical identity; preserve it.
         record["title"] = result["arxiv_title"]
         record["year"] = result["arxiv_year"]
@@ -87,11 +95,11 @@ def main(argv: list[str] | None = None) -> int:
     text = args.manifest.read_text(encoding="utf-8")
     report = json.loads(args.report.read_text(encoding="utf-8"))
     results = _index_results(report)
-    rejected = [key for key, r in results.items() if r["status"] != "verified"]
+    rejected = [arxiv_id for arxiv_id, r in results.items() if r["status"] != "verified"]
     if rejected:
         raise RuntimeError(
             f"verification report has {len(rejected)} non-verified entries "
-            f"({sorted(rejected)}); resolve manually before applying"
+            f"(arxiv_ids: {sorted(rejected)}); resolve manually before applying"
         )
     verified_at = datetime.now(UTC).isoformat()
     verified_by = f"{args.verifier_id}:{args.github_account}"

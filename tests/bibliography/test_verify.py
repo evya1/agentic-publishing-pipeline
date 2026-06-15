@@ -147,7 +147,8 @@ def test_apply_verification_is_idempotent() -> None:
     verified_at = manifest.records[0].verification.verified_at
     verified_by = manifest.records[0].verification.verified_by
     assert verified_at is not None and verified_by is not None
-    results = {r["citation_key"]: r for r in report["results"]}
+    # apply_verification joins on arxiv_id (stable across P7-I05 rekey).
+    results = {r["arxiv_id"]: r for r in report["results"]}
     rewritten = _apply(
         text, results, verified_at=verified_at, verified_by=verified_by
     )

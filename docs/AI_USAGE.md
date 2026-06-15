@@ -31,6 +31,55 @@ For each AI-assisted activity, record:
 
 ## Entries
 
+### 2026-06-16 — Phase 7 provisional → final key migration (P7-I05)
+
+- **Date:** 2026-06-16.
+- **Tool / model:** Claude Code (Opus 4.7) drove the implementation.
+  The migration itself is deterministic ASCII string rewriting —
+  no LLM produced citation keys. The orchestrator lives at
+  `src/agentic_publishing_pipeline/bibliography/run_rekey.py` and
+  builds the key map via
+  `src/agentic_publishing_pipeline/bibliography/rekey.py`.
+- **Rekey identity:** `claude-opus-4.7+rekey:evya1`.
+- **Purpose:** retire the provisional `tbd…` citation keys, replace
+  each with `<family><year><slug>` derived from the verified
+  manifest, and re-sync every active artifact that references a
+  citation key.
+- **Inputs:** the verified-as-of-P7-I02 manifest
+  `config/article_sources.yaml` (10 records, all `verified`).
+- **Outputs:**
+  - rewritten manifest, `docs/SOURCES.md` placeholder table,
+    `docs/PRD_bibliography_and_citations.md` references,
+    `results/generated_markdown/**`,
+    `src/agentic_publishing_pipeline/crews/_phase6_data/**`, and
+    `tests/fixtures/offline/task_responses.json` (101 individual
+    replacements across 10 files);
+  - `results/run_logs/p7i05_rekey.json` — transparent migration
+    ledger with key map, files touched, previous and new
+    `draft_sha256` for the generated Markdown tree.
+- **Phase 6 review-record integrity:** the Phase 6 approval at
+  `results/run_logs/review_record.json` is **intentionally** not
+  rewritten. After the migration, the recorded `draft_sha256`
+  (`a137339d…`) no longer matches the post-migration
+  `draft_sha256` (`7f6c1368…`), so the Phase 6 review gate
+  (`_review_gate.enforce_review_gate`) correctly refuses to
+  proceed and requires honest human reapproval. No reapproval
+  was fabricated.
+- **Human verification:** required for the migrated Markdown
+  before any LaTeX conversion can begin. Until that reapproval
+  is recorded, every consumer of the Markdown tree must treat
+  the migrated content as **pending human review**.
+- **Cost / token estimate:** $0.00; deterministic string rewrite,
+  no model calls.
+- **Known limitations:**
+  - The historical run-log evidence
+    (`results/run_logs/phase6_review_packet.md`,
+    `results/run_logs/p7i02_verification.json`) is intentionally
+    not rewritten — those files document state at the time of
+    each run and are kept as-is for audit.
+  - The Phase 6 review record itself is also preserved; the
+    migration explicitly does not forge a reapproval.
+
 ### 2026-06-16 — Phase 7 source verification run (P7-I02, live arXiv API)
 
 - **Date:** 2026-06-16.
@@ -63,12 +112,15 @@ For each AI-assisted activity, record:
 - **Live verification result:** 10/10 verified against the committed
   fixtures. The first live run flagged three placeholder
   mismatches in the original manifest, which are recorded in
-  `docs/SOURCES.md`:
-  - `tbd2025agenticreasoningtools` (2502.04644) — manifest title
+  `docs/SOURCES.md`. The keys named below are the **final**
+  post-P7-I05 keys; the provisional keys at run time were
+  respectively `tbd2025agenticreasoningtools`,
+  `tbd2025planningperformance`, and `tbd2026telemem`:
+  - `wu2025agenticreasoningtools` (2502.04644) — manifest title
     placeholder corrected to the authoritative arXiv title.
-  - `tbd2025planningperformance` (2511.09378) — manifest title
+  - `correa2025planningperformance` (2511.09378) — manifest title
     placeholder corrected to the authoritative arXiv title.
-  - `tbd2026telemem` (2601.06037) — manifest year placeholder
+  - `chen2025telemem` (2601.06037) — manifest year placeholder
     `2026` corrected to authoritative `2025` (arXiv `<published>`).
   No fabricated authors or titles were introduced; every
   authoritative value came from the committed XML fixture.
@@ -143,15 +195,25 @@ For each AI-assisted activity, record:
     → `e0b06a67b9b0a34f05df49ec70f0eba01b30c839c2430766f1c264c07bf160c3`
   - `research_notes.md`
     → `8b2ef7820cf16f7dc8faeffcc0a2ceaa5ba454aba2f46a130740a9fec0b89aa3`
-- **Citation-key resolution:** all CITATION placeholders in the
-  committed Markdown set (`tbd2025agenticmath`,
-  `tbd2025agenticreasoningtools`, `tbd2025licomemory`,
-  `tbd2025multimodalsurvey`, `tbd2025planningperformance`,
-  `tbd2025proactiveretrievalmedical`, `tbd2026agenticreasoning`,
-  `tbd2026telemem`) resolve to keys present in
-  `config/article_sources.yaml`. `tbd2024mirai` and
-  `tbd2025reasoningfrontiers` are present in the manifest but not
-  yet cited by the candidate drafts.
+- **Citation-key resolution (at time of approval):** all CITATION
+  placeholders in the reviewed Markdown set used the provisional
+  keys `tbd2025agenticmath`, `tbd2025agenticreasoningtools`,
+  `tbd2025licomemory`, `tbd2025multimodalsurvey`,
+  `tbd2025planningperformance`, `tbd2025proactiveretrievalmedical`,
+  `tbd2026agenticreasoning`, `tbd2026telemem`, resolving against the
+  then-current `config/article_sources.yaml`. `tbd2024mirai` and
+  `tbd2025reasoningfrontiers` were present in the manifest but not
+  cited by the candidate drafts.
+- **Note (post-approval).** The provisional `tbd…` keys above were
+  migrated to the final `authorYYYYkey` form under P7-I05 on
+  2026-06-16. The historical SHA-256s above still refer to the
+  pre-migration Markdown bytes; the migration map and the
+  post-migration `draft_sha256` are recorded in
+  `results/run_logs/p7i05_rekey.json`. The Phase 6 review record
+  intentionally remains tied to the original `draft_sha256`, so
+  the Phase 6 review gate now requires honest human reapproval
+  against the migrated Markdown before any LaTeX conversion may
+  proceed.
 - **Human verification:** approved by human reviewer `evya1` at
   `2026-06-15T22:59:51+02:00`. The approval is recorded in
   `results/run_logs/review_record.json` with verdict `approved`

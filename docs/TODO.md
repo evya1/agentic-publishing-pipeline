@@ -323,6 +323,9 @@ do not block the Phase 1.5 lock.
       `authorYYYYkey` convention once authors are verified. Owned by
       the Bibliography Agent in Phase 7.
       [Phase 7] [`docs/PRD_bibliography_and_citations.md` §9]
+      *P7-I05 (issue #26):* applied across active artifacts; ledger
+      at `results/run_logs/p7i05_rekey.json`. Box stays unchecked
+      until merge and post-merge evidence per §F-6.
 - [x] Resolve the remaining Phase 3 open questions (audience, depth
       target, BiDi balance, citation density target) and record them
       in `docs/PRD.md` §22.6–§22.9. The synchronized mechanism-PRD
@@ -543,6 +546,16 @@ is next.
       `config/article_sources.yaml` and in any Markdown placeholders to
       the final `authorYYYYkey` convention. [Phase 7]
       [`docs/PRD_bibliography_and_citations.md` §9]
+      *P7-I05 (issue #26):* deterministic migration implemented by
+      `src/agentic_publishing_pipeline/bibliography/rekey.py` and
+      run via `run_rekey.py`. Ledger
+      `results/run_logs/p7i05_rekey.json` records the 10-entry key
+      map and the pre/post `draft_sha256` for the generated
+      Markdown tree. Phase 6 review record is intentionally not
+      rewritten — `enforce_review_gate` now refuses to proceed
+      until a human reapproves the migrated Markdown. Box stays
+      unchecked until merge and post-merge evidence per
+      `docs/TODO.md` §F-6.
 - [ ] Wire `\cite{...}` placeholders in Markdown drafts and resolve them
       into the LaTeX project so every citation links to a real `.bib`
       entry. [Phase 7, Phase 9] [FR-33, AC §14.2]

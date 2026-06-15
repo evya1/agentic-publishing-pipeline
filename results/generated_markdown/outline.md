@@ -9,20 +9,20 @@
 1. **Planning** (`chapter_id: planning`)
    - Summary: Surveys task decomposition and planning performance in frontier LLMs.
    - Planned placeholders: planning/figure-1 (planning-loop diagram)
-   - Dependencies: tbd2025planningperformance, tbd2026agenticreasoning
+   - Dependencies: correa2025planningperformance, wei2026agenticreasoning
 
 2. **Memory** (`chapter_id: memory`, BiDi host)
    - Summary: Long-horizon memory architectures and lightweight cognitive systems.
-   - Dependencies: tbd2025licomemory, tbd2026telemem
+   - Dependencies: huang2025licomemory, chen2025telemem
 
 3. **Retrieval** (`chapter_id: retrieval`)
    - Summary: Retrieval-augmented generation and grounded search.
-   - Dependencies: tbd2025agenticreasoningtools, tbd2025proactiveretrievalmedical
+   - Dependencies: wu2025agenticreasoningtools, wang2025proactiveretrievalmedical
 
 4. **Tool Use** (`chapter_id: tool_use`)
    - Summary: Tool-use policies and agentic math reasoning.
-   - Dependencies: tbd2025agenticreasoningtools, tbd2025agenticmath
+   - Dependencies: wu2025agenticreasoningtools, liu2025agenticmath
 
 5. **Multimodal** (`chapter_id: multimodal`)
    - Summary: Cross-modal evidence and multimodal survey overview.
-   - Dependencies: tbd2025multimodalsurvey, tbd2025proactiveretrievalmedical
+   - Dependencies: yao2025multimodalsurvey, wang2025proactiveretrievalmedical
