@@ -32,7 +32,9 @@ def _write_draft(md_root: Path, name: str = "ch.md") -> Path:
 
 
 def _human_record(md_root: Path) -> ReviewRecord:
-    return make_review_record(reviewer="Alice Reviewer", generated_md_root=md_root, verdict="approved")
+    return make_review_record(
+        reviewer="Alice Reviewer", generated_md_root=md_root, verdict="approved"
+    )
 
 
 # ---------------------------------------------------------------------------
