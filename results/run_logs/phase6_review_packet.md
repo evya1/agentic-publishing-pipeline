@@ -3,10 +3,10 @@
 This file is **informational only**. It describes the Phase 6 candidate
 Markdown set, the per-file and aggregate hashes that the
 `enforce_review_gate()` mechanism checks against, the approved/changes_requested
-response templates a human reviewer must use, and the exact destination
-and API for recording the verdict later. It is **not** an approval
-record. The human review record is `results/run_logs/review_record.json`,
-which is only written when a human reviewer makes a decision.
+response templates a human reviewer uses, and the exact destination
+and API for recording the verdict. It is **not** the approval record.
+The human review record is `results/run_logs/review_record.json`,
+which now records the approved Phase 6 revision.
 
 ## Canonical files included by the aggregate hash
 
@@ -143,11 +143,14 @@ write_review_record(record, log_root)
 After saving the record, run
 `uv run python -m agentic_publishing_pipeline.crews.cli --mode
 compile-only --results-root <root> --run-id <run-id>` to confirm the
-gate now passes; the same command currently exits with
-`HumanReviewRequired` because no record exists.
+gate passes for the approved revision. The gate exits with
+`HumanReviewRequired` if the record is missing, stale, marked
+`changes_requested`, or attributed to an LLM/agent identity.
 
 ## Human approval status
 
-**PENDING.** No `review_record.json` exists under `results/run_logs/`.
-Phase 6 implementation does not write one. Codex checkpoint 2 may not
-write one either; only a human reviewer may record a verdict.
+**APPROVED.** Human reviewer `evya1` approved the exact revision above
+at `2026-06-15T22:59:51+02:00`. The approval is recorded in
+`results/run_logs/review_record.json` with verdict `approved`. Any later
+content mutation, rename, directory move, addition, or removal
+invalidates this approval and requires a fresh human review.

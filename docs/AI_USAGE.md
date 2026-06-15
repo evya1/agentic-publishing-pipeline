@@ -82,27 +82,31 @@ For each AI-assisted activity, record:
   `config/article_sources.yaml`. `tbd2024mirai` and
   `tbd2025reasoningfrontiers` are present in the manifest but not
   yet cited by the candidate drafts.
-- **Human verification:** PENDING. The committed
-  `_review_gate.enforce_review_gate()` blocks any LaTeX conversion
-  until a human reviewer records an `approved` verdict whose
-  recorded `draft_sha256` matches the current path-sensitive
-  aggregate revision above. No real `review_record.json` has been
-  written under `results/run_logs/` and none will be written during
-  the Phase 6 implementation pass.
+- **Human verification:** approved by human reviewer `evya1` at
+  `2026-06-15T22:59:51+02:00`. The approval is recorded in
+  `results/run_logs/review_record.json` with verdict `approved`
+  and draft revision
+  `a137339da7d176ecf44a84a29f0bb1c73bdf3045891cc40ef1ce0fcd4519cbe8`.
+  The committed `_review_gate.enforce_review_gate()` blocks any
+  LaTeX conversion unless that recorded `draft_sha256` matches the
+  current path-sensitive aggregate revision.
 - **Cost / token estimate:** $0.00; zero external-provider tokens
   for this run. Development assistance from Claude Code (Opus 4.7)
   and Codex (independent reviewer in a separate clone) is tracked
   separately in `docs/PROMPTS.md` per the existing AI usage schema;
   that assistance contributed no committed Markdown text directly.
 - **Known limitations:**
-  - Drafts come from the deterministic offline fixture, not from a
-    live provider run; live-provider generation is deferred to a
-    later phase.
+  - Drafts come from deterministic offline-fixture and
+    static-template generation, not from a live provider run;
+    live-provider generation is deferred to a later phase.
   - The reviewer-identity check in the review gate is a heuristic
     denylist, not cryptographic identity proof.
-  - LaTeX, BibTeX, and PDF generation are explicitly out of scope
-    for this entry; no `.tex`, `.bib`, or `.pdf` was produced.
+  - Bibliography verification, LaTeX conversion, final PDF
+    generation, and PDF validation are explicitly out of scope for
+    this entry; no `.tex`, `.bib`, or `.pdf` was produced.
+  - The current Markdown files are intermediate Phase 6 candidates
+    rather than final publication-ready chapters.
 - **Status on `main`:** not yet merged. Implementation is ready on
-  PR #81 (branch `phase/06-markdown-first-content-pipeline`),
-  human approval is pending, and independent checkpoint 2 and merge
-  are pending.
+  PR #81 (branch `phase/06-markdown-first-content-pipeline`), human
+  approval is recorded, and final independent gate plus merge remain
+  pending.
