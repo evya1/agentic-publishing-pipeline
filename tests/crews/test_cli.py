@@ -145,9 +145,29 @@ def test_validate_only_reuses_workspace_and_updates_snapshot(tmp_path: Path) -> 
     assert snapshot["last_cli_invocation"]["mode"] == "validate-only"
 
 
-def test_compile_only_reruns_build_and_validation(tmp_path: Path) -> None:
+def test_compile_only_reports_missing_project_input(tmp_path: Path) -> None:
     rc, workspace = _run_offline_fixture(tmp_path)
     assert rc == 0
+    with pytest.raises(SystemExit, match="requires existing latex_project/main.tex"):
+        run_cli(
+            [
+                "--mode", "compile-only",
+                "--registry", str(_registry()),
+                "--results-root", str(tmp_path / "results"),
+                "--run-id", workspace.name,
+            ],
+            env={},
+        )
+    assert "compile.failed" in (workspace / "events.jsonl").read_text(encoding="utf-8")
+
+
+def test_compile_only_reruns_build_and_validation_when_project_exists(tmp_path: Path) -> None:
+    rc, workspace = _run_offline_fixture(tmp_path)
+    assert rc == 0
+    (workspace / "latex_project" / "main.tex").write_text(
+        "\\documentclass{article}\n\\begin{document}\nOffline fixture\n\\end{document}\n",
+        encoding="utf-8",
+    )
     rc = run_cli(
         [
             "--mode", "compile-only",

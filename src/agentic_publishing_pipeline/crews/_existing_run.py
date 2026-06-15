@@ -60,12 +60,16 @@ def _append_event(workspace: Path, event: str, payload: dict[str, object]) -> No
 
 def _compile_workspace(workspace: Path, run_id: str) -> None:
     project = workspace / "latex_project"
-    project.mkdir(parents=True, exist_ok=True)
     main_tex = project / "main.tex"
     if not main_tex.exists():
-        main_tex.write_text(
-            "\\documentclass{article}\n\\begin{document}\nOffline fixture\n\\end{document}\n",
-            encoding="utf-8",
+        _append_event(
+            workspace,
+            "compile.failed",
+            {"reason": "missing latex_project/main.tex"},
+        )
+        raise SystemExit(
+            "compile-only requires existing latex_project/main.tex; "
+            "Phase 5 does not assemble LaTeX projects"
         )
 
     def runner(command: list[str], cwd: Path, timeout: float) -> tuple[int, str]:
