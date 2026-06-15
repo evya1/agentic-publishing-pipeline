@@ -8,6 +8,13 @@
 
 Reasoning-Centric Agentic LLM Systems
 
+## Background
+
+The reasoning landscape — inference-time scaling, learning to reason, and
+agentic systems — is surveyed at frontier scale.
+
+<!-- CITATION: ke2025reasoningfrontiers -->
+
 ## Research Dimensions
 
 ### Planning

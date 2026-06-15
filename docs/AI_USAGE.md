@@ -31,6 +31,54 @@ For each AI-assisted activity, record:
 
 ## Entries
 
+### 2026-06-16 — Phase 7 citation resolution + coverage gap (P7-I06)
+
+- **Date:** 2026-06-16.
+- **Tool / model:** Claude Code (Opus 4.7) drove the implementation.
+  Citation resolution is a pure pattern-match rewrite; no LLM
+  produced citation keys or factual content. The resolver lives at
+  `src/agentic_publishing_pipeline/bibliography/cite.py` and the
+  walking CLI at `run_citecheck.py`.
+- **Purpose:** validate every `<!-- CITATION: key -->` in the
+  active Markdown tree against the verified manifest, expose the
+  Markdown→`\cite{...}` rewrite via `CitationResolver`, and
+  surface ten-source coverage.
+- **Outputs:**
+  - validates that all citation placeholders resolve to verified
+    final keys (no `tbd…`, no unknown, no rejected, no whitespace);
+  - emits `results/run_logs/p7i06_citation_coverage.json` (schema
+    `p7i06-citation-coverage/v1`) with per-file citation counts,
+    cited keys, and uncited verified keys.
+- **Editorial change applied:** one new citation
+  `ke2025reasoningfrontiers` (A Survey of Frontiers in LLM
+  Reasoning) was added to a new `## Background` section in
+  `results/generated_markdown/research_notes.md` and the matching
+  static template `src/agentic_publishing_pipeline/crews/
+  _phase6_data/research_notes.md`. The citation truthfully
+  reflects the source's intended use ("Background framing for the
+  reasoning landscape (inference-time scaling, learning to reason,
+  agentic systems)"), which matches the topic of the document.
+  No factual claim was introduced beyond what the survey already
+  covers.
+- **Known coverage gap (not papered over):** `ye2024mirai` (MIRAI:
+  Evaluating LLM Agents for Event Forecasting) remains uncited
+  because its intended use is "Evaluation chapter; benchmark for
+  LLM agents on event forecasting" and **no Evaluation chapter
+  exists in Phase 7 scope**. Adding the citation to an unrelated
+  section would be misleading; the gap is recorded honestly here
+  and in `results/run_logs/p7i06_citation_coverage.json` under
+  `uncited_verified_keys`. The canonical ten-source coverage rule
+  (`docs/PRD_bibliography_and_citations.md` §10.2) will be
+  satisfied when Phase 9 adds an Evaluation chapter or when the
+  manifest's locked source set is reconsidered through a
+  reviewed PR.
+- **Phase 6 review-record integrity:** the editorial addition
+  changes the `draft_sha256` again (already broken by P7-I05).
+  The Phase 6 approval continues to require honest human
+  reapproval; no reapproval was fabricated.
+- **Cost / token estimate:** $0.00; deterministic rewrite, no
+  model calls.
+
 ### 2026-06-16 — Phase 7 provisional → final key migration (P7-I05)
 
 - **Date:** 2026-06-16.

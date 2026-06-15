@@ -578,6 +578,19 @@ is next.
 - [ ] Wire `\cite{...}` placeholders in Markdown drafts and resolve them
       into the LaTeX project so every citation links to a real `.bib`
       entry. [Phase 7, Phase 9] [FR-33, AC §14.2]
+      *P7-I06 (issue #27):* resolver at
+      `src/agentic_publishing_pipeline/bibliography/cite.py`
+      (`CitationResolver.rewrite_markdown` and `extract_keys`
+      replace `<!-- CITATION: key -->` with `\cite{key}` and fail
+      loudly on unknown/provisional/rejected/whitespace keys).
+      Coverage report at
+      `results/run_logs/p7i06_citation_coverage.json`. P7-I06
+      truthfully added `ke2025reasoningfrontiers` to
+      research_notes.md §Background; `ye2024mirai` remains
+      uncited because no Evaluation chapter exists in Phase 7
+      scope (recorded as a known gap; not fabricated). Tests in
+      `tests/bibliography/test_cite.py`. Box stays unchecked
+      until merge and post-merge evidence per §F-6.
 - [ ] Treat all archive contents under
       `data/sources/arxiv/source_zips/` and
       `data/sources/arxiv/unpacked/` as **untrusted external source
