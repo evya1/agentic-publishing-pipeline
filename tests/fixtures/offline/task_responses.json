@@ -11,7 +11,7 @@
     "finish_reason": "stop",
     "latency_ms": 1.0,
     "model_id": "fixture-haiku-4-5",
-    "text": "{\"entries\":[{\"citation_key\":\"tbd2025reasoningfrontiers\",\"entry_type\":\"article\",\"title\":\"A Survey of Frontiers in LLM Reasoning\",\"year\":2025,\"arxiv_id\":\"2504.09037\",\"verification_status\":\"unverified\"}],\"placeholder_resolution\":{\"planning/citation-1\":\"tbd2025reasoningfrontiers\"},\"manifest_coverage\":[\"tbd2025reasoningfrontiers\"]}",
+    "text": "{\"entries\":[{\"citation_key\":\"tbd2025reasoningfrontiers\",\"entry_type\":\"article\",\"title\":\"A Survey of Frontiers in LLM Reasoning\",\"year\":2025,\"arxiv_id\":\"2504.09037\",\"verification_status\":\"unverified\"}],\"placeholder_resolution\":{\"planning/citation-1\":\"tbd2025planningperformance\",\"planning/citation-2\":\"tbd2026agenticreasoning\",\"memory/citation-1\":\"tbd2025licomemory\",\"memory/citation-2\":\"tbd2026telemem\"},\"manifest_coverage\":[\"tbd2025reasoningfrontiers\"]}",
     "tokens_in": 20,
     "tokens_out": 50
   },
@@ -19,7 +19,7 @@
     "finish_reason": "stop",
     "latency_ms": 1.0,
     "model_id": "fixture-haiku-4-5",
-    "text": "{\"chapter_id\":\"memory\",\"hebrew_body\":\"\\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8\",\"inline_english_terms\":[\"LLM\"]}",
+    "text": "{\"chapter_id\":\"memory\",\"hebrew_body\":\"טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט טקסט\",\"inline_english_terms\":[\"LLM\"]}",
     "tokens_in": 20,
     "tokens_out": 46
   },
@@ -27,7 +27,7 @@
     "finish_reason": "stop",
     "latency_ms": 1.0,
     "model_id": "fixture-haiku-4-5",
-    "text": "{\"preamble\":{\"engine\":\"lualatex\",\"main_font_english\":\"Latin Modern Roman\",\"hebrew_font\":\"David CLM\",\"packages\":[]},\"chapters\":[{\"chapter_id\":\"planning\",\"file_stem\":\"planning\"},{\"chapter_id\":\"memory\",\"file_stem\":\"memory\"},{\"chapter_id\":\"retrieval\",\"file_stem\":\"retrieval\"},{\"chapter_id\":\"tool_use\",\"file_stem\":\"tool_use\"},{\"chapter_id\":\"multimodal\",\"file_stem\":\"multimodal\"}],\"nomenclature\":{\"symbols\":[[\"alpha\",\"rate\"],[\"beta\",\"loss\"]]},\"index_entries\":{\"hebrew_terms\":[\"\\u05d6\\u05d9\\u05db\\u05e8\\u05d5\\u05df\"],\"english_terms\":[\"memory\"]}}",
+    "text": "{\"preamble\":{\"engine\":\"lualatex\",\"main_font_english\":\"Latin Modern Roman\",\"hebrew_font\":\"David CLM\",\"packages\":[]},\"chapters\":[{\"chapter_id\":\"planning\",\"file_stem\":\"planning\"},{\"chapter_id\":\"memory\",\"file_stem\":\"memory\"},{\"chapter_id\":\"retrieval\",\"file_stem\":\"retrieval\"},{\"chapter_id\":\"tool_use\",\"file_stem\":\"tool_use\"},{\"chapter_id\":\"multimodal\",\"file_stem\":\"multimodal\"}],\"nomenclature\":{\"symbols\":[[\"alpha\",\"rate\"],[\"beta\",\"loss\"]]},\"index_entries\":{\"hebrew_terms\":[\"זיכרון\"],\"english_terms\":[\"memory\"]}}",
     "tokens_in": 20,
     "tokens_out": 82
   },
@@ -43,9 +43,9 @@
     "finish_reason": "stop",
     "latency_ms": 1.0,
     "model_id": "fixture-haiku-4-5",
-    "text": "{\"topic\":\"Reasoning-Centric Agentic LLM Systems\",\"dimensions\":[{\"dimension\":\"planning\",\"summary\":\"Notes about planning.\",\"key_points\":[\"Task decomposition\"]},{\"dimension\":\"memory\",\"summary\":\"Notes about memory.\",\"key_points\":[\"State persistence\"]},{\"dimension\":\"retrieval\",\"summary\":\"Notes about retrieval.\",\"key_points\":[\"Grounded search\"]},{\"dimension\":\"tool_use\",\"summary\":\"Notes about tool use.\",\"key_points\":[\"Bounded actions\"]},{\"dimension\":\"multimodal\",\"summary\":\"Notes about multimodal.\",\"key_points\":[\"Cross-modal evidence\"]}],\"candidate_references\":[{\"arxiv_id\":\"2504.09037\",\"title\":\"A Survey of Frontiers in LLM Reasoning\"}],\"glossary\":[{\"term\":\"agentic reasoning\",\"definition\":\"Reasoning coordinated across tools and state.\"}]}",
+    "text": "{\"topic\":\"Reasoning-Centric Agentic LLM Systems\",\"dimensions\":[{\"dimension\":\"planning\",\"summary\":\"Notes about planning.\",\"key_points\":[\"Task decomposition\"]},{\"dimension\":\"memory\",\"summary\":\"Notes about memory.\",\"key_points\":[\"State persistence\"]},{\"dimension\":\"retrieval\",\"summary\":\"Notes about retrieval.\",\"key_points\":[\"Grounded search\"]},{\"dimension\":\"tool_use\",\"summary\":\"Notes about tool use.\",\"key_points\":[\"Bounded actions\"]},{\"dimension\":\"multimodal\",\"summary\":\"Notes about multimodal.\",\"key_points\":[\"Cross-modal evidence\"]}],\"candidate_references\":[{\"arxiv_id\":\"2504.09037\",\"title\":\"A Survey of Frontiers in LLM Reasoning\"},{\"arxiv_id\":\"2511.09378\",\"title\":\"The 2025 Planning Performance of Frontier LLMs\"},{\"arxiv_id\":\"2511.01448\",\"title\":\"LiCoMemory\"},{\"arxiv_id\":\"2601.06037\",\"title\":\"TeleMem\"},{\"arxiv_id\":\"2601.12538\",\"title\":\"Agentic Reasoning for Large Language Models\"}],\"glossary\":[{\"term\":\"agentic reasoning\",\"definition\":\"Reasoning coordinated across tools and state.\"}]}",
     "tokens_in": 20,
-    "tokens_out": 110
+    "tokens_out": 130
   },
   "REVIEW": {
     "finish_reason": "stop",
@@ -59,8 +59,8 @@
     "finish_reason": "stop",
     "latency_ms": 1.0,
     "model_id": "fixture-haiku-4-5",
-    "text": "{\"chapters\":[{\"chapter_id\":\"planning\",\"heading\":\"Planning\",\"body_markdown\":\"# Planning\\n\\nIntro for planning.\\n<!-- FIGURE: dimension overview -->\\n<!-- CITATION: surveys -->\"},{\"chapter_id\":\"memory\",\"heading\":\"Memory\",\"body_markdown\":\"# Memory\\n\\nIntro for memory.\"}],\"placeholder_index\":[{\"kind\":\"FIGURE\",\"slot\":\"planning/figure-1\",\"chapter_id\":\"planning\",\"description\":\"dimension overview\"},{\"kind\":\"CITATION\",\"slot\":\"planning/citation-1\",\"chapter_id\":\"planning\",\"description\":\"surveys\"}]}",
+    "text": "{\"chapters\":[{\"chapter_id\":\"planning\",\"heading\":\"Planning and Task Decomposition\",\"body_markdown\":\"# Planning and Task Decomposition\\n\\nFrontier LLMs have demonstrated significant improvements in planning by\\ndecomposing complex goals into executable sub-tasks. This chapter surveys\\nthe planning landscape as of 2025.\\n\\n<!-- FIGURE: planning-loop diagram showing task decomposition cycle -->\\n\\n<!-- TABLE: benchmark comparison of planning methods across frontier models -->\\n\\n<!-- EQUATION: objective function for hierarchical task decomposition -->\\n\\n<!-- CITATION: tbd2025planningperformance -->\\n\\n<!-- CITATION: tbd2026agenticreasoning -->\\n\"},{\"chapter_id\":\"memory\",\"heading\":\"Memory and State Persistence\",\"body_markdown\":\"# Memory and State Persistence\\n\\nLong-horizon agentic tasks require persistent memory across steps.\\nLightweight cognitive architectures have emerged to address this challenge.\\n\\n<!-- FIGURE: memory architecture overview comparing episodic and semantic stores -->\\n\\n<!-- TABLE: memory system comparison on efficiency and recall metrics -->\\n\\n<!-- EQUATION: retrieval scoring function for memory access -->\\n\\n<!-- CITATION: tbd2025licomemory -->\\n\\n<!-- CITATION: tbd2026telemem -->\\n\"}],\"placeholder_index\":[{\"kind\":\"FIGURE\",\"slot\":\"planning/figure-1\",\"chapter_id\":\"planning\",\"description\":\"planning-loop diagram showing task decomposition cycle\"},{\"kind\":\"TABLE\",\"slot\":\"planning/table-1\",\"chapter_id\":\"planning\",\"description\":\"benchmark comparison of planning methods across frontier models\"},{\"kind\":\"EQUATION\",\"slot\":\"planning/equation-1\",\"chapter_id\":\"planning\",\"description\":\"objective function for hierarchical task decomposition\"},{\"kind\":\"CITATION\",\"slot\":\"planning/citation-1\",\"chapter_id\":\"planning\",\"description\":\"tbd2025planningperformance\"},{\"kind\":\"CITATION\",\"slot\":\"planning/citation-2\",\"chapter_id\":\"planning\",\"description\":\"tbd2026agenticreasoning\"},{\"kind\":\"FIGURE\",\"slot\":\"memory/figure-1\",\"chapter_id\":\"memory\",\"description\":\"memory architecture overview comparing episodic and semantic stores\"},{\"kind\":\"TABLE\",\"slot\":\"memory/table-1\",\"chapter_id\":\"memory\",\"description\":\"memory system comparison on efficiency and recall metrics\"},{\"kind\":\"EQUATION\",\"slot\":\"memory/equation-1\",\"chapter_id\":\"memory\",\"description\":\"retrieval scoring function for memory access\"},{\"kind\":\"CITATION\",\"slot\":\"memory/citation-1\",\"chapter_id\":\"memory\",\"description\":\"tbd2025licomemory\"},{\"kind\":\"CITATION\",\"slot\":\"memory/citation-2\",\"chapter_id\":\"memory\",\"description\":\"tbd2026telemem\"}]}",
     "tokens_in": 20,
-    "tokens_out": 72
+    "tokens_out": 200
   }
 }

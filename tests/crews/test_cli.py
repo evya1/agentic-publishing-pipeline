@@ -9,6 +9,10 @@ from pathlib import Path
 import pytest
 
 from agentic_publishing_pipeline.crews import build_parser, run_cli
+from agentic_publishing_pipeline.crews._review_gate import (
+    make_review_record,
+    write_review_record,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -33,7 +37,19 @@ def _run_offline_fixture(tmp_path: Path) -> tuple[int, Path]:
         ],
         env={},
     )
-    return rc, next(results.iterdir())
+    workspaces = [p for p in results.iterdir() if p.name.startswith("RUN-")]
+    assert workspaces, "no RUN-* workspace found in results"
+    return rc, workspaces[0]
+
+
+def _approve_drafts(results: Path) -> None:
+    """Write a valid human review record so compile-only can pass the gate."""
+    md_root = results / "generated_markdown"
+    log_root = results / "run_logs"
+    rec = make_review_record(
+        reviewer="Test Reviewer", generated_md_root=md_root, verdict="approved"
+    )
+    write_review_record(rec, log_root)
 
 
 def test_parser_known_modes() -> None:
@@ -148,6 +164,7 @@ def test_validate_only_reuses_workspace_and_updates_snapshot(tmp_path: Path) -> 
 def test_compile_only_reports_missing_project_input(tmp_path: Path) -> None:
     rc, workspace = _run_offline_fixture(tmp_path)
     assert rc == 0
+    _approve_drafts(tmp_path / "results")
     with pytest.raises(SystemExit, match="requires existing latex_project/main.tex"):
         run_cli(
             [
@@ -164,6 +181,7 @@ def test_compile_only_reports_missing_project_input(tmp_path: Path) -> None:
 def test_compile_only_reruns_build_and_validation_when_project_exists(tmp_path: Path) -> None:
     rc, workspace = _run_offline_fixture(tmp_path)
     assert rc == 0
+    _approve_drafts(tmp_path / "results")
     (workspace / "latex_project" / "main.tex").write_text(
         "\\documentclass{article}\n\\begin{document}\nOffline fixture\n\\end{document}\n",
         encoding="utf-8",

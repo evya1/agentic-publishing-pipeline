@@ -26,6 +26,7 @@ from pathlib import Path
 from ..contracts import REQUIRED_CONTRACT_VERSIONS
 from ..runtime import PipelineRunContext, load_registry, verify_compatibility
 from ._existing_run import handle_existing_mode
+from ._phase6_generate import run_phase6_generate
 from ._smoke import OFFLINE_MODES, run_offline_smoke
 
 REGISTRY_DEFAULT = Path("config/prompt_registry")
@@ -116,6 +117,8 @@ def run_cli(argv: Sequence[str] | None = None, *, env: dict[str, str] | None = N
         return 0
     if args.mode in OFFLINE_MODES:
         run_offline_smoke(ctx, manifest_path=Path(args.manifest))
+        results_root = Path(args.results_root).resolve()
+        run_phase6_generate(results_root, Path(args.manifest))
         ctx.events.append("run.completed", {"mode": ctx.mode})
         _mark_completed(ctx)
         return 0

@@ -9,6 +9,7 @@ from pathlib import Path
 from ..contracts import CheckOutcome, ValidationReport
 from ..runtime.manifest import sha256_of
 from ..tools import build_pdf
+from ._review_gate import HumanReviewRequired, enforce_review_gate
 
 REQUIRED_ARTIFACTS: tuple[str, ...] = (
     "research_notes.v1.json",
@@ -22,12 +23,22 @@ REQUIRED_ARTIFACTS: tuple[str, ...] = (
 )
 
 
+def _enforce_precompile_gate(results_root: Path) -> None:
+    md_root = results_root / "generated_markdown"
+    log_root = results_root / "run_logs"
+    try:
+        enforce_review_gate(md_root, log_root)
+    except HumanReviewRequired as exc:
+        raise SystemExit(f"human review gate: {exc}") from exc
+
+
 def handle_existing_mode(*, mode: str, results_root: Path, run_id: str) -> int:
     workspace = results_root / run_id
     if not workspace.is_dir():
         raise SystemExit(f"workspace not found for run_id {run_id!r}")
     _record_invocation(workspace, mode)
     if mode == "compile-only":
+        _enforce_precompile_gate(results_root)
         _compile_workspace(workspace, run_id)
         _validate_workspace(workspace, run_id, require_pdf=True)
     elif mode == "validate-only":
