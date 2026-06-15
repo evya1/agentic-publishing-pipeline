@@ -1,10 +1,10 @@
 # PLAN — agentic-publishing-pipeline
 
-> **Status:** Phases 0, 1, 1.5, 2, 3, 4, and 5 are complete and
-> closed. Phase 5 landed through PR #79, closing the provider/service
-> layer, runtime foundations, tools, CLI, deterministic offline-fixture,
-> and baseline CI work. Phase 6 (Markdown-first content pipeline) is the
-> next open implementation phase. Phases 7–14 remain open.
+> **Status:** Phases 0, 1, 1.5, 2, 3, 4, 5, and 6 are complete and
+> closed. Phase 6 landed through PR #81, generating the approved
+> Markdown-first candidate set and recording the human review approval.
+> Phase 7 (real-source and bibliography pipeline) is the next open
+> implementation phase. Phases 8-14 remain open.
 
 ## How PRD, PLAN, TODO, and GitHub fit together
 
@@ -340,7 +340,7 @@ above is implemented and tested. PR #79 merged the work to `main`; the
 offline-fixture path and baseline CI gates are green; P5-I01 through P5-I13
 are closed with evidence; the Phase 5 milestone is closed.
 
-### Phase 6 — Markdown-first content pipeline *(open)*
+### Phase 6 — Markdown-first content pipeline *(complete and closed through PR #81)*
 
 Writer/Outline/Reviewer agents produce Markdown drafts at
 `results/generated_markdown/` (canonical, per FR-12 and §12.3). The
@@ -349,9 +349,13 @@ aliased during this phase. Markdown must include heading structure, figure
 placeholders, table placeholders, equation placeholders, and citation
 placeholders (FR-13). A human review gate runs before any LaTeX conversion.
 
-**Exit criterion:** at least one full draft set lives under
-`results/generated_markdown/`, has been reviewed, and is approved for LaTeX
-conversion; `docs/AI_USAGE.md` records the run.
+**Exit criterion (verified complete and milestone closed):** the full
+four-file draft set lives under `results/generated_markdown/`, has been
+reviewed by human reviewer `evya1`, and is approved for later LaTeX
+conversion by `results/run_logs/review_record.json`; `docs/AI_USAGE.md`
+records the run and accepted limitations. PR #81 merged the work to
+`main`; P6-I00 through P6-I03 are closed with evidence; the Phase 6
+milestone is closed.
 
 ### Phase 7 — Real-source and bibliography pipeline *(open)*
 
@@ -497,9 +501,9 @@ group member has submitted in Moodle.
 
 - Phase 1 is complete (mechanism PRDs reconciled — commit `4e5517c`).
   Phase 1.5 is complete (demo topic and source manifest locked —
-  commit `303a425`). Phases 2, 3, 4, and 5 are complete and closed
-  (milestones #1 through #4 closed). Phase 6 is the next open
-  implementation phase. Phases 7 through 14 remain open and pending
+  commit `303a425`). Phases 2, 3, 4, 5, and 6 are complete and closed
+  (milestones #1 through #5 closed). Phase 7 is the next open
+  implementation phase. Phases 8 through 14 remain open and pending
   future implementation. None of the currently-open phases is allowed
   to be marked complete preemptively.
   PRD acceptance-criteria checkboxes (`docs/PRD.md` §14,

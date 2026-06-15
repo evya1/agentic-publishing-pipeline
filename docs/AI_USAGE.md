@@ -106,7 +106,6 @@ For each AI-assisted activity, record:
     this entry; no `.tex`, `.bib`, or `.pdf` was produced.
   - The current Markdown files are intermediate Phase 6 candidates
     rather than final publication-ready chapters.
-- **Status on `main`:** not yet merged. Implementation is ready on
-  PR #81 (branch `phase/06-markdown-first-content-pipeline`), human
-  approval is recorded, and final independent gate plus merge remain
-  pending.
+- **Status on `main`:** merged through PR #81 at merge commit
+  `f18a54af4a0cf6a6fff0ebd70eeacd60006530e7`; Phase 6 issues
+  #17-#20 are closed and the Phase 6 milestone is closed.

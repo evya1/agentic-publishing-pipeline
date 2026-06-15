@@ -1,10 +1,9 @@
 # TODO — agentic-publishing-pipeline
 
-> **Status:** Phases 0 through 5 are complete and closed. Phase 5
-> provider/service layer, runtime foundations, tools, CLI, deterministic
-> offline-fixture, and baseline CI work merged through PR #79; P4-I04 and
-> P5-I01 through P5-I13 are verified and closed. Phase 6 is the next
-> implementation phase. Do not tick later items until their underlying
+> **Status:** Phases 0 through 6 are complete and closed. Phase 6
+> Markdown-first content generation and human approval merged through
+> PR #81; P6-I00 through P6-I03 are verified and closed. Phase 7 is the
+> next implementation phase. Do not tick later items until their underlying
 > artifacts exist and have been verified on disk (and, where applicable,
 > by a passing build, test, or validator run).
 
@@ -124,14 +123,14 @@ current state before acting.
 | P5-I12      | [#77](https://github.com/evya1/agentic-publishing-pipeline/issues/77) | Closed with evidence | Implement versioned prompt/config registry and compatibility checks |
 | P5-I13      | [#78](https://github.com/evya1/agentic-publishing-pipeline/issues/78) | Closed with evidence | Add baseline CI, lockfile, line-cap, and offline smoke gates |
 
-#### Phase 6 — Markdown-first content pipeline ([milestone #5](https://github.com/evya1/agentic-publishing-pipeline/milestone/5))
+#### Phase 6 — Markdown-first content pipeline ([milestone #5](https://github.com/evya1/agentic-publishing-pipeline/milestone/5)) *(complete and closed through PR #81)*
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
-| P6-I00      | [#17](https://github.com/evya1/agentic-publishing-pipeline/issues/17) | Decide: retire or alias `content/markdown_drafts/`                    |
-| P6-I01      | [#18](https://github.com/evya1/agentic-publishing-pipeline/issues/18) | Generate Markdown drafts at `results/generated_markdown/`              |
-| P6-I02      | [#19](https://github.com/evya1/agentic-publishing-pipeline/issues/19) | Human review gate before LaTeX conversion                              |
-| P6-I03      | [#20](https://github.com/evya1/agentic-publishing-pipeline/issues/20) | Record Phase 6 run in `docs/AI_USAGE.md`                               |
+| P6-I00      | [#17](https://github.com/evya1/agentic-publishing-pipeline/issues/17) | Closed with evidence — retire `content/markdown_drafts/`               |
+| P6-I01      | [#18](https://github.com/evya1/agentic-publishing-pipeline/issues/18) | Closed with evidence — generated Markdown drafts                        |
+| P6-I02      | [#19](https://github.com/evya1/agentic-publishing-pipeline/issues/19) | Closed with evidence — human review gate approval                       |
+| P6-I03      | [#20](https://github.com/evya1/agentic-publishing-pipeline/issues/20) | Closed with evidence — Phase 6 AI usage recorded                        |
 
 #### Phase 7 — Real-source and bibliography pipeline ([milestone #6](https://github.com/evya1/agentic-publishing-pipeline/milestone/6))
 
@@ -375,7 +374,8 @@ do not block the Phase 1.5 lock.
 ### C.3 Provider/service layer, configuration, and tools *(Phase 5 complete and closed through PR #79)*
 
 P5-I01 through P5-I13 are merged through PR #79, verified, and closed with
-evidence. The Phase 5 milestone is closed; Phase 6 is next.
+evidence. The Phase 5 milestone is closed; Phase 6 is complete and Phase 7
+is next.
 
 - [x] Implement a controlled provider/service layer for model and search
       calls. [Phase 5] [NFR-23, NFR-24]
@@ -483,14 +483,15 @@ evidence. The Phase 5 milestone is closed; Phase 6 is next.
 
 ### C.4 Markdown-first content pipeline
 
-- [ ] Generate Markdown drafts at `results/generated_markdown/`. [Phase 6]
+- [x] Generate Markdown drafts at `results/generated_markdown/`. [Phase 6]
       [FR-11, FR-12, §12.3]
-- [ ] Markdown drafts include headings, figure placeholders, table
+- [x] Markdown drafts include headings, figure placeholders, table
       placeholders, equation placeholders, and citation placeholders.
       [Phase 6] [FR-13]
-- [ ] Run the human review gate before any LaTeX conversion. [Phase 6]
+- [x] Run the human review gate before any LaTeX conversion. [Phase 6]
       [FR-14, NFR-19]
-- [ ] Record the run in `docs/AI_USAGE.md`. [Phase 6, Phase 13]
+- [x] Record the run in `docs/AI_USAGE.md`. [Phase 6, Phase 13]
+      *Merged through PR #81, verified on `main`, and closed with evidence.*
 
 ### C.5 Real-source and bibliography pipeline
 
