@@ -1,24 +1,30 @@
 # agentic-publishing-pipeline
 
-> **Status:** Phase 5 branch infrastructure is in progress. No final PDF has
-> been generated and the real CrewAI content pipeline has not started.
+> **Status:** Phase 5 provider, runtime, tool, CLI,
+> deterministic offline-fixture, and CI foundations are merged into
+> `main`. Phase 6 is the next implementation phase. No final PDF has
+> been generated and the real Markdown content pipeline has not started.
 
 This repository will host a CrewAI-based pipeline that produces a polished LaTeX
-PDF article/book on a user-selected topic. The current state is a *scaffold
-only* — directory structure, documentation placeholders, and package skeletons
-are in place, but no real agents, tools, content, citations, or compiled PDF
-exist yet.
+PDF article/book on a user-selected topic. The current state includes the
+Phase 5 provider/service layer, deterministic runtime modes, typed artifact
+contracts, core tools, CLI, offline fixture path, and CI foundations. Real
+Markdown content generation, complete CrewAI orchestration, final LaTeX
+assembly, deterministic final validation, and `results/final.pdf` remain
+unfinished.
 
 ## HW3 — Article / Book Generation with CrewAI and LaTeX
 
 ### Current status
 
-- Phase 5 provider/runtime infrastructure exists on the Phase 5 branch.
+- Phase 5 provider/runtime/tooling infrastructure is merged into `main`.
+- Phase 6 Markdown-first content generation is the next implementation phase.
 - No article/book topic has been selected.
 - No final PDF has been generated.
-- Real CrewAI agents and live model/search adapters are **not** implemented yet.
-- LaTeX compilation has **not** been verified yet.
-- PDF validation has **not** been implemented yet.
+- Complete CrewAI orchestration and live model/search adapters are **not**
+  implemented yet.
+- Final LaTeX assembly has **not** been completed yet.
+- Deterministic final PDF validation has **not** been implemented yet.
 
 ### Goal
 

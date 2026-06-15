@@ -1,17 +1,10 @@
 # PLAN — agentic-publishing-pipeline
 
-> **Status:** Phases 0, 1, 1.5, 2, and 3 are complete and closed.
-> Phase 4 (CrewAI architecture design) is **reopened** to land the
-> P4-I04 architecture amendment (C4 views, runtime sequence diagrams,
-> typed artifact contracts, ADRs); original P4-I01–P4-I03 remain
-> closed with evidence. Phases 5–14 (provider/service layer, Markdown
-> pipeline, bibliography, visualization, LaTeX assembly, PDF build,
-> validation, tests, README finalization, submission) remain open. The
-> implementation order for Phase 5 onward is now documented in
-> [`docs/architecture/`](architecture/) and tracked under planned
-> internal IDs P5-I08, P5-I09, P5-I10, P5-I11, P5-I12, P5-I13, P8-I02,
-> P10-I03, P12-I05, P12-I06, P13-I05 (GitHub issue numbers will be
-> allocated when each item is opened).
+> **Status:** Phases 0, 1, 1.5, 2, 3, 4, and 5 are complete and
+> closed. Phase 5 landed through PR #79, closing the provider/service
+> layer, runtime foundations, tools, CLI, deterministic offline-fixture,
+> and baseline CI work. Phase 6 (Markdown-first content pipeline) is the
+> next open implementation phase. Phases 7–14 remain open.
 
 ## How PRD, PLAN, TODO, and GitHub fit together
 
@@ -247,7 +240,7 @@ decisions are recorded in `docs/PRD.md` §22.6–§22.9 and reflected in
 the mechanism PRDs whose behavior depends on them; P3-I01 and P3-I02
 are closed with evidence; the Phase 3 milestone is closed.
 
-### Phase 4 — CrewAI architecture design *(reopened for P4-I04; original P4-I01–P4-I03 remain closed with evidence)*
+### Phase 4 — CrewAI architecture design *(complete and closed — P4-I04 reconciled before Phase 5; milestone #3 closed)*
 
 Phase 4 originally captured the **eight** agents from `docs/PRD.md` §8.3
 — Researcher, Outline, Writer, Technical-Asset, Hebrew/BiDi, LaTeX,
@@ -256,8 +249,8 @@ tool list each (P4-I01 / #7, closed), defined the eight-task graph with
 sequential `Process` (P4-I02 / #8, closed), and captured initial
 verbatim prompts in `docs/PROMPTS.md` (P4-I03 / #9, closed).
 
-P4-I04 (the current amendment) **extends** Phase 4 with the additional
-runtime architecture contracts required before Phase 5 may begin:
+P4-I04 extended Phase 4 with the additional runtime architecture
+contracts required before Phase 5 could begin:
 
 - C4 system-context, container, and component views;
 - runtime sequence diagrams (offline-fixture success, live success,
@@ -288,26 +281,25 @@ Deliverable tree:
 - `docs/architecture/prompt_config_registry.md`
 - `docs/architecture/adrs/ADR-0001..ADR-0007*.md`
 
-**Exit criterion (Phase 4 reopened):**
+**Exit criterion (verified complete and milestone closed):**
 
 1. Original P4-I01, P4-I02, and P4-I03 closure evidence is preserved
    (`docs/PRD_crewai_pipeline.md`, `docs/PROMPTS.md`).
-2. P4-I04 lands the architecture documents listed above; PRDs, PLAN,
-   and TODO agree.
-3. The amendment introduces no runtime source code.
-4. The Phase 4 milestone is re-closed only after the P4-I04 PR is
-   merged, post-merge verified on `main`, P4-I04 is closed with
-   evidence, and no other Phase 4 work remains.
+2. P4-I04 landed the architecture documents listed above; PRDs, PLAN,
+   and TODO agreed.
+3. The amendment introduced no runtime source code.
+4. The Phase 4 milestone was closed after the P4-I04 PR was merged,
+   post-merge verified on `main`, P4-I04 was closed with evidence, and
+   no other Phase 4 work remained.
 
-### Phase 5 — Provider/service layer and tools *(open; expanded to include the runtime foundations designed under P4-I04)*
+### Phase 5 — Provider/service layer and tools *(complete and closed — PR #79; milestone #4 closed)*
 
-Implement the controlled provider/service layer (NFR-23) so model and search
-calls route through one place. Add `.env-example` (FR-4) and load secrets
-exclusively via environment (FR-3). Implement agent tools: search, file
-I/O, Markdown conversion, LaTeX compilation, graph generation. Real
-dependencies (`crewai`, model SDK, search SDK, `matplotlib`, etc.) enter
-`pyproject.toml` only as each tool is implemented — `uv add` per package,
-no speculative installs.
+Phase 5 implemented the controlled provider/service layer (NFR-23) so model
+and search calls route through one place. It added `.env-example` (FR-4),
+loads secrets exclusively via environment (FR-3), and implements the Phase 5
+tool seams: search, file I/O, Markdown conversion, LaTeX compilation, and
+graph generation. Real dependencies enter `pyproject.toml` only as each tool
+is implemented — `uv add` per package, no speculative installs.
 
 Phase 5 also implements the runtime foundations designed under P4-I04,
 in this dependency order (see [`docs/architecture/`](architecture/)):
@@ -341,10 +333,12 @@ in this dependency order (see [`docs/architecture/`](architecture/)):
   Ruff, tests, current coverage gate, automated 150-line cap, and
   offline smoke run.
 
-**Exit criterion:** `.env-example` committed, provider layer importable
-from `src/agentic_publishing_pipeline/tools/`, every tool exercised by at
-least one unit test, and every typed contract and operational mode
-listed above is implemented and tested (offline-fixture green in CI).
+**Exit criterion (verified complete and milestone closed):** `.env-example`
+is committed, the provider layer is importable, every Phase 5 tool seam is
+exercised by tests, and every typed contract and operational mode listed
+above is implemented and tested. PR #79 merged the work to `main`; the
+offline-fixture path and baseline CI gates are green; P5-I01 through P5-I13
+are closed with evidence; the Phase 5 milestone is closed.
 
 ### Phase 6 — Markdown-first content pipeline *(open)*
 
@@ -503,12 +497,11 @@ group member has submitted in Moodle.
 
 - Phase 1 is complete (mechanism PRDs reconciled — commit `4e5517c`).
   Phase 1.5 is complete (demo topic and source manifest locked —
-  commit `303a425`). Phase 2 and Phase 3 are complete and closed
-  (milestones #1 and #2 closed). Phase 4 is currently reopened only
-  for the P4-I04 architecture amendment and remains open until that
-  PR is merged and post-merge verification succeeds. Phases 5 through
-  14 remain open and pending future implementation. None of the
-  currently-open phases is allowed to be marked complete preemptively.
+  commit `303a425`). Phases 2, 3, 4, and 5 are complete and closed
+  (milestones #1 through #4 closed). Phase 6 is the next open
+  implementation phase. Phases 7 through 14 remain open and pending
+  future implementation. None of the currently-open phases is allowed
+  to be marked complete preemptively.
   PRD acceptance-criteria checkboxes (`docs/PRD.md` §14,
   `docs/HW3_REQUIREMENTS.md`, `SUBMISSION_CHECKLIST.md`) are ticked
   only after the underlying artifact is verified on disk and, where
