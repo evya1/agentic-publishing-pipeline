@@ -1,0 +1,36 @@
+{
+  "citations_per_file": {
+    "results/generated_markdown/chapters/memory.md": 2,
+    "results/generated_markdown/chapters/planning.md": 2,
+    "results/generated_markdown/outline.md": 0,
+    "results/generated_markdown/research_notes.md": 11
+  },
+  "cited_keys": [
+    "chen2025telemem",
+    "correa2025planningperformance",
+    "huang2025licomemory",
+    "ke2025reasoningfrontiers",
+    "liu2025agenticmath",
+    "wang2025proactiveretrievalmedical",
+    "wei2026agenticreasoning",
+    "wu2025agenticreasoningtools",
+    "yao2025multimodalsurvey"
+  ],
+  "files": [
+    "results/generated_markdown/chapters/memory.md",
+    "results/generated_markdown/chapters/planning.md",
+    "results/generated_markdown/outline.md",
+    "results/generated_markdown/research_notes.md"
+  ],
+  "manifest_path": "config/article_sources.yaml",
+  "markdown_root": "results/generated_markdown",
+  "schema": "p7i06-citation-coverage/v1",
+  "summary": {
+    "cited_unique": 9,
+    "uncited_unique": 1,
+    "verified_total": 10
+  },
+  "uncited_verified_keys": [
+    "ye2024mirai"
+  ]
+}

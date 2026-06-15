@@ -9,6 +9,6 @@ Lightweight cognitive architectures have emerged to address this challenge.
 
 <!-- EQUATION: retrieval scoring function for memory access -->
 
-<!-- CITATION: tbd2025licomemory -->
+<!-- CITATION: huang2025licomemory -->
 
-<!-- CITATION: tbd2026telemem -->
+<!-- CITATION: chen2025telemem -->

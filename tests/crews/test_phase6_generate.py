@@ -23,11 +23,12 @@ GENERATED_MD = REPO_ROOT / "results" / "generated_markdown"
 def test_extract_manifest_keys_returns_all_ten() -> None:
     keys = extract_manifest_keys(MANIFEST)
     assert len(keys) == 10
-    assert "tbd2025planningperformance" in keys
-    assert "tbd2026agenticreasoning" in keys
-    assert "tbd2025licomemory" in keys
-    assert "tbd2026telemem" in keys
-    assert "tbd2025reasoningfrontiers" in keys
+    # Post-P7-I05 final keys (authorYYYYkey).
+    assert "correa2025planningperformance" in keys
+    assert "wei2026agenticreasoning" in keys
+    assert "huang2025licomemory" in keys
+    assert "chen2025telemem" in keys
+    assert "ke2025reasoningfrontiers" in keys
 
 
 def test_run_phase6_generate_creates_chapters(tmp_path: Path) -> None:

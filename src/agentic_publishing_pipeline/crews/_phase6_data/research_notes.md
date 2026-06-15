@@ -8,6 +8,13 @@
 
 Reasoning-Centric Agentic LLM Systems
 
+## Background
+
+The reasoning landscape — inference-time scaling, learning to reason, and
+agentic systems — is surveyed at frontier scale.
+
+<!-- CITATION: ke2025reasoningfrontiers -->
+
 ## Research Dimensions
 
 ### Planning
@@ -18,8 +25,8 @@ decomposing complex goals into executable sub-tasks.
 **Key points:**
 - Task decomposition strategies in frontier LLMs
 
-<!-- CITATION: tbd2025planningperformance -->
-<!-- CITATION: tbd2026agenticreasoning -->
+<!-- CITATION: correa2025planningperformance -->
+<!-- CITATION: wei2026agenticreasoning -->
 
 ### Memory
 
@@ -29,8 +36,8 @@ Lightweight cognitive architectures have emerged to address this challenge.
 **Key points:**
 - State persistence mechanisms in agentic systems
 
-<!-- CITATION: tbd2025licomemory -->
-<!-- CITATION: tbd2026telemem -->
+<!-- CITATION: huang2025licomemory -->
+<!-- CITATION: chen2025telemem -->
 
 ### Retrieval
 
@@ -39,8 +46,8 @@ Retrieval-augmented generation grounds LLM outputs in real sources.
 **Key points:**
 - Grounded search strategies
 
-<!-- CITATION: tbd2025agenticreasoningtools -->
-<!-- CITATION: tbd2025proactiveretrievalmedical -->
+<!-- CITATION: wu2025agenticreasoningtools -->
+<!-- CITATION: wang2025proactiveretrievalmedical -->
 
 ### Tool Use
 
@@ -49,8 +56,8 @@ Agents equipped with tools can take bounded actions in the environment.
 **Key points:**
 - Bounded tool-use policies
 
-<!-- CITATION: tbd2025agenticreasoningtools -->
-<!-- CITATION: tbd2025agenticmath -->
+<!-- CITATION: wu2025agenticreasoningtools -->
+<!-- CITATION: liu2025agenticmath -->
 
 ### Multimodal
 
@@ -59,18 +66,18 @@ Cross-modal evidence enables richer agent perception and reasoning.
 **Key points:**
 - Cross-modal evidence fusion
 
-<!-- CITATION: tbd2025multimodalsurvey -->
-<!-- CITATION: tbd2025proactiveretrievalmedical -->
+<!-- CITATION: yao2025multimodalsurvey -->
+<!-- CITATION: wang2025proactiveretrievalmedical -->
 
 ## Candidate References
 
 | arXiv ID | Citation Key | Intended Use |
 |---|---|---|
-| 2504.09037 | tbd2025reasoningfrontiers | Background framing for the reasoning landscape |
-| 2511.09378 | tbd2025planningperformance | Planning dimension — empirical frontier survey |
-| 2511.01448 | tbd2025licomemory | Memory dimension — lightweight long-term memory |
-| 2601.06037 | tbd2026telemem | Memory dimension — long-term + multimodal memory |
-| 2601.12538 | tbd2026agenticreasoning | Agentic-reasoning core — ties planning, tool use, memory |
+| 2504.09037 | ke2025reasoningfrontiers | Background framing for the reasoning landscape |
+| 2511.09378 | correa2025planningperformance | Planning dimension — empirical frontier survey |
+| 2511.01448 | huang2025licomemory | Memory dimension — lightweight long-term memory |
+| 2601.06037 | chen2025telemem | Memory dimension — long-term + multimodal memory |
+| 2601.12538 | wei2026agenticreasoning | Agentic-reasoning core — ties planning, tool use, memory |
 
 ## Glossary
 

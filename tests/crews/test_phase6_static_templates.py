@@ -115,14 +115,15 @@ def test_valid_generation_reports_full_citation_union(tmp_path: Path) -> None:
     assert (md_root / "research_notes.md").read_bytes() == (
         COMMITTED_MD / "research_notes.md"
     ).read_bytes()
+    # Post-P7-I05 final keys (authorYYYYkey).
     expected_cites = {
-        "tbd2025planningperformance",
-        "tbd2026agenticreasoning",
-        "tbd2025licomemory",
-        "tbd2026telemem",
-        "tbd2025agenticreasoningtools",
-        "tbd2025proactiveretrievalmedical",
-        "tbd2025agenticmath",
-        "tbd2025multimodalsurvey",
+        "correa2025planningperformance",
+        "wei2026agenticreasoning",
+        "huang2025licomemory",
+        "chen2025telemem",
+        "wu2025agenticreasoningtools",
+        "wang2025proactiveretrievalmedical",
+        "liu2025agenticmath",
+        "yao2025multimodalsurvey",
     }
     assert expected_cites.issubset(set(cites))

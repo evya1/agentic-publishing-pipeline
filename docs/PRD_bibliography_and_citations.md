@@ -128,6 +128,109 @@ If none of the above can be confirmed, the candidate source is rejected
 and not added to `references.bib`. **Fabricated entries are forbidden,
 without exception** (`docs/PRD.md` content policy, CLAUDE.md).
 
+### 7.1 Verification procedure (fixed in Phase 7 / P7-I00)
+
+For every candidate manifest entry, the Bibliography Agent runs the
+following checks **in order**. A failure at any step terminates
+verification for that entry and marks it `rejected`.
+
+1. **Schema check.** The record carries every required field
+   (`citation_key`, `title`, `authors`, `year`, plus an `arxiv_id` /
+   `arxiv_url` pair for arXiv sources). Empty `authors:` is permitted as
+   input only because Phase 7 populates the field; downstream consumers
+   may not treat an unpopulated `authors:` as verified.
+2. **Locked-manifest membership.** The candidate's `arxiv_id` (or
+   manifest path) corresponds to a record already present in
+   `config/article_sources.yaml`. Phase 7 does not silently introduce
+   new sources, replace rejected ones, or accept model-generated
+   bibliographies as candidates.
+3. **Authoritative metadata retrieval.** For arXiv sources, fetch the
+   record from the arXiv API or abstract page identified by `arxiv_id`.
+   For genuine DOI-bearing sources, resolve the DOI through DOI
+   registration metadata. Other sources resolve through publisher or
+   catalog metadata. Filenames, model memory, blog summaries, and
+   archive `.tex` source are **not** authoritative for bibliographic
+   facts.
+4. **Field cross-check.** Compare the manifest's `title`, `year`, and
+   (after population) `authors` with the authoritative response. Year
+   mismatch, author mismatch, or material title mismatch rejects the
+   entry; recording the mismatch is mandatory.
+5. **DOI presence.** Record a DOI **only** when authoritative metadata
+   genuinely provides one. Do not synthesize a DOI from arXiv IDs.
+6. **Local archive presence.** Confirm `source_archive` exists at the
+   recorded repository-relative path. The archive is opened in
+   metadata-only mode under §7.2; the archive's bytes are **not**
+   authoritative for bibliographic facts and may not substitute for
+   step 3.
+7. **Status flip.** Update `verification.status` to `verified` or
+   `rejected`, set `verification.verified_at` (UTC ISO 8601), and set
+   `verification.verified_by` per §7.3.
+
+### 7.2 Untrusted-archive boundary (P7-I07)
+
+Third-party source archives under `data/sources/arxiv/source_zips/`
+and any `data/sources/arxiv/unpacked/` siblings are **untrusted
+external source material**. The Phase 7 Bibliography Agent and any
+downstream consumer:
+
+- **Must not** extract, decompress, or write archive bytes anywhere
+  in the repository.
+- **Must not** execute, import, or evaluate code or macros from an
+  archive (no `\write18`, no `--shell-escape`, no Lua/Python/Shell
+  invocation of archive content, no compilation of `.tex` from an
+  archive).
+- **Must not** follow archive members that are symbolic links, hard
+  links, devices, or FIFOs.
+- **Must not** open archive members whose name uses path traversal
+  (`..`), an absolute path, or a drive-letter prefix.
+- **Must not** open encrypted archive members.
+- **Must not** recurse into nested archives.
+- **Must** read only the archive's central-directory / header
+  metadata (member names, sizes, classification) and treat that
+  listing as **corroboration**, not as a bibliographic source.
+
+The canonical reader is
+`src/agentic_publishing_pipeline/tools/archive_inspect.py`. Its
+public surface (`inspect_archive`, `ArchiveInspection`,
+`ArchiveMember`, `ArchiveInspectionError`) intentionally provides
+**no** member-content read. Format support covers ZIP and
+gzipped/uncompressed tar archives because arXiv frequently ships
+gzipped tarballs even when the local filename uses a `.zip` suffix.
+
+A Phase 7 manifest entry may be marked `verified` even when the
+local archive cannot be opened safely, **provided** authoritative
+remote metadata (step 3) and field cross-check (step 4) succeed.
+The archive's role is corroboration and provenance, not metadata
+source. Unsafe archives are recorded with a rejection reason in
+`docs/SOURCES.md`.
+
+### 7.3 Honest verifier identity
+
+`verification.verified_by` truthfully identifies the entity that ran
+the verification. For the canonical Phase 7 run the value is structured
+as `"<verifier-id>:<github-account>"`, where:
+
+- `<verifier-id>` names the verification mechanism (for example
+  `bibliography-agent`, `claude-opus-4.7+arxiv-api`, or
+  `human-review`);
+- `<github-account>` is the authenticated GitHub login that ran the
+  pipeline (the assignee on the corresponding issue).
+
+`verified_by` does **not** claim that a human personally inspected the
+authoritative metadata unless `verifier-id` is `human-review`. The
+semantics are reiterated in `docs/SOURCES.md`.
+
+### 7.4 Restatement of the no-fabricated-sources rule
+
+> **Fabricated entries are forbidden, without exception**
+> (`docs/PRD.md` content policy, `CLAUDE.md`).
+
+This rule applies at every stage of the pipeline — research, drafting,
+review, bibliography curation, citation resolution, LaTeX assembly, and
+validation. No agent, tool, or human contributor may introduce a
+bibliography entry, citation, or supporting fact whose source has not
+passed §7.1.
+
 ## 8. Audit trail
 
 The pipeline keeps an audit trail mapping each `.bib` entry to the
@@ -231,12 +334,53 @@ is exercised.
 ## 13. Open decisions to capture during implementation
 
 - **Audit-trail location.** `docs/AI_USAGE.md` vs. a dedicated
-  `docs/SOURCES.md`. Fixed in Phase 7.
+  `docs/SOURCES.md`. **Fixed by P7-I00:** see §13.1.
 - **`biblatex` style.** Numeric, author-year, or a specific style
-  package. Fixed in Phase 7.
+  package. **Fixed by P7-I00:** see §13.1.
 - **Maximum bibliography size.** Whether the article should cap entries
   at, e.g., 20–30 to keep the bibliography reviewable. Fixed by the
   topic/scope decision in Phase 3.
+
+### 13.1 Phase 7 policy decisions (fixed under P7-I00, issue #21)
+
+The decisions below are binding for the canonical HW3 Phase 7 run and
+for every downstream Phase 7 issue. Subsequent runs may revisit them
+only through a reviewed PR that updates this section.
+
+| Decision                          | Value                                                                                              |
+|-----------------------------------|----------------------------------------------------------------------------------------------------|
+| Audit-trail canonical location    | `docs/SOURCES.md` (per-source ledger). `docs/AI_USAGE.md` records AI-assisted activity only.       |
+| Source-collection policy          | Locked-manifest-only: `config/article_sources.yaml` is authoritative for the candidate source set. |
+| Verification authority precedence | arXiv API/metadata → DOI registration metadata → publisher metadata → archive (corroboration only).|
+| `biblatex` style                  | `style=numeric`, `sorting=none`, `backend=biber`.                                                  |
+| Citation-key format               | `authorYYYYkey` (see §9). Lowercase ASCII. Provisional `tbd…` keys are migrated under P7-I05.      |
+| Verifier identity convention      | `verification.verified_by = "<verifier-id>:<github-account>"` (see §7.3).                          |
+| Re-verification                   | Verification is idempotent. Re-running over an already-`verified` entry must not silently flip it. |
+| Mismatch handling                 | Any field mismatch in §7.1 step 4 marks the entry `rejected` with the mismatch recorded.           |
+| Replacement procedure             | Rejected manifest entries are **not** silently replaced. Replacement requires a documented PR.     |
+| `references.bib` membership       | Only `verified` entries; one entry per verified source; no provisional, rejected, or fabricated.   |
+| Untrusted-archive boundary        | Metadata-only inspection; no extraction, no execution, no compilation (see §7.2 and P7-I07).       |
+| Source-collection scope           | No automatic discovery; live lookup is permitted **only** to verify the ten locked records.        |
+| `docs/SOURCES.md` rendering       | One §-per-source plus a top-level summary table; machine-readable summary in a tracked JSON file.  |
+
+#### Rationale highlights
+
+- **`docs/SOURCES.md` over `docs/AI_USAGE.md`.** The per-source ledger
+  has its own schema (citation key, archive path, verification method,
+  timestamp, run id, mismatch evidence). Overloading
+  `docs/AI_USAGE.md` would conflate AI activity logging with source
+  verification evidence and complicate retrieval.
+- **`numeric` `biblatex` style.** Compact citations, predictable
+  rendering inside Hebrew/RTL paragraphs (NFR-29), no dependence on a
+  custom citation-style package, suitable for a technical survey.
+  Sorting is `none` so the bibliography preserves a deterministic
+  manifest-ordered listing.
+- **`authorYYYYkey` keys.** Deterministic, ASCII, collision-free across
+  the locked manifest, derived only from verified metadata, stable
+  across reruns. No `tbd` prefix once Phase 7 completes.
+- **Honest `verified_by`.** The repository cannot assert that a human
+  inspected authoritative metadata when the verification was run by an
+  agent. `verifier-id` makes that distinction machine-readable.
 
 ## 14. Acceptance criteria
 

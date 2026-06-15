@@ -10,6 +10,6 @@ the planning landscape as of 2025.
 
 <!-- EQUATION: objective function for hierarchical task decomposition -->
 
-<!-- CITATION: tbd2025planningperformance -->
+<!-- CITATION: correa2025planningperformance -->
 
-<!-- CITATION: tbd2026agenticreasoning -->
+<!-- CITATION: wei2026agenticreasoning -->

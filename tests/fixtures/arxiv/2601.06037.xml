@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/v3yw5GM7fklSkU58nJ8U7YY2aL8</id>
+  <title>arXiv Query: search_query=&amp;id_list=2601.06037&amp;start=0&amp;max_results=10</title>
+  <updated>2026-06-15T22:08:52Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2601.06037" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2601.06037v4</id>
+    <title>TeleMem: Building Long-Term and Multimodal Memory for Agentic AI</title>
+    <updated>2026-01-22T13:48:29Z</updated>
+    <link href="https://arxiv.org/abs/2601.06037v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.06037v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large language models (LLMs) excel at many NLP tasks but struggle to sustain long-term interactions due to limited attention over extended dialogue histories. Retrieval-augmented generation (RAG) mitigates this issue but lacks reliable mechanisms for updating or refining stored memories, leading to schema-driven hallucinations, inefficient write operations, and minimal support for multimodal reasoning.To address these challenges, we propose TeleMem, a unified long-term and multimodal memory system that maintains coherent user profiles through narrative dynamic extraction, ensuring that only dialogue-grounded information is preserved. TeleMem further introduces a structured writing pipeline that batches, retrieves, clusters, and consolidates memory entries, substantially improving storage efficiency, reducing token usage, and accelerating memory operations. Additionally, a multimodal memory module combined with ReAct-style reasoning equips the system with a closed-loop observe, think, and act process that enables accurate understanding of complex video content in long-term contexts. Experimental results show that TeleMem surpasses the state-of-the-art Mem0 baseline with 19% higher accuracy, 43% fewer tokens, and a 2.1x speedup on the ZH-4O long-term role-play gaming benchmark.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-12T11:24:52Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Chunliang Chen</name>
+    </author>
+    <author>
+      <name>Ming Guan</name>
+    </author>
+    <author>
+      <name>Xiao Lin</name>
+    </author>
+    <author>
+      <name>Jiaxu Li</name>
+    </author>
+    <author>
+      <name>Luxi Lin</name>
+    </author>
+    <author>
+      <name>Qiyi Wang</name>
+    </author>
+    <author>
+      <name>Xiangyu Chen</name>
+    </author>
+    <author>
+      <name>Jixiang Luo</name>
+    </author>
+    <author>
+      <name>Changzhi Sun</name>
+    </author>
+    <author>
+      <name>Dell Zhang</name>
+    </author>
+    <author>
+      <name>Xuelong Li</name>
+    </author>
+  </entry>
+</feed>
