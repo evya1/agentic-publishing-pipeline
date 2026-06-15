@@ -75,6 +75,7 @@ uv sync --frozen --group dev                     # exact, reproducible install
 uv run pytest                                    # run tests
 uv run pytest --cov=src --cov-report=term-missing
 uv run ruff check .                              # lint
+uv run python scripts/check_line_cap.py --limit 150 src
 ```
 
 Phase 5 adds the package CLI and deterministic CI-safe runtime modes:
@@ -105,6 +106,11 @@ and preserves the run workspace under the chosen results root.
 supported live adapter yet; it never silently falls back to fixtures.
 `compile-only`, `validate-only`, and `resume` operate on an existing
 `--run-id` workspace and remain bounded to deterministic Phase 5 seams.
+
+Phase 5 CI runs on pull requests and pushes to `main`. It uses Python 3.11,
+`uv sync --frozen --group dev`, Ruff, the full pytest suite with an 85%
+coverage gate, the 150 measured-line production-source gate, and dry/offline
+smoke modes with temporary output roots.
 
 Dependencies follow a strict per-tool, no-speculative-install policy: a new
 runtime dependency is added (via `uv add <pkg>`) only inside the issue commit

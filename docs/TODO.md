@@ -470,11 +470,14 @@ do not block the Phase 1.5 lock.
       *Done on `phase/05-...` — registry YAML tree under
       `config/prompt_registry/` + loader and `verify_compatibility`
       in `runtime/registry.py`; pyyaml added to runtime deps.*
-- [ ] **P5-I13** — Add baseline CI for PR/main: frozen dependency
+- [x] **P5-I13** — Add baseline CI for PR/main: frozen dependency
       sync, Ruff, tests, current coverage gate, automated 150-line
       cap, deterministic offline smoke run. Do not introduce a
       Python-version matrix here (deferred to P12-I05). [Phase 5,
       Phase 12]
+      *Implemented on `phase/05-provider-service-layer-and-tools`;
+      pending PR review, merge to `main`, post-merge evidence, and
+      issue closure.*
 
 ### C.4 Markdown-first content pipeline
 

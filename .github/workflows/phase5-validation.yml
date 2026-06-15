@@ -1,0 +1,58 @@
+name: Phase 5 Validation
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Frozen dependency sync
+        run: uv sync --frozen --group dev
+
+      - name: Ruff
+        run: uv run ruff check .
+
+      - name: Tests with coverage gate
+        run: uv run pytest --cov=src --cov-report=term-missing --cov-fail-under=85
+
+      - name: Production line-cap gate
+        run: uv run python scripts/check_line_cap.py --limit 150 src
+
+      - name: Dry-run smoke
+        run: |
+          export MPLCONFIGDIR="$(mktemp -d)"
+          DRY_ROOT="$(mktemp -d)"
+          uv run python -m agentic_publishing_pipeline \
+            --mode dry-run \
+            --results-root "$DRY_ROOT"
+
+      - name: Offline-fixture smoke
+        run: |
+          export MPLCONFIGDIR="$(mktemp -d)"
+          OFFLINE_ROOT="$(mktemp -d)"
+          uv run python -m agentic_publishing_pipeline \
+            --mode offline-fixture \
+            --topic "Reasoning-Centric Agentic LLM Systems" \
+            --manifest config/article_sources.yaml \
+            --registry config/prompt_registry \
+            --results-root "$OFFLINE_ROOT"
