@@ -555,11 +555,18 @@ is binding.
 
 ## 13. Open decisions to capture during implementation
 
-- **`content/markdown_drafts/` disposition.** Phase 6 in `docs/PLAN.md`
-  must decide whether to (a) retire the directory, (b) keep it as an
-  alias / symlink of `results/generated_markdown/`, or (c) repurpose it
-  for raw / unreviewed input. The chosen disposition is recorded back
-  into this section.
+- **`content/markdown_drafts/` disposition — DECISION RECORDED (P6-I00,
+  2026-06-15).** The directory is **retired**. Rationale: a survey of
+  every tracked file confirmed that `content/markdown_drafts/` had zero
+  Python or YAML code consumers; all twelve references were documentation
+  only. The canonical path `results/generated_markdown/` is already wired
+  in the prompt registry, runtime promotion module, architecture docs,
+  milestone description, and every relevant PRD section (FR-12, §9, §12.3).
+  Maintaining a parallel transitional path introduces naming ambiguity with
+  no backward-compatibility benefit. The directory has been removed from the
+  repository; `results/generated_markdown/` is the sole canonical Markdown
+  draft root. Follow-up doc edits to `CLAUDE.md` and the LaTeX READMEs
+  that still reference the old path are queued under P13-I01.
 - **Reviewer Agent escalation policy.** Whether the Reviewer Agent can
   send work back to earlier agents (e.g., by raising a flag the crew
   re-routes), or whether reviewer feedback always becomes human-review
