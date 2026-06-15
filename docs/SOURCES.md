@@ -68,16 +68,14 @@ consistency checks can run without parsing prose.
 
 ## 5. Per-source entries
 
-> The ten entries below are **placeholders** populated by the
-> verification step (P7-I02) and the audit step (P7-I03). They are
-> reserved and ordered to match `config/article_sources.yaml` so a
-> reviewer can locate each entry by its provisional or final citation
-> key.
-
-<!-- Phase 7 issues populate the entries below. Until P7-I02 completes,
-the fields contain the manifest provisional values and the
-verification block is marked `pending`. Each entry follows the schema
-below. -->
+> Populated by the P7-I03 audit generator
+> (`src/agentic_publishing_pipeline/bibliography/run_audit.py`) from
+> the verified manifest, the P7-I02 verification report, the P7-I05
+> rekey ledger, the committed authoritative arXiv fixtures, and the
+> P7-I07 metadata-only archive inspector. Regeneration is
+> deterministic apart from the `generated_at` timestamp on the
+> mirror JSON. The machine-readable mirror lives at
+> `results/run_logs/source_verification.json`.
 
 ### Entry schema
 
@@ -107,24 +105,409 @@ local_archive:
 mismatch_or_rejection_rationale: <text or null>
 ```
 
-### Reserved entries (placeholders pending P7-I02)
+<!-- P7I03_SECTION_START -->
+### Per-source entries (populated by P7-I03)
 
-| Provisional key                  | arXiv ID    | Year | Local archive                              |
-|----------------------------------|-------------|------|--------------------------------------------|
-| `ke2025reasoningfrontiers`      | 2504.09037  | 2025 | `data/sources/arxiv/source_zips/2504.09037.zip` |
-| `wu2025agenticreasoningtools`   | 2502.04644  | 2025 | `data/sources/arxiv/source_zips/2502.04644.zip` |
-| `correa2025planningperformance`     | 2511.09378  | 2025 | `data/sources/arxiv/source_zips/2511.09378.zip` |
-| `huang2025licomemory`              | 2511.01448  | 2025 | `data/sources/arxiv/source_zips/2511.01448.zip` |
-| `chen2025telemem`                 | 2601.06037  | 2026 | `data/sources/arxiv/source_zips/2601.06037.zip` |
-| `yao2025multimodalsurvey`        | 2510.10991  | 2025 | `data/sources/arxiv/source_zips/2510.10991.zip` |
-| `wang2025proactiveretrievalmedical` | 2510.18303 | 2025 | `data/sources/arxiv/source_zips/2510.18303.zip` |
-| `liu2025agenticmath`             | 2510.19361  | 2025 | `data/sources/arxiv/source_zips/2510.19361.zip` |
-| `ye2024mirai`                   | 2407.01231  | 2024 | `data/sources/arxiv/source_zips/2407.01231.zip` |
-| `wei2026agenticreasoning`        | 2601.12538  | 2026 | `data/sources/arxiv/source_zips/2601.12538.zip` |
+| Final key | Provisional key | arXiv ID | Year | Status |
+|-----------|------------------|----------|------|--------|
+| `ke2025reasoningfrontiers` | `tbd2025reasoningfrontiers` | `2504.09037` | 2025 | verified |
+| `wu2025agenticreasoningtools` | `tbd2025agenticreasoningtools` | `2502.04644` | 2025 | verified |
+| `correa2025planningperformance` | `tbd2025planningperformance` | `2511.09378` | 2025 | verified |
+| `huang2025licomemory` | `tbd2025licomemory` | `2511.01448` | 2025 | verified |
+| `chen2025telemem` | `tbd2026telemem` | `2601.06037` | 2025 | verified |
+| `yao2025multimodalsurvey` | `tbd2025multimodalsurvey` | `2510.10991` | 2025 | verified |
+| `wang2025proactiveretrievalmedical` | `tbd2025proactiveretrievalmedical` | `2510.18303` | 2025 | verified |
+| `liu2025agenticmath` | `tbd2025agenticmath` | `2510.19361` | 2025 | verified |
+| `ye2024mirai` | `tbd2024mirai` | `2407.01231` | 2024 | verified |
+| `wei2026agenticreasoning` | `tbd2026agenticreasoning` | `2601.12538` | 2026 | verified |
 
-The verification status for every entry is `pending` until P7-I02
-populates this ledger with authoritative metadata, sets `verified` or
-`rejected`, and records the run id and timestamp.
+```yaml
+arxiv_id: '2504.09037'
+canonical_url: https://arxiv.org/abs/2504.09037
+correction_applied: null
+doi: null
+final_citation_key: ke2025reasoningfrontiers
+intended_use: Background framing for the reasoning landscape (inference-time scaling, learning to reason, agentic systems).
+local_archive:
+  archive_inspection: metadata_only
+  notes: metadata-only inspection ok; format=tar; members=25
+  path: data/sources/arxiv/source_zips/2504.09037.zip
+  present: true
+mismatch_or_rejection_rationale: null
+previous_citation_key: tbd2025reasoningfrontiers
+verification:
+  authoritative_snapshot: tests/fixtures/arxiv/2504.09037.xml
+  authoritative_source: http://export.arxiv.org/api/query?id_list=2504.09037
+  method: arxiv_api
+  primary_category: cs.AI
+  status: verified
+  verified_at: '2026-06-15T22:10:40.997179+00:00'
+  verified_by: claude-opus-4.7+arxiv-api:evya1
+verified_authors:
+- Ke, Zixuan
+- Jiao, Fangkai
+- Ming, Yifei
+- Nguyen, Xuan-Phi
+- Xu, Austin
+- Long, Do Xuan
+- Li, Minzhi
+- Qin, Chengwei
+- Wang, Peifeng
+- Savarese, Silvio
+- Xiong, Caiming
+- Joty, Shafiq
+verified_title: 'A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason, and Agentic Systems'
+verified_year: 2025
+```
+
+```yaml
+arxiv_id: '2502.04644'
+canonical_url: https://arxiv.org/abs/2502.04644
+correction_applied:
+  applied_at: '2026-06-16'
+  applied_by: claude-opus-4.7+arxiv-api:evya1
+  authoritative_value: 'Agentic Reasoning: A Streamlined Framework for Enhancing LLM Reasoning with Agentic Tools'
+  field: title
+  original_manifest_value: 'Agentic Reasoning: Reasoning LLMs with Tools for the Deep Research'
+  rationale: manifest title was an explicit placeholder pending Phase 7 verification; replaced with authoritative arXiv title.
+doi: null
+final_citation_key: wu2025agenticreasoningtools
+intended_use: Tool-use dimension; agentic reasoning combined with tools for deep-research workflows.
+local_archive:
+  archive_inspection: metadata_only
+  notes: metadata-only inspection ok; format=tar; members=12
+  path: data/sources/arxiv/source_zips/2502.04644.zip
+  present: true
+mismatch_or_rejection_rationale: null
+previous_citation_key: tbd2025agenticreasoningtools
+verification:
+  authoritative_snapshot: tests/fixtures/arxiv/2502.04644.xml
+  authoritative_source: http://export.arxiv.org/api/query?id_list=2502.04644
+  method: arxiv_api
+  primary_category: cs.AI
+  status: verified
+  verified_at: '2026-06-15T22:10:40.997179+00:00'
+  verified_by: claude-opus-4.7+arxiv-api:evya1
+verified_authors:
+- Wu, Junde
+- Zhu, Jiayuan
+- Liu, Yuyuan
+- Xu, Min
+- Jin, Yueming
+verified_title: 'Agentic Reasoning: A Streamlined Framework for Enhancing LLM Reasoning with Agentic Tools'
+verified_year: 2025
+```
+
+```yaml
+arxiv_id: '2511.09378'
+canonical_url: https://arxiv.org/abs/2511.09378
+correction_applied:
+  applied_at: '2026-06-16'
+  applied_by: claude-opus-4.7+arxiv-api:evya1
+  authoritative_value: Frontier Large Language Models Rival State-of-the-Art Planners
+  field: title
+  original_manifest_value: The 2025 Planning Performance of Frontier Large Language Models
+  rationale: manifest title was an explicit placeholder pending Phase 7 verification; replaced with authoritative arXiv title.
+doi: null
+final_citation_key: correa2025planningperformance
+intended_use: Planning dimension; empirical state of planning in frontier LLMs as of 2025.
+local_archive:
+  archive_inspection: metadata_only
+  notes: metadata-only inspection ok; format=tar; members=22
+  path: data/sources/arxiv/source_zips/2511.09378.zip
+  present: true
+mismatch_or_rejection_rationale: null
+previous_citation_key: tbd2025planningperformance
+verification:
+  authoritative_snapshot: tests/fixtures/arxiv/2511.09378.xml
+  authoritative_source: http://export.arxiv.org/api/query?id_list=2511.09378
+  method: arxiv_api
+  primary_category: cs.AI
+  status: verified
+  verified_at: '2026-06-15T22:10:40.997179+00:00'
+  verified_by: claude-opus-4.7+arxiv-api:evya1
+verified_authors:
+- Corrêa, Augusto B.
+- Pereira, André G.
+- Seipp, Jendrik
+verified_title: Frontier Large Language Models Rival State-of-the-Art Planners
+verified_year: 2025
+```
+
+```yaml
+arxiv_id: '2511.01448'
+canonical_url: https://arxiv.org/abs/2511.01448
+correction_applied: null
+doi: null
+final_citation_key: huang2025licomemory
+intended_use: Memory dimension; lightweight long-term memory architecture for agentic LLMs.
+local_archive:
+  archive_inspection: metadata_only
+  notes: metadata-only inspection ok; format=tar; members=19
+  path: data/sources/arxiv/source_zips/2511.01448.zip
+  present: true
+mismatch_or_rejection_rationale: null
+previous_citation_key: tbd2025licomemory
+verification:
+  authoritative_snapshot: tests/fixtures/arxiv/2511.01448.xml
+  authoritative_source: http://export.arxiv.org/api/query?id_list=2511.01448
+  method: arxiv_api
+  primary_category: cs.IR
+  status: verified
+  verified_at: '2026-06-15T22:10:40.997179+00:00'
+  verified_by: claude-opus-4.7+arxiv-api:evya1
+verified_authors:
+- Huang, Zhengjun
+- Tian, Zhoujin
+- Guo, Qintian
+- Zhang, Fangyuan
+- Zhou, Yingli
+- Jiang, Di
+- Xie, Zeying
+- Zhou, Xiaofang
+verified_title: 'LiCoMemory: Lightweight and Cognitive Agentic Memory for Efficient Long-Term Reasoning'
+verified_year: 2025
+```
+
+```yaml
+arxiv_id: '2601.06037'
+canonical_url: https://arxiv.org/abs/2601.06037
+correction_applied:
+  applied_at: '2026-06-16'
+  applied_by: claude-opus-4.7+arxiv-api:evya1
+  authoritative_value: 2025
+  field: year
+  original_manifest_value: 2026
+  rationale: manifest year was an estimate from the arXiv submission month (2601 = 2026/01); arXiv <published> reports 2025.
+doi: null
+final_citation_key: chen2025telemem
+intended_use: Memory dimension; long-term + multimodal memory case study.
+local_archive:
+  archive_inspection: metadata_only
+  notes: metadata-only inspection ok; format=tar; members=20
+  path: data/sources/arxiv/source_zips/2601.06037.zip
+  present: true
+mismatch_or_rejection_rationale: null
+previous_citation_key: tbd2026telemem
+verification:
+  authoritative_snapshot: tests/fixtures/arxiv/2601.06037.xml
+  authoritative_source: http://export.arxiv.org/api/query?id_list=2601.06037
+  method: arxiv_api
+  primary_category: cs.CL
+  status: verified
+  verified_at: '2026-06-15T22:10:40.997179+00:00'
+  verified_by: claude-opus-4.7+arxiv-api:evya1
+verified_authors:
+- Chen, Chunliang
+- Guan, Ming
+- Lin, Xiao
+- Li, Jiaxu
+- Lin, Luxi
+- Wang, Qiyi
+- Chen, Xiangyu
+- Luo, Jixiang
+- Sun, Changzhi
+- Zhang, Dell
+- Li, Xuelong
+verified_title: 'TeleMem: Building Long-Term and Multimodal Memory for Agentic AI'
+verified_year: 2025
+```
+
+```yaml
+arxiv_id: '2510.10991'
+canonical_url: https://arxiv.org/abs/2510.10991
+correction_applied: null
+doi: null
+final_citation_key: yao2025multimodalsurvey
+intended_use: Multimodal reasoning dimension; survey-level background.
+local_archive:
+  archive_inspection: metadata_only
+  notes: metadata-only inspection ok; format=tar; members=29
+  path: data/sources/arxiv/source_zips/2510.10991.zip
+  present: true
+mismatch_or_rejection_rationale: null
+previous_citation_key: tbd2025multimodalsurvey
+verification:
+  authoritative_snapshot: tests/fixtures/arxiv/2510.10991.xml
+  authoritative_source: http://export.arxiv.org/api/query?id_list=2510.10991
+  method: arxiv_api
+  primary_category: cs.CV
+  status: verified
+  verified_at: '2026-06-15T22:10:40.997179+00:00'
+  verified_by: claude-opus-4.7+arxiv-api:evya1
+verified_authors:
+- Yao, Huanjin
+- Zhang, Ruifei
+- Huang, Jiaxing
+- Zhang, Jingyi
+- Wang, Yibo
+- Fang, Bo
+- Zhu, Ruolin
+- Jing, Yongcheng
+- Liu, Shunyu
+- Li, Guanbin
+- Tao, Dacheng
+verified_title: A Survey on Agentic Multimodal Large Language Models
+verified_year: 2025
+```
+
+```yaml
+arxiv_id: '2510.18303'
+canonical_url: https://arxiv.org/abs/2510.18303
+correction_applied: null
+doi: null
+final_citation_key: wang2025proactiveretrievalmedical
+intended_use: Retrieval + multimodal dimensions; reasoning-with-retrieval case study in the medical domain.
+local_archive:
+  archive_inspection: metadata_only
+  notes: metadata-only inspection ok; format=tar; members=34
+  path: data/sources/arxiv/source_zips/2510.18303.zip
+  present: true
+mismatch_or_rejection_rationale: null
+previous_citation_key: tbd2025proactiveretrievalmedical
+verification:
+  authoritative_snapshot: tests/fixtures/arxiv/2510.18303.xml
+  authoritative_source: http://export.arxiv.org/api/query?id_list=2510.18303
+  method: arxiv_api
+  primary_category: cs.CV
+  status: verified
+  verified_at: '2026-06-15T22:10:40.997179+00:00'
+  verified_by: claude-opus-4.7+arxiv-api:evya1
+verified_authors:
+- Wang, Lehan
+- Qin, Yi
+- Yang, Honglong
+- Li, Xiaomeng
+verified_title: Proactive Reasoning-with-Retrieval Framework for Medical Multimodal Large Language Models
+verified_year: 2025
+```
+
+```yaml
+arxiv_id: '2510.19361'
+canonical_url: https://arxiv.org/abs/2510.19361
+correction_applied: null
+doi: null
+final_citation_key: liu2025agenticmath
+intended_use: Reasoning data generation; supports the evaluation / data chapter.
+local_archive:
+  archive_inspection: metadata_only
+  notes: metadata-only inspection ok; format=tar; members=32
+  path: data/sources/arxiv/source_zips/2510.19361.zip
+  present: true
+mismatch_or_rejection_rationale: null
+previous_citation_key: tbd2025agenticmath
+verification:
+  authoritative_snapshot: tests/fixtures/arxiv/2510.19361.xml
+  authoritative_source: http://export.arxiv.org/api/query?id_list=2510.19361
+  method: arxiv_api
+  primary_category: cs.CL
+  status: verified
+  verified_at: '2026-06-15T22:10:40.997179+00:00'
+  verified_by: claude-opus-4.7+arxiv-api:evya1
+verified_authors:
+- Liu, Xianyang
+- Liu, Yilin
+- Wang, Shuai
+- Cheng, Hao
+- Estornell, Andrew
+- Zhao, Yuzhi
+- Shu, Jun
+- Wei, Jiaheng
+verified_title: 'AgenticMath: Enhancing LLM Reasoning via Agentic-based Math Data Generation'
+verified_year: 2025
+```
+
+```yaml
+arxiv_id: '2407.01231'
+canonical_url: https://arxiv.org/abs/2407.01231
+correction_applied: null
+doi: null
+final_citation_key: ye2024mirai
+intended_use: Evaluation chapter; benchmark for LLM agents on event forecasting.
+local_archive:
+  archive_inspection: metadata_only
+  notes: metadata-only inspection ok; format=tar; members=43
+  path: data/sources/arxiv/source_zips/2407.01231.zip
+  present: true
+mismatch_or_rejection_rationale: null
+previous_citation_key: tbd2024mirai
+verification:
+  authoritative_snapshot: tests/fixtures/arxiv/2407.01231.xml
+  authoritative_source: http://export.arxiv.org/api/query?id_list=2407.01231
+  method: arxiv_api
+  primary_category: cs.CL
+  status: verified
+  verified_at: '2026-06-15T22:10:40.997179+00:00'
+  verified_by: claude-opus-4.7+arxiv-api:evya1
+verified_authors:
+- Ye, Chenchen
+- Hu, Ziniu
+- Deng, Yihe
+- Huang, Zijie
+- Ma, Mingyu Derek
+- Zhu, Yanqiao
+- Wang, Wei
+verified_title: 'MIRAI: Evaluating LLM Agents for Event Forecasting'
+verified_year: 2024
+```
+
+```yaml
+arxiv_id: '2601.12538'
+canonical_url: https://arxiv.org/abs/2601.12538
+correction_applied: null
+doi: null
+final_citation_key: wei2026agenticreasoning
+intended_use: Agentic-reasoning core; ties planning, tool use, and memory into a single reasoning loop.
+local_archive:
+  archive_inspection: metadata_only
+  notes: metadata-only inspection ok; format=tar; members=58
+  path: data/sources/arxiv/source_zips/2601.12538.zip
+  present: true
+mismatch_or_rejection_rationale: null
+previous_citation_key: tbd2026agenticreasoning
+verification:
+  authoritative_snapshot: tests/fixtures/arxiv/2601.12538.xml
+  authoritative_source: http://export.arxiv.org/api/query?id_list=2601.12538
+  method: arxiv_api
+  primary_category: cs.AI
+  status: verified
+  verified_at: '2026-06-15T22:10:40.997179+00:00'
+  verified_by: claude-opus-4.7+arxiv-api:evya1
+verified_authors:
+- Wei, Tianxin
+- Li, Ting-Wei
+- Liu, Zhining
+- Ning, Xuying
+- Yang, Ze
+- Zou, Jiaru
+- Zeng, Zhichen
+- Qiu, Ruizhong
+- Lin, Xiao
+- Fu, Dongqi
+- Li, Zihao
+- Ai, Mengting
+- Zhou, Duo
+- Bao, Wenxuan
+- Li, Yunzhe
+- Li, Gaotang
+- Qian, Cheng
+- Wang, Yu
+- Tang, Xiangru
+- Xiao, Yin
+- Fang, Liri
+- Liu, Hui
+- Tang, Xianfeng
+- Zhang, Yuji
+- Wang, Chi
+- You, Jiaxuan
+- Ji, Heng
+- Tong, Hanghang
+- He, Jingrui
+verified_title: Agentic Reasoning for Large Language Models
+verified_year: 2026
+```
+
+<!-- P7I03_SECTION_END -->
 
 ## 6. Rejection and replacement
 

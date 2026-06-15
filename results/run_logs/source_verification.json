@@ -1,0 +1,421 @@
+{
+  "entries": [
+    {
+      "arxiv_id": "2504.09037",
+      "canonical_url": "https://arxiv.org/abs/2504.09037",
+      "correction_applied": null,
+      "doi": null,
+      "final_citation_key": "ke2025reasoningfrontiers",
+      "intended_use": "Background framing for the reasoning landscape (inference-time scaling, learning to reason, agentic systems).",
+      "local_archive": {
+        "archive_inspection": "metadata_only",
+        "notes": "metadata-only inspection ok; format=tar; members=25",
+        "path": "data/sources/arxiv/source_zips/2504.09037.zip",
+        "present": true
+      },
+      "mismatch_or_rejection_rationale": null,
+      "previous_citation_key": "tbd2025reasoningfrontiers",
+      "verification": {
+        "authoritative_snapshot": "tests/fixtures/arxiv/2504.09037.xml",
+        "authoritative_source": "http://export.arxiv.org/api/query?id_list=2504.09037",
+        "method": "arxiv_api",
+        "primary_category": "cs.AI",
+        "status": "verified",
+        "verified_at": "2026-06-15T22:10:40.997179+00:00",
+        "verified_by": "claude-opus-4.7+arxiv-api:evya1"
+      },
+      "verified_authors": [
+        "Ke, Zixuan",
+        "Jiao, Fangkai",
+        "Ming, Yifei",
+        "Nguyen, Xuan-Phi",
+        "Xu, Austin",
+        "Long, Do Xuan",
+        "Li, Minzhi",
+        "Qin, Chengwei",
+        "Wang, Peifeng",
+        "Savarese, Silvio",
+        "Xiong, Caiming",
+        "Joty, Shafiq"
+      ],
+      "verified_title": "A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason, and Agentic Systems",
+      "verified_year": 2025
+    },
+    {
+      "arxiv_id": "2502.04644",
+      "canonical_url": "https://arxiv.org/abs/2502.04644",
+      "correction_applied": {
+        "applied_at": "2026-06-16",
+        "applied_by": "claude-opus-4.7+arxiv-api:evya1",
+        "authoritative_value": "Agentic Reasoning: A Streamlined Framework for Enhancing LLM Reasoning with Agentic Tools",
+        "field": "title",
+        "original_manifest_value": "Agentic Reasoning: Reasoning LLMs with Tools for the Deep Research",
+        "rationale": "manifest title was an explicit placeholder pending Phase 7 verification; replaced with authoritative arXiv title."
+      },
+      "doi": null,
+      "final_citation_key": "wu2025agenticreasoningtools",
+      "intended_use": "Tool-use dimension; agentic reasoning combined with tools for deep-research workflows.",
+      "local_archive": {
+        "archive_inspection": "metadata_only",
+        "notes": "metadata-only inspection ok; format=tar; members=12",
+        "path": "data/sources/arxiv/source_zips/2502.04644.zip",
+        "present": true
+      },
+      "mismatch_or_rejection_rationale": null,
+      "previous_citation_key": "tbd2025agenticreasoningtools",
+      "verification": {
+        "authoritative_snapshot": "tests/fixtures/arxiv/2502.04644.xml",
+        "authoritative_source": "http://export.arxiv.org/api/query?id_list=2502.04644",
+        "method": "arxiv_api",
+        "primary_category": "cs.AI",
+        "status": "verified",
+        "verified_at": "2026-06-15T22:10:40.997179+00:00",
+        "verified_by": "claude-opus-4.7+arxiv-api:evya1"
+      },
+      "verified_authors": [
+        "Wu, Junde",
+        "Zhu, Jiayuan",
+        "Liu, Yuyuan",
+        "Xu, Min",
+        "Jin, Yueming"
+      ],
+      "verified_title": "Agentic Reasoning: A Streamlined Framework for Enhancing LLM Reasoning with Agentic Tools",
+      "verified_year": 2025
+    },
+    {
+      "arxiv_id": "2511.09378",
+      "canonical_url": "https://arxiv.org/abs/2511.09378",
+      "correction_applied": {
+        "applied_at": "2026-06-16",
+        "applied_by": "claude-opus-4.7+arxiv-api:evya1",
+        "authoritative_value": "Frontier Large Language Models Rival State-of-the-Art Planners",
+        "field": "title",
+        "original_manifest_value": "The 2025 Planning Performance of Frontier Large Language Models",
+        "rationale": "manifest title was an explicit placeholder pending Phase 7 verification; replaced with authoritative arXiv title."
+      },
+      "doi": null,
+      "final_citation_key": "correa2025planningperformance",
+      "intended_use": "Planning dimension; empirical state of planning in frontier LLMs as of 2025.",
+      "local_archive": {
+        "archive_inspection": "metadata_only",
+        "notes": "metadata-only inspection ok; format=tar; members=22",
+        "path": "data/sources/arxiv/source_zips/2511.09378.zip",
+        "present": true
+      },
+      "mismatch_or_rejection_rationale": null,
+      "previous_citation_key": "tbd2025planningperformance",
+      "verification": {
+        "authoritative_snapshot": "tests/fixtures/arxiv/2511.09378.xml",
+        "authoritative_source": "http://export.arxiv.org/api/query?id_list=2511.09378",
+        "method": "arxiv_api",
+        "primary_category": "cs.AI",
+        "status": "verified",
+        "verified_at": "2026-06-15T22:10:40.997179+00:00",
+        "verified_by": "claude-opus-4.7+arxiv-api:evya1"
+      },
+      "verified_authors": [
+        "Corr\u00eaa, Augusto B.",
+        "Pereira, Andr\u00e9 G.",
+        "Seipp, Jendrik"
+      ],
+      "verified_title": "Frontier Large Language Models Rival State-of-the-Art Planners",
+      "verified_year": 2025
+    },
+    {
+      "arxiv_id": "2511.01448",
+      "canonical_url": "https://arxiv.org/abs/2511.01448",
+      "correction_applied": null,
+      "doi": null,
+      "final_citation_key": "huang2025licomemory",
+      "intended_use": "Memory dimension; lightweight long-term memory architecture for agentic LLMs.",
+      "local_archive": {
+        "archive_inspection": "metadata_only",
+        "notes": "metadata-only inspection ok; format=tar; members=19",
+        "path": "data/sources/arxiv/source_zips/2511.01448.zip",
+        "present": true
+      },
+      "mismatch_or_rejection_rationale": null,
+      "previous_citation_key": "tbd2025licomemory",
+      "verification": {
+        "authoritative_snapshot": "tests/fixtures/arxiv/2511.01448.xml",
+        "authoritative_source": "http://export.arxiv.org/api/query?id_list=2511.01448",
+        "method": "arxiv_api",
+        "primary_category": "cs.IR",
+        "status": "verified",
+        "verified_at": "2026-06-15T22:10:40.997179+00:00",
+        "verified_by": "claude-opus-4.7+arxiv-api:evya1"
+      },
+      "verified_authors": [
+        "Huang, Zhengjun",
+        "Tian, Zhoujin",
+        "Guo, Qintian",
+        "Zhang, Fangyuan",
+        "Zhou, Yingli",
+        "Jiang, Di",
+        "Xie, Zeying",
+        "Zhou, Xiaofang"
+      ],
+      "verified_title": "LiCoMemory: Lightweight and Cognitive Agentic Memory for Efficient Long-Term Reasoning",
+      "verified_year": 2025
+    },
+    {
+      "arxiv_id": "2601.06037",
+      "canonical_url": "https://arxiv.org/abs/2601.06037",
+      "correction_applied": {
+        "applied_at": "2026-06-16",
+        "applied_by": "claude-opus-4.7+arxiv-api:evya1",
+        "authoritative_value": 2025,
+        "field": "year",
+        "original_manifest_value": 2026,
+        "rationale": "manifest year was an estimate from the arXiv submission month (2601 = 2026/01); arXiv <published> reports 2025."
+      },
+      "doi": null,
+      "final_citation_key": "chen2025telemem",
+      "intended_use": "Memory dimension; long-term + multimodal memory case study.",
+      "local_archive": {
+        "archive_inspection": "metadata_only",
+        "notes": "metadata-only inspection ok; format=tar; members=20",
+        "path": "data/sources/arxiv/source_zips/2601.06037.zip",
+        "present": true
+      },
+      "mismatch_or_rejection_rationale": null,
+      "previous_citation_key": "tbd2026telemem",
+      "verification": {
+        "authoritative_snapshot": "tests/fixtures/arxiv/2601.06037.xml",
+        "authoritative_source": "http://export.arxiv.org/api/query?id_list=2601.06037",
+        "method": "arxiv_api",
+        "primary_category": "cs.CL",
+        "status": "verified",
+        "verified_at": "2026-06-15T22:10:40.997179+00:00",
+        "verified_by": "claude-opus-4.7+arxiv-api:evya1"
+      },
+      "verified_authors": [
+        "Chen, Chunliang",
+        "Guan, Ming",
+        "Lin, Xiao",
+        "Li, Jiaxu",
+        "Lin, Luxi",
+        "Wang, Qiyi",
+        "Chen, Xiangyu",
+        "Luo, Jixiang",
+        "Sun, Changzhi",
+        "Zhang, Dell",
+        "Li, Xuelong"
+      ],
+      "verified_title": "TeleMem: Building Long-Term and Multimodal Memory for Agentic AI",
+      "verified_year": 2025
+    },
+    {
+      "arxiv_id": "2510.10991",
+      "canonical_url": "https://arxiv.org/abs/2510.10991",
+      "correction_applied": null,
+      "doi": null,
+      "final_citation_key": "yao2025multimodalsurvey",
+      "intended_use": "Multimodal reasoning dimension; survey-level background.",
+      "local_archive": {
+        "archive_inspection": "metadata_only",
+        "notes": "metadata-only inspection ok; format=tar; members=29",
+        "path": "data/sources/arxiv/source_zips/2510.10991.zip",
+        "present": true
+      },
+      "mismatch_or_rejection_rationale": null,
+      "previous_citation_key": "tbd2025multimodalsurvey",
+      "verification": {
+        "authoritative_snapshot": "tests/fixtures/arxiv/2510.10991.xml",
+        "authoritative_source": "http://export.arxiv.org/api/query?id_list=2510.10991",
+        "method": "arxiv_api",
+        "primary_category": "cs.CV",
+        "status": "verified",
+        "verified_at": "2026-06-15T22:10:40.997179+00:00",
+        "verified_by": "claude-opus-4.7+arxiv-api:evya1"
+      },
+      "verified_authors": [
+        "Yao, Huanjin",
+        "Zhang, Ruifei",
+        "Huang, Jiaxing",
+        "Zhang, Jingyi",
+        "Wang, Yibo",
+        "Fang, Bo",
+        "Zhu, Ruolin",
+        "Jing, Yongcheng",
+        "Liu, Shunyu",
+        "Li, Guanbin",
+        "Tao, Dacheng"
+      ],
+      "verified_title": "A Survey on Agentic Multimodal Large Language Models",
+      "verified_year": 2025
+    },
+    {
+      "arxiv_id": "2510.18303",
+      "canonical_url": "https://arxiv.org/abs/2510.18303",
+      "correction_applied": null,
+      "doi": null,
+      "final_citation_key": "wang2025proactiveretrievalmedical",
+      "intended_use": "Retrieval + multimodal dimensions; reasoning-with-retrieval case study in the medical domain.",
+      "local_archive": {
+        "archive_inspection": "metadata_only",
+        "notes": "metadata-only inspection ok; format=tar; members=34",
+        "path": "data/sources/arxiv/source_zips/2510.18303.zip",
+        "present": true
+      },
+      "mismatch_or_rejection_rationale": null,
+      "previous_citation_key": "tbd2025proactiveretrievalmedical",
+      "verification": {
+        "authoritative_snapshot": "tests/fixtures/arxiv/2510.18303.xml",
+        "authoritative_source": "http://export.arxiv.org/api/query?id_list=2510.18303",
+        "method": "arxiv_api",
+        "primary_category": "cs.CV",
+        "status": "verified",
+        "verified_at": "2026-06-15T22:10:40.997179+00:00",
+        "verified_by": "claude-opus-4.7+arxiv-api:evya1"
+      },
+      "verified_authors": [
+        "Wang, Lehan",
+        "Qin, Yi",
+        "Yang, Honglong",
+        "Li, Xiaomeng"
+      ],
+      "verified_title": "Proactive Reasoning-with-Retrieval Framework for Medical Multimodal Large Language Models",
+      "verified_year": 2025
+    },
+    {
+      "arxiv_id": "2510.19361",
+      "canonical_url": "https://arxiv.org/abs/2510.19361",
+      "correction_applied": null,
+      "doi": null,
+      "final_citation_key": "liu2025agenticmath",
+      "intended_use": "Reasoning data generation; supports the evaluation / data chapter.",
+      "local_archive": {
+        "archive_inspection": "metadata_only",
+        "notes": "metadata-only inspection ok; format=tar; members=32",
+        "path": "data/sources/arxiv/source_zips/2510.19361.zip",
+        "present": true
+      },
+      "mismatch_or_rejection_rationale": null,
+      "previous_citation_key": "tbd2025agenticmath",
+      "verification": {
+        "authoritative_snapshot": "tests/fixtures/arxiv/2510.19361.xml",
+        "authoritative_source": "http://export.arxiv.org/api/query?id_list=2510.19361",
+        "method": "arxiv_api",
+        "primary_category": "cs.CL",
+        "status": "verified",
+        "verified_at": "2026-06-15T22:10:40.997179+00:00",
+        "verified_by": "claude-opus-4.7+arxiv-api:evya1"
+      },
+      "verified_authors": [
+        "Liu, Xianyang",
+        "Liu, Yilin",
+        "Wang, Shuai",
+        "Cheng, Hao",
+        "Estornell, Andrew",
+        "Zhao, Yuzhi",
+        "Shu, Jun",
+        "Wei, Jiaheng"
+      ],
+      "verified_title": "AgenticMath: Enhancing LLM Reasoning via Agentic-based Math Data Generation",
+      "verified_year": 2025
+    },
+    {
+      "arxiv_id": "2407.01231",
+      "canonical_url": "https://arxiv.org/abs/2407.01231",
+      "correction_applied": null,
+      "doi": null,
+      "final_citation_key": "ye2024mirai",
+      "intended_use": "Evaluation chapter; benchmark for LLM agents on event forecasting.",
+      "local_archive": {
+        "archive_inspection": "metadata_only",
+        "notes": "metadata-only inspection ok; format=tar; members=43",
+        "path": "data/sources/arxiv/source_zips/2407.01231.zip",
+        "present": true
+      },
+      "mismatch_or_rejection_rationale": null,
+      "previous_citation_key": "tbd2024mirai",
+      "verification": {
+        "authoritative_snapshot": "tests/fixtures/arxiv/2407.01231.xml",
+        "authoritative_source": "http://export.arxiv.org/api/query?id_list=2407.01231",
+        "method": "arxiv_api",
+        "primary_category": "cs.CL",
+        "status": "verified",
+        "verified_at": "2026-06-15T22:10:40.997179+00:00",
+        "verified_by": "claude-opus-4.7+arxiv-api:evya1"
+      },
+      "verified_authors": [
+        "Ye, Chenchen",
+        "Hu, Ziniu",
+        "Deng, Yihe",
+        "Huang, Zijie",
+        "Ma, Mingyu Derek",
+        "Zhu, Yanqiao",
+        "Wang, Wei"
+      ],
+      "verified_title": "MIRAI: Evaluating LLM Agents for Event Forecasting",
+      "verified_year": 2024
+    },
+    {
+      "arxiv_id": "2601.12538",
+      "canonical_url": "https://arxiv.org/abs/2601.12538",
+      "correction_applied": null,
+      "doi": null,
+      "final_citation_key": "wei2026agenticreasoning",
+      "intended_use": "Agentic-reasoning core; ties planning, tool use, and memory into a single reasoning loop.",
+      "local_archive": {
+        "archive_inspection": "metadata_only",
+        "notes": "metadata-only inspection ok; format=tar; members=58",
+        "path": "data/sources/arxiv/source_zips/2601.12538.zip",
+        "present": true
+      },
+      "mismatch_or_rejection_rationale": null,
+      "previous_citation_key": "tbd2026agenticreasoning",
+      "verification": {
+        "authoritative_snapshot": "tests/fixtures/arxiv/2601.12538.xml",
+        "authoritative_source": "http://export.arxiv.org/api/query?id_list=2601.12538",
+        "method": "arxiv_api",
+        "primary_category": "cs.AI",
+        "status": "verified",
+        "verified_at": "2026-06-15T22:10:40.997179+00:00",
+        "verified_by": "claude-opus-4.7+arxiv-api:evya1"
+      },
+      "verified_authors": [
+        "Wei, Tianxin",
+        "Li, Ting-Wei",
+        "Liu, Zhining",
+        "Ning, Xuying",
+        "Yang, Ze",
+        "Zou, Jiaru",
+        "Zeng, Zhichen",
+        "Qiu, Ruizhong",
+        "Lin, Xiao",
+        "Fu, Dongqi",
+        "Li, Zihao",
+        "Ai, Mengting",
+        "Zhou, Duo",
+        "Bao, Wenxuan",
+        "Li, Yunzhe",
+        "Li, Gaotang",
+        "Qian, Cheng",
+        "Wang, Yu",
+        "Tang, Xiangru",
+        "Xiao, Yin",
+        "Fang, Liri",
+        "Liu, Hui",
+        "Tang, Xianfeng",
+        "Zhang, Yuji",
+        "Wang, Chi",
+        "You, Jiaxuan",
+        "Ji, Heng",
+        "Tong, Hanghang",
+        "He, Jingrui"
+      ],
+      "verified_title": "Agentic Reasoning for Large Language Models",
+      "verified_year": 2026
+    }
+  ],
+  "generated_at": "2026-06-15T23:21:05.227139+00:00",
+  "schema": "p7i03-source-audit/v1",
+  "summary": {
+    "all_archives_present": true,
+    "rejected": 0,
+    "total": 10,
+    "verified": 10
+  }
+}
