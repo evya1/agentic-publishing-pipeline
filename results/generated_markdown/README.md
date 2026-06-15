@@ -23,7 +23,7 @@ results/generated_markdown/
 - Files here are committed Phase 6 deliverables (not per-run workspace
   artifacts). Per-run workspace files live under `results/RUN-*/`
   (gitignored).
-- Every citation placeholder (`<!-- CITATION: key -->`) must reference a
-  key present in `config/article_sources.yaml`.
+- Every citation placeholder (HTML comment with `CITATION:` prefix) must
+  reference a key present in `config/article_sources.yaml`.
 - No LaTeX conversion may begin until a human review record is present
   in `results/run_logs/review_record.json` with `verdict: "approved"`.

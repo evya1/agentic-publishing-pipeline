@@ -33,7 +33,9 @@ def _run_offline_fixture(tmp_path: Path) -> tuple[int, Path]:
         ],
         env={},
     )
-    return rc, next(results.iterdir())
+    workspaces = [p for p in results.iterdir() if p.name.startswith("RUN-")]
+    assert workspaces, "no RUN-* workspace found in results"
+    return rc, workspaces[0]
 
 
 def test_parser_known_modes() -> None:
