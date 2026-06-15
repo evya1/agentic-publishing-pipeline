@@ -13,6 +13,7 @@ import pytest
 
 SUBPACKAGES = [
     "agents",
+    "bibliography",
     "tasks",
     "crews",
     "tools",

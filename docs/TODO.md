@@ -505,6 +505,14 @@ is next.
 - [ ] Consume `config/article_sources.yaml` from the Research Agent (T1)
       and the Bibliography Agent (T6) per
       `docs/PRD_crewai_pipeline.md` §6. [Phase 6, Phase 7]
+      *P7-I01 (issue #22):* Bibliography Agent boundary at
+      `src/agentic_publishing_pipeline/bibliography/manifest.py`
+      (`load_source_manifest` → typed `SourceManifest` /
+      `SourceRecord` / `VerificationRecord`); deterministic offline
+      loader with explicit field validation and duplicate detection.
+      Tests in `tests/bibliography/test_manifest.py`. Box stays
+      unchecked until merge and post-merge evidence per
+      `docs/TODO.md` §F-6.
 - [ ] Verify each manifest entry: URL/DOI resolution, title/author/year
       cross-check, archive-file presence under
       `data/sources/arxiv/source_zips/`. Update
