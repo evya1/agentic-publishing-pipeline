@@ -115,12 +115,12 @@ current state before acting.
 | P5-I05      | [#14](https://github.com/evya1/agentic-publishing-pipeline/issues/14) | Implement Markdown conversion tool                                     |
 | P5-I06      | [#15](https://github.com/evya1/agentic-publishing-pipeline/issues/15) | Implement LaTeX compilation tool (LuaLaTeX + biber multi-pass)         |
 | P5-I07      | [#16](https://github.com/evya1/agentic-publishing-pipeline/issues/16) | Implement graph generation tool                                        |
-| P5-I08      | *(planned — GitHub number TBD)* | Implement versioned Pydantic artifact contracts and bounded validation repair |
-| P5-I09      | *(planned — GitHub number TBD)* | Implement API Gatekeeper, budgets, retries, and usage/cost logging |
-| P5-I10      | *(planned — GitHub number TBD)* | Introduce `PipelineRunContext`, isolated workspaces, and artifact manifests |
-| P5-I11      | *(planned — GitHub number TBD)* | Add CLI operational modes and deterministic offline fixtures |
-| P5-I12      | *(planned — GitHub number TBD)* | Implement versioned prompt/config registry and compatibility checks |
-| P5-I13      | *(planned — GitHub number TBD)* | Add baseline CI, pre-commit, lockfile, line-cap, and offline smoke gates |
+| P5-I08      | [#73](https://github.com/evya1/agentic-publishing-pipeline/issues/73) | Implement versioned Pydantic artifact contracts and bounded validation repair |
+| P5-I09      | [#74](https://github.com/evya1/agentic-publishing-pipeline/issues/74) | Implement API Gatekeeper, budgets, retries, and usage/cost logging |
+| P5-I10      | [#75](https://github.com/evya1/agentic-publishing-pipeline/issues/75) | Introduce `PipelineRunContext`, isolated workspaces, and artifact manifests |
+| P5-I11      | [#76](https://github.com/evya1/agentic-publishing-pipeline/issues/76) | Add CLI operational modes and deterministic offline fixtures |
+| P5-I12      | [#77](https://github.com/evya1/agentic-publishing-pipeline/issues/77) | Implement versioned prompt/config registry and compatibility checks |
+| P5-I13      | [#78](https://github.com/evya1/agentic-publishing-pipeline/issues/78) | Add baseline CI, lockfile, line-cap, and offline smoke gates |
 
 #### Phase 6 — Markdown-first content pipeline ([milestone #5](https://github.com/evya1/agentic-publishing-pipeline/milestone/5))
 
@@ -371,60 +371,113 @@ do not block the Phase 1.5 lock.
 
 ### C.3 Provider/service layer, configuration, and tools
 
-- [ ] Implement a controlled provider/service layer for model and search
+- [x] Implement a controlled provider/service layer for model and search
       calls. [Phase 5] [NFR-23, NFR-24]
-- [ ] Add `.env-example` documenting required environment variables.
+      *Done on `phase/05-...` — `src/agentic_publishing_pipeline/providers/`
+      with typed facade, fixture adapters, env-driven `ProviderConfig`.*
+- [x] Add `.env-example` documenting required environment variables.
       [Phase 5] [FR-4, NFR-21]
-- [ ] Load all secrets from `.env` only; never hardcode. [Phase 5]
+      *Done — see `.env.example` at repo root.*
+- [x] Load all secrets from `.env` only; never hardcode. [Phase 5]
       [FR-3, NFR-20]
-- [ ] Add `crewai`, the chosen model SDK, the chosen search SDK, and
-      `matplotlib` to `pyproject.toml` via `uv add` — one per tool as it
-      is implemented, no speculative installs. [Phase 5]
+      *Done — provider config reads exclusively from env; run snapshots
+      store only allowlisted settings and credential-presence markers
+      (P5-I10).*
+- [x] Track a reproducible `uv.lock` baseline and codify the per-tool,
+      no-speculative-install dependency policy. Heavy SDKs (`crewai`,
+      model/search SDKs, `matplotlib` where applicable) are added by
+      the issue that consumes them, not preemptively. [Phase 5]
+      *Done on `phase/05-provider-service-layer-and-tools` —
+      `uv.lock` is now tracked and `CONTRIBUTING.md §11.5` is the
+      binding rule.*
 - [ ] Implement agent tools under
       `src/agentic_publishing_pipeline/tools/`:
-  - [ ] Search tool for configured-source metadata verification; automatic
+  - [x] Search tool for configured-source metadata verification; automatic
         source discovery is deferred beyond the MVP. [Phase 5, Phase 7]
         [FR-5]
-  - [ ] File I/O tool. [Phase 5]
-  - [ ] Markdown conversion tool (used by the Markdown→LaTeX path).
+        *Done on `phase/05-...` — `tools/search.py` reads
+        `config/article_sources.yaml`, exposes `SearchHit`s through
+        the `FixtureSearchAdapter`, and surfaces `verify_arxiv_id`
+        + `manifest_coverage` helpers for the Bibliography Agent.*
+  - [x] File I/O tool. [Phase 5]
+        *Done on `phase/05-...` — `tools/fileio.FileIO` provides
+        atomic writes, path-traversal refusal, and a `fileio.wrote`
+        audit event into the run-context event log.*
+  - [x] Markdown conversion tool (used by the Markdown→LaTeX path).
         [Phase 5, Phase 9]
-  - [ ] LaTeX compilation tool (LuaLaTeX + biber multi-pass). [Phase 5,
+        *Done on `phase/05-...` — `tools/markdown.py` provides
+        deterministic placeholder parsing
+        (`parse_placeholders`/`strip_placeholders`/`has_placeholder`)
+        and LaTeX special-character escaping. Phase 9 reuses the
+        same seam.*
+  - [x] LaTeX compilation tool (LuaLaTeX + biber multi-pass). [Phase 5,
         Phase 10] [FR-20]
-  - [ ] Graph generation tool. [Phase 5, Phase 8] [FR-29, FR-30]
-- [ ] **P5-I08** — Implement versioned Pydantic artifact contracts
+        *Done on `phase/05-...` — `tools/latex_build.build_pdf`
+        runs the deterministic 4-pass sequence
+        (lualatex → biber → lualatex → lualatex) with fixed args,
+        timeouts, captured & parsed build log, and returns a
+        `BuildResult v1`. Refuses on missing binaries unless an
+        injected runner is supplied.*
+  - [x] Graph generation tool. [Phase 5, Phase 8] [FR-29, FR-30]
+        *Done on `phase/05-...` — `visualization/graph.render_line_plot`
+        and `render_python_graph_asset` use Matplotlib (Agg
+        backend, no GUI). Outputs land under
+        `latex_project/figures/` through the FileIO tool, audited,
+        and emit a JSON provenance file next to each PNG.*
+- [x] **P5-I08** — Implement versioned Pydantic artifact contracts
       (ResearchNotes, Outline, ChapterDrafts, AssetSpecs, BiDiSection,
       BibliographyBundle, LaTeXProjectSpec, ReviewerSignal, BuildResult,
       ValidationReport, PromotionRecord) and bounded validation repair
       (≤1 attempt). No stage may consume unvalidated raw LLM output.
       [Phase 5] [FR-41, FR-42, NFR-19, ADR-0002]
-- [ ] **P5-I09** — Implement API Gatekeeper: budgets, retries,
+      *Done on `phase/05-provider-service-layer-and-tools` —
+      `src/agentic_publishing_pipeline/contracts/` ships the E1..E12
+      models with a single `parse_with_repair` helper; pydantic added
+      to runtime deps.*
+- [x] **P5-I09** — Implement API Gatekeeper: budgets, retries,
       timeouts, retry classification, structured usage/cost events
       carrying `run_id`, `agent_id`, `task_id`, `attempt`, model,
       tokens, latency, status, estimated cost. Provider facade
       separate from policy. [Phase 5] [FR-44, NFR-23, NFR-24, ADR-0004]
-- [ ] **P5-I10** — Introduce `PipelineRunContext`: unique run ID,
+      *Done on `phase/05-...` — `tools/gatekeeper.py` (policy) +
+      `tools/_gatekeeper_policy.py` (budget/identity/cost helpers).
+      Offline-fixture mode emits cost=0 usage events through the
+      same Gatekeeper path as live.*
+- [x] **P5-I10** — Introduce `PipelineRunContext`: unique run ID,
       isolated workspace under `results/<run_id>/`, configuration
       snapshot, structured event log, usage/cost log, artifact
       manifest, safe path resolution, explicit promote/publish
       operations. Failed runs preserved or removed only by explicit
       cleanup. Canonical artifacts never silently overwritten.
       [Phase 5] [FR-45, FR-48, NFR-16, NFR-17, ADR-0005]
-- [ ] **P5-I11** — Add CLI operational modes (`dry-run`,
+      *Done on `phase/05-provider-service-layer-and-tools` —
+      `src/agentic_publishing_pipeline/runtime/` ships the workspace,
+      manifest, logs, and explicit promotion path.*
+- [x] **P5-I11** — Add CLI operational modes (`dry-run`,
       `offline-fixture`, `live`, `compile-only`, `validate-only`,
       `--topic`/`--manifest` override, `resume`) and deterministic
       offline fixtures. Offline mode requires no API keys and makes
       no network or paid-provider calls. Includes deterministic
       fixtures and integration tests. [Phase 5] [FR-46]
-- [ ] **P5-I12** — Implement machine-readable, versioned prompt/config
+      *Implemented on `phase/05-provider-service-layer-and-tools`;
+      pending PR review, merge to `main`, post-merge evidence, and
+      issue closure.*
+- [x] **P5-I12** — Implement machine-readable, versioned prompt/config
       registry under `config/prompt_registry/`; validate schema/version
       compatibility at startup; refuse to start on mismatch. Preserve
       `docs/PROMPTS.md` as the human evidence ledger. Link recorded
       runs to exact registry versions. [Phase 5] [FR-47]
-- [ ] **P5-I13** — Add baseline CI for PR/main: frozen dependency
+      *Done on `phase/05-...` — registry YAML tree under
+      `config/prompt_registry/` + loader and `verify_compatibility`
+      in `runtime/registry.py`; pyyaml added to runtime deps.*
+- [x] **P5-I13** — Add baseline CI for PR/main: frozen dependency
       sync, Ruff, tests, current coverage gate, automated 150-line
       cap, deterministic offline smoke run. Do not introduce a
       Python-version matrix here (deferred to P12-I05). [Phase 5,
       Phase 12]
+      *Implemented on `phase/05-provider-service-layer-and-tools`;
+      pending PR review, merge to `main`, post-merge evidence, and
+      issue closure.*
 
 ### C.4 Markdown-first content pipeline
 

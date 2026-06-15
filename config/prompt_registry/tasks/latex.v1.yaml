@@ -1,0 +1,27 @@
+id: PROMPT-TASK-LATEX-001
+ledger_id: PROMPT-TASK-LATEX-001
+kind: task
+version: v1
+prompt:
+  description: |
+    Convert all approved Markdown drafts and asset specifications into a
+    structured, compilable LaTeX project under latex_project/. Follow the
+    separation rules strictly: chapter files contain narrative text only; each
+    table lives in its own file under tables/; each TikZ figure lives in its
+    own file under figures/; main.tex is a thin root that inputs everything
+    else. Include preamble.tex, macros.tex, references.bib, nomenclature
+    setup, and index configuration. Target LuaLaTeX with fontspec + polyglossia
+    for BiDi support.
+  expected_output: |
+    A complete LaTeX project tree under latex_project/ containing: main.tex,
+    preamble.tex, macros.tex, references.bib, chapters/*.tex, tables/*.tex,
+    figures/*.tex, and any supporting configuration files.
+config:
+  agent: PROMPT-AGENT-LATEX-001
+  consumes_contracts:
+    - ChapterDrafts.v1
+    - AssetSpecs.v1
+    - BiDiSection.v1
+    - BibliographyBundle.v1
+  emits_contract: LaTeXProjectSpec.v1
+  repair_attempts_allowed: 1

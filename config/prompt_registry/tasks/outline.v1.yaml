@@ -1,0 +1,24 @@
+id: PROMPT-TASK-OUTLINE-001
+ledger_id: PROMPT-TASK-OUTLINE-001
+kind: task
+version: v1
+prompt:
+  description: |
+    Read the research notes from the previous task and design a coherent
+    article outline. The outline must define chapter headings, section
+    structure, and content allocation for each chapter. Ensure the outline
+    covers all required elements: background/introduction, five reasoning
+    dimension chapters, evaluation chapter, Hebrew/English BiDi section
+    (placed in the Memory chapter), conclusion, nomenclature, and index.
+    The outline must ensure logical flow and eliminate redundancy.
+  expected_output: |
+    A Markdown file at results/generated_markdown/outline.md containing a
+    hierarchical outline with chapter titles, section headings, brief
+    descriptions of each section's content, and notes about where figures,
+    tables, equations, and citations should be placed.
+config:
+  agent: PROMPT-AGENT-OUTLINE-001
+  consumes_contracts:
+    - ResearchNotes.v1
+  emits_contract: Outline.v1
+  repair_attempts_allowed: 1

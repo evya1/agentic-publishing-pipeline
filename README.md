@@ -1,6 +1,7 @@
 # agentic-publishing-pipeline
 
-> **Status:** scaffold only. No article topic selected. No final PDF generated. No CrewAI pipeline implemented.
+> **Status:** Phase 5 branch infrastructure is in progress. No final PDF has
+> been generated and the real CrewAI content pipeline has not started.
 
 This repository will host a CrewAI-based pipeline that produces a polished LaTeX
 PDF article/book on a user-selected topic. The current state is a *scaffold
@@ -12,10 +13,10 @@ exist yet.
 
 ### Current status
 
-- Scaffold only.
+- Phase 5 provider/runtime infrastructure exists on the Phase 5 branch.
 - No article/book topic has been selected.
 - No final PDF has been generated.
-- CrewAI is **not** implemented yet.
+- Real CrewAI agents and live model/search adapters are **not** implemented yet.
 - LaTeX compilation has **not** been verified yet.
 - PDF validation has **not** been implemented yet.
 
@@ -64,20 +65,57 @@ The default planned `Process` is sequential. Any deviation must be justified in
 - [`submission/`](submission/) — final submission bundle prepared from the
   official Moodle template later.
 
-### Future local development commands
+### Local development commands
 
 All commands will use [`uv`](https://docs.astral.sh/uv/) only. Examples for
 later use:
 
 ```sh
-uv sync                                          # resolve and install
+uv sync --frozen --group dev                     # exact, reproducible install
 uv run pytest                                    # run tests
 uv run pytest --cov=src --cov-report=term-missing
 uv run ruff check .                              # lint
+uv run python scripts/check_line_cap.py --limit 150 src
 ```
 
-No CrewAI or model-provider command lines are documented yet, because no real
-agents have been implemented. They will be added once the pipeline exists.
+Phase 5 adds the package CLI and deterministic CI-safe runtime modes:
+
+```sh
+uv run python -m agentic_publishing_pipeline --help
+
+uv run python -m agentic_publishing_pipeline \
+  --mode dry-run \
+  --results-root /tmp/app-dry-run
+
+uv run python -m agentic_publishing_pipeline \
+  --mode offline-fixture \
+  --topic "Reasoning-Centric Agentic LLM Systems" \
+  --manifest config/article_sources.yaml \
+  --registry config/prompt_registry \
+  --results-root /tmp/app-offline-fixture
+```
+
+`dry-run` validates configuration/registry compatibility and creates an
+isolated run workspace without task artifacts, API keys, network, or paid
+calls. `offline-fixture` routes deterministic model/search fixtures through
+`ProviderFacade -> ApiGatekeeper -> fixture adapters`, records zero-cost
+usage events, parses the eight canonical task responses into typed contracts,
+and preserves the run workspace under the chosen results root.
+
+`live` currently validates credentials and then refuses because Phase 5 has no
+supported live adapter yet; it never silently falls back to fixtures.
+`compile-only`, `validate-only`, and `resume` operate on an existing
+`--run-id` workspace and remain bounded to deterministic Phase 5 seams.
+
+Phase 5 CI runs on pull requests and pushes to `main`. It uses Python 3.11,
+`uv sync --frozen --group dev`, Ruff, the full pytest suite with an 85%
+coverage gate, the 150 measured-line production-source gate, and dry/offline
+smoke modes with temporary output roots.
+
+Dependencies follow a strict per-tool, no-speculative-install policy: a new
+runtime dependency is added (via `uv add <pkg>`) only inside the issue commit
+that actually consumes it. See [`CONTRIBUTING.md`](CONTRIBUTING.md) §11.5
+"Dependency policy" for the binding rule.
 
 ### Future LaTeX build workflow (placeholder)
 
@@ -127,8 +165,8 @@ results/             Generated graphs and compiled PDFs (placeholder)
 submission/          Final Moodle bundle (placeholder)
 docs/                PRDs, PLAN, TODO, HW3 requirements, AI usage, prompts
 src/agentic_publishing_pipeline/
-                     Python package skeleton (no real agents yet)
-tests/               Smoke test only
+                     Python package plus Phase 5 provider/runtime/tool seams
+tests/               Unit tests plus Phase 5 CLI/offline-fixture coverage
 ```
 
 ## Planning documents

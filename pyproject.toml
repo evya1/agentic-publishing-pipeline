@@ -6,7 +6,11 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "TBD" }]
-dependencies = []
+dependencies = [
+    "matplotlib>=3.8",
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+]
 
 # NOTE: crewai, model-provider SDKs, search SDKs, and heavy LaTeX-related Python
 # packages are intentionally NOT listed here during the scaffold stage. They

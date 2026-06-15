@@ -1,0 +1,66 @@
+{
+  "ASSET": {
+    "finish_reason": "stop",
+    "latency_ms": 1.0,
+    "model_id": "fixture-haiku-4-5",
+    "text": "{\"assets\":[{\"kind\":\"python_graph\",\"slot\":\"evaluation/accuracy-1\",\"chapter_id\":\"evaluation\",\"caption\":\"Demo accuracy\",\"payload\":{\"series_label\":\"accuracy\",\"x_values\":[1.0,2.0,3.0],\"y_values\":[0.6,0.75,0.82]}}]}",
+    "tokens_in": 20,
+    "tokens_out": 34
+  },
+  "BIBLIOGRAPHY": {
+    "finish_reason": "stop",
+    "latency_ms": 1.0,
+    "model_id": "fixture-haiku-4-5",
+    "text": "{\"entries\":[{\"citation_key\":\"tbd2025reasoningfrontiers\",\"entry_type\":\"article\",\"title\":\"A Survey of Frontiers in LLM Reasoning\",\"year\":2025,\"arxiv_id\":\"2504.09037\",\"verification_status\":\"unverified\"}],\"placeholder_resolution\":{\"planning/citation-1\":\"tbd2025reasoningfrontiers\"},\"manifest_coverage\":[\"tbd2025reasoningfrontiers\"]}",
+    "tokens_in": 20,
+    "tokens_out": 50
+  },
+  "BIDI": {
+    "finish_reason": "stop",
+    "latency_ms": 1.0,
+    "model_id": "fixture-haiku-4-5",
+    "text": "{\"chapter_id\":\"memory\",\"hebrew_body\":\"\\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8 \\u05d8\\u05e7\\u05e1\\u05d8\",\"inline_english_terms\":[\"LLM\"]}",
+    "tokens_in": 20,
+    "tokens_out": 46
+  },
+  "LATEX": {
+    "finish_reason": "stop",
+    "latency_ms": 1.0,
+    "model_id": "fixture-haiku-4-5",
+    "text": "{\"preamble\":{\"engine\":\"lualatex\",\"main_font_english\":\"Latin Modern Roman\",\"hebrew_font\":\"David CLM\",\"packages\":[]},\"chapters\":[{\"chapter_id\":\"planning\",\"file_stem\":\"planning\"},{\"chapter_id\":\"memory\",\"file_stem\":\"memory\"},{\"chapter_id\":\"retrieval\",\"file_stem\":\"retrieval\"},{\"chapter_id\":\"tool_use\",\"file_stem\":\"tool_use\"},{\"chapter_id\":\"multimodal\",\"file_stem\":\"multimodal\"}],\"nomenclature\":{\"symbols\":[[\"alpha\",\"rate\"],[\"beta\",\"loss\"]]},\"index_entries\":{\"hebrew_terms\":[\"\\u05d6\\u05d9\\u05db\\u05e8\\u05d5\\u05df\"],\"english_terms\":[\"memory\"]}}",
+    "tokens_in": 20,
+    "tokens_out": 82
+  },
+  "OUTLINE": {
+    "finish_reason": "stop",
+    "latency_ms": 1.0,
+    "model_id": "fixture-haiku-4-5",
+    "text": "{\"chapters\":[{\"chapter_id\":\"planning\",\"title\":\"Planning\",\"summary\":\"Chapter about planning.\",\"planned_placeholders\":[\"planning/figure-1\"]},{\"chapter_id\":\"memory\",\"title\":\"Memory\",\"summary\":\"Chapter about memory.\",\"is_bidi_host\":true},{\"chapter_id\":\"retrieval\",\"title\":\"Retrieval\",\"summary\":\"Chapter about retrieval.\"},{\"chapter_id\":\"tool_use\",\"title\":\"Tool Use\",\"summary\":\"Chapter about tool use.\"},{\"chapter_id\":\"multimodal\",\"title\":\"Multimodal\",\"summary\":\"Chapter about multimodal.\"}],\"target_total_pages\":18}",
+    "tokens_in": 20,
+    "tokens_out": 76
+  },
+  "RESEARCH": {
+    "finish_reason": "stop",
+    "latency_ms": 1.0,
+    "model_id": "fixture-haiku-4-5",
+    "text": "{\"topic\":\"Reasoning-Centric Agentic LLM Systems\",\"dimensions\":[{\"dimension\":\"planning\",\"summary\":\"Notes about planning.\",\"key_points\":[\"Task decomposition\"]},{\"dimension\":\"memory\",\"summary\":\"Notes about memory.\",\"key_points\":[\"State persistence\"]},{\"dimension\":\"retrieval\",\"summary\":\"Notes about retrieval.\",\"key_points\":[\"Grounded search\"]},{\"dimension\":\"tool_use\",\"summary\":\"Notes about tool use.\",\"key_points\":[\"Bounded actions\"]},{\"dimension\":\"multimodal\",\"summary\":\"Notes about multimodal.\",\"key_points\":[\"Cross-modal evidence\"]}],\"candidate_references\":[{\"arxiv_id\":\"2504.09037\",\"title\":\"A Survey of Frontiers in LLM Reasoning\"}],\"glossary\":[{\"term\":\"agentic reasoning\",\"definition\":\"Reasoning coordinated across tools and state.\"}]}",
+    "tokens_in": 20,
+    "tokens_out": 110
+  },
+  "REVIEW": {
+    "finish_reason": "stop",
+    "latency_ms": 1.0,
+    "model_id": "fixture-haiku-4-5",
+    "text": "{\"signal\":\"pass\",\"notes\":[{\"target\":\"workspace\",\"severity\":\"info\",\"message\":\"Fixture artifacts parsed successfully.\"}]}",
+    "tokens_in": 20,
+    "tokens_out": 18
+  },
+  "WRITE": {
+    "finish_reason": "stop",
+    "latency_ms": 1.0,
+    "model_id": "fixture-haiku-4-5",
+    "text": "{\"chapters\":[{\"chapter_id\":\"planning\",\"heading\":\"Planning\",\"body_markdown\":\"# Planning\\n\\nIntro for planning.\\n<!-- FIGURE: dimension overview -->\\n<!-- CITATION: surveys -->\"},{\"chapter_id\":\"memory\",\"heading\":\"Memory\",\"body_markdown\":\"# Memory\\n\\nIntro for memory.\"}],\"placeholder_index\":[{\"kind\":\"FIGURE\",\"slot\":\"planning/figure-1\",\"chapter_id\":\"planning\",\"description\":\"dimension overview\"},{\"kind\":\"CITATION\",\"slot\":\"planning/citation-1\",\"chapter_id\":\"planning\",\"description\":\"surveys\"}]}",
+    "tokens_in": 20,
+    "tokens_out": 72
+  }
+}
