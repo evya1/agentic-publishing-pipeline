@@ -43,7 +43,9 @@ def test_context_bootstrap_creates_workspace_layout(tmp_path: Path) -> None:
 def test_context_snapshot_is_redacted_on_disk(tmp_path: Path) -> None:
     ctx = _new_context(tmp_path)
     payload = json.loads((ctx.paths.root / "config_snapshot.json").read_text(encoding="utf-8"))
-    assert payload["env"]["OPENAI_API_KEY"] != "secret"
+    assert payload["credential_presence"]["OPENAI_API_KEY"] == "***present***"
+    assert "secret" not in json.dumps(payload)
+    assert "env" not in payload
 
 
 def test_context_event_log_records_creation(tmp_path: Path) -> None:

@@ -1,9 +1,9 @@
-"""Configuration snapshot with secret-shaped value redaction.
+"""Configuration snapshot with allowlisted effective settings.
 
 The snapshot captures the effective configuration at run start. It
-records the **presence** of secret-shaped env variables but never
-their values, so the snapshot can be safely included in the sanitized
-final-run evidence bundle (P13-I05).
+records supported non-secret application settings and the **presence**
+of configured credentials, never credential values or unrelated process
+environment.
 """
 
 from __future__ import annotations
@@ -13,35 +13,49 @@ from collections.abc import Mapping
 from datetime import UTC, datetime
 from pathlib import Path
 
-REDACTED = "***redacted***"
 PRESENT = "***present***"
 ABSENT = "***absent***"
 
-_SECRET_HINTS: tuple[str, ...] = (
-    "KEY",
-    "TOKEN",
-    "SECRET",
-    "PASSWORD",
-    "API",
-    "CREDENTIAL",
+APPLICATION_SETTING_NAMES: tuple[str, ...] = (
+    "APP_LLM_PROVIDER",
+    "APP_LLM_MODEL_CLASS",
+    "APP_SEARCH_PROVIDER",
+    "APP_GATEKEEPER_MAX_REQUESTS",
+    "APP_GATEKEEPER_MAX_COST_USD",
+    "APP_GATEKEEPER_TIMEOUT_SECONDS",
+    "APP_RESULTS_ROOT",
+)
+
+CREDENTIAL_NAMES: tuple[str, ...] = (
+    "ANTHROPIC_API_KEY",
+    "OPENAI_API_KEY",
+    "APP_SEARCH_API_KEY",
 )
 
 
-def _looks_like_secret(name: str) -> bool:
-    upper = name.upper()
-    return any(hint in upper for hint in _SECRET_HINTS)
+def snapshot_settings(env: Mapping[str, str]) -> dict[str, str]:
+    """Return explicitly supported non-secret application settings."""
+
+    return {
+        name: env[name]
+        for name in APPLICATION_SETTING_NAMES
+        if name in env and env[name] != ""
+    }
 
 
-def redact_env(env: Mapping[str, str]) -> dict[str, str]:
-    """Return a copy of ``env`` where secret-shaped values are masked."""
+def credential_presence(env: Mapping[str, str]) -> dict[str, str]:
+    """Return stable credential-presence markers without values."""
 
-    redacted: dict[str, str] = {}
-    for name, value in env.items():
-        if _looks_like_secret(name):
-            redacted[name] = PRESENT if value else ABSENT
-        else:
-            redacted[name] = value
-    return redacted
+    return {name: PRESENT if env.get(name) else ABSENT for name in CREDENTIAL_NAMES}
+
+
+def redact_env(env: Mapping[str, str]) -> dict[str, dict[str, str]]:
+    """Backward-compatible name for the sanitized environment snapshot."""
+
+    return {
+        "settings": snapshot_settings(env),
+        "credential_presence": credential_presence(env),
+    }
 
 
 def build_snapshot(
@@ -64,7 +78,7 @@ def build_snapshot(
         "topic": topic,
         "manifest_path": manifest_path,
         "registry_version": registry_version,
-        "env": redact_env(env),
+        **redact_env(env),
     }
     if extra:
         payload["extra"] = dict(extra)

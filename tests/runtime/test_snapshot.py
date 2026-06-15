@@ -9,24 +9,33 @@ from agentic_publishing_pipeline.runtime import build_snapshot, redact_env, writ
 from agentic_publishing_pipeline.runtime.snapshot import ABSENT, PRESENT
 
 
-def test_redact_env_masks_secret_shaped_present_values() -> None:
+def test_redact_env_keeps_only_allowed_settings_and_credential_presence() -> None:
     redacted = redact_env(
         {
             "OPENAI_API_KEY": "sk-abc",
-            "ANTHROPIC_TOKEN": "tok",
-            "USER_HOME": "/Users/x",
-            "MODEL_NAME": "claude-haiku-4-5",
+            "APP_SEARCH_API_KEY": "",
+            "APP_LLM_PROVIDER": "fixture",
+            "APP_GATEKEEPER_MAX_REQUESTS": "8",
+            "HOME": "/Users/local",
+            "PATH": "/bin",
+            "CLAUDE_SESSION": "abc",
         }
     )
-    assert redacted["OPENAI_API_KEY"] == PRESENT
-    assert redacted["ANTHROPIC_TOKEN"] == PRESENT
-    assert redacted["USER_HOME"] == "/Users/x"
-    assert redacted["MODEL_NAME"] == "claude-haiku-4-5"
+    assert redacted["settings"] == {
+        "APP_LLM_PROVIDER": "fixture",
+        "APP_GATEKEEPER_MAX_REQUESTS": "8",
+    }
+    assert redacted["credential_presence"]["OPENAI_API_KEY"] == PRESENT
+    assert redacted["credential_presence"]["APP_SEARCH_API_KEY"] == ABSENT
+    assert "HOME" not in redacted["settings"]
+    assert "PATH" not in redacted["settings"]
+    assert "CLAUDE_SESSION" not in redacted["settings"]
 
 
-def test_redact_env_marks_secret_shaped_empty_values_absent() -> None:
-    redacted = redact_env({"OPENAI_API_KEY": ""})
-    assert redacted["OPENAI_API_KEY"] == ABSENT
+def test_redact_env_is_deterministic_for_equivalent_input() -> None:
+    left = redact_env({"APP_LLM_PROVIDER": "fixture", "OPENAI_API_KEY": "secret"})
+    right = redact_env({"OPENAI_API_KEY": "different", "APP_LLM_PROVIDER": "fixture"})
+    assert left == right
 
 
 def test_build_snapshot_includes_mode_and_topic() -> None:
@@ -36,11 +45,14 @@ def test_build_snapshot_includes_mode_and_topic() -> None:
         topic="Reasoning",
         manifest_path="config/article_sources.yaml",
         registry_version="v1",
-        env={"PROVIDER_API_KEY": "secret"},
+        env={"OPENAI_API_KEY": "secret", "APP_SEARCH_PROVIDER": "fixture", "USER": "local"},
     )
     assert snap["mode"] == "offline-fixture"
     assert snap["topic"] == "Reasoning"
-    assert snap["env"]["PROVIDER_API_KEY"] == PRESENT
+    assert snap["credential_presence"]["OPENAI_API_KEY"] == PRESENT
+    assert snap["settings"]["APP_SEARCH_PROVIDER"] == "fixture"
+    assert "USER" not in snap["settings"]
+    assert "secret" not in json.dumps(snap)
 
 
 def test_write_snapshot_persists_json(tmp_path: Path) -> None:
