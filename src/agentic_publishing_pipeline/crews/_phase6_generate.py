@@ -20,10 +20,22 @@ from pathlib import Path
 import yaml
 
 from ..contracts import ChapterDrafts
+from ._chapter_id import UnsafeChapterIdError, validate_chapter_id
 from ._smoke import FIXTURE_ROOT, _load_model_fixtures
 
 CANONICAL_MD = "generated_markdown"
 CANONICAL_RUNLOGS = "run_logs"
+CANONICAL_CHAPTERS_SUBDIR = "chapters"
+
+__all__ = [
+    "CANONICAL_CHAPTERS_SUBDIR",
+    "CANONICAL_MD",
+    "CANONICAL_RUNLOGS",
+    "Phase6RunRecord",
+    "UnsafeChapterIdError",
+    "extract_manifest_keys",
+    "run_phase6_generate",
+]
 
 
 @dataclass
@@ -56,8 +68,20 @@ def _parse_write_fixture() -> ChapterDrafts:
 
 
 def _write_chapter(md_root: Path, chapter_id: str, body: str) -> Path:
-    target = md_root / "chapters" / f"{chapter_id}.md"
-    target.parent.mkdir(parents=True, exist_ok=True)
+    safe_id = validate_chapter_id(chapter_id)
+    chapters_root = (md_root / CANONICAL_CHAPTERS_SUBDIR).resolve()
+    target = (chapters_root / f"{safe_id}.md").resolve()
+    try:
+        target.relative_to(chapters_root)
+    except ValueError as exc:
+        raise UnsafeChapterIdError(
+            f"resolved chapter path {target} escapes {chapters_root}"
+        ) from exc
+    if target.parent != chapters_root:
+        raise UnsafeChapterIdError(
+            f"resolved chapter path {target} is not directly under {chapters_root}"
+        )
+    chapters_root.mkdir(parents=True, exist_ok=True)
     tmp = target.with_suffix(".md.tmp-p6")
     tmp.write_text(body, encoding="utf-8")
     tmp.replace(target)
