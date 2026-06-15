@@ -497,6 +497,11 @@ is next.
 
 - [ ] Define the source-collection policy and the verification procedure.
       [Phase 7] [`docs/PRD_bibliography_and_citations.md` §7]
+      *P7-I00 (issue #21):* policy text fixed in
+      `docs/PRD_bibliography_and_citations.md` §7.1, §7.3, §13.1 and
+      mirrored in `docs/SOURCES.md`. Box stays unchecked until the
+      Phase 7 PR is merged and post-merge evidence is recorded
+      (`docs/TODO.md` §F-6).
 - [ ] Consume `config/article_sources.yaml` from the Research Agent (T1)
       and the Bibliography Agent (T6) per
       `docs/PRD_crewai_pipeline.md` §6. [Phase 6, Phase 7]

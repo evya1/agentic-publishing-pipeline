@@ -6,6 +6,17 @@
 This file must be kept up to date as real AI usage begins. Every distinct
 phase of AI-assisted work should be recorded here.
 
+## Scope and boundary (fixed by P7-I00, 2026-06-16)
+
+This log records **AI-assisted activity**: model identity, prompts,
+limitations, human verification, cost. Per-source bibliographic
+verification evidence lives in `docs/SOURCES.md` (the canonical
+source-verification ledger) — not here. AI-assisted verification runs
+add a single AI Usage entry that links back to the affected
+`docs/SOURCES.md` entries by citation key and `run_id`; they do not
+duplicate the per-source evidence fields. The split is binding under
+`docs/PRD_bibliography_and_citations.md` §13.1.
+
 ## Required entries (later)
 
 For each AI-assisted activity, record:

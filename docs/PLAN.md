@@ -366,6 +366,17 @@ deferred beyond the MVP. **No fabricated sources, ever** — citation
 insertion must refuse unverified sources and surface unresolved
 `\cite{...}` as build-time errors.
 
+**P7-I00 (binding decisions fixed 2026-06-16):** the canonical
+per-source ledger is `docs/SOURCES.md` (with `docs/AI_USAGE.md`
+reserved for AI-assisted activity logging); `biblatex` is configured
+`style=numeric`, `sorting=none`, `backend=biber`; citation keys follow
+`authorYYYYkey`; verifier identity uses the honest
+`<verifier-id>:<github-account>` convention; archive contents under
+`data/sources/arxiv/` are treated as untrusted and inspected with
+metadata-only readers (P7-I07). Full policy text is in
+`docs/PRD_bibliography_and_citations.md` §7.1, §7.3, §13.1, and
+`docs/SOURCES.md`.
+
 **Exit criterion:** `latex_project/references.bib` contains only verified
 real entries; every `\cite{...}` in the LaTeX sources resolves.
 
