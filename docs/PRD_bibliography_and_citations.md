@@ -166,15 +166,43 @@ verification for that entry and marks it `rejected`.
    `rejected`, set `verification.verified_at` (UTC ISO 8601), and set
    `verification.verified_by` per §7.3.
 
-### 7.2 Untrusted-archive boundary (cross-reference)
+### 7.2 Untrusted-archive boundary (P7-I07)
 
-The archive boundary is normative: a Phase 7 entry may be marked
-`verified` even when the local archive cannot be opened safely, **provided**
-authoritative remote metadata (step 3) and field cross-check (step 4)
-succeed. The archive's role is corroboration and provenance, not
-metadata source. The boundary itself is implemented under issue
-`P7-I07` (#28) and binds every reader of
-`data/sources/arxiv/source_zips/` and `data/sources/arxiv/unpacked/`.
+Third-party source archives under `data/sources/arxiv/source_zips/`
+and any `data/sources/arxiv/unpacked/` siblings are **untrusted
+external source material**. The Phase 7 Bibliography Agent and any
+downstream consumer:
+
+- **Must not** extract, decompress, or write archive bytes anywhere
+  in the repository.
+- **Must not** execute, import, or evaluate code or macros from an
+  archive (no `\write18`, no `--shell-escape`, no Lua/Python/Shell
+  invocation of archive content, no compilation of `.tex` from an
+  archive).
+- **Must not** follow archive members that are symbolic links, hard
+  links, devices, or FIFOs.
+- **Must not** open archive members whose name uses path traversal
+  (`..`), an absolute path, or a drive-letter prefix.
+- **Must not** open encrypted archive members.
+- **Must not** recurse into nested archives.
+- **Must** read only the archive's central-directory / header
+  metadata (member names, sizes, classification) and treat that
+  listing as **corroboration**, not as a bibliographic source.
+
+The canonical reader is
+`src/agentic_publishing_pipeline/tools/archive_inspect.py`. Its
+public surface (`inspect_archive`, `ArchiveInspection`,
+`ArchiveMember`, `ArchiveInspectionError`) intentionally provides
+**no** member-content read. Format support covers ZIP and
+gzipped/uncompressed tar archives because arXiv frequently ships
+gzipped tarballs even when the local filename uses a `.zip` suffix.
+
+A Phase 7 manifest entry may be marked `verified` even when the
+local archive cannot be opened safely, **provided** authoritative
+remote metadata (step 3) and field cross-check (step 4) succeed.
+The archive's role is corroboration and provenance, not metadata
+source. Unsafe archives are recorded with a rejection reason in
+`docs/SOURCES.md`.
 
 ### 7.3 Honest verifier identity
 

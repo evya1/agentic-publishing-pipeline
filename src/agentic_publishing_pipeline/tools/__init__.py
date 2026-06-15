@@ -9,11 +9,19 @@ The Phase 5 tooling layer exposes:
 - :mod:`.markdown` — Markdown-to-LaTeX semantic conversion.
 - :mod:`.latex_build` — deterministic LuaLaTeX + biber multi-pass.
 - :mod:`.graph` — Python-graph rendering with provenance.
+- :mod:`.archive_inspect` — metadata-only inspection of untrusted
+  source archives (P7-I07).
 
 Each tool is small, deterministic, and fully tested without network
 or paid-provider access.
 """
 
+from .archive_inspect import (
+    ArchiveInspection,
+    ArchiveInspectionError,
+    ArchiveMember,
+    inspect_archive,
+)
 from .fileio import FileIO
 from .gatekeeper import ApiGatekeeper, GatekeeperRejection, request_identity
 from .latex_build import LaTeXBuildError, SubprocessRunner, build_pdf
@@ -33,6 +41,9 @@ from .search import (
 
 __all__ = [
     "ApiGatekeeper",
+    "ArchiveInspection",
+    "ArchiveInspectionError",
+    "ArchiveMember",
     "FileIO",
     "GatekeeperRejection",
     "LaTeXBuildError",
@@ -42,6 +53,7 @@ __all__ = [
     "build_pdf",
     "escape_latex",
     "has_placeholder",
+    "inspect_archive",
     "load_source_manifest_hits",
     "manifest_coverage",
     "parse_placeholders",

@@ -531,6 +531,13 @@ is next.
       material**: no LaTeX builds run from third-party archives, no
       code from archives is executed, and unpacked content is only
       read for metadata / citation extraction. [Phase 7] [security]
+      *P7-I07 (issue #28):* enforced by
+      `src/agentic_publishing_pipeline/tools/archive_inspect.py`
+      (`inspect_archive` exposes ZIP and tar metadata-only listing
+      with traversal/absolute-path/symlink/encryption/device guards)
+      and exercised by `tests/tools/test_archive_inspect.py`. Box
+      stays unchecked until merge and post-merge evidence per
+      `docs/TODO.md` §F-6.
 
 ### C.6 Python graph generation pipeline
 
