@@ -1,24 +1,26 @@
 # agentic-publishing-pipeline
 
-> **Status:** Phase 5 provider, runtime, tool, CLI,
-> deterministic offline-fixture, and CI foundations are merged into
-> `main`. Phase 6 is the next implementation phase. No final PDF has
-> been generated and the real Markdown content pipeline has not started.
+> **Status:** Phases 0 through 6 are merged into `main`. Phase 6 added
+> the Markdown-first draft pipeline, generated approved deterministic
+> Markdown candidates, and recorded the human review gate approval.
+> Phase 7 is the next implementation phase. No final PDF has been
+> generated.
 
 This repository will host a CrewAI-based pipeline that produces a polished LaTeX
 PDF article/book on a user-selected topic. The current state includes the
 Phase 5 provider/service layer, deterministic runtime modes, typed artifact
-contracts, core tools, CLI, offline fixture path, and CI foundations. Real
-Markdown content generation, complete CrewAI orchestration, final LaTeX
-assembly, deterministic final validation, and `results/final.pdf` remain
-unfinished.
+contracts, core tools, CLI, offline fixture path, and CI foundations, plus
+the Phase 6 approved Markdown-first draft set under
+`results/generated_markdown/`. Complete CrewAI orchestration, real-source
+bibliography verification, final LaTeX assembly, deterministic final
+validation, and `results/final.pdf` remain unfinished.
 
 ## HW3 — Article / Book Generation with CrewAI and LaTeX
 
 ### Current status
 
-- Phase 5 provider/runtime/tooling infrastructure is merged into `main`.
-- Phase 6 Markdown-first content generation is the next implementation phase.
+- Phase 6 Markdown-first content generation is merged into `main`.
+- Phase 7 real-source and bibliography work is the next implementation phase.
 - No article/book topic has been selected.
 - No final PDF has been generated.
 - Complete CrewAI orchestration and live model/search adapters are **not**
