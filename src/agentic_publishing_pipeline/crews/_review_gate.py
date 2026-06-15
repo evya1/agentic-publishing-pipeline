@@ -46,14 +46,21 @@ class ReviewRecord:
 
 
 def compute_draft_revision(generated_md_root: Path) -> str:
-    """SHA-256 over all .md chapter files under generated_md_root."""
-    paths = sorted(
-        p for p in generated_md_root.rglob("*.md") if p.name != "README.md"
-    )
+    """SHA-256 over each draft file's POSIX relative path + exact bytes.
+
+    Binds normalized path identity to file contents with length-framed
+    segments so renames, directory moves, additions, removals, and
+    content mutations all invalidate the revision while an unchanged
+    tree is deterministic. README files at any depth are excluded.
+    """
+    root = generated_md_root.resolve()
+    paths = sorted(p for p in root.rglob("*.md") if p.name != "README.md")
     digest = hashlib.sha256()
     for p in paths:
-        digest.update(p.name.encode())
-        digest.update(p.read_bytes())
+        rel = p.resolve().relative_to(root).as_posix().encode("utf-8")
+        content = p.read_bytes()
+        digest.update(f"P:{len(rel)}:".encode("ascii") + rel)
+        digest.update(f"C:{len(content)}:".encode("ascii") + content)
     return digest.hexdigest()
 
 
