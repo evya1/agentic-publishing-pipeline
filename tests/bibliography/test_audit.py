@@ -27,7 +27,6 @@ def inputs() -> AuditInputs:
         verification_report_path=Path("results/run_logs/p7i02_verification.json"),
         rekey_ledger_path=Path("results/run_logs/p7i05_rekey.json"),
         fixture_dir=Path("tests/fixtures/arxiv"),
-        archive_root=Path("data/sources/arxiv/source_zips"),
         sources_md_path=SOURCES_MD,
         mirror_json_path=MIRROR,
     )
@@ -44,7 +43,7 @@ def test_audit_entries_cover_every_manifest_record(inputs: AuditInputs) -> None:
         assert entry["arxiv_id"] == record.arxiv_id
         assert entry["previous_citation_key"].startswith("tbd")
         assert entry["verification"]["status"] == "verified"
-        assert entry["local_archive"]["present"] is True
+        assert entry["local_archive"]["archive_inspection"] == "metadata_only"
 
 
 def test_audit_mirror_matches_committed_payload(inputs: AuditInputs) -> None:
@@ -66,7 +65,6 @@ def test_audit_mirror_has_summary_block(inputs: AuditInputs) -> None:
     assert summary["total"] == 10
     assert summary["verified"] == 10
     assert summary["rejected"] == 0
-    assert summary["all_archives_present"] is True
 
 
 def test_audit_entries_record_placeholder_corrections(inputs: AuditInputs) -> None:

@@ -22,7 +22,6 @@ def _default_inputs() -> AuditInputs:
         verification_report_path=Path("results/run_logs/p7i02_verification.json"),
         rekey_ledger_path=Path("results/run_logs/p7i05_rekey.json"),
         fixture_dir=Path("tests/fixtures/arxiv"),
-        archive_root=Path("data/sources/arxiv/source_zips"),
         sources_md_path=Path("docs/SOURCES.md"),
         mirror_json_path=Path("results/run_logs/source_verification.json"),
     )

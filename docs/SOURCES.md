@@ -99,9 +99,8 @@ verification:
   authoritative_snapshot: <path to committed fixture or `null`>
 local_archive:
   path: data/sources/arxiv/source_zips/<file>
-  present: true | false
   archive_inspection: metadata_only           # per P7-I07
-  notes: <freeform>
+  policy_ref: docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)
 mismatch_or_rejection_rationale: <text or null>
 ```
 
@@ -130,9 +129,8 @@ final_citation_key: ke2025reasoningfrontiers
 intended_use: Background framing for the reasoning landscape (inference-time scaling, learning to reason, agentic systems).
 local_archive:
   archive_inspection: metadata_only
-  notes: metadata-only inspection ok; format=tar; members=25
   path: data/sources/arxiv/source_zips/2504.09037.zip
-  present: true
+  policy_ref: docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)
 mismatch_or_rejection_rationale: null
 previous_citation_key: tbd2025reasoningfrontiers
 verification:
@@ -175,9 +173,8 @@ final_citation_key: wu2025agenticreasoningtools
 intended_use: Tool-use dimension; agentic reasoning combined with tools for deep-research workflows.
 local_archive:
   archive_inspection: metadata_only
-  notes: metadata-only inspection ok; format=tar; members=12
   path: data/sources/arxiv/source_zips/2502.04644.zip
-  present: true
+  policy_ref: docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)
 mismatch_or_rejection_rationale: null
 previous_citation_key: tbd2025agenticreasoningtools
 verification:
@@ -213,9 +210,8 @@ final_citation_key: correa2025planningperformance
 intended_use: Planning dimension; empirical state of planning in frontier LLMs as of 2025.
 local_archive:
   archive_inspection: metadata_only
-  notes: metadata-only inspection ok; format=tar; members=22
   path: data/sources/arxiv/source_zips/2511.09378.zip
-  present: true
+  policy_ref: docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)
 mismatch_or_rejection_rationale: null
 previous_citation_key: tbd2025planningperformance
 verification:
@@ -243,9 +239,8 @@ final_citation_key: huang2025licomemory
 intended_use: Memory dimension; lightweight long-term memory architecture for agentic LLMs.
 local_archive:
   archive_inspection: metadata_only
-  notes: metadata-only inspection ok; format=tar; members=19
   path: data/sources/arxiv/source_zips/2511.01448.zip
-  present: true
+  policy_ref: docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)
 mismatch_or_rejection_rationale: null
 previous_citation_key: tbd2025licomemory
 verification:
@@ -284,9 +279,8 @@ final_citation_key: chen2025telemem
 intended_use: Memory dimension; long-term + multimodal memory case study.
 local_archive:
   archive_inspection: metadata_only
-  notes: metadata-only inspection ok; format=tar; members=20
   path: data/sources/arxiv/source_zips/2601.06037.zip
-  present: true
+  policy_ref: docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)
 mismatch_or_rejection_rationale: null
 previous_citation_key: tbd2026telemem
 verification:
@@ -322,9 +316,8 @@ final_citation_key: yao2025multimodalsurvey
 intended_use: Multimodal reasoning dimension; survey-level background.
 local_archive:
   archive_inspection: metadata_only
-  notes: metadata-only inspection ok; format=tar; members=29
   path: data/sources/arxiv/source_zips/2510.10991.zip
-  present: true
+  policy_ref: docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)
 mismatch_or_rejection_rationale: null
 previous_citation_key: tbd2025multimodalsurvey
 verification:
@@ -360,9 +353,8 @@ final_citation_key: wang2025proactiveretrievalmedical
 intended_use: Retrieval + multimodal dimensions; reasoning-with-retrieval case study in the medical domain.
 local_archive:
   archive_inspection: metadata_only
-  notes: metadata-only inspection ok; format=tar; members=34
   path: data/sources/arxiv/source_zips/2510.18303.zip
-  present: true
+  policy_ref: docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)
 mismatch_or_rejection_rationale: null
 previous_citation_key: tbd2025proactiveretrievalmedical
 verification:
@@ -391,9 +383,8 @@ final_citation_key: liu2025agenticmath
 intended_use: Reasoning data generation; supports the evaluation / data chapter.
 local_archive:
   archive_inspection: metadata_only
-  notes: metadata-only inspection ok; format=tar; members=32
   path: data/sources/arxiv/source_zips/2510.19361.zip
-  present: true
+  policy_ref: docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)
 mismatch_or_rejection_rationale: null
 previous_citation_key: tbd2025agenticmath
 verification:
@@ -426,9 +417,8 @@ final_citation_key: ye2024mirai
 intended_use: Evaluation chapter; benchmark for LLM agents on event forecasting.
 local_archive:
   archive_inspection: metadata_only
-  notes: metadata-only inspection ok; format=tar; members=43
   path: data/sources/arxiv/source_zips/2407.01231.zip
-  present: true
+  policy_ref: docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)
 mismatch_or_rejection_rationale: null
 previous_citation_key: tbd2024mirai
 verification:
@@ -460,9 +450,8 @@ final_citation_key: wei2026agenticreasoning
 intended_use: Agentic-reasoning core; ties planning, tool use, and memory into a single reasoning loop.
 local_archive:
   archive_inspection: metadata_only
-  notes: metadata-only inspection ok; format=tar; members=58
   path: data/sources/arxiv/source_zips/2601.12538.zip
-  present: true
+  policy_ref: docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)
 mismatch_or_rejection_rationale: null
 previous_citation_key: tbd2026agenticreasoning
 verification:

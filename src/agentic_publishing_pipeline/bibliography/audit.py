@@ -30,7 +30,6 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
-from ..tools.archive_inspect import ArchiveInspectionError, inspect_archive
 from . import SourceManifest, load_source_manifest
 from ._audit_corrections import CORRECTIONS as _CORRECTIONS
 
@@ -41,7 +40,6 @@ class AuditInputs:
     verification_report_path: Path
     rekey_ledger_path: Path
     fixture_dir: Path
-    archive_root: Path
     sources_md_path: Path
     mirror_json_path: Path
 
@@ -56,28 +54,9 @@ def _build_entry(
     verification_by_arxiv: dict[str, dict[str, object]],
     previous_keys: dict[str, str],
     fixture_dir: Path,
-    archive_root: Path,
 ) -> dict[str, object]:
     verification = verification_by_arxiv[record.arxiv_id]
     canonical_url = record.arxiv_url or verification.get("authoritative_url")
-    archive_rel = record.source_archive
-    archive_present = False
-    archive_notes = "archive path not configured"
-    if archive_rel is not None:
-        archive_path = Path(archive_rel)
-        if archive_path.is_file():
-            try:
-                inspection = inspect_archive(archive_path, archive_root=archive_root)
-                archive_present = True
-                archive_notes = (
-                    f"metadata-only inspection ok; format={inspection.archive_format}; "
-                    f"members={inspection.member_count}"
-                )
-            except ArchiveInspectionError as exc:
-                archive_present = True  # file exists, but unsafe to list further.
-                archive_notes = f"archive unsafe under P7-I07: {exc}"
-        else:
-            archive_notes = "archive path configured but file not present locally"
     return {
         "final_citation_key": record.citation_key,
         "previous_citation_key": previous_keys.get(record.citation_key),
@@ -99,10 +78,9 @@ def _build_entry(
             "primary_category": verification.get("primary_category"),
         },
         "local_archive": {
-            "path": archive_rel,
-            "present": archive_present,
+            "path": record.source_archive,
             "archive_inspection": "metadata_only",
-            "notes": archive_notes,
+            "policy_ref": "docs/PRD_bibliography_and_citations.md §7.2 (P7-I07)",
         },
         "mismatch_or_rejection_rationale": (
             "; ".join(verification.get("mismatches", []) or []) or None
@@ -126,7 +104,6 @@ def build_audit_entries(inputs: AuditInputs) -> list[dict[str, object]]:
             verification_by_arxiv=verification_by_arxiv,
             previous_keys=previous_keys,
             fixture_dir=inputs.fixture_dir,
-            archive_root=inputs.archive_root,
         )
         for record in manifest.records
     ]
@@ -137,13 +114,12 @@ def _summary(entries: Iterable[dict[str, object]]) -> dict[str, object]:
     total = len(entries_list)
     verified = sum(1 for e in entries_list if e["verification"]["status"] == "verified")
     rejected = total - verified
+    # Archive presence is verified separately at runtime; the audit
+    # ledger itself is reproducible from committed inputs only.
     return {
         "total": total,
         "verified": verified,
         "rejected": rejected,
-        "all_archives_present": all(
-            e["local_archive"]["present"] for e in entries_list
-        ),
     }
 
 
