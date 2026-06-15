@@ -25,11 +25,18 @@ For each AI-assisted activity, record:
 - **Date:** 2026-06-15.
 - **Tool / model:** none. The committed Phase 6 candidate Markdown
   artifacts were produced by `run_phase6_generate()` in
-  `src/agentic_publishing_pipeline/crews/_phase6_generate.py` from the
-  deterministic offline fixture
-  `src/agentic_publishing_pipeline/crews/fixtures/task_responses.json`
-  (`WRITE` entry). No live provider call (Anthropic, OpenAI, or other)
-  was issued for this run; no model identifier applies.
+  `src/agentic_publishing_pipeline/crews/_phase6_generate.py`.
+  Chapter drafts (`chapters/planning.md`, `chapters/memory.md`) come
+  from the deterministic offline fixture
+  `tests/fixtures/offline/task_responses.json` (`WRITE` entry).
+  `outline.md` and `research_notes.md` are emitted verbatim from
+  bundled canonical templates under
+  `src/agentic_publishing_pipeline/crews/_phase6_data/` via
+  `write_static_templates()` in `_phase6_static.py`. A clean-tmp
+  regeneration reproduces all four candidate files byte-for-byte
+  (`tests/crews/test_phase6_static_templates.py`). No live provider
+  call (Anthropic, OpenAI, or other) was issued for this run; no
+  model identifier applies.
 - **Provider mode:** offline-fixture (CLI mode `--mode
   offline-fixture`). No `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` was
   required or consulted; the network-blocked regression test
@@ -49,10 +56,10 @@ For each AI-assisted activity, record:
   the chapter drafts; no agent prompts were dispatched to any
   external provider.
 - **Outputs (committed under `results/`):**
-  - `results/generated_markdown/chapters/planning.md`
-  - `results/generated_markdown/chapters/memory.md`
-  - `results/generated_markdown/outline.md`
-  - `results/generated_markdown/research_notes.md`
+  - `results/generated_markdown/chapters/planning.md` (fixture)
+  - `results/generated_markdown/chapters/memory.md` (fixture)
+  - `results/generated_markdown/outline.md` (canonical template)
+  - `results/generated_markdown/research_notes.md` (canonical template)
   - `results/run_logs/phase6-p6i01-offline-fixture.jsonl`
 - **Path-sensitive aggregate draft revision (Phase 6 path-bound
   SHA-256, P6-I02 algorithm):**

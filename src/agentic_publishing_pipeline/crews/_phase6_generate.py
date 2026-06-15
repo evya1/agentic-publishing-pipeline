@@ -2,7 +2,9 @@
 
 Reads the offline fixture pipeline, extracts manifest citation keys,
 writes per-chapter Markdown files to results_root/generated_markdown/,
-and records a run-log summary at results_root/run_logs/<run_id>.jsonl.
+copies the canonical outline.md and research_notes.md templates from
+the bundled package data alongside them, and records a run-log summary
+at results_root/run_logs/<run_id>.jsonl.
 
 Every CITATION placeholder description must match a key present in
 config/article_sources.yaml (FR-13 / issue #18 acceptance criterion).
@@ -21,6 +23,7 @@ import yaml
 
 from ..contracts import ChapterDrafts
 from ._chapter_id import UnsafeChapterIdError, validate_chapter_id
+from ._phase6_static import write_static_templates
 from ._smoke import FIXTURE_ROOT, _load_model_fixtures
 
 CANONICAL_MD = "generated_markdown"
@@ -45,6 +48,7 @@ class Phase6RunRecord:
     manifest_path: str
     manifest_citation_keys: list[str] = field(default_factory=list)
     chapters_written: list[str] = field(default_factory=list)
+    static_files_written: list[str] = field(default_factory=list)
     citation_keys_used: list[str] = field(default_factory=list)
     all_placeholder_kinds: list[str] = field(default_factory=list)
 
@@ -98,6 +102,7 @@ def _write_run_log(log_root: Path, record: Phase6RunRecord) -> Path:
         "manifest_path": record.manifest_path,
         "manifest_citation_keys": record.manifest_citation_keys,
         "chapters_written": record.chapters_written,
+        "static_files_written": record.static_files_written,
         "citation_keys_used": record.citation_keys_used,
         "all_placeholder_kinds": record.all_placeholder_kinds,
     }
@@ -144,6 +149,8 @@ def run_phase6_generate(
     for chapter in drafts.chapters:
         path = _write_chapter(md_root, chapter.chapter_id, chapter.body_markdown)
         chapters_written.append(str(path.relative_to(results_root)))
+    static_written, static_cites = write_static_templates(md_root, manifest_keys)
+    static_rel = [str((md_root / name).relative_to(results_root)) for name in static_written]
     placeholder_kinds = sorted({str(ph.kind) for ph in drafts.placeholder_index})
     record = Phase6RunRecord(
         run_id=run_id,
@@ -151,7 +158,8 @@ def run_phase6_generate(
         manifest_path=str(manifest_path),
         manifest_citation_keys=manifest_keys,
         chapters_written=chapters_written,
-        citation_keys_used=sorted(set(citation_descs)),
+        static_files_written=static_rel,
+        citation_keys_used=sorted(set(citation_descs) | set(static_cites)),
         all_placeholder_kinds=placeholder_kinds,
     )
     _write_run_log(results_root / CANONICAL_RUNLOGS, record)
