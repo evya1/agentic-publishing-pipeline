@@ -23,20 +23,19 @@ _STATIC_TEMPLATES: tuple[tuple[str, str], ...] = (
 _CITATION_RE = re.compile(r"<!--\s*CITATION:\s*(?P<key>[A-Za-z0-9_\-]+)\s*-->")
 
 
-def write_static_templates(
-    md_root: Path, manifest_keys: list[str]
-) -> tuple[list[str], list[str]]:
-    """Copy each canonical template into ``md_root`` after manifest validation.
+def _load_and_validate(
+    manifest_keys: list[str],
+) -> tuple[list[tuple[str, bytes]], list[str]]:
+    """Load every static template and validate CITATIONs against the manifest.
 
-    Returns ``(relative_names, citation_keys)`` where ``relative_names``
-    are the template basenames written under ``md_root`` and
-    ``citation_keys`` are every CITATION key referenced by the templates.
-    Raises ``ValueError`` when a CITATION key is not in ``manifest_keys``.
+    Returns ``(loaded, citation_keys)`` where ``loaded`` preserves the
+    deterministic ``_STATIC_TEMPLATES`` order. Raises ``ValueError`` on
+    the first template whose CITATION keys are not all in ``manifest_keys``;
+    no filesystem write is attempted by this phase.
     """
-    md_root.mkdir(parents=True, exist_ok=True)
-    written: list[str] = []
-    cites: list[str] = []
     manifest_set = set(manifest_keys)
+    loaded: list[tuple[str, bytes]] = []
+    cites: list[str] = []
     for rel_name, src_name in _STATIC_TEMPLATES:
         body = (_PHASE6_DATA_DIR / src_name).read_bytes()
         keys_here = [
@@ -48,10 +47,31 @@ def write_static_templates(
                 f"{rel_name}: CITATION key(s) not in manifest: {unknown}. "
                 f"Valid keys: {sorted(manifest_set)}"
             )
+        loaded.append((rel_name, body))
+        cites.extend(keys_here)
+    return loaded, cites
+
+
+def write_static_templates(
+    md_root: Path, manifest_keys: list[str]
+) -> tuple[list[str], list[str]]:
+    """Atomically copy canonical templates into ``md_root``.
+
+    Phase 1 loads every template and validates every CITATION key
+    against ``manifest_keys`` in memory; if any template is invalid
+    the function raises ``ValueError`` before touching the filesystem.
+    Phase 2 only runs when every template is valid; it then writes
+    each file through an atomic ``tmp-p6`` + ``replace`` step so a
+    pre-existing target is replaced only after its new bytes are on
+    disk. No temporary file remains when phase 1 fails.
+    """
+    loaded, cites = _load_and_validate(manifest_keys)
+    md_root.mkdir(parents=True, exist_ok=True)
+    written: list[str] = []
+    for rel_name, body in loaded:
         target = md_root / rel_name
         tmp = target.with_suffix(target.suffix + ".tmp-p6")
         tmp.write_bytes(body)
         tmp.replace(target)
         written.append(rel_name)
-        cites.extend(keys_here)
     return written, cites

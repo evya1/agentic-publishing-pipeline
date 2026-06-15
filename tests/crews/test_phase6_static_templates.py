@@ -60,3 +60,69 @@ def test_static_templates_no_latex_artifact(tmp_path: Path) -> None:
         + list(tmp_path.rglob("*.pdf"))
     )
     assert forbidden == []
+
+
+# ---------------------------------------------------------------------------
+# Atomic validation across the static-template set
+# ---------------------------------------------------------------------------
+
+def test_invalid_later_template_writes_nothing_in_clean_root(
+    tmp_path: Path,
+) -> None:
+    """outline.md carries no CITATION markers; research_notes.md carries 10.
+
+    Passing an empty manifest validates outline.md trivially but fails on
+    research_notes.md. The atomic implementation must reject the whole
+    operation before either file is written.
+    """
+    md_root = tmp_path / CANONICAL_MD
+    with pytest.raises(ValueError, match="research_notes.md.*not in manifest"):
+        write_static_templates(md_root, manifest_keys=[])
+    assert not (md_root / "outline.md").exists()
+    assert not (md_root / "research_notes.md").exists()
+    tmp_residue = list(md_root.rglob("*.tmp-p6")) if md_root.exists() else []
+    assert tmp_residue == []
+
+
+def test_invalid_validation_preserves_existing_targets(tmp_path: Path) -> None:
+    md_root = tmp_path / CANONICAL_MD
+    md_root.mkdir(parents=True)
+    outline_target = md_root / "outline.md"
+    research_target = md_root / "research_notes.md"
+    outline_sentinel = b"PRE-EXISTING OUTLINE SENTINEL\n"
+    research_sentinel = b"PRE-EXISTING RESEARCH SENTINEL\n"
+    outline_target.write_bytes(outline_sentinel)
+    research_target.write_bytes(research_sentinel)
+    with pytest.raises(ValueError, match="not in manifest"):
+        write_static_templates(md_root, manifest_keys=[])
+    assert outline_target.read_bytes() == outline_sentinel
+    assert research_target.read_bytes() == research_sentinel
+    tmp_residue = list(md_root.rglob("*.tmp-p6"))
+    assert tmp_residue == []
+
+
+def test_valid_generation_reports_full_citation_union(tmp_path: Path) -> None:
+    md_root = tmp_path / CANONICAL_MD
+    from agentic_publishing_pipeline.crews._phase6_generate import (
+        extract_manifest_keys,
+    )
+    keys = extract_manifest_keys(MANIFEST)
+    written, cites = write_static_templates(md_root, manifest_keys=keys)
+    assert written == ["outline.md", "research_notes.md"]
+    assert (md_root / "outline.md").read_bytes() == (
+        COMMITTED_MD / "outline.md"
+    ).read_bytes()
+    assert (md_root / "research_notes.md").read_bytes() == (
+        COMMITTED_MD / "research_notes.md"
+    ).read_bytes()
+    expected_cites = {
+        "tbd2025planningperformance",
+        "tbd2026agenticreasoning",
+        "tbd2025licomemory",
+        "tbd2026telemem",
+        "tbd2025agenticreasoningtools",
+        "tbd2025proactiveretrievalmedical",
+        "tbd2025agenticmath",
+        "tbd2025multimodalsurvey",
+    }
+    assert expected_cites.issubset(set(cites))
