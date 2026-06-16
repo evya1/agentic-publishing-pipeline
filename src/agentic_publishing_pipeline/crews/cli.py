@@ -24,11 +24,12 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from ..contracts import REQUIRED_CONTRACT_VERSIONS
+from ..providers import load_provider_config
 from ..runtime import PipelineRunContext, Registry, load_registry, verify_compatibility
 from ._existing_run import handle_existing_mode
 from ._phase6_generate import run_phase6_generate
 from ._smoke import OFFLINE_MODES, run_offline_smoke
-from .live_cli import run_live_cli
+from .live_cli import LIVE_PROVIDER_CREDENTIALS, run_live_cli
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 REGISTRY_DEFAULT = PROJECT_ROOT / "config/prompt_registry"
@@ -66,8 +67,19 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _check_live_credentials(env: dict[str, str]) -> None:
-    if not any(env.get(name) for name in ("ANTHROPIC_API_KEY", "OPENAI_API_KEY")):
-        raise SystemExit("live mode requires ANTHROPIC_API_KEY or OPENAI_API_KEY in .env")
+    provider = load_provider_config(env).llm_provider.lower()
+    expected = LIVE_PROVIDER_CREDENTIALS.get(provider)
+    if expected is None:
+        raise SystemExit(
+            f"live mode has no supported {provider!r} adapter; "
+            f"set APP_LLM_PROVIDER to one of {sorted(LIVE_PROVIDER_CREDENTIALS)}"
+        )
+    value = str(env.get(expected, "")).strip()
+    if not value:
+        raise SystemExit(
+            f"live mode requires {expected} for provider {provider!r}; "
+            "set the variable to a non-empty key in .env"
+        )
 
 
 def _check_live_ack(args: argparse.Namespace) -> None:

@@ -23,12 +23,13 @@ class OpenAIChatAdapter(ModelAdapter):
         timeout: float,
         client: Any | None = None,
     ) -> None:
-        if not api_key:
+        normalized = str(api_key or "").strip()
+        if not normalized:
             raise ProviderError("OPENAI_API_KEY is required", retriable=False)
         if not model:
             raise ProviderError("APP_OPENAI_MODEL is required", retriable=False)
         self._model = model
-        self._client = client or OpenAI(api_key=api_key, timeout=timeout)
+        self._client = client or OpenAI(api_key=normalized, timeout=timeout)
 
     def complete(self, request: ModelRequest) -> ModelResponse:
         if not request.prompt:

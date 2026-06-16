@@ -10,7 +10,6 @@ import pytest
 
 import agentic_publishing_pipeline.crews.live_cli as live_cli_module
 from agentic_publishing_pipeline.crews import (
-    LiveAdapterUnavailable,
     build_parser,
     run_cli,
 )
@@ -181,7 +180,7 @@ def test_live_mode_refused_without_paid_call_ack() -> None:
 
 
 def test_live_mode_refused_without_credentials() -> None:
-    with pytest.raises(SystemExit, match="requires ANTHROPIC_API_KEY"):
+    with pytest.raises(SystemExit, match="requires OPENAI_API_KEY"):
         run_cli(
             [
                 "--mode",
@@ -190,12 +189,54 @@ def test_live_mode_refused_without_credentials() -> None:
                 str(_registry()),
                 "--i-understand-this-makes-paid-calls",
             ],
-            env={},
+            env={"APP_LLM_PROVIDER": "openai"},
+        )
+
+
+def test_live_mode_refused_when_default_fixture_provider_used() -> None:
+    with pytest.raises(SystemExit, match="has no supported 'fixture' adapter"):
+        run_cli(
+            [
+                "--mode",
+                "live",
+                "--registry",
+                str(_registry()),
+                "--i-understand-this-makes-paid-calls",
+            ],
+            env={"OPENAI_API_KEY": "present"},
+        )
+
+
+def test_live_mode_refused_when_only_anthropic_key_set_for_openai_provider() -> None:
+    with pytest.raises(SystemExit, match="requires OPENAI_API_KEY"):
+        run_cli(
+            [
+                "--mode",
+                "live",
+                "--registry",
+                str(_registry()),
+                "--i-understand-this-makes-paid-calls",
+            ],
+            env={"ANTHROPIC_API_KEY": "present", "APP_LLM_PROVIDER": "openai"},
+        )
+
+
+def test_live_mode_refused_with_whitespace_only_openai_key() -> None:
+    with pytest.raises(SystemExit, match="requires OPENAI_API_KEY"):
+        run_cli(
+            [
+                "--mode",
+                "live",
+                "--registry",
+                str(_registry()),
+                "--i-understand-this-makes-paid-calls",
+            ],
+            env={"OPENAI_API_KEY": "   \t", "APP_LLM_PROVIDER": "openai"},
         )
 
 
 def test_live_mode_refused_without_supported_adapter() -> None:
-    with pytest.raises(LiveAdapterUnavailable, match="no supported 'anthropic' adapter"):
+    with pytest.raises(SystemExit, match="has no supported 'anthropic' adapter"):
         run_cli(
             [
                 "--mode",
@@ -208,10 +249,26 @@ def test_live_mode_refused_without_supported_adapter() -> None:
         )
 
 
+def test_live_mode_refused_when_fixture_provider_requested() -> None:
+    with pytest.raises(SystemExit, match="has no supported 'fixture' adapter"):
+        run_cli(
+            [
+                "--mode",
+                "live",
+                "--registry",
+                str(_registry()),
+                "--i-understand-this-makes-paid-calls",
+            ],
+            env={"OPENAI_API_KEY": "present", "APP_LLM_PROVIDER": "fixture"},
+        )
+
+
 def test_live_mode_openai_writes_review_packet_at_human_boundary(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    from agentic_publishing_pipeline.crews.review_packet import finalize_review_artifacts
+
     class FakeOpenAIAdapter:
         name = "fake-openai"
 
@@ -220,10 +277,6 @@ def test_live_mode_openai_writes_review_packet_at_human_boundary(
 
     def fake_run_live_manuscript(**kwargs):
         context = kwargs["context"]
-        write_stage(
-            FileIO(context),
-            StageState(PipelineStage.AWAITING_HUMAN_REVIEW, context.run_id),
-        )
         md_root = context.paths.child("generated_markdown")
         chapters = md_root / "chapters"
         chapters.mkdir(parents=True, exist_ok=True)
@@ -232,13 +285,25 @@ def test_live_mode_openai_writes_review_packet_at_human_boundary(
             encoding="utf-8",
         )
         (md_root / "outline.md").write_text("# Outline\n", encoding="utf-8")
-        return object(), ManuscriptPreflightReport(
+        report = ManuscriptPreflightReport(
             passed=True,
             word_counts={"memory": 4},
             total_words=4,
             cited_keys=("chen2025telemem",),
             missing_source_keys=(),
         )
+        aggregate = finalize_review_artifacts(
+            context=context,
+            io=FileIO(context),
+            report=report,
+            review_template_path=kwargs["review_template_path"],
+            previous_canonical_root=kwargs["previous_canonical_root"],
+        )
+        write_stage(
+            FileIO(context),
+            StageState(PipelineStage.AWAITING_HUMAN_REVIEW, context.run_id),
+        )
+        return object(), report, aggregate
 
     monkeypatch.setattr(live_cli_module, "OpenAIChatAdapter", FakeOpenAIAdapter)
     monkeypatch.setattr(live_cli_module, "run_live_manuscript", fake_run_live_manuscript)
@@ -273,12 +338,10 @@ def test_live_workspace_contract_paths_are_stable(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    from agentic_publishing_pipeline.crews.review_packet import finalize_review_artifacts
+
     def fake_run_live_manuscript(**kwargs):
         context = kwargs["context"]
-        write_stage(
-            FileIO(context),
-            StageState(PipelineStage.AWAITING_HUMAN_REVIEW, context.run_id),
-        )
         typed = context.paths.child("typed_outputs")
         typed.mkdir(parents=True, exist_ok=True)
         for name in (
@@ -302,13 +365,25 @@ def test_live_workspace_contract_paths_are_stable(
         (md_root / "research_notes.md").write_text("# Research\n", encoding="utf-8")
         context.write_artifact_json("raw_outputs/crew_result.json", {"repr": "fake"})
         context.write_artifact_json("preflight_report.json", {"passed": True})
-        return object(), ManuscriptPreflightReport(
+        report = ManuscriptPreflightReport(
             passed=True,
             word_counts={"memory": 4},
             total_words=4,
             cited_keys=("chen2025telemem",),
             missing_source_keys=(),
         )
+        aggregate = finalize_review_artifacts(
+            context=context,
+            io=FileIO(context),
+            report=report,
+            review_template_path=kwargs["review_template_path"],
+            previous_canonical_root=kwargs["previous_canonical_root"],
+        )
+        write_stage(
+            FileIO(context),
+            StageState(PipelineStage.AWAITING_HUMAN_REVIEW, context.run_id),
+        )
+        return object(), report, aggregate
 
     monkeypatch.setattr(live_cli_module, "run_live_manuscript", fake_run_live_manuscript)
     results = tmp_path / "results"
@@ -353,12 +428,14 @@ def test_live_workspace_contract_paths_are_stable(
 
 
 def test_live_cli_reviewer_instructions_require_template(tmp_path: Path) -> None:
+    from agentic_publishing_pipeline.crews.review_packet import reviewer_instructions
+
     with pytest.raises(SystemExit, match="review template missing"):
-        live_cli_module._reviewer_instructions(tmp_path / "missing.md", "0" * 64)
+        reviewer_instructions(tmp_path / "missing.md", "0" * 64)
     bad = tmp_path / "bad.md"
     bad.write_text("no response templates here", encoding="utf-8")
     with pytest.raises(SystemExit, match="Response templates"):
-        live_cli_module._reviewer_instructions(bad, "0" * 64)
+        reviewer_instructions(bad, "0" * 64)
 
 
 def test_live_cli_positive_int_validation() -> None:

@@ -78,3 +78,24 @@ def test_openai_chat_adapter_rejects_empty_prompt() -> None:
     )
     with pytest.raises(ProviderError, match="empty prompt"):
         adapter.complete(ModelRequest(model_class="writer", prompt=""))
+
+
+def test_openai_chat_adapter_rejects_empty_api_key() -> None:
+    with pytest.raises(ProviderError, match="OPENAI_API_KEY is required"):
+        OpenAIChatAdapter(api_key="", model="test-model", timeout=10.0, client=_FakeClient())
+
+
+def test_openai_chat_adapter_rejects_whitespace_only_api_key() -> None:
+    with pytest.raises(ProviderError, match="OPENAI_API_KEY is required"):
+        OpenAIChatAdapter(api_key="   \t\n", model="test-model", timeout=10.0, client=_FakeClient())
+
+
+def test_openai_chat_adapter_strips_api_key_whitespace_padding() -> None:
+    client = _FakeClient()
+    adapter = OpenAIChatAdapter(
+        api_key="  sk-padded  ",
+        model="test-model",
+        timeout=10.0,
+        client=client,
+    )
+    assert adapter._model == "test-model"

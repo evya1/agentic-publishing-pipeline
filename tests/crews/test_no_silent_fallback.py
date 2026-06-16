@@ -8,7 +8,7 @@ from agentic_publishing_pipeline.providers import ProviderConfig, ProviderError,
 
 
 def test_live_mode_unsupported_provider_does_not_fall_back_to_fixture() -> None:
-    with pytest.raises(LiveAdapterUnavailable):
+    with pytest.raises(SystemExit, match="has no supported 'anthropic' adapter"):
         run_cli(
             [
                 "--mode",
@@ -17,6 +17,12 @@ def test_live_mode_unsupported_provider_does_not_fall_back_to_fixture() -> None:
             ],
             env={"OPENAI_API_KEY": "present", "APP_LLM_PROVIDER": "anthropic"},
         )
+
+
+def test_live_facade_refuses_unsupported_adapter_construction() -> None:
+    config = ProviderConfig("anthropic", "gpt-4.1-mini", "fixture", 4, 1.0, 30.0)
+    with pytest.raises(LiveAdapterUnavailable):
+        _live_facade(config=config, env={"OPENAI_API_KEY": "present"})
 
 
 def test_live_facade_uses_disabled_search_adapter_not_fixture() -> None:
