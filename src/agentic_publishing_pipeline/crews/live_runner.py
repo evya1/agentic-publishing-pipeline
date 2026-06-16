@@ -3,21 +3,31 @@
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
+from pathlib import Path
 
-from ..agents.factory import AGENT_PROMPT_IDS, build_agents
+from ..agents.factory import build_agents
 from ..runtime import PipelineRunContext, Registry
 from ..runtime.stage_state import PipelineStage, StageState, transition, write_stage
 from ..services.crewai_llm import ControlledCrewLlm
 from ..services.source_context import SourceContext
 from ..tasks.completeness import ManuscriptPreflightReport, run_manuscript_preflight
-from ..tasks.constants import TASK_PROMPT_IDS
 from ..tasks.factory import REQUIRED_CHAPTER_IDS, build_manuscript_tasks
 from ..tools.fileio import FileIO
 from ..tools.gatekeeper import ApiGatekeeper
+from ._live_helpers import llm_factory as _llm_factory
+from ._live_helpers import write_preflight_report as _write_preflight_report
+from ._live_helpers import write_raw_result as _write_raw_result
 from .composition import compose_manuscript_outputs
 from .manuscript_crew import build_manuscript_crew
 from .persistence import persist_manuscript_outputs
 from .result_parser import ManuscriptOutputs, parse_manuscript_outputs
+from .review_packet import finalize_review_artifacts
+
+__all__ = [
+    "ManuscriptPreflightFailed",
+    "_llm_factory",
+    "run_live_manuscript",
+]
 
 
 class ManuscriptPreflightFailed(RuntimeError):
@@ -35,11 +45,13 @@ def run_live_manuscript(
     target_pages: int,
     target_words: int,
     min_words_per_chapter: int,
+    review_template_path: Path,
+    previous_canonical_root: Path,
     min_hebrew_tokens: int = 40,
     min_embedded_english_terms: int = 1,
     source_context: SourceContext | None = None,
     llm_builder: Callable[..., ControlledCrewLlm] = ControlledCrewLlm,
-) -> tuple[ManuscriptOutputs, ManuscriptPreflightReport]:
+) -> tuple[ManuscriptOutputs, ManuscriptPreflightReport, str]:
     """Kick off the real Crew, persist candidates, and await human review."""
     io = FileIO(context)
     state = StageState(PipelineStage.GENERATING, context.run_id)
@@ -104,55 +116,17 @@ def run_live_manuscript(
         transition(io, state, PipelineStage.PREFLIGHT_FAILED, detail="; ".join(report.errors))
         raise ManuscriptPreflightFailed("; ".join(report.errors))
     _write_preflight_report(context, report)
-    transition(io, state, PipelineStage.AWAITING_HUMAN_REVIEW)
-    return outputs, report
-
-
-def _llm_factory(
-    *,
-    registry: Registry,
-    gatekeeper: ApiGatekeeper,
-    run_id: str,
-    llm_builder: Callable[..., ControlledCrewLlm],
-):
-    def build(agent_id: str, task_id: str, model_class: str) -> ControlledCrewLlm:
-        prompt_id = AGENT_PROMPT_IDS[agent_id]
-        prompt_version = registry.get_agent(prompt_id).version
-        task_config = registry.get_task(TASK_PROMPT_IDS.get(task_id, TASK_PROMPT_IDS["review"]))
-        max_repairs = int(task_config.config.get("repair_attempts_allowed", 1))
-        return llm_builder(
-            gatekeeper=gatekeeper,
-            agent_id=agent_id,
-            task_id=task_id,
-            model_class=model_class,
-            run_id=run_id,
-            prompt_version=prompt_version,
-            max_attempts=max_repairs + 1,
-            max_repairs=max_repairs,
+    state = transition(io, state, PipelineStage.REVIEW_FINALIZATION)
+    try:
+        aggregate = finalize_review_artifacts(
+            context=context,
+            io=io,
+            report=report,
+            review_template_path=review_template_path,
+            previous_canonical_root=previous_canonical_root,
         )
-
-    return build
-
-
-def _write_raw_result(context: PipelineRunContext, result: object) -> None:
-    text = repr(result)
-    context.write_artifact_json("raw_outputs/crew_result.json", {"repr": text})
-    context.write_artifact_json("raw/crew_result.json", {"repr": text})
-
-
-def _write_preflight_report(
-    context: PipelineRunContext,
-    report: ManuscriptPreflightReport,
-) -> None:
-    context.write_artifact_json(
-        "preflight_report.json",
-        {
-            "passed": report.passed,
-            "word_counts": report.word_counts,
-            "total_words": report.total_words,
-            "cited_keys": list(report.cited_keys),
-            "missing_source_keys": list(report.missing_source_keys),
-            "errors": list(report.errors),
-            "warnings": list(report.warnings),
-        },
-    )
+    except Exception as exc:
+        transition(io, state, PipelineStage.REVIEW_FINALIZATION_FAILED, detail=str(exc))
+        raise
+    transition(io, state, PipelineStage.AWAITING_HUMAN_REVIEW, detail=aggregate)
+    return outputs, report, aggregate

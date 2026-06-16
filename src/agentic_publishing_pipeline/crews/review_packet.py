@@ -4,11 +4,15 @@ from __future__ import annotations
 
 import difflib
 import hashlib
+import re
 from pathlib import Path
 
+from ..runtime import PipelineRunContext
 from ..tasks.completeness import ManuscriptPreflightReport
 from ..tools.fileio import FileIO
 from ._review_gate import compute_draft_revision
+
+HASH_FIELD_RE = re.compile(r'("draft_sha256":\s*")[0-9a-f]{64}(")')
 
 
 def write_review_packet(
@@ -97,3 +101,48 @@ def _markdown_names(root: Path) -> set[str]:
 
 def _read_lines(path: Path) -> list[str]:
     return path.read_text(encoding="utf-8").splitlines() if path.exists() else []
+
+
+def reviewer_instructions(template_path: Path, aggregate_sha256: str) -> str:
+    """Extract the response-templates section and rewrite its hash."""
+    if not template_path.is_file():
+        raise SystemExit(f"review template missing: {template_path}")
+    text = template_path.read_text(encoding="utf-8")
+    marker = "## Response templates"
+    if marker not in text:
+        raise SystemExit(f"review template missing {marker!r}")
+    section = text[text.index(marker) :].strip()
+    return HASH_FIELD_RE.sub(rf"\g<1>{aggregate_sha256}\2", section)
+
+
+def finalize_review_artifacts(
+    *,
+    context: PipelineRunContext,
+    io: FileIO,
+    report: ManuscriptPreflightReport,
+    review_template_path: Path,
+    previous_canonical_root: Path,
+) -> str:
+    """Compute the aggregate, write review packet/hashes/event atomically.
+
+    All review-readiness artifacts are written before this function
+    returns; the caller may then transition to ``awaiting_human_review``.
+    """
+    candidate_root = context.paths.child("generated_markdown")
+    aggregate = compute_draft_revision(candidate_root)
+    packet = write_review_packet(
+        file_io=io,
+        candidate_root=candidate_root,
+        previous_root=previous_canonical_root,
+        report=report,
+        reviewer_instructions=reviewer_instructions(review_template_path, aggregate),
+    )
+    context.write_artifact_json("hashes.json", {"generated_markdown_sha256": aggregate})
+    context.events.append(
+        "run.awaiting_human_review",
+        {
+            "aggregate_sha256": aggregate,
+            "review_packet": packet.relative_to(context.paths.root).as_posix(),
+        },
+    )
+    return aggregate

@@ -17,14 +17,17 @@ class PipelineStage(StrEnum):
     GENERATING = "generating"
     GENERATED = "generated"
     PREFLIGHT = "preflight"
+    REVIEW_FINALIZATION = "review_finalization"
     GENERATION_FAILED = "generation_failed"
     PARSING_FAILED = "parsing_failed"
     PERSISTENCE_FAILED = "persistence_failed"
     PREFLIGHT_FAILED = "preflight_failed"
+    REVIEW_FINALIZATION_FAILED = "review_finalization_failed"
     AWAITING_HUMAN_REVIEW = "awaiting_human_review"
     APPROVED = "approved"
     CHANGES_REQUESTED = "changes_requested"
     PROMOTED = "promoted"
+    PROMOTION_FAILED = "promotion_failed"
 
 
 _ALLOWED: dict[PipelineStage, frozenset[PipelineStage]] = {
@@ -39,17 +42,24 @@ _ALLOWED: dict[PipelineStage, frozenset[PipelineStage]] = {
         {PipelineStage.PREFLIGHT, PipelineStage.PERSISTENCE_FAILED}
     ),
     PipelineStage.PREFLIGHT: frozenset(
-        {PipelineStage.AWAITING_HUMAN_REVIEW, PipelineStage.PREFLIGHT_FAILED}
+        {PipelineStage.REVIEW_FINALIZATION, PipelineStage.PREFLIGHT_FAILED}
+    ),
+    PipelineStage.REVIEW_FINALIZATION: frozenset(
+        {PipelineStage.AWAITING_HUMAN_REVIEW, PipelineStage.REVIEW_FINALIZATION_FAILED}
     ),
     PipelineStage.GENERATION_FAILED: frozenset({PipelineStage.GENERATING}),
     PipelineStage.PARSING_FAILED: frozenset({PipelineStage.GENERATING}),
     PipelineStage.PERSISTENCE_FAILED: frozenset({PipelineStage.GENERATING}),
     PipelineStage.PREFLIGHT_FAILED: frozenset({PipelineStage.GENERATING}),
+    PipelineStage.REVIEW_FINALIZATION_FAILED: frozenset({PipelineStage.GENERATING}),
     PipelineStage.AWAITING_HUMAN_REVIEW: frozenset(
         {PipelineStage.APPROVED, PipelineStage.CHANGES_REQUESTED}
     ),
     PipelineStage.CHANGES_REQUESTED: frozenset({PipelineStage.GENERATING}),
-    PipelineStage.APPROVED: frozenset({PipelineStage.PROMOTED}),
+    PipelineStage.APPROVED: frozenset(
+        {PipelineStage.PROMOTED, PipelineStage.PROMOTION_FAILED}
+    ),
+    PipelineStage.PROMOTION_FAILED: frozenset({PipelineStage.APPROVED}),
     PipelineStage.PROMOTED: frozenset(),
 }
 
