@@ -29,7 +29,7 @@ boundary, and Architecture Decision Records (ADRs) that supplement
 None of the runtime mechanisms designed in these documents is implemented
 yet. Implementation is scheduled per `docs/PLAN.md` Phase 5 onward and is
 tracked in `docs/TODO.md` under the planned internal IDs P5-I08, P5-I09,
-P5-I10, P5-I11, P5-I12, P5-I13, P8-I02, P10-I03, P12-I05, P12-I06, and
+P5-I10, P5-I11, P5-I12, P5-I13, P8-I01, P10-I03, P12-I05, P12-I06, and
 P13-I05. GitHub issue numbers for those items will be allocated only when
 the runtime work begins.
 

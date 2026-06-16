@@ -14,6 +14,7 @@ write inside a run workspace. It enforces three invariants:
 from __future__ import annotations
 
 import json
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Literal
 
@@ -30,6 +31,17 @@ class FileIO:
 
     def resolve(self, relative: str | Path) -> Path:
         return self._ctx.paths.child(relative)
+
+    def relative_path(self, relative: str | Path) -> str:
+        target = self.resolve(relative)
+        return target.relative_to(self._ctx.paths.root).as_posix()
+
+    def record_event(
+        self,
+        kind: str,
+        payload: Mapping[str, object] | None = None,
+    ) -> dict[str, object]:
+        return self._ctx.events.append(kind, payload)
 
     def write_text(
         self,

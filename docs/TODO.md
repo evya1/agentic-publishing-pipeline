@@ -1,12 +1,12 @@
 # TODO — agentic-publishing-pipeline
 
-> **Status:** Phases 0 through 7 are complete and closed. Phase 7
-> real-source bibliography pipeline merged through PR #83; P7-I00 through
-> P7-I07 are verified and closed. P12-I05 CI hardening merged through
-> PR #86. Phase 8 (Python graph generation) is the next implementation
-> phase. Do not tick later items until their underlying artifacts exist and
-> have been verified on disk (and, where applicable, by a passing build,
-> test, or validator run).
+> **Status:** Phases 0 through 8 are complete and closed. Phase 8
+> Python graph generation pipeline merged through PR #92; P8-I01 verified
+> and closed with a canonical PNG artifact in `latex_project/figures/`.
+> P12-I05 CI hardening merged through PR #86. Phase 9 (LaTeX project
+> assembly) is the next implementation phase. Do not tick later items until
+> their underlying artifacts exist and have been verified on disk (and,
+> where applicable, by a passing build, test, or validator run).
 
 ## How to read this file
 
@@ -146,12 +146,11 @@ current state before acting.
 | P7-I06      | [#27](https://github.com/evya1/agentic-publishing-pipeline/issues/27) | Closed with evidence — `\cite{...}` placeholders wired and resolved    |
 | P7-I07      | [#28](https://github.com/evya1/agentic-publishing-pipeline/issues/28) | Closed with evidence — untrusted-archive policy codified and enforced  |
 
-#### Phase 8 — Python graph generation pipeline ([milestone #7](https://github.com/evya1/agentic-publishing-pipeline/milestone/7))
+#### Phase 8 — Python graph generation pipeline ([milestone #7](https://github.com/evya1/agentic-publishing-pipeline/milestone/7)) *(complete and closed through PR #92)*
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
-| P8-I01      | [#29](https://github.com/evya1/agentic-publishing-pipeline/issues/29) | Implement `visualization/` and ≥1 real graph under `latex_project/figures/` |
-| P8-I02      | *(planned — GitHub number TBD)* | Implement validated technical-asset specs and deterministic fallbacks |
+| P8-I01      | [#29](https://github.com/evya1/agentic-publishing-pipeline/issues/29) | Closed with evidence — deterministic graph pipeline and canonical PNG in `latex_project/figures/` |
 
 #### Phase 9 — LaTeX project assembly ([milestone #8](https://github.com/evya1/agentic-publishing-pipeline/milestone/8))
 
@@ -382,8 +381,8 @@ do not block the Phase 1.5 lock.
 ### C.3 Provider/service layer, configuration, and tools *(Phase 5 complete and closed through PR #79)*
 
 P5-I01 through P5-I13 are merged through PR #79, verified, and closed with
-evidence. The Phase 5 milestone is closed; Phase 6 is complete and Phase 7
-is next.
+evidence. The Phase 5 milestone is closed; Phases 6 and 7 are complete; and
+Phase 8 is next.
 
 - [x] Implement a controlled provider/service layer for model and search
       calls. [Phase 5] [NFR-23, NFR-24]
@@ -608,14 +607,15 @@ is next.
 
 ### C.6 Python graph generation pipeline
 
-- [ ] Implement `src/agentic_publishing_pipeline/visualization/` and
+- [x] Implement `src/agentic_publishing_pipeline/visualization/` and
       produce at least one graph image saved under
-      `latex_project/figures/`, consumed by a chapter via
-      `\includegraphics`. [Phase 8] [FR-29, FR-30, AC §14.2]
-- [ ] **P8-I02** — Define typed graph/table/TikZ/image specs,
-      deterministic renderers, provenance metadata, path safety, and
-      explicit failure/fallback behavior that cannot silently change
-      factual content. Ties to ADR-0002 and ADR-0003. [Phase 8]
+      `latex_project/figures/` from a versioned graph spec with strict
+      validation, deterministic rendering, and provenance beside the
+      PNG. Chapter inclusion remains Phase 9 work. [Phase 8]
+      [FR-29, FR-30, AC §14.2]
+- [x] Harden the canonical graph pipeline with safe naming, mandatory
+      validation, promotion-based canonical writes, and deterministic
+      regeneration evidence. [Phase 8] [ADR-0002, ADR-0003, FR-48]
 
 ### C.7 LaTeX project assembly (LuaLaTeX MVP)
 

@@ -1,19 +1,20 @@
-"""Graph renderer tests against a real run workspace."""
+"""Low-level renderer tests for visualization graphs."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import pytest
 
-from agentic_publishing_pipeline.contracts import AssetSpec
 from agentic_publishing_pipeline.runtime import PipelineRunContext, generate_run_id
 from agentic_publishing_pipeline.tools import FileIO
 from agentic_publishing_pipeline.visualization import (
     GraphRenderError,
+    GroupedBarChartSpec,
     LinePlotSpec,
+    render_grouped_bar_chart,
     render_line_plot,
-    render_python_graph_asset,
 )
 
 
@@ -21,70 +22,77 @@ def _ctx(tmp_path: Path) -> PipelineRunContext:
     return PipelineRunContext(
         run_id=generate_run_id(),
         results_root=tmp_path / "results",
-        mode="offline-fixture",
+        mode="visualization",
         env={},
     )
 
 
-def test_render_line_plot_writes_png_and_provenance(tmp_path: Path) -> None:
-    ctx = _ctx(tmp_path)
-    fio = FileIO(ctx)
-    spec = LinePlotSpec(
-        series_label="accuracy",
-        x_values=[1.0, 2.0, 3.0],
-        y_values=[0.6, 0.75, 0.82],
-        title="accuracy vs round",
+def test_render_grouped_bar_chart_returns_png_bytes() -> None:
+    spec = GroupedBarChartSpec.model_validate(
+        {
+            "schema_version": 1,
+            "asset_id": "planning_benchmark_comparison",
+            "kind": "grouped_bar_chart",
+            "slot": "planning_benchmark_comparison",
+            "chapter_id": "planning",
+            "output_dir": "latex_project/figures",
+            "title": "Planning benchmark coverage",
+            "caption": "Grouped benchmark comparison.",
+            "x_label": "Method",
+            "y_label": "Solved tasks (out of 360)",
+            "metric": {"name": "solved_tasks", "unit": "tasks", "direction": "higher_is_better"},
+            "data": {
+                "categories": ["Planner", "GPT-5"],
+                "series": [
+                    {"label": "Standard tasks", "values": [234, 205]},
+                    {"label": "Obfuscated tasks", "values": [234, 142]},
+                ],
+            },
+            "source": {
+                "citation_key": "correa2025planningperformance",
+                "identifier": "arXiv:2511.09378v2",
+                "publication_url_or_doi": "https://doi.org/10.48550/arXiv.2511.09378",
+                "locator": {
+                    "page": None,
+                    "table": "Tables 1 and 2",
+                    "figure": None,
+                    "rows": ["Sum (360)"],
+                },
+                "notes": "Selected totals.",
+            },
+            "transformations": [],
+            "render": {"width_inches": 7.2, "height_inches": 4.2, "dpi": 200, "seed": 0},
+        }
     )
+    png_bytes = render_grouped_bar_chart(spec)
+    assert png_bytes.startswith(b"\x89PNG\r\n\x1a\n")
+    assert plt.get_fignums() == []
+
+
+def test_render_line_plot_writes_png_and_provenance(tmp_path: Path) -> None:
+    fio = FileIO(_ctx(tmp_path))
+    spec = LinePlotSpec(series_label="accuracy", x_values=[1.0, 2.0], y_values=[0.7, 0.8])
     target = render_line_plot(spec, fileio=fio, relative_target="latex_project/figures/demo.png")
     assert target.exists()
     assert target.stat().st_size > 0
-    provenance = target.with_suffix(target.suffix + ".prov.json")
-    assert provenance.exists()
+    assert target.with_suffix(".png.prov.json").exists()
 
 
-def test_line_plot_rejects_uneven_lengths() -> None:
-    with pytest.raises(GraphRenderError):
-        LinePlotSpec(series_label="x", x_values=[1.0, 2.0], y_values=[1.0])
-
-
-def test_line_plot_rejects_empty_inputs() -> None:
-    with pytest.raises(GraphRenderError):
-        LinePlotSpec(series_label="x", x_values=[], y_values=[])
-
-
-def test_render_python_graph_asset_happy_path(tmp_path: Path) -> None:
-    ctx = _ctx(tmp_path)
-    fio = FileIO(ctx)
-    asset = AssetSpec(
-        kind="python_graph",
-        slot="evaluation/accuracy-1",
-        chapter_id="evaluation",
-        caption="Accuracy vs round",
-        payload={
-            "series_label": "accuracy",
-            "x_values": [1.0, 2.0, 3.0, 4.0],
-            "y_values": [0.6, 0.7, 0.8, 0.85],
-            "x_label": "round",
-            "y_label": "accuracy",
-        },
+def test_render_line_plot_is_deterministic(tmp_path: Path) -> None:
+    spec = LinePlotSpec(series_label="det", x_values=[1.0, 2.0], y_values=[1.0, 4.0])
+    first = render_line_plot(
+        spec,
+        fileio=FileIO(_ctx(tmp_path / "a")),
+        relative_target="latex_project/figures/det.png",
     )
-    target = render_python_graph_asset(asset, fileio=fio)
-    assert target.name == "evaluation_accuracy-1.png"
-    assert target.parent.name == "figures"
+    second = render_line_plot(
+        spec,
+        fileio=FileIO(_ctx(tmp_path / "b")),
+        relative_target="latex_project/figures/det.png",
+    )
+    assert first.read_bytes() == second.read_bytes()
 
 
-def test_render_python_graph_asset_rejects_wrong_kind(tmp_path: Path) -> None:
-    ctx = _ctx(tmp_path)
-    fio = FileIO(ctx)
-    asset = AssetSpec(kind="image", slot="x", chapter_id="c")
+def test_line_plot_rejects_invalid_lengths() -> None:
     with pytest.raises(GraphRenderError):
-        render_python_graph_asset(asset, fileio=fio)
-
-
-def test_render_emits_audit_event(tmp_path: Path) -> None:
-    ctx = _ctx(tmp_path)
-    fio = FileIO(ctx)
-    spec = LinePlotSpec(series_label="x", x_values=[0.0, 1.0], y_values=[0.0, 1.0])
-    render_line_plot(spec, fileio=fio, relative_target="latex_project/figures/x.png")
-    events = [e for e in ctx.events.read_all() if e["kind"] == "graph.rendered"]
-    assert events
+        LinePlotSpec(series_label="bad", x_values=[1.0, 2.0], y_values=[1.0])
