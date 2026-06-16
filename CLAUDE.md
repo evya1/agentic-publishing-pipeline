@@ -53,6 +53,18 @@ anything that changes a file in the repository or any GitHub tracking object.
     GUI mirror, not a replacement for `docs/PRD.md`, `docs/PLAN.md`, and
     `docs/TODO.md` (`CONTRIBUTING.md` §1). Material new scope requires a
     document PR before or alongside the GitHub change.
+11. **Use 7-character short commit hashes.** Cite commits as the
+    7-character abbreviated form (e.g. `e145114`) in all issue comments,
+    PR body text, and tracked Markdown documents. Never embed the full
+    40-character SHA in human-readable text. Provenance JSON and manifest
+    files are exempt.
+12. **Wire native GitHub issue relationships.** At issue creation and at
+    issue start (`CONTRIBUTING.md` §8.2), run
+    `gh issue edit <N> --add-blocked-by <M>` for every "Depends on" entry
+    and `gh issue edit <N> --add-blocking <M>` for every "Blocks" entry in
+    the issue's Dependencies section. Prose-only dependencies are
+    insufficient; the native relationship must be set so the GitHub
+    dependency graph is accurate.
 
 The remainder of this file describes the project-specific context an AI
 agent needs to do useful work. It does **not** replace `CONTRIBUTING.md`.

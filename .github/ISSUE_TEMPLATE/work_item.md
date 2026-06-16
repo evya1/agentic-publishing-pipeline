@@ -37,6 +37,15 @@ in the Source section).
 - **Depends on**: <`P<phase>-I<nn>` of any prerequisite issue, or "none">
 - **Blocks**: <issues that cannot start until this one is verified, or "none">
 
+**Wire native GitHub relationships after filing** (both sides required):
+
+```sh
+gh issue edit <N> --add-blocked-by <M>   # one per "Depends on" entry
+gh issue edit <N> --add-blocking <M>     # one per "Blocks" entry
+```
+
+Validate: `uv run python scripts/check_github_metadata.py --issue <N>`
+
 ## Description
 
 <!--

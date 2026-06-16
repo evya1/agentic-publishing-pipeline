@@ -246,7 +246,13 @@ Before opening an issue, confirm:
 - the PLAN phase exists and is consistent with the milestone;
 - labels match the work type from §11;
 - PRD requirements are referenced;
-- definition of done and acceptance criteria exist.
+- definition of done and acceptance criteria exist;
+- native GitHub dependency relationships are wired immediately after filing:
+  `gh issue edit <N> --add-blocked-by <M>` for every "Depends on" entry and
+  `gh issue edit <N> --add-blocking <M>` for every "Blocks" entry in the
+  issue's Dependencies section (prose alone is insufficient);
+- run `uv run python scripts/check_github_metadata.py --issue <N>` to confirm
+  all metadata rules pass before starting work.
 
 Unilateral GitHub-only scope is not allowed. New scope must be
 reflected in the appropriate Markdown document via PR.
@@ -258,7 +264,10 @@ Update GitHub:
 - self-assignment;
 - start-of-work comment (§2 template);
 - correct labels and milestone;
-- linked branch (or documented branch exception per §4.2).
+- linked branch (or documented branch exception per §4.2);
+- the linked PR (once opened) must carry the same assignee and the same labels
+  as the issue; run `uv run python scripts/check_github_metadata.py --pr <N>`
+  to verify before requesting review.
 
 Do **not** mark a TODO item complete or change PLAN phase status merely
 because work has started.
@@ -302,6 +311,14 @@ local synchronization changes, where applicable:
 - prompt records (`docs/PROMPTS.md`);
 - tests;
 - validation evidence.
+
+Also confirm on the PR object itself before requesting review:
+
+- assignee is set (same person as the issue assignee);
+- labels match the issue labels (same vocabulary, same work type);
+- body references the issue with `Refs #<N>` — not a closing keyword
+  (`Closes`, `Fixes`, `Resolves`); closing happens post-merge per §8.5;
+- all commit hashes cited in the body use the 7-character short form (§8.8).
 
 Do **not** postpone obvious local tracking updates to an unrelated
 future PR.
@@ -348,6 +365,21 @@ Run a final reconciliation **before ending the session**:
 - a handoff is posted if work is unfinished (§13).
 
 No session — human or AI — may end with known silent drift.
+
+### 8.8 Commit citation convention
+
+Always cite commits using the **7-character short hash** (e.g. `e145114`),
+never the full 40-character SHA, in:
+
+- issue comments and PR descriptions;
+- `docs/PLAN.md`, `docs/TODO.md`, and any other tracked Markdown;
+- handoff comments (§13 template already uses `<short-sha>`).
+
+Machine-generated provenance files (`.prov.json`, `manifest.v1.json`) are
+exempt and may store full SHAs for integrity purposes.
+
+Rationale: 7-character hashes are unambiguous within the repository, match
+`git log --oneline` and GitHub's UI, and keep text scannable.
 
 ---
 
@@ -402,6 +434,10 @@ Resolution rules:
 Issues use the fixed vocabulary below (in addition to GitHub default
 labels where useful). Add or remove labels only through a reviewed
 governance change.
+
+The same vocabulary applies to **pull requests** as well as issues. A PR's
+labels must match (or be a meaningful subset of) the labels on its linked
+issue and must be set before the PR is marked ready for review.
 
 | Label          | Use                                                        |
 |----------------|------------------------------------------------------------|
