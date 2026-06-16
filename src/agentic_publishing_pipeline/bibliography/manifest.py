@@ -88,9 +88,7 @@ def _build_record(entry: Mapping[str, object], idx: int) -> SourceRecord:
     arxiv_id = _v.optional_str(entry, "arxiv_id")
     arxiv_url = _v.optional_str(entry, "arxiv_url")
     if (arxiv_id is None) != (arxiv_url is None):
-        raise _v._ValidationError(
-            f"record #{idx} arxiv_id and arxiv_url must be set together"
-        )
+        raise _v._ValidationError(f"record #{idx} arxiv_id and arxiv_url must be set together")
     status, method, verified_at, verified_by = _v.coerce_verification(entry, idx)
     return SourceRecord(
         citation_key=_v.require_str(entry, "citation_key", idx),
@@ -128,8 +126,7 @@ def _reject_duplicates(records: list[SourceRecord]) -> None:
         if record.doi is not None:
             if record.doi in seen_doi:
                 raise SourceManifestError(
-                    f"duplicate doi {record.doi!r} at records "
-                    f"#{seen_doi[record.doi]} and #{idx}"
+                    f"duplicate doi {record.doi!r} at records #{seen_doi[record.doi]} and #{idx}"
                 )
             seen_doi[record.doi] = idx
 

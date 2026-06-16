@@ -10,9 +10,7 @@ def format_accepted_preapply_diff(diff: Diff) -> str:
     lines.extend(_section("matching milestones", diff.matches))
     lines.extend(_section("missing milestones to create", [m.title for m in diff.missing]))
     lines.extend(_section("unexpected extras", [m.title for m in diff.extra]))
-    lines.extend(
-        _section("description conflicts", [em.title for em, _lm in diff.conflicts])
-    )
+    lines.extend(_section("description conflicts", [em.title for em, _lm in diff.conflicts]))
     lines.extend(_section("duplicate live titles", diff.duplicates))
     lines.extend(_section("non-null due_on", [m.title for m in diff.bad_due_on]))
     return "\n".join(lines)

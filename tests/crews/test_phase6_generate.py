@@ -51,9 +51,7 @@ def test_run_phase6_generate_all_placeholder_kinds(tmp_path: Path) -> None:
     record = run_phase6_generate(tmp_path.resolve(), MANIFEST)
     assert set(record.all_placeholder_kinds) >= {"FIGURE", "TABLE", "EQUATION", "CITATION"}
     md_root = tmp_path / "generated_markdown"
-    body = " ".join(
-        p.read_text(encoding="utf-8") for p in md_root.rglob("*.md")
-    )
+    body = " ".join(p.read_text(encoding="utf-8") for p in md_root.rglob("*.md"))
     for kind in ("FIGURE", "TABLE", "EQUATION", "CITATION"):
         assert has_placeholder(body, kind=kind), f"missing {kind} placeholder"  # type: ignore[arg-type]
 
@@ -63,8 +61,7 @@ def test_run_phase6_generate_citation_keys_resolve(tmp_path: Path) -> None:
     record = run_phase6_generate(tmp_path.resolve(), MANIFEST)
     for key in record.citation_keys_used:
         assert key in manifest_keys, (
-            f"CITATION placeholder {key!r} not in manifest. "
-            f"Valid keys: {sorted(manifest_keys)}"
+            f"CITATION placeholder {key!r} not in manifest. Valid keys: {sorted(manifest_keys)}"
         )
 
 
@@ -91,9 +88,7 @@ def test_run_phase6_generate_safe_output_path(tmp_path: Path) -> None:
         absolute.relative_to(tmp_path.resolve())
 
 
-def test_run_phase6_generate_no_network(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_run_phase6_generate_no_network(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     original = socket.socket.connect
 
     def fail(self, *args, **kwargs):  # type: ignore[no-untyped-def]
@@ -108,10 +103,9 @@ def test_run_phase6_generate_no_network(
 
 def test_run_phase6_generate_no_api_key_needed(tmp_path: Path) -> None:
     import os
+
     env_backup = {
-        k: os.environ.pop(k)
-        for k in ("ANTHROPIC_API_KEY", "OPENAI_API_KEY")
-        if k in os.environ
+        k: os.environ.pop(k) for k in ("ANTHROPIC_API_KEY", "OPENAI_API_KEY") if k in os.environ
     }
     try:
         run_phase6_generate(tmp_path.resolve(), MANIFEST)
@@ -138,6 +132,7 @@ def test_committed_chapter_memory_has_all_placeholders() -> None:
 def test_committed_citation_keys_resolve_to_manifest() -> None:
     manifest_keys = set(extract_manifest_keys(MANIFEST))
     from agentic_publishing_pipeline.tools.markdown import _PLACEHOLDER_RE
+
     for md_file in GENERATED_MD.rglob("*.md"):
         if md_file.name == "README.md":
             continue
@@ -145,6 +140,4 @@ def test_committed_citation_keys_resolve_to_manifest() -> None:
         for match in _PLACEHOLDER_RE.finditer(body):
             if match.group(1).upper() == "CITATION":
                 key = match.group("desc").strip()
-                assert key in manifest_keys, (
-                    f"{md_file.name}: CITATION {key!r} not in manifest"
-                )
+                assert key in manifest_keys, f"{md_file.name}: CITATION {key!r} not in manifest"

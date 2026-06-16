@@ -38,9 +38,7 @@ def _load_and_validate(
     cites: list[str] = []
     for rel_name, src_name in _STATIC_TEMPLATES:
         body = (_PHASE6_DATA_DIR / src_name).read_bytes()
-        keys_here = [
-            m.group("key") for m in _CITATION_RE.finditer(body.decode("utf-8"))
-        ]
+        keys_here = [m.group("key") for m in _CITATION_RE.finditer(body.decode("utf-8"))]
         unknown = [k for k in keys_here if k not in manifest_set]
         if unknown:
             raise ValueError(
@@ -52,9 +50,7 @@ def _load_and_validate(
     return loaded, cites
 
 
-def write_static_templates(
-    md_root: Path, manifest_keys: list[str]
-) -> tuple[list[str], list[str]]:
+def write_static_templates(md_root: Path, manifest_keys: list[str]) -> tuple[list[str], list[str]]:
     """Atomically copy canonical templates into ``md_root``.
 
     Phase 1 loads every template and validates every CITATION key

@@ -61,9 +61,5 @@ def splice_section(markdown_text: str, rendered_section: str) -> str:
         next_section_offset = tail.find("\n## ")
         if next_section_offset < 0:
             return markdown_text[:idx] + rendered_section
-        return (
-            markdown_text[:idx]
-            + rendered_section
-            + tail[next_section_offset:]
-        )
+        return markdown_text[:idx] + rendered_section + tail[next_section_offset:]
     return markdown_text.rstrip() + "\n\n" + rendered_section

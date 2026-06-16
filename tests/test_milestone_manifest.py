@@ -24,9 +24,7 @@ def test_valid_manifest_parses(simple_manifest_path: Path) -> None:
 
 
 def test_repository_manifest_loads_with_thirteen_entries() -> None:
-    repo_manifest = (
-        Path(__file__).resolve().parent.parent / "config" / "milestones.json"
-    )
+    repo_manifest = Path(__file__).resolve().parent.parent / "config" / "milestones.json"
     manifest = load_manifest(repo_manifest)
     titles = [m.title for m in manifest.milestones]
     assert len(titles) == 13
@@ -95,8 +93,6 @@ def test_non_dict_root_rejected(tmp_path: Path) -> None:
 
 
 def test_empty_title_rejected(tmp_path: Path) -> None:
-    path = write_manifest(
-        tmp_path, [{"title": "", "description": "x", "due_on": None}]
-    )
+    path = write_manifest(tmp_path, [{"title": "", "description": "x", "due_on": None}])
     with pytest.raises(ManifestError, match="non-empty string"):
         load_manifest(path)

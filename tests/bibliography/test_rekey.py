@@ -65,11 +65,13 @@ def test_derive_final_key_requires_family_given_form() -> None:
 
 def test_build_key_map_rejects_collisions() -> None:
     record_a = _verified(
-        citation_key="tbd2025alpha", arxiv_id="1111.1111",
+        citation_key="tbd2025alpha",
+        arxiv_id="1111.1111",
         arxiv_url="https://arxiv.org/abs/1111.1111",
     )
     record_b = _verified(
-        citation_key="tbd2025alpha", arxiv_id="2222.2222",
+        citation_key="tbd2025alpha",
+        arxiv_id="2222.2222",
         arxiv_url="https://arxiv.org/abs/2222.2222",
     )
     manifest = SourceManifest(records=(record_a, record_b))
@@ -84,9 +86,7 @@ def test_apply_key_map_uses_word_boundaries() -> None:
         "tbd2026agenticreasoning": "wei2026agenticreasoning",
         "tbd2025agenticreasoningtools": "wu2025agenticreasoningtools",
     }
-    text = (
-        "see tbd2025agenticreasoningtools and tbd2026agenticreasoning today."
-    )
+    text = "see tbd2025agenticreasoningtools and tbd2026agenticreasoning today."
     rewritten, count = apply_key_map(text, key_map)
     assert count == 2
     assert "wu2025agenticreasoningtools" in rewritten
@@ -136,9 +136,7 @@ def test_rekey_ledger_records_migration() -> None:
 
     import json
 
-    ledger = json.loads(
-        Path("results/run_logs/p7i05_rekey.json").read_text(encoding="utf-8")
-    )
+    ledger = json.loads(Path("results/run_logs/p7i05_rekey.json").read_text(encoding="utf-8"))
     assert ledger["schema"] == "p7i05-rekey/v1"
     assert ledger["previous_draft_sha256"] != ledger["new_draft_sha256"]
     assert len(ledger["key_map"]) == 10
@@ -154,9 +152,7 @@ def test_phase6_review_record_no_longer_matches_current_markdown() -> None:
 
     import json
 
-    record = json.loads(
-        Path("results/run_logs/review_record.json").read_text(encoding="utf-8")
-    )
+    record = json.loads(Path("results/run_logs/review_record.json").read_text(encoding="utf-8"))
     from agentic_publishing_pipeline.crews._review_gate import (
         compute_draft_revision,
     )

@@ -48,14 +48,10 @@ class CitationResolver:
 
     def __init__(self, manifest: SourceManifest) -> None:
         self._verified_keys: set[str] = {
-            r.citation_key
-            for r in manifest.records
-            if r.verification.status == "verified"
+            r.citation_key for r in manifest.records if r.verification.status == "verified"
         }
         self._rejected_keys: set[str] = {
-            r.citation_key
-            for r in manifest.records
-            if r.verification.status == "rejected"
+            r.citation_key for r in manifest.records if r.verification.status == "rejected"
         }
 
     @property
@@ -76,13 +72,10 @@ class CitationResolver:
                 "P7-I05 rekey must complete first"
             )
         if key in self._rejected_keys:
-            raise CitationResolutionError(
-                f"rejected source {key!r} cannot be cited{location}"
-            )
+            raise CitationResolutionError(f"rejected source {key!r} cannot be cited{location}")
         if key not in self._verified_keys:
             raise CitationResolutionError(
-                f"unknown citation key {key!r}{location}; "
-                f"not in the verified manifest"
+                f"unknown citation key {key!r}{location}; not in the verified manifest"
             )
         return key
 

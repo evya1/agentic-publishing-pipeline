@@ -19,9 +19,7 @@ _VALID_STATUS: frozenset[str] = frozenset({"unverified", "pending", "verified", 
 def require_str(record: Mapping[str, object], field_name: str, idx: int) -> str:
     value = record.get(field_name)
     if not isinstance(value, str) or not value.strip():
-        raise _ValidationError(
-            f"record #{idx} missing required string field {field_name!r}"
-        )
+        raise _ValidationError(f"record #{idx} missing required string field {field_name!r}")
     return value
 
 
@@ -63,9 +61,7 @@ def coerce_archive_path(record: Mapping[str, object], idx: int) -> str | None:
     if value is None:
         return None
     if not isinstance(value, str) or not value.strip():
-        raise _ValidationError(
-            f"record #{idx} field 'source_archive' must be a non-empty string"
-        )
+        raise _ValidationError(f"record #{idx} field 'source_archive' must be a non-empty string")
     posix = PurePosixPath(value.strip())
     if posix.is_absolute() or any(part == ".." for part in posix.parts):
         raise _ValidationError(
@@ -88,20 +84,14 @@ def coerce_verification(
         )
     method = raw.get("method")
     if not isinstance(method, str) or not method.strip():
-        raise _ValidationError(
-            f"record #{idx} verification.method must be a non-empty string"
-        )
+        raise _ValidationError(f"record #{idx} verification.method must be a non-empty string")
     verified_at = raw.get("verified_at")
     verified_by = raw.get("verified_by")
-    if verified_at is not None and (
-        not isinstance(verified_at, str) or not verified_at.strip()
-    ):
+    if verified_at is not None and (not isinstance(verified_at, str) or not verified_at.strip()):
         raise _ValidationError(
             f"record #{idx} verification.verified_at must be a non-empty string or null"
         )
-    if verified_by is not None and (
-        not isinstance(verified_by, str) or not verified_by.strip()
-    ):
+    if verified_by is not None and (not isinstance(verified_by, str) or not verified_by.strip()):
         raise _ValidationError(
             f"record #{idx} verification.verified_by must be a non-empty string or null"
         )

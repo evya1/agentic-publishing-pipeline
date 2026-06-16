@@ -52,11 +52,7 @@ class Diff:
     @property
     def is_clean(self) -> bool:
         return not (
-            self.missing
-            or self.extra
-            or self.conflicts
-            or self.duplicates
-            or self.bad_due_on
+            self.missing or self.extra or self.conflicts or self.duplicates or self.bad_due_on
         )
 
     @property
@@ -95,9 +91,7 @@ def load_manifest(path: Path) -> Manifest:
         if not isinstance(desc, str):
             raise ManifestError(f"milestones[{i}].description must be a string")
         if "due_on" in entry and entry["due_on"] is not None:
-            raise ManifestError(
-                f"milestones[{i}].due_on must be null (got {entry['due_on']!r})"
-            )
+            raise ManifestError(f"milestones[{i}].due_on must be null (got {entry['due_on']!r})")
         seen.add(title)
         parsed.append(ExpectedMilestone(title=title, description=desc))
     return Manifest(version=version, milestones=tuple(parsed))

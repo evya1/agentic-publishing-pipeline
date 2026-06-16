@@ -46,18 +46,14 @@ def _surname(author: str) -> str:
     """Return the family name from a ``"Family, Given"`` author string."""
 
     if not author or "," not in author:
-        raise RekeyError(
-            f"first author must be in 'Family, Given' form for rekey; got {author!r}"
-        )
+        raise RekeyError(f"first author must be in 'Family, Given' form for rekey; got {author!r}")
     family = author.split(",", 1)[0]
     decomposed = unicodedata.normalize(_DIACRITIC_NFKD, family)
     ascii_family = "".join(c for c in decomposed if not unicodedata.combining(c))
     ascii_lower = ascii_family.lower()
     stripped = _NON_ASCII_LETTER.sub("", ascii_lower)
     if not stripped:
-        raise RekeyError(
-            f"family name {family!r} has no ASCII letters after normalization"
-        )
+        raise RekeyError(f"family name {family!r} has no ASCII letters after normalization")
     return stripped
 
 
@@ -78,13 +74,9 @@ def derive_final_key(record: SourceRecord) -> str:
     """Compute the deterministic ``authorYYYYkey`` for one verified record."""
 
     if record.verification.status != "verified":
-        raise RekeyError(
-            f"record {record.citation_key!r} is not verified; rekey refused"
-        )
+        raise RekeyError(f"record {record.citation_key!r} is not verified; rekey refused")
     if not record.authors:
-        raise RekeyError(
-            f"record {record.citation_key!r} has no authors; rekey refused"
-        )
+        raise RekeyError(f"record {record.citation_key!r} has no authors; rekey refused")
     family = _surname(record.authors[0])
     slug = _slug_from_provisional(record.citation_key, record.year)
     return f"{family}{record.year}{slug}"

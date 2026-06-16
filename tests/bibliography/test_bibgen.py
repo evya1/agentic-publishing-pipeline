@@ -51,9 +51,7 @@ def test_render_entry_emits_required_biblatex_fields() -> None:
 
 
 def test_render_entry_refuses_unverified_record() -> None:
-    record = _record(
-        verification=VerificationRecord("unverified", "arxiv_api", None, None)
-    )
+    record = _record(verification=VerificationRecord("unverified", "arxiv_api", None, None))
     with pytest.raises(BibGenError, match="not verified"):
         render_entry(record)
 
@@ -118,9 +116,7 @@ def test_no_unverified_or_rejected_record_appears() -> None:
 
 
 def test_render_bib_refuses_empty_verified_set() -> None:
-    record = _record(
-        verification=VerificationRecord("rejected", "arxiv_api", None, None)
-    )
+    record = _record(verification=VerificationRecord("rejected", "arxiv_api", None, None))
     manifest = SourceManifest(records=(record,))
     with pytest.raises(BibGenError, match="no verified entries"):
         render_bib(manifest)

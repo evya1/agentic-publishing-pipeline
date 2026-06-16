@@ -54,9 +54,7 @@ def test_safe_slug_writes_under_chapters_root(tmp_path: Path) -> None:
         "_leading-underscore",
     ],
 )
-def test_unsafe_chapter_ids_rejected_without_writing(
-    tmp_path: Path, bad_id: str
-) -> None:
+def test_unsafe_chapter_ids_rejected_without_writing(tmp_path: Path, bad_id: str) -> None:
     md_root = _md_root(tmp_path)
     sibling_witness = tmp_path / "escape_witness"
     sibling_witness.mkdir()
@@ -88,9 +86,7 @@ def test_non_string_chapter_id_rejected(tmp_path: Path) -> None:
 
 def test_normal_offline_flow_still_succeeds(tmp_path: Path) -> None:
     record = run_phase6_generate(tmp_path.resolve(), MANIFEST)
-    chapters_root = (
-        tmp_path / CANONICAL_MD / CANONICAL_CHAPTERS_SUBDIR
-    ).resolve()
+    chapters_root = (tmp_path / CANONICAL_MD / CANONICAL_CHAPTERS_SUBDIR).resolve()
     for rel in record.chapters_written:
         target = (tmp_path / rel).resolve()
         target.relative_to(chapters_root)

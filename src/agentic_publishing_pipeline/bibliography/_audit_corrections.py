@@ -31,9 +31,7 @@ CORRECTIONS: dict[str, dict[str, object]] = {
         "original_manifest_value": (
             "The 2025 Planning Performance of Frontier Large Language Models"
         ),
-        "authoritative_value": (
-            "Frontier Large Language Models Rival State-of-the-Art Planners"
-        ),
+        "authoritative_value": ("Frontier Large Language Models Rival State-of-the-Art Planners"),
         "applied_at": "2026-06-16",
         "applied_by": "claude-opus-4.7+arxiv-api:evya1",
         "rationale": (

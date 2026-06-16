@@ -103,12 +103,21 @@ def _validate_workspace(workspace: Path, run_id: str, *, require_pdf: bool) -> V
     broken = _broken_manifest_entries(workspace)
     pdf = workspace / "latex_project" / "main.pdf"
     checks = [
-        CheckOutcome(name="required_artifacts", status="fail" if missing else "pass",
-                     evidence=", ".join(missing)),
-        CheckOutcome(name="manifest_integrity", status="fail" if broken else "pass",
-                     evidence=", ".join(broken)),
-        CheckOutcome(name="compiled_pdf", status="pass" if pdf.exists() else "skipped",
-                     evidence=str(pdf.relative_to(workspace)) if pdf.exists() else ""),
+        CheckOutcome(
+            name="required_artifacts",
+            status="fail" if missing else "pass",
+            evidence=", ".join(missing),
+        ),
+        CheckOutcome(
+            name="manifest_integrity",
+            status="fail" if broken else "pass",
+            evidence=", ".join(broken),
+        ),
+        CheckOutcome(
+            name="compiled_pdf",
+            status="pass" if pdf.exists() else "skipped",
+            evidence=str(pdf.relative_to(workspace)) if pdf.exists() else "",
+        ),
     ]
     if require_pdf and not pdf.exists():
         checks[-1] = CheckOutcome(name="compiled_pdf", status="fail", evidence="missing main.pdf")
@@ -157,6 +166,7 @@ def _write_contract(target: Path, payload: dict[str, object]) -> None:
 
 def _write_report_md(target: Path, report: ValidationReport) -> None:
     lines = ["# Validation report", "", f"Result: {report.result}", ""]
-    lines.extend(f"- {check.name}: {check.status} {check.evidence}".rstrip()
-                 for check in report.checks)
+    lines.extend(
+        f"- {check.name}: {check.status} {check.evidence}".rstrip() for check in report.checks
+    )
     target.write_text("\n".join(lines) + "\n", encoding="utf-8")

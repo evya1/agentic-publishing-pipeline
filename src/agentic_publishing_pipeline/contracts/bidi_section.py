@@ -24,8 +24,7 @@ class BiDiSection(ContractEnvelope):
     def _enforce_min_hebrew_tokens(cls, value: str) -> str:
         token_count = len(value.split())
         assert token_count >= MIN_HEBREW_TOKEN_COUNT, (
-            f"hebrew_body has {token_count} tokens; minimum is "
-            f"{MIN_HEBREW_TOKEN_COUNT}."
+            f"hebrew_body has {token_count} tokens; minimum is {MIN_HEBREW_TOKEN_COUNT}."
         )
         return value
 
@@ -33,7 +32,6 @@ class BiDiSection(ContractEnvelope):
     @classmethod
     def _enforce_min_english_terms(cls, value: list[str]) -> list[str]:
         assert len(value) >= MIN_INLINE_ENGLISH_TERMS, (
-            f"inline_english_terms requires at least "
-            f"{MIN_INLINE_ENGLISH_TERMS} entr(y/ies)."
+            f"inline_english_terms requires at least {MIN_INLINE_ENGLISH_TERMS} entr(y/ies)."
         )
         return value

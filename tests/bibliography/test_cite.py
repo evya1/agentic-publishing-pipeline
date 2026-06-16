@@ -87,16 +87,12 @@ def test_empty_or_whitespace_key_fails() -> None:
 def test_rewrite_reports_source_in_error() -> None:
     resolver = _resolver(_record("ada2025x"))
     with pytest.raises(CitationResolutionError, match="research_notes.md"):
-        resolver.rewrite_markdown(
-            "<!-- CITATION: missing -->", source="research_notes.md"
-        )
+        resolver.rewrite_markdown("<!-- CITATION: missing -->", source="research_notes.md")
 
 
 def test_extract_keys_preserves_order() -> None:
     resolver = _resolver(_record("ada2025x"), _record("bob2024y"))
-    keys = resolver.extract_keys(
-        "<!-- CITATION: bob2024y --> then <!-- CITATION: ada2025x -->"
-    )
+    keys = resolver.extract_keys("<!-- CITATION: bob2024y --> then <!-- CITATION: ada2025x -->")
     assert keys == ["bob2024y", "ada2025x"]
 
 
@@ -116,9 +112,7 @@ def test_coverage_reports_uncited_evaluation_source() -> None:
 
     manifest = load_source_manifest(MANIFEST)
     resolver = CitationResolver(manifest)
-    files = sorted(
-        p for p in GENERATED_MD.rglob("*.md") if p.name != "README.md"
-    )
+    files = sorted(p for p in GENERATED_MD.rglob("*.md") if p.name != "README.md")
     report = resolver.coverage(files)
     assert "ye2024mirai" in report.uncited_verified_keys
     assert set(report.cited_keys).issubset(resolver.verified_keys)
@@ -129,9 +123,7 @@ def test_ke2025reasoningfrontiers_is_now_cited() -> None:
 
     manifest = load_source_manifest(MANIFEST)
     resolver = CitationResolver(manifest)
-    files = sorted(
-        p for p in GENERATED_MD.rglob("*.md") if p.name != "README.md"
-    )
+    files = sorted(p for p in GENERATED_MD.rglob("*.md") if p.name != "README.md")
     report = resolver.coverage(files)
     assert "ke2025reasoningfrontiers" in report.cited_keys
 

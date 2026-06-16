@@ -1,0 +1,171 @@
+name: Baseline Contracts (Phase 1–7)
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # ── docs-presence ──────────────────────────────────────────────────────────
+  docs-presence:
+    name: Required documents present
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - run: python scripts/check_docs_present.py
+
+  # ── planning-ids ───────────────────────────────────────────────────────────
+  planning-ids:
+    name: Planning IDs unique
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - run: python scripts/check_planning_ids.py
+
+  # ── source-archives ────────────────────────────────────────────────────────
+  source-archives:
+    name: Source archives not tracked
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - run: python scripts/check_source_archives.py
+
+  # ── no-secrets ─────────────────────────────────────────────────────────────
+  no-secrets:
+    name: No tracked secrets or .env files
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - run: python scripts/check_no_secrets.py
+
+  # ── markdown-links ─────────────────────────────────────────────────────────
+  markdown-links:
+    name: Internal Markdown links resolve
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - run: python scripts/check_markdown_links.py
+
+  # ── provider-contracts ─────────────────────────────────────────────────────
+  provider-contracts:
+    name: Provider and gatekeeper boundary contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: "3.11"
+      - uses: astral-sh/setup-uv@bd01c18f51b31efa0756dc3e1631f943d53bdbbf  # v5.4.1
+      - run: uv sync --frozen --group dev
+      - name: Gatekeeper, fileio, and path-traversal tests
+        run: |
+          uv run pytest \
+            tests/tools/test_gatekeeper.py \
+            tests/tools/test_fileio.py \
+            tests/providers/ \
+            -v --no-header -q
+
+  # ── offline-no-network ─────────────────────────────────────────────────────
+  offline-no-network:
+    name: Offline and dry-run modes make no network or LLM calls
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: "3.11"
+      - uses: astral-sh/setup-uv@bd01c18f51b31efa0756dc3e1631f943d53bdbbf  # v5.4.1
+      - run: uv sync --frozen --group dev
+      - name: Dry-run smoke (no paid calls)
+        run: |
+          export MPLCONFIGDIR="$(mktemp -d)"
+          DRY_ROOT="$(mktemp -d)"
+          uv run python -m agentic_publishing_pipeline \
+            --mode dry-run \
+            --results-root "$DRY_ROOT"
+      - name: Offline-fixture smoke (no paid calls)
+        run: |
+          export MPLCONFIGDIR="$(mktemp -d)"
+          OFFLINE_ROOT="$(mktemp -d)"
+          uv run python -m agentic_publishing_pipeline \
+            --mode offline-fixture \
+            --topic "Reasoning-Centric Agentic LLM Systems" \
+            --manifest config/article_sources.yaml \
+            --registry config/prompt_registry \
+            --results-root "$OFFLINE_ROOT"
+
+  # ── review-gate ────────────────────────────────────────────────────────────
+  review-gate:
+    name: Phase 6 human-review gate and stale-approval rejection
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: "3.11"
+      - uses: astral-sh/setup-uv@bd01c18f51b31efa0756dc3e1631f943d53bdbbf  # v5.4.1
+      - run: uv sync --frozen --group dev
+      - name: Review-gate tests (including stale-SHA and LLM-identity rejection)
+        run: |
+          uv run pytest \
+            tests/crews/test_review_gate.py \
+            tests/crews/test_review_gate_path_identity.py \
+            -v --no-header -q
+
+  # ── phase7-bibliography ────────────────────────────────────────────────────
+  phase7-bibliography:
+    name: Phase 7 bibliography contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: "3.11"
+      - uses: astral-sh/setup-uv@bd01c18f51b31efa0756dc3e1631f943d53bdbbf  # v5.4.1
+      - run: uv sync --frozen --group dev
+      - name: Manifest schema, verified-source filtering, citation keys, BibTeX mapping, audit ledger
+        run: |
+          uv run pytest tests/bibliography/ -v --no-header -q
+
+  # ── phase-order ────────────────────────────────────────────────────────────
+  phase-order:
+    name: Phase-order protection
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Verify PR branch contains base (is not behind)
+        if: github.event_name == 'pull_request'
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          HEAD="${{ github.event.pull_request.head.sha }}"
+          if ! git merge-base --is-ancestor "$BASE" "$HEAD"; then
+            echo "FAIL: PR branch does not contain the base commit. Rebase before proceeding."
+            exit 1
+          fi
+          echo "OK: branch contains base commit $BASE."
+      - name: Phase-order check (reads PLAN.md from base commit, not PR files)
+        if: github.event_name == 'pull_request'
+        run: |
+          python scripts/check_phase_order.py \
+            "${{ github.head_ref }}" \
+            "${{ github.event.pull_request.base.sha }}"
+      - name: Phase-order check (push to main — working tree)
+        if: github.event_name != 'pull_request'
+        run: python scripts/check_phase_order.py "${{ github.ref_name }}"

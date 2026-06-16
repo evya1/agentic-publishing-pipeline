@@ -27,9 +27,7 @@ def validate_chapter_id(chapter_id: object) -> str:
     escape ``results/generated_markdown/chapters/`` — see module docstring.
     """
     if not isinstance(chapter_id, str):
-        raise UnsafeChapterIdError(
-            f"chapter_id must be str, got {type(chapter_id).__name__}"
-        )
+        raise UnsafeChapterIdError(f"chapter_id must be str, got {type(chapter_id).__name__}")
     if not chapter_id:
         raise UnsafeChapterIdError("chapter_id must not be empty")
     if "\x00" in chapter_id:
@@ -37,20 +35,13 @@ def validate_chapter_id(chapter_id: object) -> str:
     if chapter_id in {".", ".."}:
         raise UnsafeChapterIdError(f"chapter_id must not be {chapter_id!r}")
     if "/" in chapter_id or "\\" in chapter_id:
-        raise UnsafeChapterIdError(
-            f"chapter_id {chapter_id!r} must not contain path separators"
-        )
+        raise UnsafeChapterIdError(f"chapter_id {chapter_id!r} must not contain path separators")
     if chapter_id.startswith("~"):
-        raise UnsafeChapterIdError(
-            f"chapter_id {chapter_id!r} must not start with '~'"
-        )
+        raise UnsafeChapterIdError(f"chapter_id {chapter_id!r} must not start with '~'")
     if len(chapter_id) >= 2 and chapter_id[1] == ":":
-        raise UnsafeChapterIdError(
-            f"chapter_id {chapter_id!r} must not look like a drive path"
-        )
+        raise UnsafeChapterIdError(f"chapter_id {chapter_id!r} must not look like a drive path")
     if not _SAFE_CHAPTER_ID_RE.fullmatch(chapter_id):
         raise UnsafeChapterIdError(
-            f"chapter_id {chapter_id!r} must match "
-            f"{_SAFE_CHAPTER_ID_RE.pattern}"
+            f"chapter_id {chapter_id!r} must match {_SAFE_CHAPTER_ID_RE.pattern}"
         )
     return chapter_id

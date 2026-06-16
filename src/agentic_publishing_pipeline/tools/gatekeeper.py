@@ -85,10 +85,16 @@ class ApiGatekeeper:
         except ProviderError as exc:
             elapsed_ms = (self._clock() - started) * 1000.0
             self._ctx.usage.append(
-                agent_id=identity.agent_id, task_id=identity.task_id,
-                attempt=identity.attempt, model=self._facade.model_name,
-                tokens_in=0, tokens_out=0, latency_ms=elapsed_ms,
-                status="error", estimated_cost_usd=0.0, mode=self._ctx.mode,
+                agent_id=identity.agent_id,
+                task_id=identity.task_id,
+                attempt=identity.attempt,
+                model=self._facade.model_name,
+                tokens_in=0,
+                tokens_out=0,
+                latency_ms=elapsed_ms,
+                status="error",
+                estimated_cost_usd=0.0,
+                mode=self._ctx.mode,
             )
             if not exc.retriable:
                 raise GatekeeperRejection(str(exc), kind="non_retriable") from exc
@@ -98,16 +104,24 @@ class ApiGatekeeper:
             self._ctx.events.append("provider.rejected", {"reason": "timeout"})
             raise GatekeeperRejection("timeout", kind="timeout")
         cost = estimate_cost(
-            response.model_id, response.tokens_in, response.tokens_out, mode=self._ctx.mode,
+            response.model_id,
+            response.tokens_in,
+            response.tokens_out,
+            mode=self._ctx.mode,
         )
         self._check_budget(projected_cost=cost)
         self._budget.charge(cost=cost)
         self._ctx.usage.append(
-            agent_id=identity.agent_id, task_id=identity.task_id,
-            attempt=identity.attempt, model=response.model_id,
-            tokens_in=response.tokens_in, tokens_out=response.tokens_out,
-            latency_ms=elapsed_ms, status="ok",
-            estimated_cost_usd=cost, mode=self._ctx.mode,
+            agent_id=identity.agent_id,
+            task_id=identity.task_id,
+            attempt=identity.attempt,
+            model=response.model_id,
+            tokens_in=response.tokens_in,
+            tokens_out=response.tokens_out,
+            latency_ms=elapsed_ms,
+            status="ok",
+            estimated_cost_usd=cost,
+            mode=self._ctx.mode,
         )
         return response
 
@@ -123,10 +137,15 @@ class ApiGatekeeper:
         elapsed_ms = (self._clock() - started) * 1000.0
         self._budget.charge(cost=0.0)
         self._ctx.usage.append(
-            agent_id=identity.agent_id, task_id=identity.task_id,
-            attempt=identity.attempt, model=self._facade.search_name,
-            tokens_in=0, tokens_out=len(response.hits),
-            latency_ms=elapsed_ms, status="ok",
-            estimated_cost_usd=0.0, mode=self._ctx.mode,
+            agent_id=identity.agent_id,
+            task_id=identity.task_id,
+            attempt=identity.attempt,
+            model=self._facade.search_name,
+            tokens_in=0,
+            tokens_out=len(response.hits),
+            latency_ms=elapsed_ms,
+            status="ok",
+            estimated_cost_usd=0.0,
+            mode=self._ctx.mode,
         )
         return response

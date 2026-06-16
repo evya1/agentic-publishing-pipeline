@@ -35,9 +35,7 @@ def test_main_rejects_malformed_manifest_path(tmp_path: Path, capsys) -> None:
     assert "Manifest invalid" in capsys.readouterr().err
 
 
-def test_main_handles_resolve_repo_failure(
-    simple_manifest_path: Path, monkeypatch, capsys
-) -> None:
+def test_main_handles_resolve_repo_failure(simple_manifest_path: Path, monkeypatch, capsys) -> None:
     def _fail() -> str:
         raise GhError("no repo here")
 
@@ -59,9 +57,7 @@ def test_main_dispatches_verify_with_explicit_repo(
         ],
         captured,
     )
-    rc = main(
-        ["verify", "--manifest", str(simple_manifest_path), "--repo", "owner/name"]
-    )
+    rc = main(["verify", "--manifest", str(simple_manifest_path), "--repo", "owner/name"])
     assert rc == EXIT_OK
     assert captured["repo"] == "owner/name"
     out = capsys.readouterr().out
@@ -70,13 +66,9 @@ def test_main_dispatches_verify_with_explicit_repo(
     assert captured["client"].create_calls == []
 
 
-def test_main_dispatches_dry_run(
-    simple_manifest_path: Path, monkeypatch, capsys
-) -> None:
+def test_main_dispatches_dry_run(simple_manifest_path: Path, monkeypatch, capsys) -> None:
     captured: dict = {}
-    _patch_gh_client(
-        monkeypatch, [make_live("Phase A", "Alpha.", number=1)], captured
-    )
+    _patch_gh_client(monkeypatch, [make_live("Phase A", "Alpha.", number=1)], captured)
     rc = main(["dry-run", "--manifest", str(simple_manifest_path), "--repo", "o/r"])
     assert rc == EXIT_DIVERGED
     assert "Would create: Phase B" in capsys.readouterr().out
@@ -87,9 +79,7 @@ def test_main_dispatches_apply_with_confirm(
     simple_manifest_path: Path, monkeypatch, capsys
 ) -> None:
     captured: dict = {}
-    _patch_gh_client(
-        monkeypatch, [make_live("Phase A", "Alpha.", number=1)], captured
-    )
+    _patch_gh_client(monkeypatch, [make_live("Phase A", "Alpha.", number=1)], captured)
     rc = main(
         [
             "apply",

@@ -58,14 +58,10 @@ def verify_record(record: SourceRecord, metadata: ArxivMetadata) -> Verification
         )
     title_match = _title_matches(record.title, metadata.title)
     if not title_match:
-        mismatches.append(
-            f"title mismatch: manifest={record.title!r} arxiv={metadata.title!r}"
-        )
+        mismatches.append(f"title mismatch: manifest={record.title!r} arxiv={metadata.title!r}")
     year_match = record.year == metadata.published_year
     if not year_match:
-        mismatches.append(
-            f"year mismatch: manifest={record.year} arxiv={metadata.published_year}"
-        )
+        mismatches.append(f"year mismatch: manifest={record.year} arxiv={metadata.published_year}")
     authors = tuple(to_surname_given(name) for name in metadata.authors)
     if not authors:
         mismatches.append("authoritative response had no authors")

@@ -60,9 +60,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def _check_live_credentials(env: dict[str, str]) -> None:
     if not any(env.get(name) for name in ("ANTHROPIC_API_KEY", "OPENAI_API_KEY")):
-        raise SystemExit(
-            "live mode requires ANTHROPIC_API_KEY or OPENAI_API_KEY in .env"
-        )
+        raise SystemExit("live mode requires ANTHROPIC_API_KEY or OPENAI_API_KEY in .env")
 
 
 def _load_registry_or_die(path: Path) -> str:

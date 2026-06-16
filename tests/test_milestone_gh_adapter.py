@@ -44,9 +44,7 @@ def test_list_milestones_parses_payload(monkeypatch) -> None:
     _patch_run(monkeypatch, lambda *a, **k: _completed(stdout=payload))
     result = GhClient("o/r").list_milestones()
     assert result == [
-        LiveMilestone(
-            number=1, title="A", description="Alpha.", due_on=None, state="open"
-        )
+        LiveMilestone(number=1, title="A", description="Alpha.", due_on=None, state="open")
     ]
 
 
@@ -68,9 +66,7 @@ def test_list_milestones_raises_on_non_list_payload(monkeypatch) -> None:
 
 
 def test_run_raises_on_nonzero_exit_with_stderr(monkeypatch) -> None:
-    _patch_run(
-        monkeypatch, lambda *a, **k: _completed(returncode=1, stderr="boom")
-    )
+    _patch_run(monkeypatch, lambda *a, **k: _completed(returncode=1, stderr="boom"))
     with pytest.raises(GhError, match="boom"):
         GhClient("o/r").list_milestones()
 
@@ -117,9 +113,7 @@ def test_resolve_repo_success(monkeypatch) -> None:
 
 
 def test_resolve_repo_failure_surfaces_stderr(monkeypatch) -> None:
-    _patch_run(
-        monkeypatch, lambda *a, **k: _completed(returncode=1, stderr="not a repo")
-    )
+    _patch_run(monkeypatch, lambda *a, **k: _completed(returncode=1, stderr="not a repo"))
     with pytest.raises(GhError, match="not a repo"):
         resolve_repo()
 

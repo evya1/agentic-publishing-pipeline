@@ -91,9 +91,7 @@ def main(argv: list[str] | None = None) -> int:
 
     manifest = load_source_manifest(args.manifest)
     started_at = datetime.now(UTC).isoformat()
-    results = _verify_manifest(
-        manifest, args.fixture_dir, polite_delay_s=args.polite_delay_s
-    )
+    results = _verify_manifest(manifest, args.fixture_dir, polite_delay_s=args.polite_delay_s)
     finished_at = datetime.now(UTC).isoformat()
     report = {
         "schema": "p7i02-verification-run/v1",

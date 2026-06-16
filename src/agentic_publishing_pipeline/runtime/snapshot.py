@@ -37,9 +37,7 @@ def snapshot_settings(env: Mapping[str, str]) -> dict[str, str]:
     """Return explicitly supported non-secret application settings."""
 
     return {
-        name: env[name]
-        for name in APPLICATION_SETTING_NAMES
-        if name in env and env[name] != ""
+        name: env[name] for name in APPLICATION_SETTING_NAMES if name in env and env[name] != ""
     }
 
 

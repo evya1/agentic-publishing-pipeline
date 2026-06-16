@@ -52,9 +52,7 @@ def _default_runner(cmd: list[str], cwd: Path, timeout: float) -> tuple[int, str
 def _ensure_binaries(*, allow_missing: bool) -> None:
     missing = [b for b in ("lualatex", "biber") if shutil.which(b) is None]
     if missing and not allow_missing:
-        raise LaTeXBuildError(
-            "missing required LaTeX binaries: " + ", ".join(missing)
-        )
+        raise LaTeXBuildError("missing required LaTeX binaries: " + ", ".join(missing))
 
 
 def _parse_log(log: str) -> tuple[list[str], list[str]]:

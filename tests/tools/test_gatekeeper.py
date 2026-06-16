@@ -134,7 +134,9 @@ def test_call_model_timeout_raises(tmp_path: Path) -> None:
     ctx = _context(tmp_path)
     clock_values = iter([0.0, 60.0])
     gk = ApiGatekeeper(
-        facade=_facade(), config=_config(timeout=10.0), run_context=ctx,
+        facade=_facade(),
+        config=_config(timeout=10.0),
+        run_context=ctx,
         clock=lambda: next(clock_values),
     )
     with pytest.raises(GatekeeperRejection) as info:

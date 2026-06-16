@@ -73,8 +73,7 @@ def main(argv: list[str] | None = None) -> int:
     rejected = [r.citation_key for r in manifest.records if r.verification.status != "verified"]
     if rejected:
         raise RuntimeError(
-            f"manifest has {len(rejected)} non-verified records "
-            f"({sorted(rejected)}); rekey refused"
+            f"manifest has {len(rejected)} non-verified records ({sorted(rejected)}); rekey refused"
         )
     key_map = build_key_map(manifest)
     previous_md_sha = compute_draft_revision(args.generated_md_root)

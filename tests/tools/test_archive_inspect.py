@@ -101,9 +101,7 @@ def test_rejects_encrypted_member(tmp_path: Path) -> None:
     # offset 6 to keep formats consistent.
     struct.pack_into("<H", raw, 6, struct.unpack_from("<H", raw, 6)[0] | 0x1)
     cd_off = raw.index(b"PK\x01\x02")
-    struct.pack_into(
-        "<H", raw, cd_off + 8, struct.unpack_from("<H", raw, cd_off + 8)[0] | 0x1
-    )
+    struct.pack_into("<H", raw, cd_off + 8, struct.unpack_from("<H", raw, cd_off + 8)[0] | 0x1)
     archive.write_bytes(bytes(raw))
     with pytest.raises(ArchiveInspectionError, match="encrypted"):
         inspect_archive(archive, archive_root=root)
