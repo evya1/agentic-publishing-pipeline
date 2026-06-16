@@ -47,7 +47,6 @@
   },
   "renderer": {
     "backend": "Agg",
-    "commit_sha": "eda69409a5a2dcb15b0721c8c324dbb87f7c7ece",
     "name": "matplotlib_grouped_bar_chart",
     "python_version": "3.14.4",
     "version": "3.11.0"

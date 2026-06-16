@@ -15,7 +15,6 @@ def build_provenance(
     input_sha256: str,
     output_sha256: str,
     relative_png_path: str,
-    commit_sha: str | None,
 ) -> dict[str, object]:
     return {
         "schema_version": 1,
@@ -52,7 +51,6 @@ def build_provenance(
             "version": matplotlib.__version__,
             "backend": matplotlib.get_backend(),
             "python_version": platform.python_version(),
-            "commit_sha": commit_sha,
         },
         "input_sha256": input_sha256,
         "output_sha256": output_sha256,

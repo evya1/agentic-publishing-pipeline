@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import hashlib
-import subprocess
 from pathlib import Path
 
 from ..runtime import PipelineRunContext, PromotionRefused, promote
@@ -35,7 +34,6 @@ def render_asset(
             input_sha256=input_sha256,
             output_sha256=output_sha256,
             relative_png_path=png_relative,
-            commit_sha=_git_commit_sha(),
         )
         fileio.write_json(provenance_relative, provenance)
         fileio.record_event("graph.rendered", {"path": png_relative, "asset_id": spec.asset_id})
@@ -130,14 +128,5 @@ def _register_artifact(
         relative_path=relative_path,
         produced_by_task="visualization",
     )
-
-
-def _git_commit_sha() -> str | None:
-    proc = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=False)
-    if proc.returncode != 0:
-        return None
-    return proc.stdout.strip() or None
-
-
 def _sha256_bytes(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()

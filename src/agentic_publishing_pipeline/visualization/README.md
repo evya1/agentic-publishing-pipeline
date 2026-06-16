@@ -9,6 +9,11 @@ article figures. The production path is:
 workspace writes via `FileIO` -> provenance JSON -> explicit promotion to
 `latex_project/figures/`
 
+The committed provenance is byte-stable across clean regenerations. It records
+the locked Python and Matplotlib environment, but it does not embed the current
+Git HEAD because that would make artifact regeneration drift after unrelated
+later commits.
+
 ## Command
 
 ```sh
