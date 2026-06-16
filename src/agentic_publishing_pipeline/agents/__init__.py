@@ -1,5 +1,15 @@
-"""CrewAI agent definitions (placeholder).
+"""CrewAI agent definitions.
 
-No CrewAI agents are defined yet. See ``README.md`` in this directory and
-``docs/PRD_crewai_pipeline.md`` for the planned roles.
+Factory helpers build the configured PRD agents from the prompt registry.
 """
+
+from __future__ import annotations
+
+from .factory import AGENT_PROMPT_IDS, AGENT_TASK_IDS, AgentFactoryError, build_agents
+
+__all__ = [
+    "AGENT_PROMPT_IDS",
+    "AGENT_TASK_IDS",
+    "AgentFactoryError",
+    "build_agents",
+]
