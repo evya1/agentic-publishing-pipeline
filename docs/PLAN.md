@@ -1,12 +1,13 @@
 # PLAN — agentic-publishing-pipeline
 
-> **Status:** Phases 0, 1, 1.5, 2, 3, 4, 5, 7, and 8 are complete and
-> closed. Phase 6 is re-opened for corrective recovery under P6-I04 and
-> P6-I05. Phase 7 landed through PR #83, verifying the canonical source
-> manifest and generating `latex_project/references.bib`. Phase 8 landed
-> through PR #92, delivering the deterministic Python graph pipeline and
-> committing a canonical PNG artifact to `latex_project/figures/`. Phase 9
-> assembly waits on the fresh Phase 6 manuscript approval. Phases 9-14
+> **Status:** Phases 0, 1, 1.5, 2, 3, 4, 5, 6, 7, and 8 are complete and
+> closed. Phase 6 corrective recovery is complete through PR #96; P6-I04
+> and P6-I05 are closed with evidence. Phase 7 landed through PR #83,
+> verifying the canonical source manifest and generating
+> `latex_project/references.bib`. Phase 8 landed through PR #92, delivering
+> the deterministic Python graph pipeline and committing a canonical PNG
+> artifact to `latex_project/figures/`. Phase 9 assembly proceeds once the
+> maintainer approves the review packet produced by PR #96. Phases 9-14
 > remain open.
 
 ## How PRD, PLAN, TODO, and GitHub fit together
@@ -343,7 +344,7 @@ above is implemented and tested. PR #79 merged the work to `main`; the
 offline-fixture path and baseline CI gates are green; P5-I01 through P5-I13
 are closed with evidence; the Phase 5 milestone is closed.
 
-### Phase 6 — Markdown-first content pipeline *(re-opened for corrective recovery)*
+### Phase 6 — Markdown-first content pipeline *(corrective recovery complete — PR #96; pending maintainer review-gate approval before Phase 9)*
 
 Writer/Outline/Reviewer agents produce Markdown drafts at
 `results/generated_markdown/` (canonical, per FR-12 and §12.3). The
@@ -364,11 +365,12 @@ phase-level branch and pull request because P6-I05 depends on the orchestration
 introduced by P6-I04 and both issues share the same human-review checkpoint.
 The default one-issue-one-PR rule remains unchanged for unrelated work.
 
-**Exit criterion (pending):** a real sequential CrewAI kickoff is wired through
-the controlled provider and gatekeeper seams, a complete eight-chapter
-candidate manuscript is generated in an isolated run workspace, deterministic
-preflight passes, and the run stops at the maintainer-owned human review gate
-with a review packet and exact aggregate hash.
+**Exit criterion (met — pending human review gate):** a real sequential CrewAI
+kickoff is wired through the controlled provider and gatekeeper seams
+(P6-I04, PR #96); a complete eight-chapter candidate manuscript is generated
+in an isolated run workspace; deterministic preflight passes; and the run
+stops at the maintainer-owned human review gate with a review packet and exact
+aggregate hash. Phase 9 may begin once the maintainer approves that packet.
 
 ### Phase 7 — Real-source and bibliography pipeline *(complete and closed — PR #83)*
 
@@ -473,10 +475,9 @@ Markdown→LaTeX conversion, visualization, and `ValidatorService`. Keep
 in `README.md`: install steps, LaTeX distribution requirements (LuaLaTeX +
 `David CLM` font), regeneration commands, and cost/usage notes.
 
-**P12-I05 (planned):** harden CI with ≥85% coverage, a supported
-Python-version matrix, preserved frozen dependency installation,
-line-cap enforcement, and offline integration (extends P5-I13's
-baseline; do not duplicate scope).
+**P12-I05 (merged — PR #86, issue #85):** hardened CI with ≥85% coverage,
+preserved frozen dependency installation, line-cap enforcement, and offline
+integration (extends P5-I13's baseline). Closed with evidence.
 
 **P12-I06 (planned):** prove genericity by running the same pipeline
 against a second verified topic and a different verified manifest
@@ -521,11 +522,12 @@ group member has submitted in Moodle.
 
 - Phase 1 is complete (mechanism PRDs reconciled — commit `4e5517c`).
   Phase 1.5 is complete (demo topic and source manifest locked —
-  commit `303a425`). Phases 2, 3, 4, 5, 6, and 7 are complete and
-  closed (milestones #1 through #7 closed). Phase 9 is the next open
-  implementation phase. Phases 9 through 14 remain open and pending
-  future implementation. None of the currently-open phases is allowed
-  to be marked complete preemptively.
+  commit `303a425`). Phases 2, 3, 4, 5, 6, 7, and 8 are complete and
+  closed (milestones #1 through #7 closed; Phase 6 re-closed via PR #96).
+  Phase 9 is the next open implementation phase and may begin once the
+  maintainer approves the Phase 6 review packet. Phases 9 through 14
+  remain open and pending future implementation. None of the currently-open
+  phases is allowed to be marked complete preemptively.
   PRD acceptance-criteria checkboxes (`docs/PRD.md` §14,
   `docs/HW3_REQUIREMENTS.md`, `SUBMISSION_CHECKLIST.md`) are ticked
   only after the underlying artifact is verified on disk and, where

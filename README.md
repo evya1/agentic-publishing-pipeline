@@ -1,14 +1,15 @@
 # agentic-publishing-pipeline
 
-> **Status:** Phases 0 through 5, 7, and 8 are merged into `main`. Phase 6
-> is under corrective recovery for real CrewAI orchestration and a fresh
-> human-reviewed complete manuscript. Phase 8 delivered a deterministic
-> Python graph pipeline: typed grouped-bar-chart spec,
-> strict validation, Matplotlib Agg renderer, SHA-256 provenance, and a
-> canonical artifact committed to `latex_project/figures/` (PR #92). Phase 12
-> hardened CI with coverage gates, lint, and regression-guard scripts
-> (PR #86). Phase 9 (LaTeX project assembly) waits on fresh Phase 6
-> manuscript approval. No final PDF has been generated.
+> **Status:** Phases 0 through 8 are merged into `main`. Phase 6 corrective
+> recovery is complete through PR #96 (real CrewAI orchestration and a
+> complete manuscript candidate; pending maintainer review-gate approval).
+> Phase 8 delivered a deterministic Python graph pipeline: typed
+> grouped-bar-chart spec, strict validation, Matplotlib Agg renderer,
+> SHA-256 provenance, and a canonical artifact committed to
+> `latex_project/figures/` (PR #92). Phase 12 hardened CI with coverage
+> gates, lint, and regression-guard scripts (PR #86). Phase 9 (LaTeX project
+> assembly) proceeds once the maintainer approves the Phase 6 review packet.
+> No final PDF has been generated.
 
 This repository will host a CrewAI-based pipeline that produces a polished LaTeX
 PDF article/book on a user-selected topic. The current state includes the
@@ -25,9 +26,9 @@ validation, and `results/final.pdf` remain unfinished.
 
 ### Current status
 
-- Phase 6 Markdown-first content generation is under corrective recovery:
-  real CrewAI construction is now implemented on the recovery branch, and the
-  next gate is a fresh human review of complete candidate Markdown bytes.
+- Phase 6 corrective recovery is complete (PR #96): real CrewAI orchestration
+  is wired, a complete eight-chapter candidate manuscript is produced, and the
+  pipeline stops at the maintainer-owned human review gate with a review packet.
 - Phase 7 real-source bibliography pipeline is merged into `main` (PR #83):
   ArXiv metadata verified, citation keys migrated, `\cite{}` placeholders
   resolved, untrusted-archive policy enforced.
