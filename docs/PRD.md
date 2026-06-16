@@ -25,7 +25,6 @@ The project must demonstrate:
 - use of diagrams, tables, and figures in the text;
 - reproducible repository structure and documentation;
 - visible evidence of quality control, validation, logs, and cost awareness.
- 
 
 ---
 
@@ -77,21 +76,21 @@ The product is expected to be:
 7. Compile the LaTeX project into a polished final PDF.
 8. Preserve intermediate artifacts so the pipeline is observable and debuggable.
 9. Document installation, configuration, execution, and regeneration instructions.
-10. Demonstrate professional code quality and project structure and design. 
+10. Demonstrate professional code quality and project structure and design.
 
 ### 5.2 LaTeX Document Engineering Goals
 
-1. The final LaTeX document must be composed from multiple internal `.tex` files, similar to professional academic article  projects.
+1. The final LaTeX document must be composed from multiple internal `.tex` files, similar to professional academic article projects.
 2. Each internal LaTeX file must have a clear responsibility, such as:
-   - `main.tex` — root document and includes;
-   - `preamble.tex` — packages, fonts, document settings;
-   - `macros.tex` — project-specific mathematical notation and reusable commands;
-   - `chapters/*.tex` — individual chapters/sections;
-   - `figures/` — generated and static figures;
-   - `tables/` — standalone table `.tex` files;
-   - `references.bib` — bibliography records.
+    - `main.tex` — root document and includes;
+    - `preamble.tex` — packages, fonts, document settings;
+    - `macros.tex` — project-specific mathematical notation and reusable commands;
+    - `chapters/*.tex` — individual chapters/sections;
+    - `figures/` — generated and static figures;
+    - `tables/` — standalone table `.tex` files;
+    - `references.bib` — bibliography records.
 
-   Tables and TikZ figures must not be written inline inside chapter files. Their LaTeX source code must be placed in dedicated files under tables/ or figures/, and chapter files must include them at the relevant location using \input{...}. This keeps chapter files focused on the article text and follows the same clean-code principle used in software: large technical blocks should be separated by responsibility instead of bloating the main content files.
+    Tables and TikZ figures must not be written inline inside chapter files. Their LaTeX source code must be placed in dedicated files under tables/ or figures/, and chapter files must include them at the relevant location using \input{...}. This keeps chapter files focused on the article text and follows the same clean-code principle used in software: large technical blocks should be separated by responsibility instead of bloating the main content files.
 
 3. The system must include a `macros.tex` file for mathematical conventions used throughout the article.
 4. The article must include a nomenclature section for at least two symbols used in the document.
@@ -119,26 +118,26 @@ The product is expected to be:
 
 ## 6. Success Metrics / KPIs
 
-| KPI | Target |
-|---|---|
-| Final PDF generation | `results/final.pdf` exists and opens successfully. |
-| Page count | Final PDF is  always nore than  15 pages, preferably 15–20 pages according to layout.|
-| LaTeX project completeness | Full LaTeX source directory exists and can regenerate the PDF. |
+| KPI                        | Target                                                                                                                                                                                                                                                              |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Final PDF generation       | `results/final.pdf` exists and opens successfully.                                                                                                                                                                                                                  |
+| Page count                 | Final PDF is always nore than 15 pages, preferably 15–20 pages according to layout.                                                                                                                                                                                 |
+| LaTeX project completeness | Full LaTeX source directory exists and can regenerate the PDF.                                                                                                                                                                                                      |
 | Multi-file LaTeX structure | `main.tex` includes separate files for preamble, macros, and chapters. Each chapter may call related table files and TikZ figure files using `\input{...}`. Table code and TikZ figure code must live in dedicated `.tex` files, not directly inside chapter files. |
-| Required content coverage | PDF contains title page, table of contents, chapters, headers/footers, image, Python-generated graph, tikz figure, table, equation, theorem-like environment, bibliography, nomenclature, and index. |
-| CrewAI orchestration | Specialized agents (as defined in §8.3) and at least 5 tasks are defined. |
-| Context propagation | Tasks should consume outputs from previous tasks via explicit context. |
-| Markdown-first workflow | Intermediate Markdown artifacts are generated before LaTeX conversion. |
-| BiDi handling | At least one section demonstrates mixed Hebrew and English text with correct RTL behavior, alignment, and fonts. |
-| Cross-references | At least one figure/table/equation is referenced later using LaTeX references such as `\ref` or `\eqref`. |
-| Bibliography citations | The document includes bibliography citations in the text and a rendered bibliography section. |
-| Nomenclature | At least two symbols appear in a nomenclature section near the end of the document. |
-| Index | At least one Hebrew word and one English word appear in the final index. |
-| Reproducibility | README instructions allow a new developer to install dependencies and regenerate the main outputs. |
-| Observability | Logs or run summaries document major pipeline stages, failures, and outputs. |
-| Cost awareness | The project documents provider/model usage and estimated or measured cost. |
-| Code quality | `ruff check` and `pytest` pass, or any deviations are explicitly documented. |
-| Security | No API keys or secrets are committed; `.env-example` exists. |
+| Required content coverage  | PDF contains title page, table of contents, chapters, headers/footers, image, Python-generated graph, tikz figure, table, equation, theorem-like environment, bibliography, nomenclature, and index.                                                                |
+| CrewAI orchestration       | Specialized agents (as defined in §8.3) and at least 5 tasks are defined.                                                                                                                                                                                           |
+| Context propagation        | Tasks should consume outputs from previous tasks via explicit context.                                                                                                                                                                                              |
+| Markdown-first workflow    | Intermediate Markdown artifacts are generated before LaTeX conversion.                                                                                                                                                                                              |
+| BiDi handling              | At least one section demonstrates mixed Hebrew and English text with correct RTL behavior, alignment, and fonts.                                                                                                                                                    |
+| Cross-references           | At least one figure/table/equation is referenced later using LaTeX references such as `\ref` or `\eqref`.                                                                                                                                                           |
+| Bibliography citations     | The document includes bibliography citations in the text and a rendered bibliography section.                                                                                                                                                                       |
+| Nomenclature               | At least two symbols appear in a nomenclature section near the end of the document.                                                                                                                                                                                 |
+| Index                      | At least one Hebrew word and one English word appear in the final index.                                                                                                                                                                                            |
+| Reproducibility            | README instructions allow a new developer to install dependencies and regenerate the main outputs.                                                                                                                                                                  |
+| Observability              | Logs or run summaries document major pipeline stages, failures, and outputs.                                                                                                                                                                                        |
+| Cost awareness             | The project documents provider/model usage and estimated or measured cost.                                                                                                                                                                                          |
+| Code quality               | `ruff check` and `pytest` pass, or any deviations are explicitly documented.                                                                                                                                                                                        |
+| Security                   | No API keys or secrets are committed; `.env-example` exists.                                                                                                                                                                                                        |
 
 ---
 
@@ -185,89 +184,89 @@ The project does not include:
 
 ### 8.1 Input and Configuration
 
-| ID | Requirement |
-|---|---|
-| FR-1 | The system shall accept a document topic through configuration and/or CLI. |
+| ID   | Requirement                                                                                                                                                                |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FR-1 | The system shall accept a document topic through configuration and/or CLI.                                                                                                 |
 | FR-2 | The system shall allow configuration of model provider, model name, output paths, language mode, and LaTeX engine. The default LaTeX engine for the MVP shall be LuaLaTeX. |
-| FR-3 | The system shall load secrets from environment variables or `.env`, never from hardcoded source code. |
-| FR-4 | The system shall provide `.env-example` documenting required environment variables. |
+| FR-3 | The system shall load secrets from environment variables or `.env`, never from hardcoded source code.                                                                      |
+| FR-4 | The system shall provide `.env-example` documenting required environment variables.                                                                                        |
 
 ### 8.2 CrewAI Workflow
 
-| ID | Requirement |
-|---|---|
-| FR-5 | The system shall define CrewAI agents with explicit `role`, `goal`, `backstory`, and optional tools. |
-| FR-6 | The system shall define tasks with clear `description`, `expected_output`, assigned `agent`, and `context` where relevant. |
-| FR-7 | The system shall assemble agents and tasks into a CrewAI crew. |
-| FR-8 | The process should be sequential. |
-| FR-9 | The system shall run the crew using a kickoff-style entry point. |
-| FR-10 | The system shall save raw and processed outputs from the crew. |
+| ID    | Requirement                                                                                                                |
+| ----- | -------------------------------------------------------------------------------------------------------------------------- |
+| FR-5  | The system shall define CrewAI agents with explicit `role`, `goal`, `backstory`, and optional tools.                       |
+| FR-6  | The system shall define tasks with clear `description`, `expected_output`, assigned `agent`, and `context` where relevant. |
+| FR-7  | The system shall assemble agents and tasks into a CrewAI crew.                                                             |
+| FR-8  | The process should be sequential.                                                                                          |
+| FR-9  | The system shall run the crew using a kickoff-style entry point.                                                           |
+| FR-10 | The system shall save raw and processed outputs from the crew.                                                             |
 
 ### 8.3 Agent Responsibilities
 
-| Agent | Responsibility |
-|---|---|
-| Research Agent | Collects background, key points, terminology, and candidate references. |
-| Outline Agent | Designs a coherent article structure. |
-| Writer Agent | Produces readable Markdown chapters from the research and outline. |
-| Technical Asset Agent | Produces or specifies figures, a Python-generated graph, tables, formulas, and theorem-like content. |
-| Hebrew/BiDi Agent | Produces and validates at least one Hebrew and English mixed section. |
-| LaTeX Agent | Converts approved Markdown and assets into a structured LaTeX project. |
-| Bibliography Agent | Creates and maintains `references.bib` and citation keys. |
-| Reviewer Agent | Reviews coherence, structure, formatting requirements, and missing deliverables before deterministic validation. The Reviewer Agent may identify likely issues, but it is not the source of truth for validation. |
+| Agent                 | Responsibility                                                                                                                                                                                                    |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Research Agent        | Collects background, key points, terminology, and candidate references.                                                                                                                                           |
+| Outline Agent         | Designs a coherent article structure.                                                                                                                                                                             |
+| Writer Agent          | Produces readable Markdown chapters from the research and outline.                                                                                                                                                |
+| Technical Asset Agent | Produces or specifies figures, a Python-generated graph, tables, formulas, and theorem-like content.                                                                                                              |
+| Hebrew/BiDi Agent     | Produces and validates at least one Hebrew and English mixed section.                                                                                                                                             |
+| LaTeX Agent           | Converts approved Markdown and assets into a structured LaTeX project.                                                                                                                                            |
+| Bibliography Agent    | Creates and maintains `references.bib` and citation keys.                                                                                                                                                         |
+| Reviewer Agent        | Reviews coherence, structure, formatting requirements, and missing deliverables before deterministic validation. The Reviewer Agent may identify likely issues, but it is not the source of truth for validation. |
 
 ### 8.4 Markdown Generation
 
-| ID | Requirement |
-|---|---|
-| FR-11 | The system shall generate Markdown drafts before LaTeX conversion. |
-| FR-12 | Markdown drafts shall be stored in `results/generated_markdown/` or equivalent. |
+| ID    | Requirement                                                                                                                 |
+| ----- | --------------------------------------------------------------------------------------------------------------------------- |
+| FR-11 | The system shall generate Markdown drafts before LaTeX conversion.                                                          |
+| FR-12 | Markdown drafts shall be stored in `results/generated_markdown/` or equivalent.                                             |
 | FR-13 | Markdown shall include headings, figure placeholders, table placeholders, equation placeholders, and citation placeholders. |
-| FR-14 | Markdown content shall be coherent and follow a logical topic progression. |
+| FR-14 | Markdown content shall be coherent and follow a logical topic progression.                                                  |
 
 ### 8.5 LaTeX Generation
 
-| ID | Requirement |
-|---|---|
-| FR-15 | The system shall generate a full LaTeX project directory. |
-| FR-16 | The LaTeX project shall contain `main.tex`. |
-| FR-17 | The LaTeX project shall contain separated internal `.tex` files. Chapter files shall contain the main narrative content only. Each substantial table and each TikZ figure shall be stored in its own dedicated `.tex` file and included from the corresponding chapter using `\input{...}`. |
-| FR-17a | The LaTeX project shall include a `tables/` directory for standalone table `.tex` files. |
-| FR-17b | The LaTeX project shall include a `figures/` directory for figure assets, figure wrapper `.tex` files, and TikZ figure `.tex` files. |
-| FR-17c | Chapter files shall call related tables and TikZ figures using `\input{tables/<table_file>.tex}` or `\input{figures/<figure_file>.tex}`. |
+| ID     | Requirement                                                                                                                                                                                                                                                                                                                               |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FR-15  | The system shall generate a full LaTeX project directory.                                                                                                                                                                                                                                                                                 |
+| FR-16  | The LaTeX project shall contain `main.tex`.                                                                                                                                                                                                                                                                                               |
+| FR-17  | The LaTeX project shall contain separated internal `.tex` files. Chapter files shall contain the main narrative content only. Each substantial table and each TikZ figure shall be stored in its own dedicated `.tex` file and included from the corresponding chapter using `\input{...}`.                                               |
+| FR-17a | The LaTeX project shall include a `tables/` directory for standalone table `.tex` files.                                                                                                                                                                                                                                                  |
+| FR-17b | The LaTeX project shall include a `figures/` directory for figure assets, figure wrapper `.tex` files, and TikZ figure `.tex` files.                                                                                                                                                                                                      |
+| FR-17c | Chapter files shall call related tables and TikZ figures using `\input{tables/<table_file>.tex}` or `\input{figures/<figure_file>.tex}`.                                                                                                                                                                                                  |
 | FR-17d | Long table environments and TikZ pictures shall not be embedded directly inside chapter files, because this bloats the chapter source and violates the project’s clean-code and separation-of-responsibilities principles. Regular image figures may use a short `figure` wrapper inside the corresponding chapter file when appropriate. |
-| FR-18 | The LaTeX project shall contain `macros.tex` for reusable mathematical notation. |
-| FR-19 | The LaTeX project shall contain a bibliography file such as `references.bib`. |
-| FR-20 | The LaTeX project shall compile with LuaLaTeX as the default and required MVP engine. XeLaTeX may be supported later as an optional fallback, but generated templates, build scripts, README commands, and validation checks must target LuaLaTeX by default. |
-| FR-21 | The document shall include headers and footers. |
-| FR-22 | The document shall include a title page and table of contents. |
-| FR-23 | The document shall include chapters. |
-| FR-24 | The document shall include at least one theorem-like environment, such as `definition`, `theorem`, `lemma`, or `example`. |
-| FR-25 | The document shall include at least one equation with a label and a later reference using `\ref` or `\eqref`. |
-| FR-26 | The document shall include a nomenclature section with at least two symbols. |
-| FR-27 | The document shall include an index with at least one Hebrew term and one English term. |
+| FR-18  | The LaTeX project shall contain `macros.tex` for reusable mathematical notation.                                                                                                                                                                                                                                                          |
+| FR-19  | The LaTeX project shall contain a bibliography file such as `references.bib`.                                                                                                                                                                                                                                                             |
+| FR-20  | The LaTeX project shall compile with LuaLaTeX as the default and required MVP engine. XeLaTeX may be supported later as an optional fallback, but generated templates, build scripts, README commands, and validation checks must target LuaLaTeX by default.                                                                             |
+| FR-21  | The document shall include headers and footers.                                                                                                                                                                                                                                                                                           |
+| FR-22  | The document shall include a title page and table of contents.                                                                                                                                                                                                                                                                            |
+| FR-23  | The document shall include chapters.                                                                                                                                                                                                                                                                                                      |
+| FR-24  | The document shall include at least one theorem-like environment, such as `definition`, `theorem`, `lemma`, or `example`.                                                                                                                                                                                                                 |
+| FR-25  | The document shall include at least one equation with a label and a later reference using `\ref` or `\eqref`.                                                                                                                                                                                                                             |
+| FR-26  | The document shall include a nomenclature section with at least two symbols.                                                                                                                                                                                                                                                              |
+| FR-27  | The document shall include an index with at least one Hebrew term and one English term.                                                                                                                                                                                                                                                   |
 
 ### 8.6 Assets, Figures, Tables, and References
 
-| ID | Requirement |
-|---|---|
-| FR-28 | The system shall include at least one image in the final PDF. |
-| FR-29 | The system shall generate at least one graph using Python code. |
-| FR-30 | Python-generated graph image files shall be saved under `latex_project/figures/`. A fixed figure shall be included through a `figure` wrapper in its corresponding chapter `.tex` file. |
+| ID    | Requirement                                                                                                                                                                                                                                                                    |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| FR-28 | The system shall include at least one image in the final PDF.                                                                                                                                                                                                                  |
+| FR-29 | The system shall generate at least one graph using Python code.                                                                                                                                                                                                                |
+| FR-30 | Python-generated graph image files shall be saved under `latex_project/figures/`. A fixed figure shall be included through a `figure` wrapper in its corresponding chapter `.tex` file.                                                                                        |
 | FR-31 | The document shall include at least one table. Each table shall be stored in its own dedicated `.tex` file under `latex_project/tables/` and included from the relevant chapter using `\input{...}`. The table input shall be wrapped in a `table` environment with a caption. |
-| FR-32 | At least one figure, table, or equation shall be referenced from the text using LaTeX cross-reference commands. |
-| FR-33 | Bibliography citations shall be used in the document text and rendered in the bibliography section. |
+| FR-32 | At least one figure, table, or equation shall be referenced from the text using LaTeX cross-reference commands.                                                                                                                                                                |
+| FR-33 | Bibliography citations shall be used in the document text and rendered in the bibliography section.                                                                                                                                                                            |
 
 ### 8.7 Validation and Output
 
-| ID | Requirement |
-|---|---|
-| FR-34 | The system shall validate required repository files. |
-| FR-35 | The system shall validate required LaTeX files. |
-| FR-36 | The system shall validate required PDF content indicators where feasible. |
-| FR-37 | The system shall generate a run summary and validation report after the reviewer stage and deterministic validation stage complete. |
-| FR-38 | The final PDF shall be saved in a predictable output path. |
-| FR-39 | The system shall fail with a clear error message if required dependencies or configuration values are missing. |
+| ID    | Requirement                                                                                                                                                                                                                                                                                                                     |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FR-34 | The system shall validate required repository files.                                                                                                                                                                                                                                                                            |
+| FR-35 | The system shall validate required LaTeX files.                                                                                                                                                                                                                                                                                 |
+| FR-36 | The system shall validate required PDF content indicators where feasible.                                                                                                                                                                                                                                                       |
+| FR-37 | The system shall generate a run summary and validation report after the reviewer stage and deterministic validation stage complete.                                                                                                                                                                                             |
+| FR-38 | The final PDF shall be saved in a predictable output path.                                                                                                                                                                                                                                                                      |
+| FR-39 | The system shall fail with a clear error message if required dependencies or configuration values are missing.                                                                                                                                                                                                                  |
 | FR-40 | After the Reviewer Agent completes its review, the system shall run a deterministic `ValidatorService` that checks required files, required directories, generated artifacts, LaTeX build outputs, and basic PDF/content indicators where feasible. This service must not rely on an LLM as the source of truth for validation. |
 
 ---
@@ -276,80 +275,80 @@ The project does not include:
 
 ### 9.1 Maintainability
 
-| ID | Requirement |
-|---|---|
-| NFR-1 | Code shall be modular and organized by responsibility. |
-| NFR-2 | Files should stay reasonably short (`.py` at most 150 lines); large files must be split by responsibility. |
-| NFR-3 | Functions should be short, readable, and focused. |
-| NFR-4 | If a function becomes long or messy, helper functions should be extracted. |
-| NFR-5 | The project should avoid unnecessary classes and moving parts. |
-| NFR-6 | The codebase should follow the DRY principle and avoid duplication. |
+| ID     | Requirement                                                                                                                                                                                                                                                                           |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NFR-1  | Code shall be modular and organized by responsibility.                                                                                                                                                                                                                                |
+| NFR-2  | Files should stay reasonably short (`.py` at most 150 lines); large files must be split by responsibility.                                                                                                                                                                            |
+| NFR-3  | Functions should be short, readable, and focused.                                                                                                                                                                                                                                     |
+| NFR-4  | If a function becomes long or messy, helper functions should be extracted.                                                                                                                                                                                                            |
+| NFR-5  | The project should avoid unnecessary classes and moving parts.                                                                                                                                                                                                                        |
+| NFR-6  | The codebase should follow the DRY principle and avoid duplication.                                                                                                                                                                                                                   |
 | NFR-6a | LaTeX source files shall follow separation of responsibilities. Chapter files should contain readable article text and high-level `\input{...}` calls only. Verbose table code, TikZ code, and figure wrapper code shall be moved into dedicated files under `tables/` or `figures/`. |
 
 ### 9.2 Python Code Quality
 
-| ID | Requirement |
-|---|---|
-| NFR-7 | All functions shall use type hints, including return types. |
-| NFR-8 | When introducing a new Python variable or a new code block/scope, use type annotations on the variable’s first appearance where they improve safety, clarity, or readability, for example `a: int = 10`. This is a guideline rather than a strict rule: annotations should be used thoughtfully and should not clutter or overburden the code. |
-| NFR-9 | String interpolation should use f-strings always. |
-| NFR-10 | Use listcomp and dictcomp when they make the code easier to read. Avoid them when they make the logic harder to understand. |
-| NFR-11 | Function names and variable names shall be self-descriptive. |
-| NFR-12 | Complex logic should not be written as long inline code blocks. It should be decomposed into small, semantic, well-named functions to improve readability, reuse, testing, and maintainability. |
-| NFR-13 | Input validation shall use `assert` or an equivalent explicit validation mechanism always. |
-| NFR-14 | If a function can throw an exception, exception handling or explicit propagation must be designed intentionally. |
-| NFR-15 | Code shall be clean, readable, and free of avoidable duplication. |
+| ID     | Requirement                                                                                                                                                                                                                                                                                                                                    |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NFR-7  | All functions shall use type hints, including return types.                                                                                                                                                                                                                                                                                    |
+| NFR-8  | When introducing a new Python variable or a new code block/scope, use type annotations on the variable’s first appearance where they improve safety, clarity, or readability, for example `a: int = 10`. This is a guideline rather than a strict rule: annotations should be used thoughtfully and should not clutter or overburden the code. |
+| NFR-9  | String interpolation should use f-strings always.                                                                                                                                                                                                                                                                                              |
+| NFR-10 | Use listcomp and dictcomp when they make the code easier to read. Avoid them when they make the logic harder to understand.                                                                                                                                                                                                                    |
+| NFR-11 | Function names and variable names shall be self-descriptive.                                                                                                                                                                                                                                                                                   |
+| NFR-12 | Complex logic should not be written as long inline code blocks. It should be decomposed into small, semantic, well-named functions to improve readability, reuse, testing, and maintainability.                                                                                                                                                |
+| NFR-13 | Input validation shall use `assert` or an equivalent explicit validation mechanism always.                                                                                                                                                                                                                                                     |
+| NFR-14 | If a function can throw an exception, exception handling or explicit propagation must be designed intentionally.                                                                                                                                                                                                                               |
+| NFR-15 | Code shall be clean, readable, and free of avoidable duplication.                                                                                                                                                                                                                                                                              |
 
 ### 9.3 Reliability and Observability
 
-| ID | Requirement |
-|---|---|
-| NFR-16 | The pipeline shall log major workflow stages. |
-| NFR-17 | The system shall preserve intermediate artifacts for debugging. |
-| NFR-18 | Errors shall be actionable and explain what should be fixed. |
+| ID     | Requirement                                                                                                                                                                                                                                                                                    |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NFR-16 | The pipeline shall log major workflow stages.                                                                                                                                                                                                                                                  |
+| NFR-17 | The system shall preserve intermediate artifacts for debugging.                                                                                                                                                                                                                                |
+| NFR-18 | Errors shall be actionable and explain what should be fixed.                                                                                                                                                                                                                                   |
 | NFR-19 | Do not rely on the LLM to validate its own output. The Reviewer Agent may perform qualitative review, but LLM-generated content must also be checked afterward by deterministic validation steps such as schemas, tests, compilers, file-system checks, and PDF/content checks where feasible. |
 
 ### 9.4 Security and Configuration
 
-| ID | Requirement |
-|---|---|
-| NFR-20 | Secrets shall never be committed. |
-| NFR-21 | `.env-example` shall document required variables. |
-| NFR-22 | Configuration shall be separated from source code. |
+| ID     | Requirement                                                                            |
+| ------ | -------------------------------------------------------------------------------------- |
+| NFR-20 | Secrets shall never be committed.                                                      |
+| NFR-21 | `.env-example` shall document required variables.                                      |
+| NFR-22 | Configuration shall be separated from source code.                                     |
 | NFR-23 | External API/model calls should be routed through a controlled provider/service layer. |
 
 ### 9.5 Extensibility
 
-| ID | Requirement |
-|---|---|
-| NFR-24 | It should be possible to replace the model provider without rewriting the whole pipeline. |
-| NFR-25 | It should be possible to add or replace agents with minimal changes. |
+| ID     | Requirement                                                                                |
+| ------ | ------------------------------------------------------------------------------------------ |
+| NFR-24 | It should be possible to replace the model provider without rewriting the whole pipeline.  |
+| NFR-25 | It should be possible to add or replace agents with minimal changes.                       |
 | NFR-26 | It should be possible to replace the LaTeX template without rewriting the CrewAI workflow. |
-| NFR-27 | It should be possible to change the article topic through configuration. |
+| NFR-27 | It should be possible to change the article topic through configuration.                   |
 
 ### 9.6 BiDi and Typography Quality
 
-| ID | Requirement |
-|---|---|
-| NFR-28 | Hebrew text shall be readable and correctly directed. |
-| NFR-29 | English terms inside Hebrew sentences shall preserve correct character order. |
-| NFR-30 | Hebrew paragraphs shall be right-aligned when appropriate. |
+| ID     | Requirement                                                                      |
+| ------ | -------------------------------------------------------------------------------- |
+| NFR-28 | Hebrew text shall be readable and correctly directed.                            |
+| NFR-29 | English terms inside Hebrew sentences shall preserve correct character order.    |
+| NFR-30 | Hebrew paragraphs shall be right-aligned when appropriate.                       |
 | NFR-31 | Font choices shall support Hebrew, English, math, and code-like technical terms. |
-| NFR-32 | Tables and figures shall not overflow page boundaries. |
+| NFR-32 | Tables and figures shall not overflow page boundaries.                           |
 
 ---
 
 ## 10. User Stories
 
-| ID | User Story |
-|---|---|
+| ID   | User Story                                                                                                                                                |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | US-1 | As a technical documentation team, we want to generate a structured technical article from a topic so that we can accelerate internal documentation work. |
-| US-2 | As an open-source maintainer, we want the generated article to include reproducible LaTeX sources so that the community can inspect and improve it. |
-| US-3 | As an AI engineer, we want each agent to have a clear responsibility so that we can debug and improve the workflow. |
-| US-4 | As a future developer, we want intermediate Markdown and logs so that failures are easy to locate. |
-| US-5 | As a product/research team, we want figures, tables, formulas, and citations so that the document looks like a real technical publication. |
-| US-6 | As a Hebrew and English technical writer, we want BiDi support so that Hebrew explanations can include English technical terms, formulas, and citations. |
-| US-7 | As a reviewer, we want a validation checklist so that missing deliverables are detected before submission. |
+| US-2 | As an open-source maintainer, we want the generated article to include reproducible LaTeX sources so that the community can inspect and improve it.       |
+| US-3 | As an AI engineer, we want each agent to have a clear responsibility so that we can debug and improve the workflow.                                       |
+| US-4 | As a future developer, we want intermediate Markdown and logs so that failures are easy to locate.                                                        |
+| US-5 | As a product/research team, we want figures, tables, formulas, and citations so that the document looks like a real technical publication.                |
+| US-6 | As a Hebrew and English technical writer, we want BiDi support so that Hebrew explanations can include English technical terms, formulas, and citations.  |
+| US-7 | As a reviewer, we want a validation checklist so that missing deliverables are detected before submission.                                                |
 
 ---
 
@@ -361,8 +360,8 @@ The project does not include:
 2. Research Agent gathers structured research notes.
 3. Outline Agent creates a coherent article outline.
 4. Writer Agent drafts Markdown chapters.
-5. Reviewer Agent reviews the draft for coherence, structure, formatting requirements, and missing deliverables. 
-6. LaTeX Agent converts the reviewed content into a LaTeX project. 
+5. Reviewer Agent reviews the draft for coherence, structure, formatting requirements, and missing deliverables.
+6. LaTeX Agent converts the reviewed content into a LaTeX project.
 7. Deterministic `ValidatorService` checks required files, LaTeX files, build outputs, and PDF/content indicators where feasible.
 8. The system produces the final PDF and validation report.
 
@@ -426,25 +425,25 @@ The project does not include:
 
 ## 13. Required Deliverables
 
-| Deliverable | Required Path / Example |
-|---|---|
-| Root README | `README.md` |
-| PRD | `docs/PRD.md` |
-| Plan | `docs/PLAN.md` |
-| TODO | `docs/TODO.md` |
-| CrewAI pipeline PRD | `docs/PRD_crewai_pipeline.md` |
-| LaTeX generation PRD | `docs/PRD_latex_generation.md` |
-| PDF validation PRD | `docs/PRD_pdf_validation.md` |
+| Deliverable                    | Required Path / Example                  |
+| ------------------------------ | ---------------------------------------- |
+| Root README                    | `README.md`                              |
+| PRD                            | `docs/PRD.md`                            |
+| Plan                           | `docs/PLAN.md`                           |
+| TODO                           | `docs/TODO.md`                           |
+| CrewAI pipeline PRD            | `docs/PRD_crewai_pipeline.md`            |
+| LaTeX generation PRD           | `docs/PRD_latex_generation.md`           |
+| PDF validation PRD             | `docs/PRD_pdf_validation.md`             |
 | Bibliography and citations PRD | `docs/PRD_bibliography_and_citations.md` |
-| Python package | `src/<package_name>/` |
-| Tests | `tests/` |
-| Configuration | `config/` |
-| Environment example | `.env-example` |
-| LaTeX project | `latex_project/` |
-| Final PDF | `results/final.pdf` |
-| Generated Markdown | `results/generated_markdown/` |
-| Logs | `results/run_logs/` |
-| Assets | `assets/` or `latex_project/figures/` |
+| Python package                 | `src/<package_name>/`                    |
+| Tests                          | `tests/`                                 |
+| Configuration                  | `config/`                                |
+| Environment example            | `.env-example`                           |
+| LaTeX project                  | `latex_project/`                         |
+| Final PDF                      | `results/final.pdf`                      |
+| Generated Markdown             | `results/generated_markdown/`            |
+| Logs                           | `results/run_logs/`                      |
+| Assets                         | `assets/` or `latex_project/figures/`    |
 
 ---
 
@@ -452,72 +451,71 @@ The project does not include:
 
 ### 14.1 Course and Repository Acceptance Criteria
 
-- [ ] Repository contains `README.md` at the root.
-- [ ] Repository contains `docs/PRD.md`.
-- [ ] Repository contains `docs/PLAN.md`.
-- [ ] Repository contains `docs/TODO.md`.
-- [ ] Repository contains the complete LaTeX project.
-- [ ] Repository contains the final generated PDF.
-- [ ] Repository contains source code for the CrewAI workflow.
-- [ ] README explains installation, configuration, usage, architecture, and how to regenerate the PDF.
-- [ ] README explains the CrewAI architecture and agent/task workflow.
-- [ ] README documents the LaTeX project structure.
-- [ ] README documents current limitations and  areas for future improvement.
-
+- [x] Repository contains `README.md` at the root.
+- [x] Repository contains `docs/PRD.md`.
+- [x] Repository contains `docs/PLAN.md`.
+- [x] Repository contains `docs/TODO.md`.
+- [x] Repository contains the complete LaTeX project.
+- [x] Repository contains the final generated PDF.
+- [x] Repository contains source code for the CrewAI workflow.
+- [x] README explains installation, configuration, usage, architecture, and how to regenerate the PDF.
+- [x] README explains the CrewAI architecture and agent/task workflow.
+- [x] README documents the LaTeX project structure.
+- [x] README documents current limitations and areas for future improvement.
 
 ### 14.2 PDF Content and Structure Acceptance Criteria
 
-- [ ] Final PDF is at least 15 pages.
-- [ ] Final PDF contains a cover/title page.
-- [ ] Cover page includes topic, author/group, date, and course context.
-- [ ] Final PDF contains a table of contents.
-- [ ] Final PDF is divided into coherent chapters or sections.
-- [ ] Final PDF contains headers and footers.
-- [ ] Final PDF contains at least one image.
-- [ ] Final PDF contains at least one graph generated by Python code.
-- [ ] Final PDF contains at least one tikz (simple automata) figure.
-- [ ] Final PDF contains at least one table.
-- [ ] Final PDF contains at least one mathematical equation.
-- [ ] At least one equation has a LaTeX label and is referenced later with `\ref` or `\eqref`.
-- [ ] Final PDF contains at least one theorem-like environment: definition, theorem, lemma, example, or similar.
-- [ ] Final PDF contains bibliography citations in the text.
-- [ ] Final PDF contains a rendered bibliography section.
-- [ ] Final PDF contains a nomenclature section near the end.
-- [ ] Nomenclature contains at least two symbols.
-- [ ] Final PDF contains an index near the end.
-- [ ] Index contains at least one Hebrew word and at least one English word.
-- [ ] The content has a logical progression and does not use unrelated filler sections.
+- [x] Final PDF is at least 15 pages.
+- [x] Final PDF contains a cover/title page.
+- [x] Cover page includes topic, author/group, date, and course context.
+- [x] Final PDF contains a table of contents.
+- [x] Final PDF is divided into coherent chapters or sections.
+- [x] Final PDF contains headers and footers.
+- [x] Final PDF contains at least one image.
+- [x] Final PDF contains at least one graph generated by Python code.
+- [x] Final PDF contains at least one tikz (simple automata) figure.
+- [x] Final PDF contains at least one table.
+- [x] Final PDF contains at least one mathematical equation.
+- [x] At least one equation has a LaTeX label and is referenced later with `\ref` or `\eqref`.
+- [x] Final PDF contains at least one theorem-like environment: definition, theorem, lemma, example, or similar.
+- [x] Final PDF contains bibliography citations in the text.
+- [x] Final PDF contains a rendered bibliography section.
+- [x] Final PDF contains a nomenclature section near the end.
+- [x] Nomenclature contains at least two symbols.
+- [x] Final PDF contains an index near the end.
+- [x] Index contains at least one Hebrew word and at least one English word.
+- [x] The content has a logical progression and does not use unrelated filler sections.
 
 ### 14.3 LaTeX Acceptance Criteria
 
-- [ ] `main.tex` exists.
-- [ ] `main.tex` includes or inputs internal `.tex` files.
-- [ ] `preamble.tex` or equivalent exists.
-- [ ] `macros.tex` exists and contains reusable mathematical/technical commands.
-- [ ] Chapters are separated into multiple files under `chapters/` or equivalent.
-- [ ] `references.bib` exists.
-- [ ] The project compiles successfully with LuaLaTeX using the documented build command.
-- [ ] The project supports Hebrew and English text.
-- [ ] The project includes packages or configuration for theorem-like environments.
-- [ ] The project includes packages or configuration for nomenclature.
-- [ ] The project includes packages or configuration for index generation.
-- [ ] Figures and tables are referenced correctly.
-- [ ] Tables do not overflow the page.
-- [ ] PDF compilation instructions are documented.
-- [ ] Table code is stored in dedicated `.tex` files under `tables/` or equivalent.
-- [ ] TikZ figure code is stored in dedicated `.tex` files under `figures/` or equivalent.
-- [ ] Chapter files include related tables and TikZ figures using `\input{...}`.
-- [ ] Chapter files are not bloated with long table environments or TikZ code.
+- [x] `main.tex` exists.
+- [x] `main.tex` includes or inputs internal `.tex` files.
+- [x] `preamble.tex` or equivalent exists.
+- [x] `macros.tex` exists and contains reusable mathematical/technical commands.
+- [x] Chapters are separated into multiple files under `chapters/` or equivalent.
+- [x] `references.bib` exists.
+- [x] The project compiles successfully with LuaLaTeX using the documented build command.
+- [x] The project supports Hebrew and English text.
+- [x] The project includes packages or configuration for theorem-like environments.
+- [x] The project includes packages or configuration for nomenclature.
+- [x] The project includes packages or configuration for index generation.
+- [x] Figures and tables are referenced correctly.
+- [x] Tables do not overflow the page.
+- [x] PDF compilation instructions are documented.
+- [x] Table code is stored in dedicated `.tex` files under `tables/` or equivalent.
+- [x] TikZ figure code is stored in dedicated `.tex` files under `figures/` or equivalent.
+- [x] Chapter files include related tables and TikZ figures using `\input{...}`.
+- [x] Chapter files are not bloated with long table environments or TikZ code.
 
 ### 14.4 BiDi Acceptance Criteria
 
-- [ ] At least one section includes Hebrew text.
-- [ ] At least one Hebrew paragraph includes embedded English technical terms.
-- [ ] Mixed Hebrew and English text renders in the correct visual order.
-- [ ] Hebrew text alignment is correct.
-- [ ] English citations, labels, references, and inline technical identifiers remain readable inside Hebrew text.
-- [ ] Fonts support both Hebrew and English.
-- [ ] No visible RTL/LTR corruption appears in the final PDF.
+- [x] At least one section includes Hebrew text.
+- [x] At least one Hebrew paragraph includes embedded English technical terms.
+- [x] Mixed Hebrew and English text renders in the correct visual order.
+- [x] Hebrew text alignment is correct.
+- [x] English citations, labels, references, and inline technical identifiers remain readable inside Hebrew text.
+- [x] Fonts support both Hebrew and English.
+- [x] No visible RTL/LTR corruption appears in the final PDF.
 
 Example (plain text) target sentence for validation:
 
@@ -525,44 +523,44 @@ Example (plain text) target sentence for validation:
 
 ### 14.5 CrewAI Acceptance Criteria
 
-- [ ] Specialized agents are defined (at §8.3).
-- [ ] At least 5 tasks are defined.
-- [ ] Each task has a clear expected output.
-- [ ] At least 3 tasks use context from previous tasks.
-- [ ] The workflow produces inspectable intermediate artifacts.
-- [ ] The workflow separates research, writing, review, LaTeX generation, and validation.
-- [ ] The crew can be launched from a clear entry point.
-- [ ] Agent prompts or prompt templates are documented.
-- [ ] The workflow runs deterministic validation after the Reviewer Agent stage.
+- [x] Specialized agents are defined (at §8.3).
+- [x] At least 5 tasks are defined.
+- [x] Each task has a clear expected output.
+- [x] At least 3 tasks use context from previous tasks.
+- [x] The workflow produces inspectable intermediate artifacts.
+- [x] The workflow separates research, writing, review, LaTeX generation, and validation.
+- [x] The crew can be launched from a clear entry point.
+- [x] Agent prompts or prompt templates are documented.
+- [x] The workflow runs deterministic validation after the Reviewer Agent stage.
 
 ### 14.6 Code Quality Acceptance Criteria
 
-- [ ] Code uses type hints for function parameters and return values.
-- [ ] Newly introduced variables use type annotations on first appearance where they improve safety, clarity, or readability, without cluttering the code.
-- [ ] Code uses f-strings where string interpolation is needed.
-- [ ] Code uses listcomp/dictcomp where they improve clarity.
-- [ ] Code is modular and organized by responsibility.
-- [ ] Long technical strings are not embedded directly inside business logic.
-- [ ] Inputs are validated using `assert` or an equivalent explicit validation mechanism.
-- [ ] Expected exceptions are handled or intentionally propagated with clear messages.
-- [ ] Function and Variable names are self-descriptive.
-- [ ] Functions are not long and messy.
-- [ ] Extractable components are moved into smaller helper functions when this improves readability.
-- [ ] DRY principle is followed.
-- [ ] Clean code does not contain avoidable duplication.
-- [ ] Clean code contains a minimal number of classes and moving parts.
-- [ ] `ruff check` passes or documented exceptions exist.
-- [ ] `pytest` passes or documented exceptions exist.
+- [x] Code uses type hints for function parameters and return values.
+- [x] Newly introduced variables use type annotations on first appearance where they improve safety, clarity, or readability, without cluttering the code.
+- [x] Code uses f-strings where string interpolation is needed.
+- [x] Code uses listcomp/dictcomp where they improve clarity.
+- [x] Code is modular and organized by responsibility.
+- [x] Long technical strings are not embedded directly inside business logic.
+- [x] Inputs are validated using `assert` or an equivalent explicit validation mechanism.
+- [x] Expected exceptions are handled or intentionally propagated with clear messages.
+- [x] Function and Variable names are self-descriptive.
+- [x] Functions are not long and messy.
+- [x] Extractable components are moved into smaller helper functions when this improves readability.
+- [x] DRY principle is followed.
+- [x] Clean code does not contain avoidable duplication.
+- [x] Clean code contains a minimal number of classes and moving parts.
+- [x] `ruff check` passes or documented exceptions exist.
+- [x] `pytest` passes or documented exceptions exist.
 
 ### 14.7 Security, Configuration, and Cost Acceptance Criteria
 
-- [ ] No API keys are committed.
-- [ ] `.env-example` exists.
-- [ ] Configuration is separated from source code.
-- [ ] Model provider and model name are configurable.
-- [ ] Output paths are configurable.
-- [ ] Cost/pricing considerations are documented.
-- [ ] Logs or run summaries include enough information to understand what happened during execution.
+- [x] No API keys are committed.
+- [x] `.env-example` exists.
+- [x] Configuration is separated from source code.
+- [x] Model provider and model name are configurable.
+- [x] Output paths are configurable.
+- [x] Cost/pricing considerations are documented.
+- [x] Logs or run summaries include enough information to understand what happened during execution.
 
 ---
 
@@ -610,11 +608,11 @@ The generated LaTeX project should compile with LuaLaTeX as the default and requ
 
 Potential LaTeX packages:
 
-* `fontspec` — required for Unicode font selection with LuaLaTeX.
-* `polyglossia` — Hebrew/English language configuration for LuaLaTeX.
-* `bidi` or LuaLaTeX-compatible BiDi support — bidirectional text support for Hebrew-heavy documents when needed.
-* `lmodern` — Latin Modern font support for English/Latin text.
-* `xcolor` — extended color support for links, theorem names, diagrams, and highlights.
+- `fontspec` — required for Unicode font selection with LuaLaTeX.
+- `polyglossia` — Hebrew/English language configuration for LuaLaTeX.
+- `bidi` or LuaLaTeX-compatible BiDi support — bidirectional text support for Hebrew-heavy documents when needed.
+- `lmodern` — Latin Modern font support for English/Latin text.
+- `xcolor` — extended color support for links, theorem names, diagrams, and highlights.
 
 #### Font requirements
 
@@ -622,10 +620,10 @@ The LaTeX template should define explicit fonts for Hebrew and English text.
 
 Preferred fonts:
 
-* Hebrew font: `David CLM`
-* English font: `Latin Modern Roman`
-* Math font: default LaTeX math font is acceptable for the MVP, unless a dedicated Unicode math font is added later.
-* Code font: default monospace font is acceptable for the MVP.
+- Hebrew font: `David CLM`
+- English font: `Latin Modern Roman`
+- Math font: default LaTeX math font is acceptable for the MVP, unless a dedicated Unicode math font is added later.
+- Code font: default monospace font is acceptable for the MVP.
 
 The generated `preamble.tex` should be written and tested for LuaLaTeX:
 
@@ -657,7 +655,7 @@ If `David CLM` is not available on the local machine, the system should fail wit
 * `float` — improved control over figure/table placement.
 * `tikz` — LaTeX-native diagrams.
 * `pgfplots` — plots generated directly in LaTeX.
-* Optional TikZ libraries: `arrows.meta`,  `positioning`,`graphs`, `automata`.
+* Optional TikZ libraries: `arrows.meta`, `positioning`,`graphs`, `automata`.
 
 - Tables
 
@@ -695,7 +693,6 @@ If `David CLM` is not available on the local machine, the system should fail wit
 
 The MVP should use only the packages required for stable PDF generation. Advanced styling, custom theorem colors, page-aware Hebrew references, TikZ-heavy diagrams, and custom math symbols should be treated as optional template extensions rather than hard requirements.
 
-
 ## 17. Constraints
 
 - The final article must be at least 15 pages.
@@ -713,35 +710,35 @@ The MVP should use only the packages required for stable PDF generation. Advance
 
 ## 18. Risks and Mitigations
 
-| Risk | Impact | Mitigation |
-|---|---|---|
-| LaTeX compilation fails | No final PDF | Add validation, clear build commands, and incremental compilation. |
-| Hebrew and English text renders incorrectly | Major formatting issue | Use LuaLaTeX, proper Hebrew andEnglish fonts, and a dedicated BiDi validation section.|
-| Bibliography does not render | Missing citations/references | Use `biblatex` + `biber` and document multi-pass compilation. |
-| Index or nomenclature does not render | Missing required advanced LaTeX features | Add explicit build steps for index/nomenclature. |
-| CrewAI output is inconsistent | Pipeline quality varies | Save intermediate outputs, use task-specific prompts, and add reviewer/validator stages. |
-| Generated content becomes filler | PDF looks unprofessional | Enforce outline coherence and reviewer checks. |
-| Code becomes over-engineered | Hard to understand | Keep minimal classes, clear services, short files, and simple architecture. |
-| API keys leak | Security issue | Use `.env`, `.env-example`, and `.gitignore`. |
-| Token/API costs become unclear | Poor cost awareness | Log provider/model usage and estimate cost. |
-| Large strings make code unreadable | Maintenance issue | Move prompts/templates into dedicated files. |
+| Risk                                                        | Impact                                                   | Mitigation                                                                                                                                                    |
+| ----------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LaTeX compilation fails                                     | No final PDF                                             | Add validation, clear build commands, and incremental compilation.                                                                                            |
+| Hebrew and English text renders incorrectly                 | Major formatting issue                                   | Use LuaLaTeX, proper Hebrew andEnglish fonts, and a dedicated BiDi validation section.                                                                        |
+| Bibliography does not render                                | Missing citations/references                             | Use `biblatex` + `biber` and document multi-pass compilation.                                                                                                 |
+| Index or nomenclature does not render                       | Missing required advanced LaTeX features                 | Add explicit build steps for index/nomenclature.                                                                                                              |
+| CrewAI output is inconsistent                               | Pipeline quality varies                                  | Save intermediate outputs, use task-specific prompts, and add reviewer/validator stages.                                                                      |
+| Generated content becomes filler                            | PDF looks unprofessional                                 | Enforce outline coherence and reviewer checks.                                                                                                                |
+| Code becomes over-engineered                                | Hard to understand                                       | Keep minimal classes, clear services, short files, and simple architecture.                                                                                   |
+| API keys leak                                               | Security issue                                           | Use `.env`, `.env-example`, and `.gitignore`.                                                                                                                 |
+| Token/API costs become unclear                              | Poor cost awareness                                      | Log provider/model usage and estimate cost.                                                                                                                   |
+| Large strings make code unreadable                          | Maintenance issue                                        | Move prompts/templates into dedicated files.                                                                                                                  |
 | Chapter `.tex` files become bloated with table or TikZ code | LaTeX project becomes hard to read, review, and maintain | Store each table and TikZ figure in a dedicated `.tex` file under `tables/` or `figures/`, and include it from the corresponding chapter using `\input{...}`. |
 
 ---
 
 ## 19. Proposed Milestones
 
-| Milestone | Description | Exit Criteria |
-|---|---|---|
-| M1 — Requirements | Define topic, goals, PRD, and acceptance criteria. | `docs/PRD.md` approved. |
-| M2 — Architecture | Define agents, tasks, project structure, and LaTeX structure. | `docs/PLAN.md` completed. |
-| M3 — Task Planning | Break implementation into small tasks. | `docs/TODO.md` completed. |
-| M4 — CrewAI MVP | Implement researcher → writer → reviewer pipeline. | Markdown draft generated. |
-| M5 — Full Agent Workflow | Add technical assets, bibliography, BiDi, LaTeX, validation. | All required intermediate artifacts exist. |
-| M6 — LaTeX Project | Generate structured LaTeX project. | `main.tex`, chapters, macros, bib, figures exist. |
-| M7 — PDF Build | Compile final PDF. | `results/final.pdf` opens and is at least 15 pages. |
-| M8 — Validation and Polish | Run tests, lint, validation, README updates. | All acceptance criteria reviewed. |
-| M9 — Submission Readiness | Prepare final GitHub repository and model submission PDF. | Final checklist completed. |
+| Milestone                  | Description                                                   | Exit Criteria                                       |
+| -------------------------- | ------------------------------------------------------------- | --------------------------------------------------- |
+| M1 — Requirements          | Define topic, goals, PRD, and acceptance criteria.            | `docs/PRD.md` approved.                             |
+| M2 — Architecture          | Define agents, tasks, project structure, and LaTeX structure. | `docs/PLAN.md` completed.                           |
+| M3 — Task Planning         | Break implementation into small tasks.                        | `docs/TODO.md` completed.                           |
+| M4 — CrewAI MVP            | Implement researcher → writer → reviewer pipeline.            | Markdown draft generated.                           |
+| M5 — Full Agent Workflow   | Add technical assets, bibliography, BiDi, LaTeX, validation.  | All required intermediate artifacts exist.          |
+| M6 — LaTeX Project         | Generate structured LaTeX project.                            | `main.tex`, chapters, macros, bib, figures exist.   |
+| M7 — PDF Build             | Compile final PDF.                                            | `results/final.pdf` opens and is at least 15 pages. |
+| M8 — Validation and Polish | Run tests, lint, validation, README updates.                  | All acceptance criteria reviewed.                   |
+| M9 — Submission Readiness  | Prepare final GitHub repository and model submission PDF.     | Final checklist completed.                          |
 
 ---
 
@@ -793,19 +790,19 @@ become implementation requirements as the Phase 5+ items in
 P13-I05) are scheduled. They do not invalidate FR-1..FR-40 or any
 existing NFR.
 
-| ID | Requirement |
-|---|---|
-| FR-41 | Every task edge in the CrewAI pipeline shall carry a named, versioned typed artifact contract; no downstream stage shall consume unvalidated raw agent output. |
-| FR-42 | The orchestrator shall allow **at most one** bounded repair attempt per stage on contract-validation failure; if the repair also fails, the run shall halt without silent fallback. |
-| FR-43 | The LaTeX project shall be produced by a deterministic renderer (not the LLM) from a semantic `LaTeXProjectSpec v1`; agents do not author file paths, file names, or escaped LaTeX strings. |
-| FR-44 | Every LLM and search call shall flow through the provider facade and the API Gatekeeper; the Gatekeeper shall enforce configurable budget, timeout, retry classification, and emit structured usage/cost events carrying `run_id`, `agent_id`, `task_id`, `attempt`, model, tokens, latency, status, and estimated cost. |
-| FR-45 | Every run shall own an isolated workspace under `results/<run_id>/`, a configuration snapshot, a structured event log, a usage/cost log, and an artifact manifest. |
-| FR-46 | The CLI shall support `dry-run`, `offline-fixture`, `live`, `compile-only`, `validate-only`, `--topic` override, `--manifest` override, and `resume` modes. `offline-fixture` and `dry-run` shall require no API keys and shall make no network calls. |
-| FR-47 | A machine-readable, versioned prompt/config registry shall be loaded at startup; runtime shall refuse to start if the registry's `compatibility.contract_versions` does not cover every contract the deterministic code requires. |
-| FR-48 | Canonical artifacts (`latex_project/`, `results/final.pdf`, `results/generated_markdown/`) shall be written only by an explicit promotion operation that requires a `pass` `ValidationReport v1`, manifest integrity, and never silently overwrites existing canonical files. |
-| FR-49 | The `ValidatorService` shall report **total** and **substantive** page counts separately and shall enforce both budgets (P10-I03). |
-| NFR-33 | The repository shall maintain reproducibility evidence sufficient to reconstruct a single canonical run from a sanitized self-contained evidence bundle (P13-I05). |
-| NFR-34 | Documentation and CI shall demonstrate genericity by running the same pipeline against a second verified topic and manifest without source-code changes (P12-I06). |
+| ID     | Requirement                                                                                                                                                                                                                                                                                                              |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| FR-41  | Every task edge in the CrewAI pipeline shall carry a named, versioned typed artifact contract; no downstream stage shall consume unvalidated raw agent output.                                                                                                                                                           |
+| FR-42  | The orchestrator shall allow **at most one** bounded repair attempt per stage on contract-validation failure; if the repair also fails, the run shall halt without silent fallback.                                                                                                                                      |
+| FR-43  | The LaTeX project shall be produced by a deterministic renderer (not the LLM) from a semantic `LaTeXProjectSpec v1`; agents do not author file paths, file names, or escaped LaTeX strings.                                                                                                                              |
+| FR-44  | Every LLM and search call shall flow through the provider facade and the API Gatekeeper; the Gatekeeper shall enforce configurable budget, timeout, retry classification, and emit structured usage/cost events carrying `run_id`, `agent_id`, `task_id`, `attempt`, model, tokens, latency, status, and estimated cost. |
+| FR-45  | Every run shall own an isolated workspace under `results/<run_id>/`, a configuration snapshot, a structured event log, a usage/cost log, and an artifact manifest.                                                                                                                                                       |
+| FR-46  | The CLI shall support `dry-run`, `offline-fixture`, `live`, `compile-only`, `validate-only`, `--topic` override, `--manifest` override, and `resume` modes. `offline-fixture` and `dry-run` shall require no API keys and shall make no network calls.                                                                   |
+| FR-47  | A machine-readable, versioned prompt/config registry shall be loaded at startup; runtime shall refuse to start if the registry's `compatibility.contract_versions` does not cover every contract the deterministic code requires.                                                                                        |
+| FR-48  | Canonical artifacts (`latex_project/`, `results/final.pdf`, `results/generated_markdown/`) shall be written only by an explicit promotion operation that requires a `pass` `ValidationReport v1`, manifest integrity, and never silently overwrites existing canonical files.                                            |
+| FR-49  | The `ValidatorService` shall report **total** and **substantive** page counts separately and shall enforce both budgets (P10-I03).                                                                                                                                                                                       |
+| NFR-33 | The repository shall maintain reproducibility evidence sufficient to reconstruct a single canonical run from a sanitized self-contained evidence bundle (P13-I05).                                                                                                                                                       |
+| NFR-34 | Documentation and CI shall demonstrate genericity by running the same pipeline against a second verified topic and manifest without source-code changes (P12-I06).                                                                                                                                                       |
 
 ---
 
@@ -861,8 +858,8 @@ FR-2) and can be replaced without modifying source code (NFR-27).
 
 ### 22.2 Topic and target angle
 
-- **Working title:** *Reasoning-Centric Agentic LLM Systems: Planning,
-  Memory, Retrieval, Tool Use, and Multimodal Reasoning in 2025–2026.*
+- **Working title:** _Reasoning-Centric Agentic LLM Systems: Planning,
+  Memory, Retrieval, Tool Use, and Multimodal Reasoning in 2025–2026._
 - **Angle.** A practitioner-facing technical survey-style article that
   organizes recent (2024–2026) work around five reasoning dimensions
   for agentic LLM systems: **planning**, **memory**, **retrieval**,
@@ -889,7 +886,7 @@ FR-2) and can be replaced without modifying source code (NFR-27).
 - Required LaTeX content as listed in §14.2 (image, Python-generated
   graph, TikZ figure, table, labeled equation with cross-reference,
   theorem-like environment, nomenclature ≥2 symbols, index ≥1 Hebrew
-  + ≥1 English term, bibliography section).
+    - ≥1 English term, bibliography section).
 
 ### 22.4 Canonical source set summary
 
@@ -901,18 +898,18 @@ The all-ten-source coverage rule in §22.9 applies only to this canonical
 demonstration run, because it is defined by this fixed ten-source
 manifest.
 
-| arXiv ID | Title | Intended dimension |
-|---|---|---|
+| arXiv ID   | Title                                                                                              | Intended dimension            |
+| ---------- | -------------------------------------------------------------------------------------------------- | ----------------------------- |
 | 2504.09037 | A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason, and Agentic Systems | Background / reasoning survey |
-| 2502.04644 | Agentic Reasoning: Reasoning LLMs with Tools for the Deep Research | Tool use / deep research |
-| 2511.09378 | The 2025 Planning Performance of Frontier Large Language Models | Planning evaluation |
-| 2511.01448 | LiCoMemory: Lightweight and Cognitive Agentic Memory for Efficient Long-Term Reasoning | Memory |
-| 2601.06037 | TeleMem: Building Long-Term and Multimodal Memory for Agentic AI | Memory + multimodal |
-| 2510.10991 | A Survey on Agentic Multimodal Large Language Models | Multimodal reasoning (survey) |
-| 2510.18303 | Proactive Reasoning-with-Retrieval Framework for Medical Multimodal Large Language Models | Retrieval + multimodal |
-| 2510.19361 | AgenticMath: Enhancing LLM Reasoning via Agentic-based Math Data Generation | Reasoning data / math |
-| 2407.01231 | MIRAI: Evaluating LLM Agents for Event Forecasting | Evaluation |
-| 2601.12538 | Agentic Reasoning for Large Language Models | Agentic reasoning core |
+| 2502.04644 | Agentic Reasoning: Reasoning LLMs with Tools for the Deep Research                                 | Tool use / deep research      |
+| 2511.09378 | The 2025 Planning Performance of Frontier Large Language Models                                    | Planning evaluation           |
+| 2511.01448 | LiCoMemory: Lightweight and Cognitive Agentic Memory for Efficient Long-Term Reasoning             | Memory                        |
+| 2601.06037 | TeleMem: Building Long-Term and Multimodal Memory for Agentic AI                                   | Memory + multimodal           |
+| 2510.10991 | A Survey on Agentic Multimodal Large Language Models                                               | Multimodal reasoning (survey) |
+| 2510.18303 | Proactive Reasoning-with-Retrieval Framework for Medical Multimodal Large Language Models          | Retrieval + multimodal        |
+| 2510.19361 | AgenticMath: Enhancing LLM Reasoning via Agentic-based Math Data Generation                        | Reasoning data / math         |
+| 2407.01231 | MIRAI: Evaluating LLM Agents for Event Forecasting                                                 | Evaluation                    |
+| 2601.12538 | Agentic Reasoning for Large Language Models                                                        | Agentic reasoning core        |
 
 ### 22.5 Source archives and manifest
 
@@ -932,7 +929,7 @@ manifest.
   and a TODO is tracked in `docs/TODO.md`. No fabricated authors,
   ever (CLAUDE.md, `docs/PRD_bibliography_and_citations.md`).
 
-### 22.6 Audience *(Phase 3 decision)*
+### 22.6 Audience _(Phase 3 decision)_
 
 - **Target reader:** Practitioner-facing technical audience. The article
   assumes familiarity with ML/LLM fundamentals (transformers, inference,
@@ -944,7 +941,7 @@ manifest.
   peer-reviewed journal article. Mathematical notation is kept minimal
   and explained upon first use.
 
-### 22.7 Depth target *(Phase 3 decision)*
+### 22.7 Depth target _(Phase 3 decision)_
 
 - **Approach:** Survey-style coverage across all five reasoning dimensions
   (planning, memory, retrieval, tool use, multimodal reasoning). Each
@@ -961,7 +958,7 @@ manifest.
   the most coherent organization. Deeper treatment of a subset would
   leave sources underutilized.
 
-### 22.8 BiDi balance and section placement *(Phase 3 decision)*
+### 22.8 BiDi balance and section placement _(Phase 3 decision)_
 
 - **Language balance:** Mostly English with one substantial Hebrew/English
   BiDi section. This minimizes LaTeX compilation risk while satisfying
@@ -976,7 +973,7 @@ manifest.
   §22.6 and §22.7 remain unchanged. The Memory chapter is the canonical
   BiDi host for the HW3 demonstration run.
 
-### 22.9 Citation density *(Phase 3 decision)*
+### 22.9 Citation density _(Phase 3 decision)_
 
 - **Canonical HW3 target:** Approximately 2–3 relevant verified sources
   cited per chapter. This is a target for content balance, not a
@@ -986,13 +983,13 @@ manifest.
   specific to the canonical HW3 demonstration run and must not be
   applied to every generic run.
 - **Distribution:**
-  - Background/intro: survey papers (`2504.09037`, `2601.12538`)
-  - Planning chapter: `2511.09378` + core reasoning survey
-  - Memory chapter: `2511.01448`, `2601.06037`
-  - Retrieval chapter: `2510.18303` + supporting sources
-  - Tool use chapter: `2502.04644` + core reasoning survey
-  - Multimodal chapter: `2510.10991`, `2510.18303`
-  - Evaluation chapter: `2407.01231`, `2510.19361`
+    - Background/intro: survey papers (`2504.09037`, `2601.12538`)
+    - Planning chapter: `2511.09378` + core reasoning survey
+    - Memory chapter: `2511.01448`, `2601.06037`
+    - Retrieval chapter: `2510.18303` + supporting sources
+    - Tool use chapter: `2502.04644` + core reasoning survey
+    - Multimodal chapter: `2510.10991`, `2510.18303`
+    - Evaluation chapter: `2407.01231`, `2510.19361`
 - **No fabricated sources.** Every citation must resolve to a verified
   entry in `references.bib` (see `docs/PRD_bibliography_and_citations.md`).
 

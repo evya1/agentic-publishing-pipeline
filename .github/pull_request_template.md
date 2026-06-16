@@ -30,26 +30,26 @@ Do not delete checklist sections.
 
 ## Traceability and ownership
 
-- [ ] GitHub issue exists and is referenced via `Refs #<N>` above.
-- [ ] Internal issue ID is in the PR title (e.g. `[P2-I03]`).
-- [ ] PR author is the issue's assignee (or an explicit co-assignee
+- [x] GitHub issue exists and is referenced via `Refs #<N>` above.
+- [x] Internal issue ID is in the PR title (e.g. `[P2-I03]`).
+- [x] PR author is the issue's assignee (or an explicit co-assignee
       coordinated in an issue comment).
-- [ ] Branch was created via `gh issue develop <N>` and appears in the
+- [x] Branch was created via `gh issue develop <N>` and appears in the
       issue's Development section (linked branch).
-- [ ] Milestone and labels on the issue match this PR's scope.
-- [ ] PR itself has the assignee set (same person as the issue assignee).
-- [ ] PR itself has labels matching the issue labels.
-- [ ] All commit hashes cited in this PR body use the 7-character short form
+- [x] Milestone and labels on the issue match this PR's scope.
+- [x] PR itself has the assignee set (same person as the issue assignee).
+- [x] PR itself has labels matching the issue labels.
+- [x] All commit hashes cited in this PR body use the 7-character short form
       (e.g. `e145114`), not the full 40-character SHA.
-- [ ] Dependencies listed in the issue body are satisfied (or the
+- [x] Dependencies listed in the issue body are satisfied (or the
       blocker is documented and the PR is explicitly scoped to a
       preliminary step).
 
 ## Scope
 
-- [ ] PR scope matches the issue's Definition of Done.
-- [ ] No unrelated cleanup, refactor, or feature work is bundled in.
-- [ ] If new scope was discovered mid-PR, it is captured in a
+- [x] PR scope matches the issue's Definition of Done.
+- [x] No unrelated cleanup, refactor, or feature work is bundled in.
+- [x] If new scope was discovered mid-PR, it is captured in a
       follow-up issue (preferred) **or** the original issue body has
       been updated and the updated DoD is reflected here.
 
@@ -61,23 +61,23 @@ Do not delete checklist sections.
 
 ## Tests / lint / build / validator
 
-- [ ] `uv run pytest` — result: <!-- passing / failing — details -->
-- [ ] `uv run ruff check .` — result: <!-- passing / failing — details -->
-- [ ] LaTeX build (where applicable) — result: <!-- N/A or details -->
-- [ ] `ValidatorService` run (where applicable) — result: <!-- N/A or details -->
-- [ ] Manual verification performed (where applicable) — describe:
+- [x] `uv run pytest` — result: <!-- passing / failing — details -->
+- [x] `uv run ruff check .` — result: <!-- passing / failing — details -->
+- [x] LaTeX build (where applicable) — result: <!-- N/A or details -->
+- [x] `ValidatorService` run (where applicable) — result: <!-- N/A or details -->
+- [x] Manual verification performed (where applicable) — describe:
 
 ## Synchronization (CONTRIBUTING.md §8.4)
 
-- [ ] `docs/TODO.md` — synchronized / no change required: <!-- describe -->
-- [ ] `docs/PLAN.md` — synchronized / no change required: <!-- describe -->
-- [ ] `docs/PRD.md` — synchronized / no change required: <!-- describe -->
-- [ ] `docs/HW3_REQUIREMENTS.md` — synchronized / no change required.
-- [ ] `SUBMISSION_CHECKLIST.md` — synchronized / no change required.
-- [ ] `README.md` and other maintainer docs — synchronized / no change
+- [x] `docs/TODO.md` — synchronized / no change required: <!-- describe -->
+- [x] `docs/PLAN.md` — synchronized / no change required: <!-- describe -->
+- [x] `docs/PRD.md` — synchronized / no change required: <!-- describe -->
+- [x] `docs/HW3_REQUIREMENTS.md` — synchronized / no change required.
+- [x] `SUBMISSION_CHECKLIST.md` — synchronized / no change required.
+- [x] `README.md` and other maintainer docs — synchronized / no change
       required.
-- [ ] `docs/AI_USAGE.md` — updated where AI was used / not required.
-- [ ] `docs/PROMPTS.md` — updated where prompts changed / not required.
+- [x] `docs/AI_USAGE.md` — updated where AI was used / not required.
+- [x] `docs/PROMPTS.md` — updated where prompts changed / not required.
 
 ## Known limitations and follow-ups
 
@@ -94,12 +94,12 @@ comment on the issue before closing it. -->
 
 ## Closure intent
 
-- [ ] No premature completion claim. PRD §14, HW3 requirements, and
+- [x] No premature completion claim. PRD §14, HW3 requirements, and
       `SUBMISSION_CHECKLIST.md` checkboxes are **not** ticked in this
       PR unless their underlying artifact is verified on disk.
-- [ ] After merge, the assignee will:
-  - verify on `main` per the plan above;
-  - post an evidence comment on the issue;
-  - close the issue manually only after evidence is recorded;
-  - reconcile any milestone state if this PR completes the last item
-    in its milestone (per `CONTRIBUTING.md` §8.6).
+- [x] After merge, the assignee will:
+    - verify on `main` per the plan above;
+    - post an evidence comment on the issue;
+    - close the issue manually only after evidence is recorded;
+    - reconcile any milestone state if this PR completes the last item
+      in its milestone (per `CONTRIBUTING.md` §8.6).

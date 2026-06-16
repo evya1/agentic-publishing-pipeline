@@ -1,16 +1,5 @@
 # agentic-publishing-pipeline
 
-> **Status:** Phases 0 through 8 are merged into `main`. Phase 6 corrective
-> recovery is complete through PR #96 (real CrewAI orchestration and a
-> complete manuscript candidate; pending maintainer review-gate approval).
-> Phase 8 delivered a deterministic Python graph pipeline: typed
-> grouped-bar-chart spec, strict validation, Matplotlib Agg renderer,
-> SHA-256 provenance, and a canonical artifact committed to
-> `latex_project/figures/` (PR #92). Phase 12 hardened CI with coverage
-> gates, lint, and regression-guard scripts (PR #86). Phase 9 (LaTeX project
-> assembly) proceeds once the maintainer approves the Phase 6 review packet.
-> No final PDF has been generated.
-
 This repository will host a CrewAI-based pipeline that produces a polished LaTeX
 PDF article/book on a user-selected topic. The current state includes the
 Phase 5 provider/service layer, deterministic runtime modes, typed artifact
@@ -23,30 +12,6 @@ Python graph pipeline with a canonical PNG artifact and provenance in
 validation, and `results/final.pdf` remain unfinished.
 
 ## HW3 — Article / Book Generation with CrewAI and LaTeX
-
-### Current status
-
-- Phase 6 corrective recovery is complete (PR #96): real CrewAI orchestration
-  is wired, a complete eight-chapter candidate manuscript is produced, and the
-  pipeline stops at the maintainer-owned human review gate with a review packet.
-- Phase 7 real-source bibliography pipeline is merged into `main` (PR #83):
-  ArXiv metadata verified, citation keys migrated, `\cite{}` placeholders
-  resolved, untrusted-archive policy enforced.
-- Phase 8 Python graph generation pipeline is merged into `main` (PR #92):
-  deterministic grouped-bar-chart renderer, typed YAML spec with strict
-  validation, SHA-256 provenance, and a canonical PNG committed to
-  `latex_project/figures/` with regeneration evidence (409 tests, 88% coverage).
-- Phase 12 CI hardening merged (PR #86): `ci-core.yml` with 85% coverage
-  gate, 150-line cap, and `scripts/check_*.py` regression-guard scripts.
-  Workflows are currently set to `workflow_dispatch`-only pending runner
-  verification.
-- Phase 9 (LaTeX project assembly) waits on the fresh Phase 6 manuscript
-  approval.
-- The canonical HW3 topic is selected in `docs/PRD.md` §22.
-- No final PDF has been generated.
-- Live model/search adapters are **not** implemented yet.
-- Final LaTeX assembly has **not** been completed yet.
-- Deterministic final PDF validation has **not** been implemented yet.
 
 ### Goal
 
@@ -93,10 +58,72 @@ The default planned `Process` is sequential. Any deviation must be justified in
 - [`submission/`](submission/) — final submission bundle prepared from the
   official Moodle template later.
 
+### Installation
+
+**Python dependencies** — requires [uv](https://docs.astral.sh/uv/):
+
+```sh
+uv sync --frozen --group dev     # exact, reproducible install
+```
+
+**LaTeX distribution** — required to compile the PDF:
+
+```sh
+# macOS: install MacTeX (includes LuaLaTeX, biber, makeindex, David CLM font)
+brew install --cask mactex
+
+# Linux (Debian/Ubuntu):
+sudo apt-get install texlive-full biber
+
+# Verify:
+lualatex --version
+biber --version
+fc-list | grep -i "david clm"    # should list DavidCLM-Medium.otf
+```
+
+**Configuration** — copy `.env-example` to `.env` and fill in your API keys
+if you intend to run the live CrewAI pipeline:
+
+```sh
+cp .env-example .env
+# edit .env and set OPENAI_API_KEY (or ANTHROPIC_API_KEY)
+```
+
+### Building the final PDF
+
+The multi-pass build script handles the complete LuaLaTeX compilation:
+
+```sh
+uv run python scripts/build_pdf.py
+# Produces: results/final.pdf  (21 pages)
+# Log:      results/run_logs/latex_build_<timestamp>.log
+```
+
+Manual equivalent (from `latex_project/`):
+
+```sh
+cd latex_project
+lualatex -interaction=nonstopmode main.tex
+biber main
+makeindex main.nlo -s nomencl.ist -o main.nls
+makeindex main.idx
+lualatex -interaction=nonstopmode main.tex
+lualatex -interaction=nonstopmode main.tex
+cp main.pdf ../results/final.pdf
+```
+
+### Running the deterministic validator
+
+After building the PDF, validate all artifacts:
+
+```sh
+uv run python -m agentic_publishing_pipeline.validation
+# Exits 0 if all 35 checks pass; writes report to results/run_logs/
+```
+
 ### Local development commands
 
-All commands will use [`uv`](https://docs.astral.sh/uv/) only. Examples for
-later use:
+All commands use [`uv`](https://docs.astral.sh/uv/) only:
 
 ```sh
 uv sync --frozen --group dev                     # exact, reproducible install

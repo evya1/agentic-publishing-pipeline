@@ -3,7 +3,7 @@
 **Canonical Markdown draft root** per FR-12, §12.3, and `docs/PRD.md`.
 
 The `content/markdown_drafts/` transitional path was retired in P6-I00
-(2026-06-15). This directory is the sole canonical location for
+. This directory is the sole canonical location for
 Markdown drafts produced by the Writer/Outline/Reviewer agent pipeline.
 
 ## Layout

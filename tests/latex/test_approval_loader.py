@@ -30,7 +30,7 @@ def test_loader_uses_existing_review_gate_and_preserves_order(
             {
                 "reviewer": "Human Maintainer",
                 "draft_sha256": _revision(md_root),
-                "reviewed_at": "2026-06-16T00:00:00Z",
+                "reviewed_at": "T00:00:00Z",
                 "verdict": "approved",
                 "schema_version": "v1",
             }
@@ -61,7 +61,7 @@ def test_loader_raises_on_missing_required_chapter(
             {
                 "reviewer": "Human Maintainer",
                 "draft_sha256": _revision(md_root),
-                "reviewed_at": "2026-06-16T00:00:00Z",
+                "reviewed_at": "T00:00:00Z",
                 "verdict": "approved",
                 "schema_version": "v1",
             }

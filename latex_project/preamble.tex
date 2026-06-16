@@ -22,10 +22,10 @@
 \addbibresource{references.bib}
 
 % --- Index ------------------------------------------------------------------
-% imakeidx intoc option adds the index TOC entry automatically so
-% main.tex does not need \addcontentsline{toc}{chapter}{Index}.
-\usepackage[intoc]{imakeidx}
-\makeindex
+% intoc is passed to \makeindex (not the package) in TeX Live 2025+,
+% which adds the index TOC entry automatically.
+\usepackage{imakeidx}
+\makeindex[intoc]
 
 % --- Nomenclature -----------------------------------------------------------
 % nomencl intoc option adds the nomenclature TOC entry automatically.
@@ -52,7 +52,10 @@
 \usepackage{xspace}
 
 % --- Headers and footers (fancyhdr) — FR-21 ---------------------------------
+% headheight must be ≥13.6pt for 11pt body text (fancyhdr requirement).
 \usepackage{fancyhdr}
+\setlength{\headheight}{14pt}
+\addtolength{\topmargin}{-2pt}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[LE,RO]{\thepage}

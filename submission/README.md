@@ -1,15 +1,29 @@
 # submission/
 
-> **Status:** scaffold only — no submission artifacts exist yet.
+> **Status :** `final.pdf` copied here from `results/final.pdf`
+> (21 pages, 213 KB). Rename to `<GROUP_CODE>-ex03.pdf` before uploading
+> to Moodle. Each group member submits separately.
 
-This directory will hold the final HW3 submission bundle:
+## Files
 
-- The compiled article/book PDF (path TBD — possibly under `../results/`,
-  copied here for the bundle).
-- The Moodle wrapper PDF produced from the **official course template**.
-- Any supporting files required by the course brief.
+- `final.pdf` — the final article PDF (copy of `results/final.pdf`).
+  Rename to `<GROUP_CODE>-ex03.pdf` per the course filename convention.
 
-Filename convention for Moodle: `<GROUP_CODE>-ex03.pdf`.
+## Submission steps
 
-Each group member submits separately in Moodle. See
-[`../SUBMISSION_CHECKLIST.md`](../SUBMISSION_CHECKLIST.md).
+1. Rename: `mv final.pdf <GROUP_CODE>-ex03.pdf`
+2. Each group member uploads `<GROUP_CODE>-ex03.pdf` independently in Moodle.
+3. Tick the Moodle submission boxes in [`../SUBMISSION_CHECKLIST.md`](../SUBMISSION_CHECKLIST.md).
+
+## Regenerating the PDF from a clean checkout
+
+```sh
+git clone <repo-url>
+cd agentic-publishing-pipeline
+uv sync --frozen --group dev
+uv run python scripts/build_pdf.py
+# Output: results/final.pdf
+```
+
+Requires LuaLaTeX (MacTeX or TeX Live full) and the David CLM Hebrew font.
+See `README.md` §Installation for details.

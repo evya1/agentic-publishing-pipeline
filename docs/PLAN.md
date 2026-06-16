@@ -13,15 +13,15 @@
 These artifacts have distinct, non-overlapping roles. Keep them in sync, do
 not duplicate content:
 
-| Artifact | Role |
-|---|---|
-| [`docs/PRD.md`](PRD.md) | Source of truth for **requirements** (FRs, NFRs, acceptance criteria). |
-| [`docs/PLAN.md`](PLAN.md) (this file) | **Phased roadmap / milestones** from scaffold to submission. |
-| [`docs/TODO.md`](TODO.md) | **Concrete task backlog** with checkable items, each traceable to a PRD requirement. |
-| GitHub **Milestones** | GUI mirror of PLAN phases. Created later (see Phase 2). |
-| GitHub **Issues** | GUI mirror of TODO items. Created later (see Phase 2). |
-| [`CLAUDE.md`](../CLAUDE.md) | Repository conventions for AI assistants. Aligned with `docs/PRD.md`. |
-| HW3 mechanism PRDs (`docs/PRD_*.md`) | Per-mechanism refinements of `docs/PRD.md`. Currently scaffold-level placeholders — see Phase 1. |
+| Artifact                              | Role                                                                                             |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| [`docs/PRD.md`](PRD.md)               | Source of truth for **requirements** (FRs, NFRs, acceptance criteria).                           |
+| [`docs/PLAN.md`](PLAN.md) (this file) | **Phased roadmap / milestones** from scaffold to submission.                                     |
+| [`docs/TODO.md`](TODO.md)             | **Concrete task backlog** with checkable items, each traceable to a PRD requirement.             |
+| GitHub **Milestones**                 | GUI mirror of PLAN phases. Created later (see Phase 2).                                          |
+| GitHub **Issues**                     | GUI mirror of TODO items. Created later (see Phase 2).                                           |
+| [`CLAUDE.md`](../CLAUDE.md)           | Repository conventions for AI assistants. Aligned with `docs/PRD.md`.                            |
+| HW3 mechanism PRDs (`docs/PRD_*.md`)  | Per-mechanism refinements of `docs/PRD.md`. Currently scaffold-level placeholders — see Phase 1. |
 
 GitHub Milestones/Issues are a GUI representation of this plan and TODO; they
 are **not** a replacement for these documents. The Markdown files remain
@@ -72,12 +72,12 @@ text in this repo should use `results/generated_markdown/`.
 ## Phases
 
 The phases below are ordered. Each phase has an explicit exit criterion. Do
-**not** mark a phase complete until its exit criterion is *verifiably* met by
+**not** mark a phase complete until its exit criterion is _verifiably_ met by
 artifacts on disk and (where relevant) by a passing build, test, or
 validator run. Detailed task checklists live in [`docs/TODO.md`](TODO.md),
 not here.
 
-### Phase 0 — Scaffold setup *(complete)*
+### Phase 0 — Scaffold setup _(complete)_
 
 Only items below were verified on disk and are marked complete. Everything
 beyond Phase 0 is open.
@@ -101,10 +101,10 @@ beyond Phase 0 is open.
 
 **Exit criterion (met):** `uv sync` succeeds, `uv run pytest` passes the
 smoke suite, `uv run ruff check .` is clean. Note that scaffold "complete"
-means *the scaffold itself* is complete, not that any HW3 requirement is
+means _the scaffold itself_ is complete, not that any HW3 requirement is
 satisfied.
 
-### Phase 1 — Documentation alignment *(mechanism PRDs complete; README / SUBMISSION_CHECKLIST refresh deferred to Phase 13)*
+### Phase 1 — Documentation alignment _(mechanism PRDs complete; README / SUBMISSION_CHECKLIST refresh deferred to Phase 13)_
 
 Reconcile the four mechanism PRDs and supporting docs with the current
 `docs/PRD.md`. They previously described a 5-agent flow
@@ -126,7 +126,7 @@ responsibilities rules, validation policy, and acceptance criteria as
 `docs/PRD.md`. `README.md` and `SUBMISSION_CHECKLIST.md` refresh is
 explicitly deferred to Phase 13 and remains tracked in TODO.
 
-### Phase 1.5 — Demo article topic and source manifest lock *(complete — commit `303a425`)*
+### Phase 1.5 — Demo article topic and source manifest lock _(complete — commit `303a425`)_
 
 Lock the default demo runtime topic, the source set, and the local-only
 archive layout so the Research Agent (Phase 6) and the Bibliography
@@ -173,7 +173,7 @@ claims the directory is empty, and `docs/TODO.md` tracks the follow-up
 work for author metadata, URL/DOI verification, audit trail, and
 bibliography extraction.
 
-### Phase 2 — Project management setup *(complete and closed — P2-I04 reconciled via PR #69; milestone #1 closed)*
+### Phase 2 — Project management setup _(complete and closed — P2-I04 reconciled via PR #69; milestone #1 closed)_
 
 Set up GitHub as the GUI tracking layer for this plan and TODO, and
 establish the contribution / synchronization / handoff governance that
@@ -212,7 +212,7 @@ PRD requirement is documented in `docs/TODO.md`'s introduction
 (Traceability section); P2-I00 through P2-I04 are independently
 verified and closed with evidence; the Phase 2 milestone is closed.
 
-### Phase 3 — Topic and scope *(complete and closed — P3-I01/P3-I02 reconciled via PR #70; milestone #2 closed)*
+### Phase 3 — Topic and scope _(complete and closed — P3-I01/P3-I02 reconciled via PR #70; milestone #2 closed)_
 
 Phase 1.5 locks the **default demo topic** in `docs/PRD.md` §22 and the
 source set in `config/article_sources.yaml`. Phase 3 resolves the
@@ -242,7 +242,7 @@ decisions are recorded in `docs/PRD.md` §22.6–§22.9 and reflected in
 the mechanism PRDs whose behavior depends on them; P3-I01 and P3-I02
 are closed with evidence; the Phase 3 milestone is closed.
 
-### Phase 4 — CrewAI architecture design *(complete and closed — P4-I04 reconciled before Phase 5; milestone #3 closed)*
+### Phase 4 — CrewAI architecture design _(complete and closed — P4-I04 reconciled before Phase 5; milestone #3 closed)_
 
 Phase 4 originally captured the **eight** agents from `docs/PRD.md` §8.3
 — Researcher, Outline, Writer, Technical-Asset, Hebrew/BiDi, LaTeX,
@@ -294,7 +294,7 @@ Deliverable tree:
    post-merge verified on `main`, P4-I04 was closed with evidence, and
    no other Phase 4 work remained.
 
-### Phase 5 — Provider/service layer and tools *(complete and closed — PR #79; milestone #4 closed)*
+### Phase 5 — Provider/service layer and tools _(complete and closed — PR #79; milestone #4 closed)_
 
 Phase 5 implemented the controlled provider/service layer (NFR-23) so model
 and search calls route through one place. It added `.env-example` (FR-4),
@@ -342,7 +342,7 @@ above is implemented and tested. PR #79 merged the work to `main`; the
 offline-fixture path and baseline CI gates are green; P5-I01 through P5-I13
 are closed with evidence; the Phase 5 milestone is closed.
 
-### Phase 6 — Markdown-first content pipeline *(corrective recovery complete — PR #96; pending maintainer review-gate approval before Phase 9)*
+### Phase 6 — Markdown-first content pipeline _(corrective recovery complete — PR #96; pending maintainer review-gate approval before Phase 9)_
 
 Writer/Outline/Reviewer agents produce Markdown drafts at
 `results/generated_markdown/` (canonical, per FR-12 and §12.3). The
@@ -370,7 +370,7 @@ in an isolated run workspace; deterministic preflight passes; and the run
 stops at the maintainer-owned human review gate with a review packet and exact
 aggregate hash. Phase 9 may begin once the maintainer approves that packet.
 
-### Phase 7 — Real-source and bibliography pipeline *(complete and closed — PR #83)*
+### Phase 7 — Real-source and bibliography pipeline _(complete and closed — PR #83)_
 
 Implement the Bibliography Agent's configured-manifest consumption,
 source verification, and `references.bib` curation per
@@ -379,7 +379,7 @@ deferred beyond the MVP. **No fabricated sources, ever** — citation
 insertion must refuse unverified sources and surface unresolved
 `\cite{...}` as build-time errors.
 
-**P7-I00 (binding decisions fixed 2026-06-16):** the canonical
+**P7-I00 (binding decisions fixed ):** the canonical
 per-source ledger is `docs/SOURCES.md` (with `docs/AI_USAGE.md`
 reserved for AI-assisted activity logging); `biblatex` is configured
 `style=numeric`, `sorting=none`, `backend=biber`; citation keys follow
@@ -393,7 +393,7 @@ metadata-only readers (P7-I07). Full policy text is in
 **Exit criterion:** `latex_project/references.bib` contains only verified
 real entries; every `\cite{...}` in the LaTeX sources resolves.
 
-### Phase 8 — Python graph generation pipeline *(complete and closed — PR #92)*
+### Phase 8 — Python graph generation pipeline _(complete and closed — PR #92)_
 
 Implement `src/agentic_publishing_pipeline/visualization/`. It must produce
 at least one graph image saved under `latex_project/figures/` (FR-29,
@@ -405,7 +405,7 @@ remains Phase 9 work.
 `latex_project/figures/`, produced from a validated versioned graph spec
 with deterministic regeneration evidence and provenance beside the PNG.
 
-### Phase 9 — LaTeX project assembly *(complete — PR #99)*
+### Phase 9 — LaTeX project assembly _(complete — PR #99)_
 
 Deterministic Markdown→LaTeX assembly pipeline in
 `src/agentic_publishing_pipeline/latex/` (22 modules). All structural
@@ -426,7 +426,7 @@ with no missing, extra, or changed files. 20 Phase 9 tests pass.
 clean, and committed `latex_project/` matches renderer output. Phase 10
 compilation is the next step.
 
-### Phase 10 — PDF build pipeline *(open)*
+### Phase 10 — PDF build pipeline _(open)_
 
 Document and script the multi-pass build (LuaLaTeX → biber → LuaLaTeX →
 LuaLaTeX, plus `makeindex` / `makenomenclature` as needed). Output is
@@ -442,7 +442,7 @@ page checks in the ValidatorService (FR-49).
 (KPI) by both total and substantive page rules, and is regenerable from
 a clean checkout via documented commands.
 
-### Phase 11 — Deterministic ValidatorService *(open)*
+### Phase 11 — Deterministic ValidatorService _(open)_
 
 Implement the deterministic `ValidatorService` in
 `src/agentic_publishing_pipeline/validation/` per FR-40 / NFR-19. It runs
@@ -459,7 +459,7 @@ human-readable validation report (FR-37).
 produces a report, and fails loudly on missing artifacts; it does not
 delegate any decision to an LLM.
 
-### Phase 12 — Tests, lint, and reproducibility *(open)*
+### Phase 12 — Tests, lint, and reproducibility _(open)_
 
 Replace smoke-only coverage with real tests for the provider layer, tools,
 Markdown→LaTeX conversion, visualization, and `ValidatorService`. Keep
@@ -481,7 +481,7 @@ a clean checkout; `README.md` reproducibility instructions are accurate;
 P12-I05 coverage gate is enforced in CI; P12-I06 second-topic run
 completes successfully.
 
-### Phase 13 — README, AI usage, and prompt log finalization *(open)*
+### Phase 13 — README, AI usage, and prompt log finalization _(open)_
 
 Bring `README.md` to current architecture (8-agent flow, real commands,
 real run output), and fill `docs/AI_USAGE.md` and `docs/PROMPTS.md` with
@@ -500,7 +500,7 @@ references or attribution (NFR-33).
 usage and prompt log are complete and current at submission time;
 P13-I05 sanitized evidence bundle is published.
 
-### Phase 14 — Final submission packaging *(open)*
+### Phase 14 — Final submission packaging _(open)_
 
 Prepare the Moodle wrapper PDF from the official template, confirm the
 `<GROUP_CODE>-ex03.pdf` filename convention, and confirm each group member

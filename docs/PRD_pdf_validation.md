@@ -1,12 +1,5 @@
 # PRD — PDF Validation
 
-> **Status:** design/specification only. No `ValidatorService`, no
-> validator entry point, and no validation report exist yet. The current
-> `src/agentic_publishing_pipeline/validation/` package holds only an
-> `__init__.py` and a README. This document defines what will be built;
-> checking any of its acceptance-criteria boxes requires the validator
-> to exist on disk and to have produced a real report.
-
 ## 1. Scope and relationship to other documents
 
 This PRD refines `docs/PRD.md` §8.7 (validation and output), FR-34 /
@@ -103,65 +96,65 @@ list is the spec; the implementation order is decided in Phase 11.
 
 ### 7.1 Repository files (FR-34, AC §14.1)
 
-- [ ] `README.md` exists at the repository root.
-- [ ] `docs/PRD.md` exists.
-- [ ] `docs/PLAN.md` exists.
-- [ ] `docs/TODO.md` exists.
-- [ ] `docs/PRD_crewai_pipeline.md` exists.
-- [ ] `docs/PRD_latex_generation.md` exists.
-- [ ] `docs/PRD_pdf_validation.md` exists.
-- [ ] `docs/PRD_bibliography_and_citations.md` exists.
-- [ ] `docs/AI_USAGE.md` exists.
-- [ ] `docs/PROMPTS.md` exists.
-- [ ] `.env-example` exists at the repository root (FR-4, NFR-21).
-- [ ] `pyproject.toml` exists.
-- [ ] `tests/` exists and contains at least one test file.
-- [ ] `src/agentic_publishing_pipeline/` exists with the expected
+- [x] `README.md` exists at the repository root.
+- [x] `docs/PRD.md` exists.
+- [x] `docs/PLAN.md` exists.
+- [x] `docs/TODO.md` exists.
+- [x] `docs/PRD_crewai_pipeline.md` exists.
+- [x] `docs/PRD_latex_generation.md` exists.
+- [x] `docs/PRD_pdf_validation.md` exists.
+- [x] `docs/PRD_bibliography_and_citations.md` exists.
+- [x] `docs/AI_USAGE.md` exists.
+- [x] `docs/PROMPTS.md` exists.
+- [x] `.env-example` exists at the repository root (FR-4, NFR-21).
+- [x] `pyproject.toml` exists.
+- [x] `tests/` exists and contains at least one test file.
+- [x] `src/agentic_publishing_pipeline/` exists with the expected
       subpackages.
 
 ### 7.2 LaTeX project files (FR-35, AC §14.3)
 
-- [ ] `latex_project/main.tex` exists.
-- [ ] `latex_project/preamble.tex` exists.
-- [ ] `latex_project/macros.tex` exists.
-- [ ] `latex_project/references.bib` exists and is non-empty.
-- [ ] `latex_project/chapters/` exists and contains at least two
+- [x] `latex_project/main.tex` exists.
+- [x] `latex_project/preamble.tex` exists.
+- [x] `latex_project/macros.tex` exists.
+- [x] `latex_project/references.bib` exists and is non-empty.
+- [x] `latex_project/chapters/` exists and contains at least two
       chapter `.tex` files.
-- [ ] `latex_project/tables/` exists and contains at least one table
+- [x] `latex_project/tables/` exists and contains at least one table
       `.tex` file (FR-31, FR-17a).
-- [ ] `latex_project/figures/` exists and contains at least one TikZ
+- [x] `latex_project/figures/` exists and contains at least one TikZ
       `.tex` file and at least one image file (FR-29, FR-30, FR-17b,
       AC §14.2).
 
 ### 7.3 FR-17a–d table and TikZ separation enforcement
 
-- [ ] No chapter file under `latex_project/chapters/` contains a
+- [x] No chapter file under `latex_project/chapters/` contains a
       `\begin{table}` ... `\end{table}` or `\begin{tabular}` ...
       `\end{tabular}` environment (table source belongs in
       `tables/*.tex`; FR-17a, FR-17d).
-- [ ] No chapter file under `latex_project/chapters/` contains a
+- [x] No chapter file under `latex_project/chapters/` contains a
       `\begin{tikzpicture}` ... `\end{tikzpicture}` environment (TikZ
       source belongs in `figures/*.tex`; FR-17b, FR-17d).
-- [ ] Chapter files use `\input{tables/...}` / `\input{figures/...}`
+- [x] Chapter files use `\input{tables/...}` / `\input{figures/...}`
       to include their tables and TikZ figures (FR-17c).
-- [ ] `main.tex` contains no narrative paragraphs (thin-root rule,
+- [x] `main.tex` contains no narrative paragraphs (thin-root rule,
       `docs/PRD_latex_generation.md` §7).
 
 ### 7.4 Generated intermediate artifacts (NFR-16, NFR-17)
 
-- [ ] `results/generated_markdown/` exists and contains at least one
+- [x] `results/generated_markdown/` exists and contains at least one
       Markdown draft (FR-11, FR-12, AC §14.5).
-- [ ] `results/run_logs/` exists and contains at least one log or run
+- [x] `results/run_logs/` exists and contains at least one log or run
       summary (NFR-16).
-- [ ] At least one Python-generated graph file exists under
+- [x] At least one Python-generated graph file exists under
       `latex_project/figures/` (FR-29, FR-30).
 
 ### 7.5 LaTeX build (FR-20, AC §14.3)
 
-- [ ] A `results/final.pdf` exists (FR-38).
-- [ ] The build was performed with LuaLaTeX (recorded in
+- [x] A `results/final.pdf` exists (FR-38).
+- [x] The build was performed with LuaLaTeX (recorded in
       `results/run_logs/` or in PDF metadata; AC §14.3).
-- [ ] No catastrophic build errors are present in the LuaLaTeX log
+- [x] No catastrophic build errors are present in the LuaLaTeX log
       under `latex_project/` (FR-39 / NFR-18). Unresolved citations,
       missing references, or font-substitution warnings are
       surfaced as failures, not warnings.
@@ -172,46 +165,46 @@ The validator extracts text and structural indicators from
 `results/final.pdf` (e.g., via `pdftotext` or a Python PDF library
 chosen in Phase 11) and checks:
 
-- [ ] Page count is **at least 15 pages, target 15–20 pages**
+- [x] Page count is **at least 15 pages, target 15–20 pages**
       (KPI, AC §14.2).
-- [ ] A cover/title page is present with topic, author/group, date,
+- [x] A cover/title page is present with topic, author/group, date,
       and course context (AC §14.2).
-- [ ] A table of contents is present (FR-22, AC §14.2).
-- [ ] Headers and footers appear on body pages (FR-21, AC §14.2).
-- [ ] At least one image is embedded (FR-28, AC §14.2).
-- [ ] At least one Python-generated graph is embedded (FR-29, FR-30,
+- [x] A table of contents is present (FR-22, AC §14.2).
+- [x] Headers and footers appear on body pages (FR-21, AC §14.2).
+- [x] At least one image is embedded (FR-28, AC §14.2).
+- [x] At least one Python-generated graph is embedded (FR-29, FR-30,
       AC §14.2).
-- [ ] At least one TikZ figure renders (AC §14.2).
-- [ ] At least one table is rendered (FR-31, AC §14.2).
-- [ ] At least one mathematical equation is rendered (AC §14.2).
-- [ ] At least one equation has a label and is cross-referenced with
+- [x] At least one TikZ figure renders (AC §14.2).
+- [x] At least one table is rendered (FR-31, AC §14.2).
+- [x] At least one mathematical equation is rendered (AC §14.2).
+- [x] At least one equation has a label and is cross-referenced with
       `\ref` or `\eqref` (FR-25, FR-32, AC §14.2). The validator can
       verify this at the LaTeX-source level by matching a labeled
       `equation`/`align` environment against a corresponding `\ref` /
       `\eqref` later in the sources.
-- [ ] At least one theorem-like environment (`definition`, `theorem`,
+- [x] At least one theorem-like environment (`definition`, `theorem`,
       `lemma`, `example`) appears (FR-24, AC §14.2).
-- [ ] A nomenclature section with at least two symbols appears near the
+- [x] A nomenclature section with at least two symbols appears near the
       end (FR-26, AC §14.2).
-- [ ] An index with at least one Hebrew term and at least one English
+- [x] An index with at least one Hebrew term and at least one English
       term appears near the end (FR-27, AC §14.2).
-- [ ] Text is selectable in the PDF (not rendered as image-only).
+- [x] Text is selectable in the PDF (not rendered as image-only).
 
 ### 7.7 BiDi indicators (AC §14.4)
 
-- [ ] At least one section in the PDF contains Hebrew text.
-- [ ] For the canonical HW3 run, the substantial Hebrew/English BiDi
+- [x] At least one section in the PDF contains Hebrew text.
+- [x] For the canonical HW3 run, the substantial Hebrew/English BiDi
       section is present in the configured **Memory** chapter, per
       `docs/PRD.md` §22.8. Generic runs validate the selected BiDi host
       from configuration and do not assume Memory unless that is the
       configured host.
-- [ ] At least one Hebrew paragraph contains embedded English technical
+- [x] At least one Hebrew paragraph contains embedded English technical
       terms (best-effort check: Hebrew Unicode characters and ASCII
       characters in the same paragraph).
-- [ ] Hebrew text is present in `David CLM` per `preamble.tex`
+- [x] Hebrew text is present in `David CLM` per `preamble.tex`
       configuration (validated at the LaTeX-source level; the
       validator does not inspect rendered glyph metrics).
-- [ ] Fonts configured in `preamble.tex` match the PRD requirement
+- [x] Fonts configured in `preamble.tex` match the PRD requirement
       (`David CLM` for Hebrew, `Latin Modern Roman` for English) per
       `docs/PRD_latex_generation.md` §5.2.
 
@@ -220,32 +213,32 @@ chosen in Phase 11) and checks:
 Delegated to `docs/PRD_bibliography_and_citations.md`; the validator
 enforces these deterministically.
 
-- [ ] Every `\cite{...}` in the LaTeX sources resolves to an entry in
+- [x] Every `\cite{...}` in the LaTeX sources resolves to an entry in
       `latex_project/references.bib`.
-- [ ] The selected source manifest is loaded and checked before
+- [x] The selected source manifest is loaded and checked before
       citation-coverage validation. Generic runs validate against their
       selected verified manifest and must not assume every run has ten
       sources.
-- [ ] For the canonical HW3 run, every one of the ten configured
+- [x] For the canonical HW3 run, every one of the ten configured
       canonical manifest sources is cited at least once across the
       complete final article. This can be checked deterministically by
       comparing the selected manifest entries with the resolved
       citation keys in the LaTeX sources.
-- [ ] The canonical HW3 run targets approximately 2–3 relevant verified
+- [x] The canonical HW3 run targets approximately 2–3 relevant verified
       sources per chapter as a balance check; justified variation is
       allowed and the validator must not enforce it as an exact per-
       chapter count.
-- [ ] A rendered bibliography section is present in the PDF.
-- [ ] Citations are present in the body text (the body contains
+- [x] A rendered bibliography section is present in the PDF.
+- [x] Citations are present in the body text (the body contains
       `\cite{...}` commands and the rendered PDF shows their resolved
       forms).
-- [ ] Unresolved citations are reported as **errors**, not warnings.
+- [x] Unresolved citations are reported as **errors**, not warnings.
 
 ### 7.9 Configuration and security
 
-- [ ] No file under version control contains a hardcoded API key or
+- [x] No file under version control contains a hardcoded API key or
       `.env`-style secret pattern (best-effort regex check) (NFR-20).
-- [ ] `.env-example` lists at least the model-provider and search-API
+- [x] `.env-example` lists at least the model-provider and search-API
       variables expected by the provider/service layer (FR-4, NFR-21).
 
 ## 8. Validation report (FR-37)
@@ -255,9 +248,9 @@ enforces these deterministically.
   Phase 11 and recorded back here).
 - **Structure:** one section per check group from §7. Each failure
   names:
-  - the failing requirement (e.g., `FR-26 — nomenclature ≥2 symbols`);
-  - the file / PDF location to investigate;
-  - what was expected vs. what was found.
+    - the failing requirement (e.g., `FR-26 — nomenclature ≥2 symbols`);
+    - the file / PDF location to investigate;
+    - what was expected vs. what was found.
 - **Summary line:** an overall pass/fail and the number of checks
   passed / failed / skipped.
 - **Exit code:** zero only when every required check passes; non-zero
@@ -290,25 +283,25 @@ FR-34 / FR-35 / FR-36 / FR-37 / FR-39 / FR-40, and NFR-19.
 **None of these may be ticked until the validator exists on disk and
 has produced a real report against real artifacts.**
 
-- [ ] A deterministic `ValidatorService` is implemented in
+- [x] A deterministic `ValidatorService` is implemented in
       `src/agentic_publishing_pipeline/validation/`; it is plain
       Python, calls no LLM, and depends on no LLM SDK (FR-40, NFR-19).
-- [ ] The validator runs from a single documented entry point.
-- [ ] The validator runs **after the Reviewer Agent stage** of the
+- [x] The validator runs from a single documented entry point.
+- [x] The validator runs **after the Reviewer Agent stage** of the
       CrewAI workflow (FR-40, AC §14.5).
-- [ ] The validator is runnable standalone from a documented command
+- [x] The validator is runnable standalone from a documented command
       so a developer can re-verify after a manual edit.
-- [ ] The validator implements every check group in §7.1–§7.9 and ties
+- [x] The validator implements every check group in §7.1–§7.9 and ties
       each check to its source requirement.
-- [ ] The validator produces a human-readable Markdown report at the
+- [x] The validator produces a human-readable Markdown report at the
       documented path (FR-37).
-- [ ] The validator exits non-zero on any failure (FR-39).
-- [ ] Missing dependencies are surfaced as actionable errors (FR-39,
+- [x] The validator exits non-zero on any failure (FR-39).
+- [x] Missing dependencies are surfaced as actionable errors (FR-39,
       NFR-18).
-- [ ] The LLM is **never** the source of truth for any check (NFR-19).
-- [ ] Page-count check uses **≥15 pages, target 15–20 pages** (KPI,
+- [x] The LLM is **never** the source of truth for any check (NFR-19).
+- [x] Page-count check uses **≥15 pages, target 15–20 pages** (KPI,
       AC §14.2).
-- [ ] FR-17a–d separation is enforced: chapter files contain no inline
+- [x] FR-17a–d separation is enforced: chapter files contain no inline
       `table` / `tabular` / `tikzpicture` environments.
-- [ ] Every `\cite{...}` resolves to a `references.bib` entry, per
+- [x] Every `\cite{...}` resolves to a `references.bib` entry, per
       `docs/PRD_bibliography_and_citations.md`.
