@@ -117,7 +117,7 @@ flowchart LR
         BuildLog["Build log capture"]
     end
 
-    subgraph Assets["Python graph & asset rendering (P5-I07, P8-I02)"]
+    subgraph Assets["Python graph & asset rendering (P5-I07, P8-I01)"]
         GraphRender["Typed graph specs →<br/>figures/*.png|pdf"]
     end
 

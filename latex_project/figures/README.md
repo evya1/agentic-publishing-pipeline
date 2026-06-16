@@ -1,16 +1,23 @@
 # latex_project/figures/
 
-> **Status:** scaffold only — no figures exist yet.
+Tracked image artifacts live here once they have been generated through a
+deterministic pipeline and promoted into the canonical LaTeX project.
 
-This directory holds image and graph assets referenced from `main.tex` or
-chapter files via `\includegraphics{}`.
+## Canonical Phase 8 artifact
 
-Two categories of figures are expected:
+- Spec: `config/graphs/planning_benchmark_comparison.yaml`
+- Output: `planning_benchmark_comparison_<spec-hash>.png`
+- Provenance: matching `.png.prov.json`
+- Source locator: `correa2025planningperformance`, Tables 1 and 2,
+  row `Sum (360)`
 
-1. **Images** — real photos / diagrams / screenshots required by the
-   "at least one image" rule.
-2. **Python-generated graphs** — produced by
-   `src/agentic_publishing_pipeline/visualization/`, satisfying the
-   "at least one Python-generated graph" rule.
+Regenerate with:
 
-Do not commit fabricated or filler images.
+```sh
+uv run python -m agentic_publishing_pipeline.visualization \
+  --spec config/graphs/planning_benchmark_comparison.yaml \
+  --overwrite-existing
+```
+
+Phase 8 stops at artifact generation. Chapter-level `\includegraphics`
+integration remains Phase 9 work.

@@ -1,10 +1,11 @@
 # PLAN — agentic-publishing-pipeline
 
-> **Status:** Phases 0, 1, 1.5, 2, 3, 4, 5, and 6 are complete and
-> closed. Phase 6 landed through PR #81, generating the approved
-> Markdown-first candidate set and recording the human review approval.
-> Phase 7 (real-source and bibliography pipeline) is the next open
-> implementation phase. Phases 8-14 remain open.
+> **Status:** Phases 0, 1, 1.5, 2, 3, 4, 5, 6, 7, and 8 are complete and
+> closed. Phase 7 landed through PR #83, verifying the canonical source
+> manifest and generating `latex_project/references.bib`. Phase 8 landed
+> through PR #92, delivering the deterministic Python graph pipeline and
+> committing a canonical PNG artifact to `latex_project/figures/`. Phase 9
+> is the next open implementation phase. Phases 9-14 remain open.
 
 ## How PRD, PLAN, TODO, and GitHub fit together
 
@@ -328,7 +329,7 @@ in this dependency order (see [`docs/architecture/`](architecture/)):
   (existing P5-I06 / #15 amended; ADR-0007).
 - **graph and asset tooling** — typed graph/asset specs and
   deterministic rendering (existing P5-I07 / #16 amended; ties to
-  P8-I02).
+  P8-I01).
 - **P5-I13** — baseline CI on PR/main with frozen dependency sync,
   Ruff, tests, current coverage gate, automated 150-line cap, and
   offline smoke run.
@@ -357,7 +358,7 @@ records the run and accepted limitations. PR #81 merged the work to
 `main`; P6-I00 through P6-I03 are closed with evidence; the Phase 6
 milestone is closed.
 
-### Phase 7 — Real-source and bibliography pipeline *(open)*
+### Phase 7 — Real-source and bibliography pipeline *(complete and closed — PR #83)*
 
 Implement the Bibliography Agent's configured-manifest consumption,
 source verification, and `references.bib` curation per
@@ -380,21 +381,17 @@ metadata-only readers (P7-I07). Full policy text is in
 **Exit criterion:** `latex_project/references.bib` contains only verified
 real entries; every `\cite{...}` in the LaTeX sources resolves.
 
-### Phase 8 — Python graph generation pipeline *(open)*
+### Phase 8 — Python graph generation pipeline *(complete and closed — PR #92)*
 
 Implement `src/agentic_publishing_pipeline/visualization/`. It must produce
 at least one graph image saved under `latex_project/figures/` (FR-29,
-FR-30) and consumed by a chapter via `\includegraphics`.
-
-**P8-I02 (planned):** validated technical-asset specs (typed graph,
-table, TikZ, image), deterministic renderers, provenance metadata,
-path safety, and explicit failure/fallback behavior that cannot
-silently change factual content. Ties to the deterministic boundary in
-ADR-0003 and the typed-contract policy in ADR-0002.
+FR-30). The graph renderer owns spec validation, deterministic Python
+rendering, provenance, and reproducibility evidence; chapter inclusion
+remains Phase 9 work.
 
 **Exit criterion:** a real Python-generated graph file exists under
-`latex_project/figures/` and is included by a chapter, produced from a
-validated typed asset spec.
+`latex_project/figures/`, produced from a validated versioned graph spec
+with deterministic regeneration evidence and provenance beside the PNG.
 
 ### Phase 9 — LaTeX project assembly *(open)*
 
@@ -512,9 +509,9 @@ group member has submitted in Moodle.
 
 - Phase 1 is complete (mechanism PRDs reconciled — commit `4e5517c`).
   Phase 1.5 is complete (demo topic and source manifest locked —
-  commit `303a425`). Phases 2, 3, 4, 5, and 6 are complete and closed
-  (milestones #1 through #5 closed). Phase 7 is the next open
-  implementation phase. Phases 8 through 14 remain open and pending
+  commit `303a425`). Phases 2, 3, 4, 5, 6, and 7 are complete and
+  closed (milestones #1 through #7 closed). Phase 9 is the next open
+  implementation phase. Phases 9 through 14 remain open and pending
   future implementation. None of the currently-open phases is allowed
   to be marked complete preemptively.
   PRD acceptance-criteria checkboxes (`docs/PRD.md` §14,

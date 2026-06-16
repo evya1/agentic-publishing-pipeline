@@ -1,0 +1,76 @@
+{
+  "asset_id": "planning_benchmark_comparison",
+  "caption": "Solved IPC 2023 Learning Track tasks for one classical planner baseline and three frontier models, using the Sum (360) totals from the paper's standard and obfuscated benchmark tables.\n",
+  "chapter_id": "planning",
+  "data": {
+    "categories": [
+      "Scorpion Maidu",
+      "DeepSeek-R1",
+      "GPT-5",
+      "Gemini 3.1 Pro"
+    ],
+    "series": [
+      {
+        "label": "Standard tasks",
+        "values": [
+          234.0,
+          157.0,
+          205.0,
+          245.0
+        ]
+      },
+      {
+        "label": "Obfuscated tasks",
+        "values": [
+          234.0,
+          93.0,
+          142.0,
+          231.0
+        ]
+      }
+    ]
+  },
+  "input_sha256": "02e65860b9421f511b865b04898d5d13d20ccb074f90cdd9149255dd89f7ff75",
+  "kind": "grouped_bar_chart",
+  "metric": {
+    "direction": "higher_is_better",
+    "name": "solved_tasks",
+    "unit": "tasks"
+  },
+  "output_sha256": "58aec076da9e4b9adb857cf511db76ae30aee3efa01fca2193e81e6a4f889682",
+  "path": "latex_project/figures/planning_benchmark_comparison_02e65860.png",
+  "render": {
+    "dpi": 200,
+    "height_inches": 4.2,
+    "seed": 0,
+    "width_inches": 7.2
+  },
+  "renderer": {
+    "backend": "Agg",
+    "name": "matplotlib_grouped_bar_chart",
+    "python_version": "3.14.4",
+    "version": "3.11.0"
+  },
+  "schema_version": 1,
+  "slot": "planning_benchmark_comparison",
+  "source": {
+    "citation_key": "correa2025planningperformance",
+    "identifier": "arXiv:2511.09378v2",
+    "locator": {
+      "figure": null,
+      "page": null,
+      "rows": [
+        "Sum (360)"
+      ],
+      "table": "Tables 1 and 2"
+    },
+    "notes": "Standard totals come from Table 1 and obfuscated totals come from Table 2 in Frontier Large Language Models Rival State-of-the-Art Planners.\n",
+    "publication_url_or_doi": "https://doi.org/10.48550/arXiv.2511.09378"
+  },
+  "title": "Planning benchmark coverage drops under symbol obfuscation",
+  "transformations": [
+    "Selected one classical planner baseline and three frontier models from the paper's full tables.",
+    "Paired the Sum (360) totals from the standard and obfuscated benchmark settings.",
+    "Retained the planner's identical totals across both settings because the source states obfuscation does not affect classical planners."
+  ]
+}
