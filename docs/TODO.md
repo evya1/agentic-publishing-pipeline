@@ -1,11 +1,12 @@
 # TODO — agentic-publishing-pipeline
 
-> **Status:** Phases 0 through 6 are complete and closed. Phase 6
-> Markdown-first content generation and human approval merged through
-> PR #81; P6-I00 through P6-I03 are verified and closed. Phase 7 is the
-> next implementation phase. Do not tick later items until their underlying
-> artifacts exist and have been verified on disk (and, where applicable,
-> by a passing build, test, or validator run).
+> **Status:** Phases 0 through 7 are complete and closed. Phase 7
+> real-source bibliography pipeline merged through PR #83; P7-I00 through
+> P7-I07 are verified and closed. P12-I05 CI hardening merged through
+> PR #86. Phase 8 (Python graph generation) is the next implementation
+> phase. Do not tick later items until their underlying artifacts exist and
+> have been verified on disk (and, where applicable, by a passing build,
+> test, or validator run).
 
 ## How to read this file
 
@@ -132,18 +133,18 @@ current state before acting.
 | P6-I02      | [#19](https://github.com/evya1/agentic-publishing-pipeline/issues/19) | Closed with evidence — human review gate approval                       |
 | P6-I03      | [#20](https://github.com/evya1/agentic-publishing-pipeline/issues/20) | Closed with evidence — Phase 6 AI usage recorded                        |
 
-#### Phase 7 — Real-source and bibliography pipeline ([milestone #6](https://github.com/evya1/agentic-publishing-pipeline/milestone/6))
+#### Phase 7 — Real-source and bibliography pipeline ([milestone #6](https://github.com/evya1/agentic-publishing-pipeline/milestone/6)) *(complete and closed through PR #83)*
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
-| P7-I00      | [#21](https://github.com/evya1/agentic-publishing-pipeline/issues/21) | Source-collection policy + verification + audit-trail location        |
-| P7-I01      | [#22](https://github.com/evya1/agentic-publishing-pipeline/issues/22) | Bibliography Agent consumes `config/article_sources.yaml`              |
-| P7-I02      | [#23](https://github.com/evya1/agentic-publishing-pipeline/issues/23) | Verify manifest entries; populate authors; flip verification status   |
-| P7-I03      | [#24](https://github.com/evya1/agentic-publishing-pipeline/issues/24) | Record per-source audit trail per P7-I00                               |
-| P7-I04      | [#25](https://github.com/evya1/agentic-publishing-pipeline/issues/25) | Extract `.bib` entries (real only)                                     |
-| P7-I05      | [#26](https://github.com/evya1/agentic-publishing-pipeline/issues/26) | Rekey `tbd…` citation keys to `authorYYYYkey`                          |
-| P7-I06      | [#27](https://github.com/evya1/agentic-publishing-pipeline/issues/27) | Wire and resolve `\cite{...}` placeholders                             |
-| P7-I07      | [#28](https://github.com/evya1/agentic-publishing-pipeline/issues/28) | Codify and enforce untrusted-archive policy                            |
+| P7-I00      | [#21](https://github.com/evya1/agentic-publishing-pipeline/issues/21) | Closed with evidence — source-collection policy + verification + audit-trail location |
+| P7-I01      | [#22](https://github.com/evya1/agentic-publishing-pipeline/issues/22) | Closed with evidence — Bibliography Agent consumes `config/article_sources.yaml` |
+| P7-I02      | [#23](https://github.com/evya1/agentic-publishing-pipeline/issues/23) | Closed with evidence — verify manifest entries; populate authors; flip verification status |
+| P7-I03      | [#24](https://github.com/evya1/agentic-publishing-pipeline/issues/24) | Closed with evidence — per-source audit trail recorded                 |
+| P7-I04      | [#25](https://github.com/evya1/agentic-publishing-pipeline/issues/25) | Closed with evidence — `.bib` entries extracted (real only)            |
+| P7-I05      | [#26](https://github.com/evya1/agentic-publishing-pipeline/issues/26) | Closed with evidence — `tbd…` keys migrated to `authorYYYYkey`         |
+| P7-I06      | [#27](https://github.com/evya1/agentic-publishing-pipeline/issues/27) | Closed with evidence — `\cite{...}` placeholders wired and resolved    |
+| P7-I07      | [#28](https://github.com/evya1/agentic-publishing-pipeline/issues/28) | Closed with evidence — untrusted-archive policy codified and enforced  |
 
 #### Phase 8 — Python graph generation pipeline ([milestone #7](https://github.com/evya1/agentic-publishing-pipeline/milestone/7))
 
@@ -697,9 +698,10 @@ is next.
 - [ ] README documents the LaTeX-distribution requirement (LuaLaTeX) and
       the `David CLM` Hebrew font requirement so reproduction is
       possible. [Phase 12, Phase 13]
-- [ ] **P12-I05** — Raise/enforce coverage to at least 85%, test the
-      supported Python-version matrix, preserve frozen dependency
-      installation, line-cap enforcement, and offline integration.
+- [x] **P12-I05** — Raise/enforce coverage to at least 85%, harden CI
+      with regression-guard scripts for Phase 1–7 contracts, and preserve
+      frozen dependency installation and line-cap enforcement.
+      *Merged through PR #86 (issue #85), verified and closed with evidence.*
       [Phase 12]
 - [ ] **P12-I06** — Run the same pipeline with a second topic and a
       different verified manifest without source-code changes. Verify
