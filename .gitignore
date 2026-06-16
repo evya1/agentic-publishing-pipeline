@@ -87,3 +87,5 @@ data/sources/arxiv/raw_eprint/
 # --- Runtime workspaces ---
 # Preserve repository result artifacts while keeping per-run workspaces local.
 results/RUN-*/
+
+results/run_logs/*

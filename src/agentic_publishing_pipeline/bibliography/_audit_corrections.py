@@ -1,6 +1,6 @@
 """Documented P7-I02 placeholder-field corrections (P7-I03).
 
-The live verification run on 2026-06-16 found that three manifest
+The live verification run on  found that three manifest
 entries carried placeholder ``title`` or ``year`` values that the
 authoritative arXiv response disagreed with. Each correction is
 recorded here verbatim so the audit ledger reflects what changed
@@ -19,7 +19,7 @@ CORRECTIONS: dict[str, dict[str, object]] = {
             "Agentic Reasoning: A Streamlined Framework for Enhancing LLM "
             "Reasoning with Agentic Tools"
         ),
-        "applied_at": "2026-06-16",
+        "applied_at": "",
         "applied_by": "claude-opus-4.7+arxiv-api:evya1",
         "rationale": (
             "manifest title was an explicit placeholder pending Phase 7 "
@@ -32,7 +32,7 @@ CORRECTIONS: dict[str, dict[str, object]] = {
             "The 2025 Planning Performance of Frontier Large Language Models"
         ),
         "authoritative_value": ("Frontier Large Language Models Rival State-of-the-Art Planners"),
-        "applied_at": "2026-06-16",
+        "applied_at": "",
         "applied_by": "claude-opus-4.7+arxiv-api:evya1",
         "rationale": (
             "manifest title was an explicit placeholder pending Phase 7 "
@@ -43,7 +43,7 @@ CORRECTIONS: dict[str, dict[str, object]] = {
         "field": "year",
         "original_manifest_value": 2026,
         "authoritative_value": 2025,
-        "applied_at": "2026-06-16",
+        "applied_at": "",
         "applied_by": "claude-opus-4.7+arxiv-api:evya1",
         "rationale": (
             "manifest year was an estimate from the arXiv submission month "

@@ -1,7 +1,7 @@
 # Prompt Log
 
-> **Status (2026-06-17):** All 8 agent prompts and 8 task prompts are verbatim
-> from `config/prompt_registry/` (version v1.0, 2026-06-13). Prompts have not
+> **Status :** All 8 agent prompts and 8 task prompts are verbatim
+> from `config/prompt_registry/` (version v1.0, ). Prompts have not
 > been run against real LLM providers — all pipeline phases used deterministic
 > code paths (no paid API calls). Real LLM invocations are planned for a future
 > live run; this log will be updated at that time.
@@ -63,7 +63,7 @@ For each prompt:
 ### PROMPT-AGENT-RESEARCH-001
 
 - **Used by**: Research Agent (backstory + goal)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -88,7 +88,7 @@ draft coherent content.
 ### PROMPT-AGENT-OUTLINE-001
 
 - **Used by**: Outline Agent (backstory + goal)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -113,7 +113,7 @@ non-repetitive chapters.
 ### PROMPT-AGENT-WRITER-001
 
 - **Used by**: Writer Agent (backstory + goal)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -138,7 +138,7 @@ The content must follow a logical progression and avoid filler.
 ### PROMPT-AGENT-ASSET-001
 
 - **Used by**: Technical Asset Agent (backstory + goal)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -163,7 +163,7 @@ Agent can consume.
 ### PROMPT-AGENT-BIDI-001
 
 - **Used by**: Hebrew/BiDi Agent (backstory + goal)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -188,7 +188,7 @@ proper RTL alignment, and stable English formulas/citations.
 ### PROMPT-AGENT-BIBLIOGRAPHY-001
 
 - **Used by**: Bibliography Agent (backstory + goal)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -212,7 +212,7 @@ sources are strictly forbidden.
 ### PROMPT-AGENT-LATEX-001
 
 - **Used by**: LaTeX Agent (backstory + goal)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -237,7 +237,7 @@ tables/ and figures/; main.tex is a thin root that inputs everything else.
 ### PROMPT-AGENT-REVIEWER-001
 
 - **Used by**: Reviewer Agent (backstory + goal)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -265,7 +265,7 @@ make binding validation decisions.
 ### PROMPT-TASK-RESEARCH-001
 
 - **Used by**: Task T1 — Research the topic (description + expected_output)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -291,7 +291,7 @@ definitions, and a list of candidate references with arXiv IDs or DOIs.
 ### PROMPT-TASK-OUTLINE-001
 
 - **Used by**: Task T2 — Design the article outline (description + expected_output)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -320,7 +320,7 @@ Context: This task consumes the research notes produced by T1.
 ### PROMPT-TASK-WRITE-001
 
 - **Used by**: Task T3 — Draft Markdown chapters with placeholders (description + expected_output)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -353,7 +353,7 @@ Context: This task consumes the research notes (T1) and the outline (T2).
 ### PROMPT-TASK-ASSET-001
 
 - **Used by**: Task T4 — Produce technical assets and figure/table/equation specs (description + expected_output)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -380,7 +380,7 @@ Context: This task consumes the outline (T2) and the chapter drafts (T3).
 ### PROMPT-TASK-BIDI-001
 
 - **Used by**: Task T5 — Draft Hebrew/English BiDi section (description + expected_output)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -411,7 +411,7 @@ Context: This task consumes the outline (T2) and the chapter drafts (T3).
 ### PROMPT-TASK-BIBLIOGRAPHY-001
 
 - **Used by**: Task T6 — Curate references.bib and resolve citation placeholders (description + expected_output)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -443,7 +443,7 @@ placeholders (T5).
 ### PROMPT-TASK-LATEX-001
 
 - **Used by**: Task T7 — Assemble the LaTeX project (description + expected_output)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -474,7 +474,7 @@ BiDi section (T5), and bibliography (T6).
 ### PROMPT-TASK-REVIEW-001
 
 - **Used by**: Task T8 — Review coherence, structure, and required deliverables (description + expected_output)
-- **Version**: 1.0 — 2026-06-13
+- **Version**: 1.0
 - **Prompt text**:
 
 ```
@@ -506,26 +506,26 @@ BiDi section (T5), bibliography (T6), and LaTeX project (T7).
 > drafted in Phase 5 when the provider/service layer and tools are
 > implemented.
 
-### PROMPT-TOOL-SEARCH-001 *(placeholder)*
+### PROMPT-TOOL-SEARCH-001 _(placeholder)_
 
 - **Used by**: Search tool (used by Research Agent and Bibliography Agent)
 - **Version**: 0.1 — placeholder
-- **Prompt text**: *(to be drafted in Phase 5)*
+- **Prompt text**: _(to be drafted in Phase 5)_
 - **Notes**: Will define search query construction, result parsing, and
   source verification prompts.
 
-### PROMPT-TOOL-FILE-READ-001 *(placeholder)*
+### PROMPT-TOOL-FILE-READ-001 _(placeholder)_
 
 - **Used by**: File read tool (used by multiple agents)
 - **Version**: 0.1 — placeholder
-- **Prompt text**: *(to be drafted in Phase 5)*
+- **Prompt text**: _(to be drafted in Phase 5)_
 - **Notes**: Will define file reading behavior and path validation.
 
-### PROMPT-TOOL-FILE-WRITE-001 *(placeholder)*
+### PROMPT-TOOL-FILE-WRITE-001 _(placeholder)_
 
 - **Used by**: File write tool (used by multiple agents)
 - **Version**: 0.1 — placeholder
-- **Prompt text**: *(to be drafted in Phase 5)*
+- **Prompt text**: _(to be drafted in Phase 5)_
 - **Notes**: Will define file writing behavior, path validation, and
   canonical path enforcement.
 
@@ -533,6 +533,6 @@ BiDi section (T5), bibliography (T6), and LaTeX project (T7).
 
 ## Prompt Iteration Log
 
-| Date | Prompt ID | Change | Rationale |
-|---|---|---|---|
-| 2026-06-13 | All agent/task prompts | Initial draft | Phase 4 design complete |
+| Date | Prompt ID              | Change        | Rationale               |
+| ---- | ---------------------- | ------------- | ----------------------- |
+|      | All agent/task prompts | Initial draft | Phase 4 design complete |

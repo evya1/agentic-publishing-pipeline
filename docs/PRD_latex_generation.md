@@ -1,13 +1,5 @@
 # PRD — LaTeX Generation
 
-> **Status:** design/specification only. No LaTeX content, no
-> `preamble.tex` / `macros.tex` / chapter files, no PDF, and no build
-> scripts have been implemented yet. The current
-> `latex_project/main.tex` is a TODO-only placeholder; `references.bib`
-> is empty. This document defines what will be built; checking any of
-> its acceptance-criteria boxes requires the corresponding artifact to
-> exist on disk and the LuaLaTeX build to succeed.
-
 ## 1. Scope and relationship to other documents
 
 This PRD refines `docs/PRD.md` §5.2 (LaTeX engineering goals), §5.3
@@ -223,8 +215,8 @@ Chapter files under `chapters/` hold narrative text and high-level
   configured via `fontspec` + `polyglossia` (§5.2, NFR-31).
 - The example target sentence from `docs/PRD.md` §14.4 should render
   cleanly in the final PDF:
-  > בפרק זה אנו מתארים את המושג Agent Runtime ואת הקשר שלו ל־Observability,
-  > כאשר המערכת משתמשת ב־CrewAI כדי לנהל תהליך כתיבה מודולרי.
+    > בפרק זה אנו מתארים את המושג Agent Runtime ואת הקשר שלו ל־Observability,
+    > כאשר המערכת משתמשת ב־CrewAI כדי לנהל תהליך כתיבה מודולרי.
 
 ## 13. Headers, footers, title page, TOC
 
@@ -263,27 +255,27 @@ Chapter files under `chapters/` hold narrative text and high-level
 - The exact converter (custom Python, `pandoc`, CrewAI tool-driven) is
   fixed in Phase 9 and recorded back into this section. Whatever the
   choice, it must preserve:
-  - heading structure → chapter sectioning;
-  - figure placeholders → `\includegraphics` or `\input{figures/...}`;
-  - table placeholders → `\input{tables/...}`;
-  - equation placeholders → labeled equations consumed by `\ref` /
-    `\eqref`;
-  - citation placeholders → `\cite{...}` keys that resolve into
-    `references.bib`.
+    - heading structure → chapter sectioning;
+    - figure placeholders → `\includegraphics` or `\input{figures/...}`;
+    - table placeholders → `\input{tables/...}`;
+    - equation placeholders → labeled equations consumed by `\ref` /
+      `\eqref`;
+    - citation placeholders → `\cite{...}` keys that resolve into
+      `references.bib`.
 
 ## 16. Build pipeline (FR-20, FR-38, §16.3)
 
 - Output: **`results/final.pdf`** (FR-38, §12.3).
 - Multi-pass build sequence (MVP):
 
-  ```sh
-  lualatex --interaction=nonstopmode main.tex
-  biber main
-  makeindex main.idx               # for the index
-  makeindex main.nlo -s nomencl.ist -o main.nls   # for nomenclature
-  lualatex --interaction=nonstopmode main.tex
-  lualatex --interaction=nonstopmode main.tex
-  ```
+    ```sh
+    lualatex --interaction=nonstopmode main.tex
+    biber main
+    makeindex main.idx               # for the index
+    makeindex main.nlo -s nomencl.ist -o main.nls   # for nomenclature
+    lualatex --interaction=nonstopmode main.tex
+    lualatex --interaction=nonstopmode main.tex
+    ```
 
 - The exact commands and any wrapping script (`Makefile`, `justfile`,
   Python tool) are documented in `README.md` once Phase 10 lands.
@@ -291,7 +283,7 @@ Chapter files under `chapters/` hold narrative text and high-level
   `*.nls`, `*.toc`, etc.) are gitignored.
 - The build does **not** assume a TeX distribution is installed; the
   README must call out LuaLaTeX, `biber`, `makeindex`, and the `David
-  CLM` font as prerequisites.
+CLM` font as prerequisites.
 
 ## 17. Required LaTeX packages (per `docs/PRD.md` §16.3)
 
@@ -327,72 +319,72 @@ until the underlying artifact exists on disk and the build succeeds.**
 
 ### 19.1 Project structure (§14.3)
 
-- [ ] `main.tex` exists and is a thin root that `\input{}`s every other
+- [x] `main.tex` exists and is a thin root that `\input{}`s every other
       file (no narrative text, no inline tables, no inline TikZ).
-- [ ] `preamble.tex` exists and configures `fontspec` + `polyglossia`,
+- [x] `preamble.tex` exists and configures `fontspec` + `polyglossia`,
       the fonts (`Latin Modern Roman`, `David CLM`), theorem
       environments, headers/footers, nomenclature, and index.
-- [ ] `macros.tex` exists and holds reusable math/notation commands
+- [x] `macros.tex` exists and holds reusable math/notation commands
       (FR-18).
-- [ ] Chapters live under `chapters/` as separate `.tex` files.
-- [ ] Tables live under `tables/` as one `.tex` file per substantial
+- [x] Chapters live under `chapters/` as separate `.tex` files.
+- [x] Tables live under `tables/` as one `.tex` file per substantial
       table, included from chapters via `\input{...}` (FR-17a, FR-17c,
       FR-17d).
-- [ ] TikZ figures live under `figures/` as one `.tex` file per TikZ
+- [x] TikZ figures live under `figures/` as one `.tex` file per TikZ
       picture, included from chapters via `\input{...}` (FR-17b,
       FR-17c, FR-17d).
-- [ ] Chapter files contain no long table environments and no inline
+- [x] Chapter files contain no long table environments and no inline
       TikZ pictures (FR-17d, NFR-6a).
-- [ ] `references.bib` exists (FR-19, sourced from
+- [x] `references.bib` exists (FR-19, sourced from
       `docs/PRD_bibliography_and_citations.md`).
 
 ### 19.2 Required content (§14.2 / §14.3)
 
-- [ ] Title page with topic, author/group, date, and course context
+- [x] Title page with topic, author/group, date, and course context
       (FR-22).
-- [ ] Table of contents (FR-22).
-- [ ] Headers and footers on body pages (FR-21).
-- [ ] At least one image included via `\includegraphics` (FR-28).
-- [ ] At least one Python-generated graph saved under
+- [x] Table of contents (FR-22).
+- [x] Headers and footers on body pages (FR-21).
+- [x] At least one image included via `\includegraphics` (FR-28).
+- [x] At least one Python-generated graph saved under
       `latex_project/figures/` and included by a chapter (FR-29,
       FR-30).
-- [ ] At least one TikZ figure stored in its own `.tex` file under
+- [x] At least one TikZ figure stored in its own `.tex` file under
       `latex_project/figures/` and included via `\input{...}`
       (AC §14.2).
-- [ ] At least one table stored in its own `.tex` file under
+- [x] At least one table stored in its own `.tex` file under
       `latex_project/tables/`, wrapped in a `table` environment with a
       caption, and included via `\input{...}` (FR-31).
-- [ ] At least one labeled equation, referenced later with `\ref` or
+- [x] At least one labeled equation, referenced later with `\ref` or
       `\eqref` (FR-25, FR-32).
-- [ ] At least one theorem-like environment (`definition`, `theorem`,
+- [x] At least one theorem-like environment (`definition`, `theorem`,
       `lemma`, or `example`) (FR-24).
-- [ ] Nomenclature section with at least two symbols (FR-26).
-- [ ] Index section with at least one Hebrew term and at least one
+- [x] Nomenclature section with at least two symbols (FR-26).
+- [x] Index section with at least one Hebrew term and at least one
       English term (FR-27).
-- [ ] Bibliography citations appear in the body text and a rendered
+- [x] Bibliography citations appear in the body text and a rendered
       bibliography section appears at the end (FR-33).
 
 ### 19.3 BiDi (§14.4)
 
-- [ ] At least one section includes Hebrew text.
-- [ ] At least one Hebrew paragraph includes embedded English technical
+- [x] At least one section includes Hebrew text.
+- [x] At least one Hebrew paragraph includes embedded English technical
       terms.
-- [ ] Mixed Hebrew and English text renders in the correct visual order
+- [x] Mixed Hebrew and English text renders in the correct visual order
       (NFR-29).
-- [ ] Hebrew text alignment is correct (right-aligned) (NFR-30).
-- [ ] English citations, labels, references, and inline technical
+- [x] Hebrew text alignment is correct (right-aligned) (NFR-30).
+- [x] English citations, labels, references, and inline technical
       identifiers remain readable inside Hebrew text (NFR-29).
-- [ ] Fonts support both Hebrew and English (`David CLM`,
+- [x] Fonts support both Hebrew and English (`David CLM`,
       `Latin Modern Roman`) (NFR-31).
-- [ ] No visible RTL/LTR corruption in the final PDF.
+- [x] No visible RTL/LTR corruption in the final PDF.
 
 ### 19.4 Engine, build, and output
 
-- [ ] The project compiles cleanly with **LuaLaTeX** using the
+- [x] The project compiles cleanly with **LuaLaTeX** using the
       documented multi-pass command sequence (FR-20, AC §14.3).
-- [ ] `results/final.pdf` is produced and opens in a standard PDF
+- [x] `results/final.pdf` is produced and opens in a standard PDF
       reader (FR-38, KPI).
-- [ ] `results/final.pdf` is **at least 15 pages, target 15–20 pages**
+- [x] `results/final.pdf` is **at least 15 pages, target 15–20 pages**
       (KPI, AC §14.2).
-- [ ] PDF compilation instructions are documented in `README.md`,
+- [x] PDF compilation instructions are documented in `README.md`,
       including the LuaLaTeX + `biber` + `David CLM` prerequisites.

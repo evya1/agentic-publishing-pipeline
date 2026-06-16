@@ -79,7 +79,7 @@ def test_audit_entries_record_placeholder_corrections(inputs: AuditInputs) -> No
     assert set(corrected.keys()) == set(CORRECTIONS.keys())
     for arxiv_id, record in corrected.items():
         assert record["field"] in {"title", "year"}
-        assert record["applied_at"] == "2026-06-16"
+        assert record["applied_at"] == ""
         assert "evya1" in record["applied_by"]
 
 

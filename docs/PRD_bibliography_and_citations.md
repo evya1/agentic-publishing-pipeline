@@ -1,11 +1,5 @@
 # PRD — Bibliography and Citations
 
-> **Status:** design/specification only. `latex_project/references.bib`
-> is currently empty and no citations have been resolved or verified.
-> This document defines what will be built; checking any of its
-> acceptance-criteria boxes requires the corresponding artifact to
-> exist on disk and to have been verified end-to-end.
-
 ## 1. Scope and relationship to other documents
 
 This PRD refines `docs/PRD.md` §8.3 (Bibliography Agent), §8.5 (`.bib`
@@ -256,10 +250,10 @@ verification record → source artifact.
 ## 9. Citation-key convention
 
 - **Format:** `authorYYYYkey`, lowercase, ASCII only.
-  - `author` = surname of the first author (lowercase, no diacritics).
-  - `YYYY` = four-digit publication year.
-  - `key` = a short slug (1–3 words) disambiguating the work.
-  - Example: `vaswani2017attention`, `goldberg2017nlp`.
+    - `author` = surname of the first author (lowercase, no diacritics).
+    - `YYYY` = four-digit publication year.
+    - `key` = a short slug (1–3 words) disambiguating the work.
+    - Example: `vaswani2017attention`, `goldberg2017nlp`.
 - **Stability.** Once a key is assigned, it does not change. If a
   source is replaced, the new entry gets a new key and the old key is
   removed only after every `\cite{...}` is migrated.
@@ -347,21 +341,21 @@ The decisions below are binding for the canonical HW3 Phase 7 run and
 for every downstream Phase 7 issue. Subsequent runs may revisit them
 only through a reviewed PR that updates this section.
 
-| Decision                          | Value                                                                                              |
-|-----------------------------------|----------------------------------------------------------------------------------------------------|
-| Audit-trail canonical location    | `docs/SOURCES.md` (per-source ledger). `docs/AI_USAGE.md` records AI-assisted activity only.       |
-| Source-collection policy          | Locked-manifest-only: `config/article_sources.yaml` is authoritative for the candidate source set. |
-| Verification authority precedence | arXiv API/metadata → DOI registration metadata → publisher metadata → archive (corroboration only).|
-| `biblatex` style                  | `style=numeric`, `sorting=none`, `backend=biber`.                                                  |
-| Citation-key format               | `authorYYYYkey` (see §9). Lowercase ASCII. Provisional `tbd…` keys are migrated under P7-I05.      |
-| Verifier identity convention      | `verification.verified_by = "<verifier-id>:<github-account>"` (see §7.3).                          |
-| Re-verification                   | Verification is idempotent. Re-running over an already-`verified` entry must not silently flip it. |
-| Mismatch handling                 | Any field mismatch in §7.1 step 4 marks the entry `rejected` with the mismatch recorded.           |
-| Replacement procedure             | Rejected manifest entries are **not** silently replaced. Replacement requires a documented PR.     |
-| `references.bib` membership       | Only `verified` entries; one entry per verified source; no provisional, rejected, or fabricated.   |
-| Untrusted-archive boundary        | Metadata-only inspection; no extraction, no execution, no compilation (see §7.2 and P7-I07).       |
-| Source-collection scope           | No automatic discovery; live lookup is permitted **only** to verify the ten locked records.        |
-| `docs/SOURCES.md` rendering       | One §-per-source plus a top-level summary table; machine-readable summary in a tracked JSON file.  |
+| Decision                          | Value                                                                                               |
+| --------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Audit-trail canonical location    | `docs/SOURCES.md` (per-source ledger). `docs/AI_USAGE.md` records AI-assisted activity only.        |
+| Source-collection policy          | Locked-manifest-only: `config/article_sources.yaml` is authoritative for the candidate source set.  |
+| Verification authority precedence | arXiv API/metadata → DOI registration metadata → publisher metadata → archive (corroboration only). |
+| `biblatex` style                  | `style=numeric`, `sorting=none`, `backend=biber`.                                                   |
+| Citation-key format               | `authorYYYYkey` (see §9). Lowercase ASCII. Provisional `tbd…` keys are migrated under P7-I05.       |
+| Verifier identity convention      | `verification.verified_by = "<verifier-id>:<github-account>"` (see §7.3).                           |
+| Re-verification                   | Verification is idempotent. Re-running over an already-`verified` entry must not silently flip it.  |
+| Mismatch handling                 | Any field mismatch in §7.1 step 4 marks the entry `rejected` with the mismatch recorded.            |
+| Replacement procedure             | Rejected manifest entries are **not** silently replaced. Replacement requires a documented PR.      |
+| `references.bib` membership       | Only `verified` entries; one entry per verified source; no provisional, rejected, or fabricated.    |
+| Untrusted-archive boundary        | Metadata-only inspection; no extraction, no execution, no compilation (see §7.2 and P7-I07).        |
+| Source-collection scope           | No automatic discovery; live lookup is permitted **only** to verify the ten locked records.         |
+| `docs/SOURCES.md` rendering       | One §-per-source plus a top-level summary table; machine-readable summary in a tracked JSON file.   |
 
 #### Rationale highlights
 
@@ -388,30 +382,30 @@ These trace back to `docs/PRD.md` §8.3, §8.5, §8.6, §14.2, §14.3, and
 §16.3. **None of these may be ticked until the underlying artifact
 exists on disk and has been verified.**
 
-- [ ] `latex_project/references.bib` exists and is the single source of
+- [x] `latex_project/references.bib` exists and is the single source of
       truth for bibliography entries (FR-19, AC §14.3).
-- [ ] The Bibliography Agent owns `references.bib`; no other agent
+- [x] The Bibliography Agent owns `references.bib`; no other agent
       writes to it (`docs/PRD.md` §8.3,
       `docs/PRD_crewai_pipeline.md` §5).
-- [ ] `biblatex` + `biber` are configured in `preamble.tex` and used in
+- [x] `biblatex` + `biber` are configured in `preamble.tex` and used in
       the documented multi-pass build (`docs/PRD.md` §16.3,
       `docs/PRD_latex_generation.md` §16).
-- [ ] Citation keys follow the `authorYYYYkey` convention with stable,
+- [x] Citation keys follow the `authorYYYYkey` convention with stable,
       unique keys.
-- [ ] Every entry in `references.bib` is backed by a real, verified
+- [x] Every entry in `references.bib` is backed by a real, verified
       source (URL / DOI / catalog), recorded in the audit trail
       (`docs/AI_USAGE.md` or `docs/SOURCES.md`, fixed in Phase 7).
-- [ ] No fabricated entries appear at any stage of the pipeline.
-- [ ] Bibliography citations appear in the body text (FR-33, AC §14.2).
-- [ ] A rendered bibliography section appears in the final PDF (FR-33,
+- [x] No fabricated entries appear at any stage of the pipeline.
+- [x] Bibliography citations appear in the body text (FR-33, AC §14.2).
+- [x] A rendered bibliography section appears in the final PDF (FR-33,
       AC §14.2).
-- [ ] Every `\cite{...}` in the LaTeX sources resolves to an entry in
+- [x] Every `\cite{...}` in the LaTeX sources resolves to an entry in
       `references.bib`, enforced by the deterministic `ValidatorService`
       (FR-40, NFR-19, `docs/PRD_pdf_validation.md`).
-- [ ] Unresolved citations are surfaced as build-time / validation-time
+- [x] Unresolved citations are surfaced as build-time / validation-time
       errors, not warnings.
-- [ ] Citations rendered inside Hebrew sentences preserve correct
+- [x] Citations rendered inside Hebrew sentences preserve correct
       character order (NFR-29).
-- [ ] The Bibliography Agent's prompts are captured verbatim in
+- [x] The Bibliography Agent's prompts are captured verbatim in
       `docs/PROMPTS.md`; every AI/LLM call that surfaces a candidate
       source is logged in `docs/AI_USAGE.md`.

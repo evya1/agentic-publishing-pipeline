@@ -10,7 +10,7 @@ ledger**, and explains how the two are linked.
 
 ## 1. Why two artifacts
 
-`docs/PROMPTS.md` is, and remains, the canonical *human evidence ledger*.
+`docs/PROMPTS.md` is, and remains, the canonical _human evidence ledger_.
 It records every prompt verbatim, who used it, when it was iterated, and
 why. It is the artifact a course reviewer or auditor reads.
 
@@ -65,68 +65,68 @@ expected entries:
 
 ```yaml
 registry_version: v1
-generated_at: 2026-06-14
+generated_at:
 entries:
-  agents:
-    - id: PROMPT-AGENT-RESEARCH-001
-      path: agents/research.v1.yaml
-      ledger_id: PROMPT-AGENT-RESEARCH-001
-    - id: PROMPT-AGENT-OUTLINE-001
-      path: agents/outline.v1.yaml
-      ledger_id: PROMPT-AGENT-OUTLINE-001
-    - id: PROMPT-AGENT-WRITER-001
-      path: agents/writer.v1.yaml
-      ledger_id: PROMPT-AGENT-WRITER-001
-    - id: PROMPT-AGENT-ASSET-001
-      path: agents/asset.v1.yaml
-      ledger_id: PROMPT-AGENT-ASSET-001
-    - id: PROMPT-AGENT-BIDI-001
-      path: agents/bidi.v1.yaml
-      ledger_id: PROMPT-AGENT-BIDI-001
-    - id: PROMPT-AGENT-BIBLIOGRAPHY-001
-      path: agents/bibliography.v1.yaml
-      ledger_id: PROMPT-AGENT-BIBLIOGRAPHY-001
-    - id: PROMPT-AGENT-LATEX-001
-      path: agents/latex.v1.yaml
-      ledger_id: PROMPT-AGENT-LATEX-001
-    - id: PROMPT-AGENT-REVIEWER-001
-      path: agents/reviewer.v1.yaml
-      ledger_id: PROMPT-AGENT-REVIEWER-001
-  tasks:
-    - id: PROMPT-TASK-RESEARCH-001
-      path: tasks/research.v1.yaml
-      ledger_id: PROMPT-TASK-RESEARCH-001
-    - id: PROMPT-TASK-OUTLINE-001
-      path: tasks/outline.v1.yaml
-      ledger_id: PROMPT-TASK-OUTLINE-001
-    - id: PROMPT-TASK-WRITE-001
-      path: tasks/write.v1.yaml
-      ledger_id: PROMPT-TASK-WRITE-001
-    - id: PROMPT-TASK-ASSET-001
-      path: tasks/asset.v1.yaml
-      ledger_id: PROMPT-TASK-ASSET-001
-    - id: PROMPT-TASK-BIDI-001
-      path: tasks/bidi.v1.yaml
-      ledger_id: PROMPT-TASK-BIDI-001
-    - id: PROMPT-TASK-BIBLIOGRAPHY-001
-      path: tasks/bibliography.v1.yaml
-      ledger_id: PROMPT-TASK-BIBLIOGRAPHY-001
-    - id: PROMPT-TASK-LATEX-001
-      path: tasks/latex.v1.yaml
-      ledger_id: PROMPT-TASK-LATEX-001
-    - id: PROMPT-TASK-REVIEW-001
-      path: tasks/review.v1.yaml
-      ledger_id: PROMPT-TASK-REVIEW-001
+    agents:
+        - id: PROMPT-AGENT-RESEARCH-001
+          path: agents/research.v1.yaml
+          ledger_id: PROMPT-AGENT-RESEARCH-001
+        - id: PROMPT-AGENT-OUTLINE-001
+          path: agents/outline.v1.yaml
+          ledger_id: PROMPT-AGENT-OUTLINE-001
+        - id: PROMPT-AGENT-WRITER-001
+          path: agents/writer.v1.yaml
+          ledger_id: PROMPT-AGENT-WRITER-001
+        - id: PROMPT-AGENT-ASSET-001
+          path: agents/asset.v1.yaml
+          ledger_id: PROMPT-AGENT-ASSET-001
+        - id: PROMPT-AGENT-BIDI-001
+          path: agents/bidi.v1.yaml
+          ledger_id: PROMPT-AGENT-BIDI-001
+        - id: PROMPT-AGENT-BIBLIOGRAPHY-001
+          path: agents/bibliography.v1.yaml
+          ledger_id: PROMPT-AGENT-BIBLIOGRAPHY-001
+        - id: PROMPT-AGENT-LATEX-001
+          path: agents/latex.v1.yaml
+          ledger_id: PROMPT-AGENT-LATEX-001
+        - id: PROMPT-AGENT-REVIEWER-001
+          path: agents/reviewer.v1.yaml
+          ledger_id: PROMPT-AGENT-REVIEWER-001
+    tasks:
+        - id: PROMPT-TASK-RESEARCH-001
+          path: tasks/research.v1.yaml
+          ledger_id: PROMPT-TASK-RESEARCH-001
+        - id: PROMPT-TASK-OUTLINE-001
+          path: tasks/outline.v1.yaml
+          ledger_id: PROMPT-TASK-OUTLINE-001
+        - id: PROMPT-TASK-WRITE-001
+          path: tasks/write.v1.yaml
+          ledger_id: PROMPT-TASK-WRITE-001
+        - id: PROMPT-TASK-ASSET-001
+          path: tasks/asset.v1.yaml
+          ledger_id: PROMPT-TASK-ASSET-001
+        - id: PROMPT-TASK-BIDI-001
+          path: tasks/bidi.v1.yaml
+          ledger_id: PROMPT-TASK-BIDI-001
+        - id: PROMPT-TASK-BIBLIOGRAPHY-001
+          path: tasks/bibliography.v1.yaml
+          ledger_id: PROMPT-TASK-BIBLIOGRAPHY-001
+        - id: PROMPT-TASK-LATEX-001
+          path: tasks/latex.v1.yaml
+          ledger_id: PROMPT-TASK-LATEX-001
+        - id: PROMPT-TASK-REVIEW-001
+          path: tasks/review.v1.yaml
+          ledger_id: PROMPT-TASK-REVIEW-001
 compatibility:
-  contract_versions:
-    - ResearchNotes.v1
-    - Outline.v1
-    - ChapterDrafts.v1
-    - AssetSpecs.v1
-    - BiDiSection.v1
-    - BibliographyBundle.v1
-    - LaTeXProjectSpec.v1
-    - ReviewerSignal.v1
+    contract_versions:
+        - ResearchNotes.v1
+        - Outline.v1
+        - ChapterDrafts.v1
+        - AssetSpecs.v1
+        - BiDiSection.v1
+        - BibliographyBundle.v1
+        - LaTeXProjectSpec.v1
+        - ReviewerSignal.v1
 ```
 
 ## 3. Per-entry schema (agents and tasks)
@@ -135,24 +135,24 @@ Each agent or task entry is a small YAML document:
 
 ```yaml
 id: PROMPT-AGENT-RESEARCH-001
-ledger_id: PROMPT-AGENT-RESEARCH-001       # link to docs/PROMPTS.md
-kind: agent                                # "agent" | "task" | "tool"
+ledger_id: PROMPT-AGENT-RESEARCH-001 # link to docs/PROMPTS.md
+kind: agent # "agent" | "task" | "tool"
 version: v1
 prompt:
-  role: |
-    You are an experienced technical researcher …
-  goal: |
-    Your goal is to collect comprehensive …
-  backstory: |
-    …
+    role: |
+        You are an experienced technical researcher …
+    goal: |
+        Your goal is to collect comprehensive …
+    backstory: |
+        …
 config:
-  model_class: "research"                  # logical class; mapped to model in provider config
-  temperature: 0.2
-  max_tokens: 4096
-  allowed_tools:
-    - search.metadata_verification
-  emits_contract: null                     # agents emit content; tasks emit artifacts
-  consumes_contracts: []
+    model_class: "research" # logical class; mapped to model in provider config
+    temperature: 0.2
+    max_tokens: 4096
+    allowed_tools:
+        - search.metadata_verification
+    emits_contract: null # agents emit content; tasks emit artifacts
+    consumes_contracts: []
 ```
 
 Task entries also declare the contracts they emit and consume:
@@ -163,17 +163,17 @@ ledger_id: PROMPT-TASK-WRITE-001
 kind: task
 version: v1
 prompt:
-  description: |
-    Using the research notes (T1) and the outline (T2), draft …
-  expected_output: |
-    Markdown chapter files under results/generated_markdown/chapters/*.md …
+    description: |
+        Using the research notes (T1) and the outline (T2), draft …
+    expected_output: |
+        Markdown chapter files under results/generated_markdown/chapters/*.md …
 config:
-  agent: PROMPT-AGENT-WRITER-001
-  consumes_contracts:
-    - ResearchNotes.v1
-    - Outline.v1
-  emits_contract: ChapterDrafts.v1
-  repair_attempts_allowed: 1
+    agent: PROMPT-AGENT-WRITER-001
+    consumes_contracts:
+        - ResearchNotes.v1
+        - Outline.v1
+    emits_contract: ChapterDrafts.v1
+    repair_attempts_allowed: 1
 ```
 
 ## 4. Compatibility check (startup)

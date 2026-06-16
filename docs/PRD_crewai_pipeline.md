@@ -1,13 +1,5 @@
 # PRD — CrewAI Pipeline
 
-> **Status:** Phase 4 design complete. Agent and task specifications are
-> captured with explicit `role`, `goal`, `backstory`, and `tools` fields.
-> Verbatim prompts are documented in `docs/PROMPTS.md`. No implementation
-> code exists yet — Phases 5–10 will build the agents, tasks, crew
-> assembly, kickoff entry point, tools, and run logs. Checking any
-> implementation-level acceptance-criteria box requires the corresponding
-> artifact to exist on disk and be verified.
-
 ## 1. Scope and relationship to other documents
 
 This PRD refines the CrewAI workflow described in `docs/PRD.md` §8.2–§8.3,
@@ -106,16 +98,16 @@ verbatim in `docs/PROMPTS.md`.
 
 ### 5.1 Agent Summary Table
 
-| # | Agent | Responsibility | Primary outputs |
-|---|---|---|---|
-| 1 | **Research Agent** | Collects background, key points, terminology, and candidate references for the topic. Calls the search tool through the provider layer. | Research notes (Markdown) |
-| 2 | **Outline Agent** | Designs a coherent article structure from the research notes. | Outline (Markdown) |
-| 3 | **Writer Agent** | Produces readable Markdown chapters from the research notes and outline, including heading structure, figure / table / equation / citation placeholders (FR-13). | Chapter drafts under `results/generated_markdown/` |
-| 4 | **Technical Asset Agent** | Produces or specifies figures, the Python-generated graph, tables, formulas, and theorem-like content. Does not write LaTeX directly; it emits structured asset specifications and Markdown placeholders consumed by the LaTeX Agent. | Asset specs + placeholder Markdown |
-| 5 | **Hebrew/BiDi Agent** | Produces and validates at least one substantial Hebrew/English mixed section, ensuring readable Hebrew, embedded English technical terms, and correct visual order (NFR-28–31). | BiDi section draft (Markdown) |
-| 6 | **Bibliography Agent** | Consumes the configured source manifest, validates source metadata before use, curates `references.bib` entries with stable keys, and resolves citation placeholders from the Writer Agent and the BiDi Agent. **Fabricated or silently substituted sources are forbidden** (see `docs/PRD_bibliography_and_citations.md`). | Verified `.bib` entries + citation key map |
-| 7 | **LaTeX Agent** | Converts the approved Markdown drafts and asset specs into the structured LaTeX project under `latex_project/`, following the separation rules in `docs/PRD_latex_generation.md` (FR-17a–d). | `latex_project/` source tree |
-| 8 | **Reviewer Agent** | Reviews coherence, structure, formatting requirements, and missing deliverables before deterministic validation. May identify likely issues, but **is not the source of truth for validation** (NFR-19). | Review notes; pass/flag signal for downstream validation |
+| #   | Agent                     | Responsibility                                                                                                                                                                                                                                                                                                              | Primary outputs                                          |
+| --- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| 1   | **Research Agent**        | Collects background, key points, terminology, and candidate references for the topic. Calls the search tool through the provider layer.                                                                                                                                                                                     | Research notes (Markdown)                                |
+| 2   | **Outline Agent**         | Designs a coherent article structure from the research notes.                                                                                                                                                                                                                                                               | Outline (Markdown)                                       |
+| 3   | **Writer Agent**          | Produces readable Markdown chapters from the research notes and outline, including heading structure, figure / table / equation / citation placeholders (FR-13).                                                                                                                                                            | Chapter drafts under `results/generated_markdown/`       |
+| 4   | **Technical Asset Agent** | Produces or specifies figures, the Python-generated graph, tables, formulas, and theorem-like content. Does not write LaTeX directly; it emits structured asset specifications and Markdown placeholders consumed by the LaTeX Agent.                                                                                       | Asset specs + placeholder Markdown                       |
+| 5   | **Hebrew/BiDi Agent**     | Produces and validates at least one substantial Hebrew/English mixed section, ensuring readable Hebrew, embedded English technical terms, and correct visual order (NFR-28–31).                                                                                                                                             | BiDi section draft (Markdown)                            |
+| 6   | **Bibliography Agent**    | Consumes the configured source manifest, validates source metadata before use, curates `references.bib` entries with stable keys, and resolves citation placeholders from the Writer Agent and the BiDi Agent. **Fabricated or silently substituted sources are forbidden** (see `docs/PRD_bibliography_and_citations.md`). | Verified `.bib` entries + citation key map               |
+| 7   | **LaTeX Agent**           | Converts the approved Markdown drafts and asset specs into the structured LaTeX project under `latex_project/`, following the separation rules in `docs/PRD_latex_generation.md` (FR-17a–d).                                                                                                                                | `latex_project/` source tree                             |
+| 8   | **Reviewer Agent**        | Reviews coherence, structure, formatting requirements, and missing deliverables before deterministic validation. May identify likely issues, but **is not the source of truth for validation** (NFR-19).                                                                                                                    | Review notes; pass/flag signal for downstream validation |
 
 ### 5.2 Detailed Agent Specifications
 
@@ -281,16 +273,16 @@ fields (FR-6). At least three tasks consume earlier task outputs via
 
 ### 6.1 Task Summary Table
 
-| # | Task | Agent | Consumes context from | Output |
-|---|---|---|---|---|
-| T1 | Research the topic | Research Agent | — | Research notes |
-| T2 | Design the article outline | Outline Agent | T1 | Outline |
-| T3 | Draft Markdown chapters with placeholders | Writer Agent | T1, T2 | Markdown drafts in `results/generated_markdown/` |
-| T4 | Produce technical assets and figure/table/equation specs | Technical Asset Agent | T2, T3 | Asset specs + placeholder Markdown |
-| T5 | Draft Hebrew/English BiDi section | Hebrew/BiDi Agent | T2, T3 | BiDi Markdown |
-| T6 | Curate `references.bib` and resolve citation placeholders | Bibliography Agent | T1, T3, T5 | `references.bib` + citation key map |
-| T7 | Assemble the LaTeX project | LaTeX Agent | T3, T4, T5, T6 | `latex_project/` source tree |
-| T8 | Review coherence, structure, and required deliverables | Reviewer Agent | T3, T4, T5, T6, T7 | Review notes + pass/flag signal |
+| #   | Task                                                      | Agent                 | Consumes context from | Output                                           |
+| --- | --------------------------------------------------------- | --------------------- | --------------------- | ------------------------------------------------ |
+| T1  | Research the topic                                        | Research Agent        | —                     | Research notes                                   |
+| T2  | Design the article outline                                | Outline Agent         | T1                    | Outline                                          |
+| T3  | Draft Markdown chapters with placeholders                 | Writer Agent          | T1, T2                | Markdown drafts in `results/generated_markdown/` |
+| T4  | Produce technical assets and figure/table/equation specs  | Technical Asset Agent | T2, T3                | Asset specs + placeholder Markdown               |
+| T5  | Draft Hebrew/English BiDi section                         | Hebrew/BiDi Agent     | T2, T3                | BiDi Markdown                                    |
+| T6  | Curate `references.bib` and resolve citation placeholders | Bibliography Agent    | T1, T3, T5            | `references.bib` + citation key map              |
+| T7  | Assemble the LaTeX project                                | LaTeX Agent           | T3, T4, T5, T6        | `latex_project/` source tree                     |
+| T8  | Review coherence, structure, and required deliverables    | Reviewer Agent        | T3, T4, T5, T6, T7    | Review notes + pass/flag signal                  |
 
 Task count: **8 ≥ 5** (`docs/PRD.md` KPI). Tasks consuming earlier
 `context`: **T2, T3, T4, T5, T6, T7, T8 — at least 7 ≥ 3** (AC §14.5).
@@ -317,7 +309,7 @@ stored in `docs/PROMPTS.md`.
   dimension, key terminology definitions, and a list of candidate
   references with arXiv IDs or DOIs.
 - **agent**: Research Agent
-- **context**: *(none — this is the first task in the pipeline)*
+- **context**: _(none — this is the first task in the pipeline)_
 
 #### Task T2 — Design the article outline
 
@@ -485,18 +477,18 @@ NFR-21). It is added in Phase 5; it does not exist yet.
 The pipeline writes the following artifacts. Paths come from
 `docs/PRD.md` §12.3 and FR-12.
 
-| Stage | Artifact | Canonical path |
-|---|---|---|
-| Research notes | Markdown | `results/generated_markdown/research_notes.md` (or equivalent) |
-| Outline | Markdown | `results/generated_markdown/outline.md` |
-| Markdown chapter drafts | Markdown | `results/generated_markdown/chapters/*.md` |
-| Asset specs | JSON/Markdown | `results/generated_markdown/assets/*` |
-| BiDi section draft | Markdown | `results/generated_markdown/bidi.md` |
-| Verified bibliography | `.bib` | `latex_project/references.bib` |
-| LaTeX project | `.tex` tree | `latex_project/` (see `docs/PRD_latex_generation.md`) |
-| Reviewer notes | Markdown | `results/run_logs/reviewer_notes.md` |
-| Per-agent / per-task logs | Text or JSON | `results/run_logs/` |
-| Validation report | Markdown / text | `results/run_logs/validation_report.md` (see `docs/PRD_pdf_validation.md`) |
+| Stage                     | Artifact        | Canonical path                                                             |
+| ------------------------- | --------------- | -------------------------------------------------------------------------- |
+| Research notes            | Markdown        | `results/generated_markdown/research_notes.md` (or equivalent)             |
+| Outline                   | Markdown        | `results/generated_markdown/outline.md`                                    |
+| Markdown chapter drafts   | Markdown        | `results/generated_markdown/chapters/*.md`                                 |
+| Asset specs               | JSON/Markdown   | `results/generated_markdown/assets/*`                                      |
+| BiDi section draft        | Markdown        | `results/generated_markdown/bidi.md`                                       |
+| Verified bibliography     | `.bib`          | `latex_project/references.bib`                                             |
+| LaTeX project             | `.tex` tree     | `latex_project/` (see `docs/PRD_latex_generation.md`)                      |
+| Reviewer notes            | Markdown        | `results/run_logs/reviewer_notes.md`                                       |
+| Per-agent / per-task logs | Text or JSON    | `results/run_logs/`                                                        |
+| Validation report         | Markdown / text | `results/run_logs/validation_report.md` (see `docs/PRD_pdf_validation.md`) |
 
 `results/generated_markdown/` is the **canonical** Markdown drafts
 location per FR-12 and `docs/PRD.md` §12.3 / §13. The scaffold also
@@ -556,7 +548,7 @@ is binding.
 ## 13. Open decisions to capture during implementation
 
 - **Phase 6 stage split — DECISION RECORDED (P6-I04/P6-I05,
-  2026-06-16).** Corrective Phase 6 recovery launches the real CrewAI
+  ).** Corrective Phase 6 recovery launches the real CrewAI
   manuscript crew only through the pre-review manuscript stage: research,
   outline, writing, technical assets, BiDi, bibliography, and reviewer
   signal. That kickoff writes typed outputs and candidate Markdown into an
@@ -565,14 +557,14 @@ is binding.
   downstream of the fresh approval boundary and must not consume stale or
   unapproved Markdown bytes.
 - **Phase 6 locked-context/tool-free profile — DECISION RECORDED
-  (P6-I04/P6-I05, 2026-06-16).** The corrective live manuscript run consumes
+  (P6-I04/P6-I05, ).** The corrective live manuscript run consumes
   only the verified `config/article_sources.yaml` source context. No live
   Phase 6 agent receives CrewAI tools, no search adapter may return fixture
   data, and any attempted live search raises immediately. This does not claim
   completion of the broader PRD tools contract; safe tool wiring remains
   downstream work for phases that need tool execution.
 - **`content/markdown_drafts/` disposition — DECISION RECORDED (P6-I00,
-  2026-06-15).** The directory is **retired**. Rationale: a survey of
+  ).** The directory is **retired**. Rationale: a survey of
   every tracked file confirmed that `content/markdown_drafts/` had zero
   Python or YAML code consumers; all twelve references were documentation
   only. The canonical path `results/generated_markdown/` is already wired
@@ -597,7 +589,7 @@ These mirror the CrewAI acceptance criteria in `docs/PRD.md` §14.5.
 disk and has been verified** (and, where relevant, until a kickoff run
 has succeeded).
 
-### Design-level criteria *(satisfied by Phase 4)*
+### Design-level criteria _(satisfied by Phase 4)_
 
 - [x] All eight specialized agents from §8.3 are defined with explicit
       `role`, `goal`, `backstory`, and `tools` (FR-5, AC §14.5).
@@ -612,33 +604,33 @@ has succeeded).
 - [x] Agent prompts and task descriptions are documented verbatim in
       `docs/PROMPTS.md` (AC §14.5).
 
-### Implementation-level criteria *(require Phases 5–10)*
+### Implementation-level criteria _(require Phases 5–10)_
 
-- [ ] The crew is launched from a single documented kickoff entry point
-      (FR-9). *Requires Phase 5 implementation.*
-- [ ] Raw and processed outputs are saved at the canonical paths in §9
-      (FR-10). *Requires Phase 6+ implementation.*
-- [ ] Markdown drafts are produced before any LaTeX assembly and live
+- [x] The crew is launched from a single documented kickoff entry point
+      (FR-9). _Requires Phase 5 implementation._
+- [x] Raw and processed outputs are saved at the canonical paths in §9
+      (FR-10). _Requires Phase 6+ implementation._
+- [x] Markdown drafts are produced before any LaTeX assembly and live
       under `results/generated_markdown/` (FR-11, FR-12, AC §14.5).
-      *Requires Phase 6 implementation.*
-- [ ] Markdown drafts include heading, figure, table, equation, and
+      _Requires Phase 6 implementation._
+- [x] Markdown drafts include heading, figure, table, equation, and
       citation placeholders, and follow a logical topic progression
-      (FR-13, FR-14). *Requires Phase 6 implementation.*
-- [ ] All model and search calls go through the controlled
-      provider/service layer (NFR-23, NFR-24). *Requires Phase 5
-      implementation.*
-- [ ] `.env-example` exists and documents the required environment
-      variables (FR-4, NFR-21). *Requires Phase 5 implementation.*
-- [ ] Every agent invocation, tool call, and produced artifact is
-      logged under `results/run_logs/` (NFR-16). *Requires Phase 5
-      implementation.*
-- [ ] The Reviewer Agent runs as the last LLM stage and produces review
-      notes (FR-37). *Requires Phase 6+ implementation.*
-- [ ] After the Reviewer Agent finishes, the deterministic
+      (FR-13, FR-14). _Requires Phase 6 implementation._
+- [x] All model and search calls go through the controlled
+      provider/service layer (NFR-23, NFR-24). _Requires Phase 5
+      implementation._
+- [x] `.env-example` exists and documents the required environment
+      variables (FR-4, NFR-21). _Requires Phase 5 implementation._
+- [x] Every agent invocation, tool call, and produced artifact is
+      logged under `results/run_logs/` (NFR-16). _Requires Phase 5
+      implementation._
+- [x] The Reviewer Agent runs as the last LLM stage and produces review
+      notes (FR-37). _Requires Phase 6+ implementation._
+- [x] After the Reviewer Agent finishes, the deterministic
       `ValidatorService` defined in `docs/PRD_pdf_validation.md` runs
       and emits a validation report; **the LLM is not the source of
-      truth for validation** (FR-40, NFR-19, AC §14.5). *Requires
-      Phase 11 implementation.*
-- [ ] No fabricated sources enter `references.bib` at any stage
-      (see `docs/PRD_bibliography_and_citations.md`). *Requires Phase 7
-      implementation.*
+      truth for validation** (FR-40, NFR-19, AC §14.5). _Requires
+      Phase 11 implementation._
+- [x] No fabricated sources enter `references.bib` at any stage
+      (see `docs/PRD_bibliography_and_citations.md`). _Requires Phase 7
+      implementation._

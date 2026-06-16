@@ -1,7 +1,6 @@
 # ADR-0004 — Provider facade vs API Gatekeeper
 
 - **Status:** Accepted (Phase 4 design amendment — P4-I04).
-- **Date:** 2026-06-14.
 
 ## Context
 
@@ -22,7 +21,7 @@ a second provider also requires re-implementing budget logic).
 These responsibilities are split into two distinct components:
 
 1. **Provider facade** — translates calls to the chosen LLM/search SDKs
-   and returns a *typed, normalized* response. No policy decisions, no
+   and returns a _typed, normalized_ response. No policy decisions, no
    silent fallbacks. Adding a second provider means adding a sibling
    adapter behind the same facade interface.
 2. **API Gatekeeper (P5-I09)** — the only component that knows about

@@ -1,6 +1,6 @@
 # submission/
 
-> **Status (2026-06-17):** `final.pdf` copied here from `results/final.pdf`
+> **Status :** `final.pdf` copied here from `results/final.pdf`
 > (21 pages, 213 KB). Rename to `<GROUP_CODE>-ex03.pdf` before uploading
 > to Moodle. Each group member submits separately.
 

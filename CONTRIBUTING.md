@@ -36,10 +36,10 @@ verified artifacts          evidence of actual completion (files, builds,
 Rules:
 
 - The Markdown documents own **requirements, phases, and the discrete
-  task backlog**. They are authoritative for *what should be true*.
+  task backlog**. They are authoritative for _what should be true_.
 - GitHub Milestones and Issues own **active tracking**. They are
-  authoritative for *who is working on what right now*.
-- Neither side is authoritative about *completion*. Completion is
+  authoritative for _who is working on what right now_.
+- Neither side is authoritative about _completion_. Completion is
   established by **verified artifacts on disk** (or by a passing build,
   test, or validator run). See [`docs/TODO.md`](docs/TODO.md) §F-6 for the closure rule.
 - PRD §19 ("Proposed Milestones" M1–M9) is **superseded by**
@@ -141,12 +141,12 @@ Every repository-changing issue gets one dedicated **linked** branch:
 - The branch must be **linked** to its issue through GitHub's Development
   metadata, created via:
 
-  ```sh
-  gh issue develop <N> --name <branch> --base main --checkout
-  ```
+    ```sh
+    gh issue develop <N> --name <branch> --base main --checkout
+    ```
 
-  Verify with `gh issue develop --list <N>`. The branch must appear in
-  the issue's "Development" section in the GitHub UI.
+    Verify with `gh issue develop --list <N>`. The branch must appear in
+    the issue's "Development" section in the GitHub UI.
 
 Do **not** substitute an ordinary unlinked branch for a linked one.
 
@@ -439,19 +439,19 @@ The same vocabulary applies to **pull requests** as well as issues. A PR's
 labels must match (or be a meaningful subset of) the labels on its linked
 issue and must be set before the PR is marked ready for review.
 
-| Label          | Use                                                        |
-|----------------|------------------------------------------------------------|
-| `docs`         | Documentation, Markdown, PRD work.                         |
-| `architecture` | Project structure, mechanism design.                       |
-| `crewai`       | CrewAI agents, tasks, prompts, crew assembly.              |
-| `latex`        | LaTeX project, preamble, macros, build wiring.             |
-| `validation`   | Deterministic `ValidatorService` and PDF/content checks.   |
-| `bidi`         | Hebrew/English BiDi formatting and fonts.                  |
-| `bibliography` | `references.bib`, citations, source verification.          |
-| `testing`      | Tests, lint, reproducibility.                              |
-| `submission`   | Final Moodle bundle, wrapper PDF, checklist.               |
-| `decision`     | Decision-only issues with no repository artifact change.   |
-| `security`     | Secrets handling, sandboxing, untrusted-source policy.     |
+| Label          | Use                                                      |
+| -------------- | -------------------------------------------------------- |
+| `docs`         | Documentation, Markdown, PRD work.                       |
+| `architecture` | Project structure, mechanism design.                     |
+| `crewai`       | CrewAI agents, tasks, prompts, crew assembly.            |
+| `latex`        | LaTeX project, preamble, macros, build wiring.           |
+| `validation`   | Deterministic `ValidatorService` and PDF/content checks. |
+| `bidi`         | Hebrew/English BiDi formatting and fonts.                |
+| `bibliography` | `references.bib`, citations, source verification.        |
+| `testing`      | Tests, lint, reproducibility.                            |
+| `submission`   | Final Moodle bundle, wrapper PDF, checklist.             |
+| `decision`     | Decision-only issues with no repository artifact change. |
+| `security`     | Secrets handling, sandboxing, untrusted-source policy.   |
 
 ---
 
@@ -527,43 +527,54 @@ the issue. Use this template:
 - PR: #<PR-N>, URL: <pr-url> (or "not yet opened")
 
 ### Completed
+
 - ...
 
 ### Remaining
+
 - ...
 
 ### Modified files
+
 - ...
 
 ### Tests already run
+
 - `uv run pytest` — <result>
 - `uv run ruff check .` — <result>
 - other: <result>
 
 ### Tests still required
+
 - ...
 
 ### Blockers
+
 - ...
 
 ### Decisions
+
 - ...
 
 ### Local tracking status
+
 - `docs/TODO.md`: <up-to-date / pending update — describe>
 - `docs/PLAN.md`: <up-to-date / pending update — describe>
 - `docs/PRD.md`: <up-to-date / not affected>
 
 ### GitHub tracking status
+
 - Issue state: <open/closed>, assignee correct: <yes/no>
 - Milestone state: <open/closed>
 - Linked branch / PR present: <yes/no>
 
 ### Working tree / push state
+
 - `git status --short`: <output or "clean">
 - local branch vs `origin/<branch>`: <ahead/behind/synced>
 
 ### Exact next action
+
 - ...
 ```
 
@@ -641,4 +652,4 @@ gh api repos/<owner>/<repo>/milestones/<num> -X PATCH -f state=closed
 
 ---
 
-Last reviewed: 2026-06-13 under issue P2-I03 (#4).
+Last reviewed: under issue P2-I03 (#4).

@@ -1,7 +1,6 @@
 # ADR-0002 — Typed artifact contracts and one bounded repair
 
 - **Status:** Accepted (Phase 4 design amendment — P4-I04).
-- **Date:** 2026-06-14.
 
 ## Context
 

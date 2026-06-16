@@ -1,7 +1,6 @@
 # ADR-0006 — Canonical vs configurable source manifests
 
 - **Status:** Accepted (Phase 4 design amendment — P4-I04).
-- **Date:** 2026-06-14.
 
 ## Context
 

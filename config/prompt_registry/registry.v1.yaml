@@ -1,66 +1,66 @@
 registry_version: v1
-generated_at: 2026-06-15
+generated_at:
 entries:
-  agents:
-    - id: PROMPT-AGENT-RESEARCH-001
-      path: agents/research.v1.yaml
-      ledger_id: PROMPT-AGENT-RESEARCH-001
-    - id: PROMPT-AGENT-OUTLINE-001
-      path: agents/outline.v1.yaml
-      ledger_id: PROMPT-AGENT-OUTLINE-001
-    - id: PROMPT-AGENT-WRITER-001
-      path: agents/writer.v1.yaml
-      ledger_id: PROMPT-AGENT-WRITER-001
-    - id: PROMPT-AGENT-ASSET-001
-      path: agents/asset.v1.yaml
-      ledger_id: PROMPT-AGENT-ASSET-001
-    - id: PROMPT-AGENT-BIDI-001
-      path: agents/bidi.v1.yaml
-      ledger_id: PROMPT-AGENT-BIDI-001
-    - id: PROMPT-AGENT-LATEX-001
-      path: agents/latex.v1.yaml
-      ledger_id: PROMPT-AGENT-LATEX-001
-    - id: PROMPT-AGENT-BIBLIOGRAPHY-001
-      path: agents/bibliography.v1.yaml
-      ledger_id: PROMPT-AGENT-BIBLIOGRAPHY-001
-    - id: PROMPT-AGENT-REVIEWER-001
-      path: agents/reviewer.v1.yaml
-      ledger_id: PROMPT-AGENT-REVIEWER-001
-  tasks:
-    - id: PROMPT-TASK-RESEARCH-001
-      path: tasks/research.v1.yaml
-      ledger_id: PROMPT-TASK-RESEARCH-001
-    - id: PROMPT-TASK-OUTLINE-001
-      path: tasks/outline.v1.yaml
-      ledger_id: PROMPT-TASK-OUTLINE-001
-    - id: PROMPT-TASK-WRITE-001
-      path: tasks/write.v1.yaml
-      ledger_id: PROMPT-TASK-WRITE-001
-    - id: PROMPT-TASK-ASSET-001
-      path: tasks/asset.v1.yaml
-      ledger_id: PROMPT-TASK-ASSET-001
-    - id: PROMPT-TASK-BIDI-001
-      path: tasks/bidi.v1.yaml
-      ledger_id: PROMPT-TASK-BIDI-001
-    - id: PROMPT-TASK-BIBLIOGRAPHY-001
-      path: tasks/bibliography.v1.yaml
-      ledger_id: PROMPT-TASK-BIBLIOGRAPHY-001
-    - id: PROMPT-TASK-LATEX-001
-      path: tasks/latex.v1.yaml
-      ledger_id: PROMPT-TASK-LATEX-001
-    - id: PROMPT-TASK-REVIEW-001
-      path: tasks/review.v1.yaml
-      ledger_id: PROMPT-TASK-REVIEW-001
+    agents:
+        - id: PROMPT-AGENT-RESEARCH-001
+          path: agents/research.v1.yaml
+          ledger_id: PROMPT-AGENT-RESEARCH-001
+        - id: PROMPT-AGENT-OUTLINE-001
+          path: agents/outline.v1.yaml
+          ledger_id: PROMPT-AGENT-OUTLINE-001
+        - id: PROMPT-AGENT-WRITER-001
+          path: agents/writer.v1.yaml
+          ledger_id: PROMPT-AGENT-WRITER-001
+        - id: PROMPT-AGENT-ASSET-001
+          path: agents/asset.v1.yaml
+          ledger_id: PROMPT-AGENT-ASSET-001
+        - id: PROMPT-AGENT-BIDI-001
+          path: agents/bidi.v1.yaml
+          ledger_id: PROMPT-AGENT-BIDI-001
+        - id: PROMPT-AGENT-LATEX-001
+          path: agents/latex.v1.yaml
+          ledger_id: PROMPT-AGENT-LATEX-001
+        - id: PROMPT-AGENT-BIBLIOGRAPHY-001
+          path: agents/bibliography.v1.yaml
+          ledger_id: PROMPT-AGENT-BIBLIOGRAPHY-001
+        - id: PROMPT-AGENT-REVIEWER-001
+          path: agents/reviewer.v1.yaml
+          ledger_id: PROMPT-AGENT-REVIEWER-001
+    tasks:
+        - id: PROMPT-TASK-RESEARCH-001
+          path: tasks/research.v1.yaml
+          ledger_id: PROMPT-TASK-RESEARCH-001
+        - id: PROMPT-TASK-OUTLINE-001
+          path: tasks/outline.v1.yaml
+          ledger_id: PROMPT-TASK-OUTLINE-001
+        - id: PROMPT-TASK-WRITE-001
+          path: tasks/write.v1.yaml
+          ledger_id: PROMPT-TASK-WRITE-001
+        - id: PROMPT-TASK-ASSET-001
+          path: tasks/asset.v1.yaml
+          ledger_id: PROMPT-TASK-ASSET-001
+        - id: PROMPT-TASK-BIDI-001
+          path: tasks/bidi.v1.yaml
+          ledger_id: PROMPT-TASK-BIDI-001
+        - id: PROMPT-TASK-BIBLIOGRAPHY-001
+          path: tasks/bibliography.v1.yaml
+          ledger_id: PROMPT-TASK-BIBLIOGRAPHY-001
+        - id: PROMPT-TASK-LATEX-001
+          path: tasks/latex.v1.yaml
+          ledger_id: PROMPT-TASK-LATEX-001
+        - id: PROMPT-TASK-REVIEW-001
+          path: tasks/review.v1.yaml
+          ledger_id: PROMPT-TASK-REVIEW-001
 compatibility:
-  contract_versions:
-    - ResearchNotes.v1
-    - Outline.v1
-    - ChapterDrafts.v1
-    - AssetSpecs.v1
-    - BiDiSection.v1
-    - BibliographyBundle.v1
-    - LaTeXProjectSpec.v1
-    - ReviewerSignal.v1
-    - BuildResult.v1
-    - ValidationReport.v1
-    - PromotionRecord.v1
+    contract_versions:
+        - ResearchNotes.v1
+        - Outline.v1
+        - ChapterDrafts.v1
+        - AssetSpecs.v1
+        - BiDiSection.v1
+        - BibliographyBundle.v1
+        - LaTeXProjectSpec.v1
+        - ReviewerSignal.v1
+        - BuildResult.v1
+        - ValidationReport.v1
+        - PromotionRecord.v1

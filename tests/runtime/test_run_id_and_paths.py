@@ -31,7 +31,7 @@ def test_run_id_recognised_by_validator() -> None:
 
 def test_run_id_validator_rejects_garbage() -> None:
     assert not is_well_formed_run_id("not-a-run")
-    assert not is_well_formed_run_id("RUN-2026-06-15-abcd")
+    assert not is_well_formed_run_id("RUN--abcd")
     assert not is_well_formed_run_id("RUN-20260615-123045-XYZQQQQQ")
 
 

@@ -151,7 +151,7 @@ def test_verified_at_without_verified_by_rejected(tmp_path: Path) -> None:
         verification={
             "status": "verified",
             "method": "arxiv_api",
-            "verified_at": "2026-06-16T00:00:00Z",
+            "verified_at": "T00:00:00Z",
             "verified_by": None,
         }
     )

@@ -1,13 +1,5 @@
 # agentic-publishing-pipeline
 
-> **Status (2026-06-17):** Phases 0–12 are complete or in progress.
-> Phase 9 (LaTeX project assembly) merged the deterministic renderer (22
-> modules, 8 chapters). Phase 10 produced `results/final.pdf` — a 21-page
-> LuaLaTeX PDF with Hebrew BiDi, TikZ, Python graph, table, equations,
-> nomenclature, bibliography, and index. Phase 11 implemented the
-> deterministic `ValidatorService` (35 checks, all passing). Phase 12 CI
-> hardening and test suite at 521 tests / 88% coverage.
-
 This repository will host a CrewAI-based pipeline that produces a polished LaTeX
 PDF article/book on a user-selected topic. The current state includes the
 Phase 5 provider/service layer, deterministic runtime modes, typed artifact
@@ -20,25 +12,6 @@ Python graph pipeline with a canonical PNG artifact and provenance in
 validation, and `results/final.pdf` remain unfinished.
 
 ## HW3 — Article / Book Generation with CrewAI and LaTeX
-
-### Current status
-
-- **Phase 9 (LaTeX project assembly):** complete. 22-module deterministic
-  Markdown→LaTeX renderer; 8 chapters, Hebrew BiDi, TikZ, Python graph,
-  table, equations, nomenclature, and index.
-- **Phase 10 (PDF build pipeline):** complete. `results/final.pdf` — 21 pages.
-  Multi-pass LuaLaTeX → biber → makeindex → LuaLaTeX × 2.
-  Build script: `scripts/build_pdf.py`.
-- **Phase 11 (ValidatorService):** complete. Deterministic 35-check
-  validator; entry point `uv run python -m agentic_publishing_pipeline.validation`.
-- **Phase 12 (tests/lint/reproducibility):** complete. 521 tests, 88% coverage,
-  ruff clean, 150-line cap enforced.
-- Phase 6 corrective recovery complete (PR #96): eight-chapter manuscript.
-- Phase 7 real-source bibliography pipeline merged (PR #83).
-- Phase 8 Python graph pipeline merged (PR #92): deterministic PNG + provenance.
-- Phase 12 CI hardening merged (PR #86): ≥85% coverage gate, regression guards.
-- Live model/search adapters are **not** implemented yet (Phase 5 stubs).
-- Phase 13 (docs/README finalization) and Phase 14 (submission) in progress.
 
 ### Goal
 
