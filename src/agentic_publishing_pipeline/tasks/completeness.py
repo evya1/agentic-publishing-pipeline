@@ -79,7 +79,7 @@ def run_manuscript_preflight(
         check_asset_specs(placeholders, assets, errors)
     missing_keys = check_citation_set(cited, manifest_keys, errors)
     if bibliography is not None:
-        check_bibliography(cited, manifest_keys, bibliography, errors)
+        check_bibliography(cited, manifest_keys, bibliography, placeholders, errors)
     if source_context is not None:
         check_source_provenance(manifest_keys, bibliography, source_context, errors)
     check_bidi_embedding(

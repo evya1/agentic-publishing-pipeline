@@ -80,7 +80,10 @@ def _assets(extra: list[AssetSpec] | None = None) -> AssetSpecs:
     return AssetSpecs(run_id="r", assets=specs + list(extra or []))
 
 
-def _bibliography(entries: list[BibEntry] | None = None) -> BibliographyBundle:
+def _bibliography(
+    entries: list[BibEntry] | None = None,
+    placeholder_resolution: dict[str, str] | None = None,
+) -> BibliographyBundle:
     return BibliographyBundle(
         run_id="r",
         entries=entries
@@ -95,7 +98,11 @@ def _bibliography(entries: list[BibEntry] | None = None) -> BibliographyBundle:
                 verification_status="verified",
             )
         ],
-        placeholder_resolution={"k1": "k1"},
+        placeholder_resolution=(
+            placeholder_resolution
+            if placeholder_resolution is not None
+            else {"memory/citation-4": "k1"}
+        ),
         manifest_coverage=["k1"],
     )
 
@@ -244,7 +251,7 @@ def test_preflight_rejects_bibliography_duplicates_and_resolution_drift() -> Non
     bibliography = BibliographyBundle(
         run_id="r",
         entries=[duplicate, duplicate],
-        placeholder_resolution={"p": "not_locked"},
+        placeholder_resolution={"memory/citation-4": "not_locked"},
         manifest_coverage=[],
     )
     report = _preflight(bibliography=bibliography)
@@ -253,7 +260,115 @@ def test_preflight_rejects_bibliography_duplicates_and_resolution_drift() -> Non
     assert "outside locked manifest" in text
     assert "missing bibliography entries" in text
     assert "manifest coverage mismatch" in text
-    assert "citation resolutions outside locked manifest" in text
+    assert "maps to unknown key" in text
+
+
+def test_preflight_passes_when_no_citation_placeholders_and_empty_resolution() -> None:
+    body = (
+        "# Memory\n\n"
+        "Body without citations. "
+        "<!-- FIGURE: f --> <!-- TABLE: t --> <!-- EQUATION: e -->\n\n"
+        f"{BIDI_BODY}\n"
+    )
+    report = _preflight(
+        drafts=_drafts(body),
+        manifest_keys=(),
+        bibliography=_bibliography(entries=[], placeholder_resolution={}),
+    )
+    assert "placeholder_resolution missing" not in " ".join(report.errors)
+    assert "placeholder_resolution has unknown" not in " ".join(report.errors)
+
+
+def test_preflight_rejects_missing_placeholder_resolution_mapping() -> None:
+    report = _preflight(
+        bibliography=_bibliography(placeholder_resolution={}),
+    )
+    assert not report.passed
+    assert "placeholder_resolution missing citation slots" in " ".join(report.errors)
+
+
+def test_preflight_rejects_extra_placeholder_resolution_slot() -> None:
+    report = _preflight(
+        bibliography=_bibliography(
+            placeholder_resolution={
+                "memory/citation-4": "k1",
+                "memory/citation-99": "k1",
+            }
+        ),
+    )
+    assert not report.passed
+    assert "placeholder_resolution has unknown slots" in " ".join(report.errors)
+
+
+def test_preflight_rejects_resolution_value_that_disagrees_with_declared_keys() -> None:
+    body = (
+        "# Memory\n\n"
+        "Body. <!-- FIGURE: f --> <!-- TABLE: t --> <!-- EQUATION: e --> "
+        "<!-- CITATION: k1 -->\n\n"
+        f"{BIDI_BODY}\n"
+    )
+    entries = [
+        BibEntry(
+            citation_key="k1",
+            entry_type="article",
+            title="Locked Source",
+            year=2025,
+            authors=["A. Author"],
+            arxiv_id="2501.00001",
+            verification_status="verified",
+        ),
+        BibEntry(
+            citation_key="k2",
+            entry_type="article",
+            title="Other Source",
+            year=2026,
+            verification_status="verified",
+        ),
+    ]
+    bibliography = BibliographyBundle(
+        run_id="r",
+        entries=entries,
+        placeholder_resolution={"memory/citation-4": "k2"},
+        manifest_coverage=["k1", "k2"],
+    )
+    report = _preflight(
+        drafts=_drafts(body),
+        manifest_keys=("k1", "k2"),
+        bibliography=bibliography,
+    )
+    text = " ".join(report.errors)
+    assert "not in declared keys" in text
+
+
+def test_preflight_rejects_malformed_citation_placeholder_keys() -> None:
+    body = (
+        "# Memory\n\n"
+        "Body. <!-- FIGURE: f --> <!-- TABLE: t --> <!-- EQUATION: e --> "
+        "<!-- CITATION:  , , -->\n\n"
+        f"{BIDI_BODY}\n"
+    )
+    report = _preflight(
+        drafts=_drafts(body),
+        bibliography=_bibliography(placeholder_resolution={}),
+    )
+    text = " ".join(report.errors)
+    assert "malformed citation placeholder" in text
+
+
+def test_preflight_passes_with_two_distinct_citation_slots_resolving_to_same_key() -> None:
+    body = (
+        "# Memory\n\n"
+        "Body. <!-- FIGURE: f --> <!-- TABLE: t --> <!-- EQUATION: e --> "
+        "<!-- CITATION: k1 --> <!-- CITATION: k1 -->\n\n"
+        f"{BIDI_BODY}\n"
+    )
+    bibliography = _bibliography(
+        placeholder_resolution={"memory/citation-4": "k1", "memory/citation-5": "k1"},
+    )
+    report = _preflight(drafts=_drafts(body), bibliography=bibliography)
+    assert report.passed
+    text = " ".join(report.errors)
+    assert "placeholder_resolution" not in text
 
 
 def test_preflight_rejects_source_context_identifier_drift() -> None:

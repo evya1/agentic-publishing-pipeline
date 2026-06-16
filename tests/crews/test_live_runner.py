@@ -28,6 +28,10 @@ from agentic_publishing_pipeline.runtime import PipelineRunContext
 from agentic_publishing_pipeline.tasks import REQUIRED_CHAPTER_IDS
 from agentic_publishing_pipeline.tasks.completeness import ManuscriptPreflightReport
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
+REVIEW_TEMPLATE = REPO_ROOT / "results" / "run_logs" / "phase6_review_packet.md"
+PREVIOUS_CANONICAL = REPO_ROOT / "results" / "generated_markdown"
+
 
 def _context(tmp_path: Path) -> PipelineRunContext:
     return PipelineRunContext.create(
@@ -88,7 +92,7 @@ def _outputs(run_id: str):
                     verification_status="verified",
                 )
             ],
-            placeholder_resolution={"k1": "k1"},
+            placeholder_resolution={"memory/citation-4": "k1"},
             manifest_coverage=["k1"],
         ),
         ReviewerSignal(run_id=run_id, signal="pass"),
@@ -107,7 +111,12 @@ def _patch_builders(monkeypatch: pytest.MonkeyPatch, result: object) -> None:
     monkeypatch.setattr(live_runner, "build_manuscript_crew", lambda **_: FakeCrew())
 
 
-def _run(ctx: PipelineRunContext):
+def _run(
+    ctx: PipelineRunContext,
+    *,
+    review_template: Path | None = None,
+    previous_root: Path | None = None,
+):
     return run_live_manuscript(
         context=ctx,
         registry=SimpleNamespace(),
@@ -118,6 +127,8 @@ def _run(ctx: PipelineRunContext):
         target_pages=1,
         target_words=1,
         min_words_per_chapter=1,
+        review_template_path=review_template or REVIEW_TEMPLATE,
+        previous_canonical_root=previous_root or PREVIOUS_CANONICAL,
     )
 
 
@@ -127,7 +138,7 @@ def test_live_runner_composes_persists_and_awaits_review(
 ) -> None:
     ctx = _context(tmp_path)
     _patch_builders(monkeypatch, _outputs(ctx.run_id))
-    outputs, report = _run(ctx)
+    outputs, report, aggregate = _run(ctx)
     status = json.loads((ctx.paths.root / "status.json").read_text(encoding="utf-8"))
     memory = (ctx.paths.root / "generated_markdown/chapters/memory.md").read_text()
     assert report.passed
@@ -135,6 +146,49 @@ def test_live_runner_composes_persists_and_awaits_review(
     assert outputs.bidi.hebrew_body in memory
     assert (ctx.paths.root / "typed_outputs/chapter_drafts.json").is_file()
     assert (ctx.paths.root / "preflight_report.json").is_file()
+    assert (ctx.paths.root / "review_packet.md").is_file()
+    hashes = json.loads((ctx.paths.root / "hashes.json").read_text(encoding="utf-8"))
+    assert hashes["generated_markdown_sha256"] == aggregate
+    events = (ctx.paths.root / "logs/events.jsonl").read_text(encoding="utf-8")
+    assert "run.awaiting_human_review" in events
+
+
+def test_live_runner_records_review_finalization_failure(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ctx = _context(tmp_path)
+    _patch_builders(monkeypatch, _outputs(ctx.run_id))
+    monkeypatch.setattr(
+        live_runner,
+        "finalize_review_artifacts",
+        lambda **_: (_ for _ in ()).throw(RuntimeError("packet write failed")),
+    )
+    with pytest.raises(RuntimeError, match="packet write failed"):
+        _run(ctx)
+    status = json.loads((ctx.paths.root / "status.json").read_text(encoding="utf-8"))
+    assert status["stage"] == "review_finalization_failed"
+    assert not (ctx.paths.root / "review_packet.md").exists()
+    assert not (ctx.paths.root / "hashes.json").exists()
+
+
+def test_live_runner_does_not_publish_review_ready_before_artifacts_exist(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ctx = _context(tmp_path)
+    _patch_builders(monkeypatch, _outputs(ctx.run_id))
+    monkeypatch.setattr(
+        live_runner,
+        "finalize_review_artifacts",
+        lambda **_: (_ for _ in ()).throw(OSError("disk write failed")),
+    )
+    with pytest.raises(OSError):
+        _run(ctx)
+    status = json.loads((ctx.paths.root / "status.json").read_text(encoding="utf-8"))
+    events = (ctx.paths.root / "logs/events.jsonl").read_text(encoding="utf-8")
+    assert status["stage"] != "awaiting_human_review"
+    assert "run.awaiting_human_review" not in events
 
 
 def test_live_runner_records_generation_failure(
