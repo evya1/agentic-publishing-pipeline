@@ -20,6 +20,11 @@ class WorkspacePaths:
 
     SUBDIRS: tuple[str, ...] = (
         "artifacts",
+        "generated_markdown",
+        "generated_markdown/chapters",
+        "typed_outputs",
+        "raw_outputs",
+        "logs",
         "raw",
         "latex_project",
         "latex_project/chapters",

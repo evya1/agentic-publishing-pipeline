@@ -95,6 +95,7 @@ class ApiGatekeeper:
                 status="error",
                 estimated_cost_usd=0.0,
                 mode=self._ctx.mode,
+                purpose=request.metadata.get("purpose", ""),
             )
             if not exc.retriable:
                 raise GatekeeperRejection(str(exc), kind="non_retriable") from exc
@@ -122,6 +123,7 @@ class ApiGatekeeper:
             status="ok",
             estimated_cost_usd=cost,
             mode=self._ctx.mode,
+            purpose=request.metadata.get("purpose", ""),
         )
         return response
 
@@ -147,5 +149,6 @@ class ApiGatekeeper:
             status="ok",
             estimated_cost_usd=0.0,
             mode=self._ctx.mode,
+            purpose=request.metadata.get("purpose", ""),
         )
         return response

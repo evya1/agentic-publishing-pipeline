@@ -98,6 +98,7 @@ class PipelineRunContext:
 
     def _persist_manifest(self) -> None:
         self._manifest.write(self._manifest_path)
+        self._manifest.write(self.paths.child("manifest.json"))
 
     def register_artifact(
         self,

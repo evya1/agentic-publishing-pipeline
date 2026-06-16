@@ -22,6 +22,13 @@ from .registry import (
 from .run_context import PipelineRunContext
 from .run_id import RUN_ID_PREFIX, generate_run_id, is_well_formed_run_id
 from .snapshot import build_snapshot, redact_env, write_snapshot
+from .stage_state import (
+    PipelineStage,
+    StageState,
+    StageTransitionError,
+    transition,
+    write_stage,
+)
 from .usage_log import UsageLog, UsageStatus
 
 __all__ = [
@@ -30,11 +37,14 @@ __all__ = [
     "ManifestEntry",
     "PathSafetyError",
     "PipelineRunContext",
+    "PipelineStage",
     "PromotionRefused",
     "PromptConfig",
     "RUN_ID_PREFIX",
     "Registry",
     "RegistryError",
+    "StageState",
+    "StageTransitionError",
     "UsageLog",
     "UsageStatus",
     "WorkspacePaths",
@@ -46,6 +56,8 @@ __all__ = [
     "promote",
     "redact_env",
     "sha256_of",
+    "transition",
     "verify_compatibility",
     "write_snapshot",
+    "write_stage",
 ]

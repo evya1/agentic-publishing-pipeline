@@ -1,29 +1,33 @@
 # agentic-publishing-pipeline
 
-> **Status:** Phases 0 through 8 are merged into `main`. Phase 8 delivered
-> a deterministic Python graph pipeline: typed grouped-bar-chart spec,
+> **Status:** Phases 0 through 5, 7, and 8 are merged into `main`. Phase 6
+> is under corrective recovery for real CrewAI orchestration and a fresh
+> human-reviewed complete manuscript. Phase 8 delivered a deterministic
+> Python graph pipeline: typed grouped-bar-chart spec,
 > strict validation, Matplotlib Agg renderer, SHA-256 provenance, and a
 > canonical artifact committed to `latex_project/figures/` (PR #92). Phase 12
 > hardened CI with coverage gates, lint, and regression-guard scripts
-> (PR #86). Phase 9 (LaTeX project assembly) is the next implementation
-> phase. No final PDF has been generated.
+> (PR #86). Phase 9 (LaTeX project assembly) waits on fresh Phase 6
+> manuscript approval. No final PDF has been generated.
 
 This repository will host a CrewAI-based pipeline that produces a polished LaTeX
 PDF article/book on a user-selected topic. The current state includes the
 Phase 5 provider/service layer, deterministic runtime modes, typed artifact
-contracts, core tools, CLI, offline fixture path, Phase 6 approved
+contracts, core tools, CLI, offline fixture path, a stale Phase 6
 Markdown-first draft set under `results/generated_markdown/`, Phase 7
 verified bibliography with locked ArXiv metadata, migrated citation keys, and
 a resolved `\cite{}` map in `results/run_logs/`, and Phase 8 deterministic
 Python graph pipeline with a canonical PNG artifact and provenance in
-`latex_project/figures/`. Complete CrewAI orchestration, final LaTeX assembly,
-deterministic final validation, and `results/final.pdf` remain unfinished.
+`latex_project/figures/`. Final LaTeX assembly, deterministic final
+validation, and `results/final.pdf` remain unfinished.
 
 ## HW3 — Article / Book Generation with CrewAI and LaTeX
 
 ### Current status
 
-- Phase 6 Markdown-first content generation is merged into `main`.
+- Phase 6 Markdown-first content generation is under corrective recovery:
+  real CrewAI construction is now implemented on the recovery branch, and the
+  next gate is a fresh human review of complete candidate Markdown bytes.
 - Phase 7 real-source bibliography pipeline is merged into `main` (PR #83):
   ArXiv metadata verified, citation keys migrated, `\cite{}` placeholders
   resolved, untrusted-archive policy enforced.
@@ -35,11 +39,11 @@ deterministic final validation, and `results/final.pdf` remain unfinished.
   gate, 150-line cap, and `scripts/check_*.py` regression-guard scripts.
   Workflows are currently set to `workflow_dispatch`-only pending runner
   verification.
-- Phase 9 (LaTeX project assembly) is the next implementation phase.
+- Phase 9 (LaTeX project assembly) waits on the fresh Phase 6 manuscript
+  approval.
 - The canonical HW3 topic is selected in `docs/PRD.md` §22.
 - No final PDF has been generated.
-- Complete CrewAI orchestration and live model/search adapters are **not**
-  implemented yet.
+- Live model/search adapters are **not** implemented yet.
 - Final LaTeX assembly has **not** been completed yet.
 - Deterministic final PDF validation has **not** been implemented yet.
 

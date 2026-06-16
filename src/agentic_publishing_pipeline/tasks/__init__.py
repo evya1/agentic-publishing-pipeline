@@ -1,5 +1,23 @@
-"""CrewAI task definitions (placeholder).
+"""CrewAI task definitions.
 
-No CrewAI tasks are defined yet. See ``README.md`` in this directory and
-``docs/PRD_crewai_pipeline.md`` for the planned task sequence.
+Factory helpers build the pre-review manuscript task graph.
 """
+
+from __future__ import annotations
+
+from .completeness import ManuscriptPreflightReport, run_manuscript_preflight
+from .factory import (
+    REQUIRED_CHAPTER_IDS,
+    TASK_PROMPT_IDS,
+    TaskFactoryError,
+    build_manuscript_tasks,
+)
+
+__all__ = [
+    "REQUIRED_CHAPTER_IDS",
+    "TASK_PROMPT_IDS",
+    "ManuscriptPreflightReport",
+    "TaskFactoryError",
+    "build_manuscript_tasks",
+    "run_manuscript_preflight",
+]

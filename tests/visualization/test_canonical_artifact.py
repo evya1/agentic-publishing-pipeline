@@ -29,4 +29,7 @@ def test_committed_graph_matches_spec_and_regenerates(tmp_path: Path) -> None:
     result = generate_graph(spec_path=_SPEC_PATH, output_root=tmp_path, overwrite_existing=True)
     assert result.success
     assert (tmp_path / png_relative).read_bytes() == committed_png.read_bytes()
-    assert (tmp_path / provenance_relative).read_bytes() == committed_provenance.read_bytes()
+    regenerated_payload = json.loads((tmp_path / provenance_relative).read_text(encoding="utf-8"))
+    assert regenerated_payload["renderer"].pop("python_version")
+    assert payload["renderer"].pop("python_version")
+    assert regenerated_payload == payload

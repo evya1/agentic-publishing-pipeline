@@ -1,11 +1,13 @@
 # PLAN — agentic-publishing-pipeline
 
-> **Status:** Phases 0, 1, 1.5, 2, 3, 4, 5, 6, 7, and 8 are complete and
-> closed. Phase 7 landed through PR #83, verifying the canonical source
+> **Status:** Phases 0, 1, 1.5, 2, 3, 4, 5, 7, and 8 are complete and
+> closed. Phase 6 is re-opened for corrective recovery under P6-I04 and
+> P6-I05. Phase 7 landed through PR #83, verifying the canonical source
 > manifest and generating `latex_project/references.bib`. Phase 8 landed
 > through PR #92, delivering the deterministic Python graph pipeline and
 > committing a canonical PNG artifact to `latex_project/figures/`. Phase 9
-> is the next open implementation phase. Phases 9-14 remain open.
+> assembly waits on the fresh Phase 6 manuscript approval. Phases 9-14
+> remain open.
 
 ## How PRD, PLAN, TODO, and GitHub fit together
 
@@ -341,22 +343,32 @@ above is implemented and tested. PR #79 merged the work to `main`; the
 offline-fixture path and baseline CI gates are green; P5-I01 through P5-I13
 are closed with evidence; the Phase 5 milestone is closed.
 
-### Phase 6 — Markdown-first content pipeline *(complete and closed through PR #81)*
+### Phase 6 — Markdown-first content pipeline *(re-opened for corrective recovery)*
 
 Writer/Outline/Reviewer agents produce Markdown drafts at
 `results/generated_markdown/` (canonical, per FR-12 and §12.3). The
-`content/markdown_drafts/` scaffold is transitional and should be retired or
-aliased during this phase. Markdown must include heading structure, figure
-placeholders, table placeholders, equation placeholders, and citation
-placeholders (FR-13). A human review gate runs before any LaTeX conversion.
+`content/markdown_drafts/` scaffold has been retired. Markdown must include
+heading structure, figure placeholders, table placeholders, equation
+placeholders, and citation placeholders (FR-13). A human review gate runs
+before any LaTeX conversion.
 
-**Exit criterion (verified complete and milestone closed):** the full
-four-file draft set lives under `results/generated_markdown/`, has been
-reviewed by human reviewer `evya1`, and is approved for later LaTeX
-conversion by `results/run_logs/review_record.json`; `docs/AI_USAGE.md`
-records the run and accepted limitations. PR #81 merged the work to
-`main`; P6-I00 through P6-I03 are closed with evidence; the Phase 6
-milestone is closed.
+**Corrective scope:** PR #81 delivered a partial offline Markdown path, but
+not the real CrewAI kickoff or the complete PRD §22.7 manuscript. Phase 6 is
+therefore re-opened for P6-I04 (#94) and P6-I05 (#95). The existing
+`results/run_logs/review_record.json` is stale because the canonical Markdown
+bytes changed after approval; any downstream renderer must require fresh,
+hash-bound human approval before consuming the canonical manuscript.
+
+**Phase-level PR exception:** P6-I04 and P6-I05 are implemented on one
+phase-level branch and pull request because P6-I05 depends on the orchestration
+introduced by P6-I04 and both issues share the same human-review checkpoint.
+The default one-issue-one-PR rule remains unchanged for unrelated work.
+
+**Exit criterion (pending):** a real sequential CrewAI kickoff is wired through
+the controlled provider and gatekeeper seams, a complete eight-chapter
+candidate manuscript is generated in an isolated run workspace, deterministic
+preflight passes, and the run stops at the maintainer-owned human review gate
+with a review packet and exact aggregate hash.
 
 ### Phase 7 — Real-source and bibliography pipeline *(complete and closed — PR #83)*
 

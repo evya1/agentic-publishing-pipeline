@@ -3,10 +3,11 @@ name = "agentic-publishing-pipeline"
 version = "0.0.0"
 description = "Scaffold for a CrewAI-based article/book generation pipeline that produces a LaTeX PDF (HW3)."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 license = { text = "MIT" }
 authors = [{ name = "TBD" }]
 dependencies = [
+    "crewai==1.14.7",
     "matplotlib>=3.8",
     "pydantic>=2.7",
     "pyyaml>=6.0",

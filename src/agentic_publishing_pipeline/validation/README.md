@@ -2,8 +2,9 @@
 
 > **Status:** scaffold only — no validators implemented yet.
 
-Future home of checks against the compiled PDF and other generated
-artifacts. Coverage will include:
+Future home of deterministic Python checks against the compiled PDF and other
+generated artifacts. This package is not a CrewAI agent; it runs after agent
+work and build steps as a source-of-truth validator. Coverage will include:
 
 - PDF structure (cover sheet, TOC, headers/footers, page count).
 - Citations and bibliography linkage.

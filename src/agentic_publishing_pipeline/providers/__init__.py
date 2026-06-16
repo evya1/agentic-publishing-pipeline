@@ -16,7 +16,7 @@ identical to the live path.
 
 from __future__ import annotations
 
-from .adapters import FixtureModelAdapter, FixtureSearchAdapter
+from .adapters import DisabledSearchAdapter, FixtureModelAdapter, FixtureSearchAdapter
 from .config import ProviderConfig, load_provider_config
 from .facade import (
     ModelAdapter,
@@ -29,13 +29,16 @@ from .facade import (
     SearchRequest,
     SearchResponse,
 )
+from .openai_adapter import OpenAIChatAdapter
 
 __all__ = [
     "FixtureModelAdapter",
     "FixtureSearchAdapter",
+    "DisabledSearchAdapter",
     "ModelAdapter",
     "ModelRequest",
     "ModelResponse",
+    "OpenAIChatAdapter",
     "ProviderConfig",
     "ProviderError",
     "ProviderFacade",

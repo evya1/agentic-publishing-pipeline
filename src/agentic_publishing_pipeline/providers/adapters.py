@@ -103,3 +103,16 @@ class FixtureSearchAdapter(SearchAdapter):
             or (h.arxiv_id and query_lc == h.arxiv_id.lower())
         ]
         return SearchResponse(hits=matched[: request.max_results], latency_ms=1.0)
+
+
+class DisabledSearchAdapter(SearchAdapter):
+    """Search adapter for locked-context live runs where discovery is forbidden."""
+
+    name = "disabled-search"
+
+    def search(self, request: SearchRequest) -> SearchResponse:
+        del request
+        raise ProviderError(
+            "live Phase 6 search is disabled; run consumes only locked source context",
+            retriable=False,
+        )
