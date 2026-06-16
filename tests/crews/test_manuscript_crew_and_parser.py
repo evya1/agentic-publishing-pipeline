@@ -18,6 +18,8 @@ from agentic_publishing_pipeline.contracts import (
     ReviewerSignal,
 )
 from agentic_publishing_pipeline.crews.composition import (
+    BIDI_BEGIN_MARKER,
+    BIDI_END_MARKER,
     ManuscriptCompositionError,
     compose_manuscript_outputs,
 )
@@ -128,6 +130,102 @@ def test_composition_merges_bidi_into_memory_chapter() -> None:
     composed = compose_manuscript_outputs(outputs)
     assert hebrew in composed.chapters.chapters[0].body_markdown
     assert hebrew not in outputs.chapters.chapters[0].body_markdown
+
+
+def _outputs(memory_body: str, hebrew: str | None = None) -> ManuscriptOutputs:
+    body = hebrew if hebrew is not None else " ".join(["זיכרון"] * 40) + " reasoning"
+    return ManuscriptOutputs(
+        research=ResearchNotes(
+            run_id="r",
+            topic="t",
+            dimensions=[{"dimension": "memory", "summary": "s"}],
+        ),
+        outline=Outline(
+            run_id="r",
+            chapters=[{"chapter_id": "memory", "title": "Memory", "summary": "s"}],
+            target_total_pages=1,
+        ),
+        chapters=ChapterDrafts(
+            run_id="r",
+            chapters=[
+                ChapterDraft(
+                    chapter_id="memory",
+                    heading="Memory",
+                    body_markdown=memory_body,
+                )
+            ],
+        ),
+        assets=AssetSpecs(run_id="r"),
+        bidi=BiDiSection(
+            run_id="r",
+            chapter_id="memory",
+            hebrew_body=body,
+            inline_english_terms=["reasoning"],
+        ),
+        bibliography=BibliographyBundle(run_id="r"),
+        reviewer=ReviewerSignal(run_id="r", signal="pass"),
+    )
+
+
+def test_composition_is_idempotent_under_repeated_application() -> None:
+    once = compose_manuscript_outputs(_outputs("# Memory\n\nWriter-only body."))
+    twice = compose_manuscript_outputs(once)
+    assert once.chapters.chapters[0].body_markdown == twice.chapters.chapters[0].body_markdown
+    assert once.chapters.chapters[0].body_markdown.count(BIDI_BEGIN_MARKER) == 1
+    assert once.chapters.chapters[0].body_markdown.count(BIDI_END_MARKER) == 1
+
+
+def test_composition_replaces_existing_section_after_reformatting() -> None:
+    composed = compose_manuscript_outputs(_outputs("# Memory\n\nWriter-only body."))
+    body = composed.chapters.chapters[0].body_markdown
+    reformatted = body.replace("\n\n", "\n\n   \n\n").rstrip() + "\n   \n"
+    follow_up = _outputs(reformatted)
+    final = compose_manuscript_outputs(follow_up)
+    assert final.chapters.chapters[0].body_markdown.count(BIDI_BEGIN_MARKER) == 1
+    assert final.chapters.chapters[0].body_markdown.count(BIDI_END_MARKER) == 1
+
+
+def test_composition_replaces_truncated_existing_section() -> None:
+    composed = compose_manuscript_outputs(_outputs("# Memory\n\nWriter-only body."))
+    body = composed.chapters.chapters[0].body_markdown
+    truncated = body[: body.index(BIDI_END_MARKER)] + BIDI_END_MARKER
+    follow_up = _outputs(truncated)
+    final = compose_manuscript_outputs(follow_up)
+    assert final.chapters.chapters[0].body_markdown.count(BIDI_BEGIN_MARKER) == 1
+    assert final.chapters.chapters[0].body_markdown.count(BIDI_END_MARKER) == 1
+
+
+def test_composition_ignores_incidental_hebrew_in_prose() -> None:
+    hebrew = " ".join(["זיכרון", "סוכן", "תכנון", "הקשר"] * 12) + " reasoning"
+    memory = "# Memory\n\n" + hebrew + "\n\nMore writer prose follows."
+    composed = compose_manuscript_outputs(_outputs(memory, hebrew=hebrew))
+    body = composed.chapters.chapters[0].body_markdown
+    assert body.count(BIDI_BEGIN_MARKER) == 1
+    assert body.endswith("\n")
+
+
+def test_composition_rejects_duplicate_markers() -> None:
+    bad = (
+        "# Memory\n\n"
+        f"{BIDI_BEGIN_MARKER}\nold body\n{BIDI_END_MARKER}\n\n"
+        f"{BIDI_BEGIN_MARKER}\nother\n{BIDI_END_MARKER}\n"
+    )
+    with pytest.raises(ManuscriptCompositionError, match="duplicate BiDi-section markers"):
+        compose_manuscript_outputs(_outputs(bad))
+
+
+def test_composition_rejects_unbalanced_markers() -> None:
+    bad = f"# Memory\n\n{BIDI_BEGIN_MARKER}\nbody without end\n"
+    with pytest.raises(ManuscriptCompositionError, match="unbalanced BiDi markers"):
+        compose_manuscript_outputs(_outputs(bad))
+
+
+def test_composition_rejects_empty_bidi_body_via_internal_helper() -> None:
+    from agentic_publishing_pipeline.crews.composition import _merge_bidi_into_memory
+
+    drafts = _outputs("# Memory\n\nbody").chapters
+    with pytest.raises(ManuscriptCompositionError, match="empty"):
+        _merge_bidi_into_memory(drafts, "   ")
 
 
 def test_composition_rejects_missing_memory_chapter() -> None:
