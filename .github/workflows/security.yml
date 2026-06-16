@@ -1,12 +1,10 @@
 name: Security
 
+# ON HOLD — CodeQL requires security-events write permission (needs repo settings
+# to be configured), dependency-review requires the dependency graph to be enabled,
+# and actionlint is not yet installed in the base runner image used here.
+# Re-enable once repo security settings and runner prerequisites are confirmed.
 on:
-  pull_request:
-  push:
-    branches:
-      - main
-  schedule:
-    - cron: "0 6 * * 1"  # Weekly on Monday at 06:00 UTC
   workflow_dispatch:
 
 permissions:

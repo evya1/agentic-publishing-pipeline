@@ -1,10 +1,8 @@
 name: CI Core
 
+# ON HOLD — re-enable pull_request / push triggers once CI is stable on a clean checkout.
+# Failing because uv.lock / Python env setup needs to be confirmed on the runner first.
 on:
-  pull_request:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:

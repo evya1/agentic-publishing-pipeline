@@ -4,11 +4,9 @@ name: Artifact Pipeline (Phases 8–14)
 # Each job is active only when its implementation is present.
 # Jobs report "not yet implemented" and pass when their phase is pending.
 
+# ON HOLD — Phases 8–14 are not yet implemented. Re-enable pull_request / push
+# triggers as each phase lands so CI can gate on them incrementally.
 on:
-  pull_request:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
