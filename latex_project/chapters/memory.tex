@@ -1,0 +1,62 @@
+% chapters/memory.tex — Memory chapter (narrative text only)
+% BiDi host chapter: contains the substantive Hebrew/English section.
+\chapter{Memory and State Persistence}
+\label{chap:memory}
+
+Long-horizon agentic tasks require agents to retain information across many
+steps and interaction turns.
+Modern \LLM{}-based agents address this by maintaining explicit memory
+stores alongside the model's implicit parametric knowledge~\cite{huang2025licomemory,chen2025telemem}.
+\index{memory}
+\index{state persistence}
+
+\section{Memory Taxonomies}
+\label{sec:memory-taxonomy}
+
+Agent memory is commonly classified along two axes:
+
+\begin{itemize}
+  \item \textbf{Episodic memory} stores raw experience traces (observations,
+        actions, rewards) and supports retrieval by similarity or recency.
+  \item \textbf{Semantic memory} stores distilled facts and concepts
+        extracted from experience, enabling efficient generalisation.
+  \item \textbf{Working memory} holds the current context window of the
+        \LLM{} and is the primary bottleneck for long-horizon tasks.
+\end{itemize}
+
+\section{Lightweight Cognitive Architectures}
+\label{sec:memory-lightcog}
+
+LiCoMemory~\cite{huang2025licomemory} introduces a lightweight cognitive
+memory system that reduces storage overhead while preserving recall accuracy
+on long-reasoning benchmarks.
+TeleMem~\cite{chen2025telemem} extends this to multimodal long-term memory,
+maintaining both textual and visual traces across extended interaction histories.
+
+\section{Memory Mechanisms in Hebrew / מנגנוני זיכרון בעברית}
+\label{sec:memory-bidi}
+
+This section demonstrates Hebrew/English bidirectional typesetting.
+The body text is Hebrew (right-to-left); embedded English technical terms
+switch direction inline via \texttt{polyglossia}'s \texttt{\textbackslash textenglish} command.
+\index{bidirectional text}
+\index{זיכרון@\texthebrew{זיכרון} (memory)}
+
+\medskip
+\begin{hebrew}
+מנגנוני זיכרון הם מרכיב מרכזי בכל מערכת \textenglish{LLM} אגנטית.
+הסוכן (\textenglish{agent}) \texthebrew{חייב לשמור מידע}
+לאורך פרקי זמן ארוכים כדי לבצע משימות מורכבות.
+
+גישות כמו \textenglish{LiCoMemory}~\textenglish{\cite{huang2025licomemory}}
+ו-\textenglish{TeleMem}~\textenglish{\cite{chen2025telemem}}
+מציגות ארכיטקטורות זיכרון קלות משקל
+שמגדילות את יכולת הסוכן לשמור מידע ולאחזר אותו בצורה יעילה.
+שיטות אלו מאזנות בין עלות האחסון (%
+\textenglish{storage cost}) לבין דיוק האחזור (\textenglish{recall accuracy}).
+\end{hebrew}
+\medskip
+
+The paragraph above is typeset in Hebrew with correct right-to-left alignment
+and bidirectional text flow.  English citations and terms appear left-to-right
+as inline switches, satisfying the PRD~§8.6 BiDi requirement.

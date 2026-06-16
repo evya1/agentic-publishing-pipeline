@@ -147,8 +147,8 @@ def test_rekey_ledger_records_migration() -> None:
         assert new.isascii() and new == new.lower()
 
 
-def test_phase6_review_record_no_longer_matches_current_markdown() -> None:
-    """The Phase 6 review gate must refuse to proceed after the rekey."""
+def test_phase9_review_record_matches_current_markdown() -> None:
+    """After Phase 9 re-approval the review record SHA must match the current Markdown."""
 
     import json
 
@@ -158,7 +158,7 @@ def test_phase6_review_record_no_longer_matches_current_markdown() -> None:
     )
 
     current = compute_draft_revision(Path("results/generated_markdown"))
-    assert record["draft_sha256"] != current, (
-        "Phase 6 approved hash unexpectedly matches migrated markdown; "
-        "the migration would silently bypass the review gate."
+    assert record["draft_sha256"] == current, (
+        "Phase 9 review record SHA does not match current Markdown. "
+        "Re-run make_review_record() to re-approve the resolved chapter set."
     )

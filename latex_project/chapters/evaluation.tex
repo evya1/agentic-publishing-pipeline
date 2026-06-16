@@ -1,0 +1,50 @@
+% chapters/evaluation.tex — Evaluation chapter (narrative text only)
+\chapter{Evaluation Frameworks}
+\label{chap:evaluation}
+
+Rigorous evaluation of agentic \LLM{}s is challenging because agent
+performance depends not only on final-answer accuracy but also on
+intermediate reasoning quality, tool-use efficiency, and robustness to
+distribution shift~\cite{ye2024mirai}.
+\index{evaluation}
+\index{benchmark}
+
+\section{The MIRAI Benchmark}
+\label{sec:eval-mirai}
+
+MIRAI~\cite{ye2024mirai} is a benchmark for evaluating \LLM{} agents on
+event forecasting: the agent must predict future geopolitical events by
+reasoning over a dynamic knowledge graph constructed from news articles.
+Unlike static QA benchmarks, MIRAI requires the agent to retrieve
+time-sensitive information, chain multi-hop inferences, and express
+calibrated uncertainty — capabilities that directly correspond to the
+skills surveyed in Chapters~\ref{chap:retrieval}--\ref{chap:multimodal}.
+\index{MIRAI}
+
+\section{Dimensions of Agent Evaluation}
+\label{sec:eval-dimensions}
+
+A comprehensive agent evaluation framework should measure at least four
+dimensions:
+
+\begin{enumerate}
+  \item \textbf{Task completion rate} — fraction of episodes in which the
+        agent achieves the goal within the allotted steps.
+  \item \textbf{Efficiency} — number of steps, tokens, and tool calls
+        consumed per episode.
+  \item \textbf{Robustness} — performance under observation noise,
+        misleading tool outputs, or adversarial prompts.
+  \item \textbf{Calibration} — correlation between the agent's expressed
+        confidence and its empirical accuracy.
+\end{enumerate}
+
+\section{Connections to the Planning Objective}
+\label{sec:eval-planning}
+
+From the planning perspective of Equation~\eqref{eq:planning-objective},
+evaluation reduces to measuring how closely the agent's achieved cumulative
+reward approximates $\Policy^{*}$.
+Current benchmarks typically proxy reward with a binary task-success
+indicator, which conflates good planning with lucky execution.
+Future evaluation designs should adopt denser reward signals that credit
+correct intermediate reasoning steps.

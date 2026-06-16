@@ -1,0 +1,23 @@
+% =============================================================================
+% macros.tex — Reusable math/notation commands
+%
+% Loaded by main.tex via \RequireAndInput{macros}.
+% FR-18: reusable math notation shared across chapters.
+% =============================================================================
+
+% --- Agent-system notation ---------------------------------------------------
+\newcommand{\AgentSet}{\mathcal{A}}    % set of agents
+\newcommand{\StateSpace}{\mathcal{S}}  % environment state space
+\newcommand{\ActionSpace}{\mathcal{U}} % action space
+\newcommand{\Policy}{\pi}              % policy function
+\newcommand{\Reward}{R}                % reward signal
+\newcommand{\ValueFn}{V}               % value function
+
+% --- Math operators ----------------------------------------------------------
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\E}{\mathbb{E}}
+
+% --- Text abbreviations ------------------------------------------------------
+\newcommand{\LLM}{LLM\xspace}
+\newcommand{\RAG}{RAG\xspace}

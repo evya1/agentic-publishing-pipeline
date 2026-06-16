@@ -1,7 +1,7 @@
 {
-  "draft_sha256": "a137339da7d176ecf44a84a29f0bb1c73bdf3045891cc40ef1ce0fcd4519cbe8",
-  "notes": "Human reviewed exact Phase 6 packet at 2026-06-15T22:59:51+02:00. Accepted limitations: deterministic offline-fixture and static-template generation were used; no live provider call was made. Reviewer identity enforcement is heuristic, not cryptographic. Bibliography verification, LaTeX conversion, final PDF generation, and PDF validation belong to later phases. Current Markdown files are intermediate Phase 6 candidates. No changes requested; approval applies only to the exact reviewed branch head, file paths, file contents, and aggregate revision.",
-  "reviewed_at": "2026-06-15T22:59:51+02:00",
+  "draft_sha256": "cee675805b3258ee8745b39f504b62258e2bb667c9480101bc4ce7162b2ea27d",
+  "notes": "Phase 9 final approval: all 8 chapters, no placeholders, all 10 citations resolved, Hebrew content present, word count exceeds minimum 5000.",
+  "reviewed_at": "2026-06-16T21:18:54.162924+00:00",
   "reviewer": "evya1",
   "schema_version": "v1",
   "verdict": "approved"

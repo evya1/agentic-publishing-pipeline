@@ -1,72 +1,113 @@
 % =============================================================================
-% main.tex  --  PLACEHOLDER TEMPLATE ONLY.
+% main.tex — Thin-root document for the agentic-publishing-pipeline report.
 %
-% This file is intentionally minimal and contains NO real article content,
-% NO citations, NO bibliography entries, NO included figures, NO tables, and NO
-% formulas. Every required element is left as a TODO comment to be filled in
-% later by the LaTeX Formatter agent (and reviewed by a human) once content
-% has been approved in ../results/generated_markdown/.
+% Declares the document class (report, for \chapter-level structure) and
+% \input{}s every other file.  No narrative text, table environments,
+% TikZ pictures, or inline equations appear here.
 %
-% Compiler: prefer LuaLaTeX. XeLaTeX acceptable with documented justification.
-% Bibliography: real .bib entries + biber/BibTeX. No fake citations.
+% Compiler: LuaLaTeX + biber + makeindex (two-pass build)
+%   lualatex main.tex
+%   biber main
+%   makeindex main.nlo -s nomencl.ist -o main.nls
+%   makeindex main
+%   lualatex main.tex
+%   lualatex main.tex
 % =============================================================================
 
-\documentclass[11pt,a4paper]{article}
+\documentclass[11pt,a4paper]{report}
 
-% --- Packages (to be expanded once the document gains real content) --------
-% TODO: choose between babel + hebrew/english and polyglossia depending on
-%       compiler choice, and load it here for BiDi support.
-% TODO: load biblatex with backend=biber and a chosen style.
-% TODO: load fancyhdr (or similar) for headers / footers.
-% TODO: load graphicx for image inclusion.
-% TODO: load amsmath / amssymb for mathematical formulas.
-% TODO: load hyperref last for linked citations.
+% --- File-existence guards ---------------------------------------------------
+% Defined immediately so they are available before the preamble/macros inputs.
+%
+% \RequireAndInput{stem}   — inputs stem.tex from the document root;
+%                            errors clearly if the file is missing.
+% \RequireAndChapter{stem} — inputs chapters/stem.tex and increments a
+%                            counter so a deleted line is caught below.
+%
+% Bug-fix notes vs. original:
+%  * Definitions now precede the first \RequireAndInput call (ordering fix).
+%  * \IfFileExists check uses the .tex extension explicitly for portability.
+%  * \input is inside the true branch only — prevents the double-error that
+%    occurs in nonstop mode when both \PackageError and \input fire for the
+%    same missing file.
+%  * Counter approach replaces \csname chapter#1true\endcsname so chapter
+%    stems containing underscores (e.g. tool_use) work without issue.
+\newcommand{\RequireAndInput}[1]{%
+  \IfFileExists{#1.tex}{%
+    \input{#1}%
+  }{%
+    \PackageError{main}{Required file '#1.tex' not found}{%
+      The file '#1.tex' is required by this document but could not be
+      located.  Check that the file exists and the path is correct.%
+    }%
+  }%
+}
 
+\newcounter{chaptersexpected}
+\newcounter{chaptersincluded}
+\setcounter{chaptersexpected}{8}% must equal the number of \RequireAndChapter calls
+
+\newcommand{\RequireAndChapter}[1]{%
+  \IfFileExists{chapters/#1.tex}{%
+    \stepcounter{chaptersincluded}%
+    \input{chapters/#1.tex}%
+  }{%
+    \PackageError{main}{Required chapter '#1' not found}{%
+      'chapters/#1.tex' is required by this document but could not be
+      located.%
+    }%
+  }%
+}
+
+% --- Preamble and shared macros ----------------------------------------------
+% These must come after the \newcommand definitions above.
+\RequireAndInput{preamble}
+\RequireAndInput{macros}
+
+% --- Title-page metadata -----------------------------------------------------
+\title{Agentic Reasoning for Large Language Models: A Survey}
+\author{Team Name \\ Course: AI Orchestration}
+\date{\today}
+
+% =============================================================================
 \begin{document}
+% =============================================================================
 
-% --- Cover sheet -----------------------------------------------------------
-% TODO: build a real cover sheet listing:
-%       - article/book topic (TBD)
-%       - author/team members (TBD)
-%       - course name and number
-%       - submission date
-%       Do NOT hardcode placeholder text into the final PDF.
+% --- Front matter ------------------------------------------------------------
+\maketitle
+\tableofcontents
 
-% --- Table of contents -----------------------------------------------------
-% TODO: \tableofcontents once real chapters exist.
+% --- Main body (chapters) ----------------------------------------------------
+% Chapter order matches constants.py::REQUIRED_CHAPTER_IDS.
+% A missing file produces a \PackageError immediately; a deleted
+% \RequireAndChapter line is caught by the counter guard below.
+\RequireAndChapter{introduction}
+\RequireAndChapter{planning}
+\RequireAndChapter{memory}
+\RequireAndChapter{retrieval}
+\RequireAndChapter{tool_use}
+\RequireAndChapter{multimodal}
+\RequireAndChapter{evaluation}
+\RequireAndChapter{conclusion}
 
-% --- Headers and footers ---------------------------------------------------
-% TODO: configure fancyhdr (or chosen alternative) so every body page has a
-%       header and footer matching the document style.
+% --- Chapter-count guard (runs BEFORE back matter) ---------------------------
+% Fires before \printnomenclature etc. so that in nonstop mode a deleted
+% \RequireAndChapter line prevents back-matter output as well.
+\ifnum\value{chaptersincluded}=\value{chaptersexpected}\else
+  \PackageError{main}{%
+    Chapter count mismatch: \the\value{chaptersincluded}\space of
+    \the\value{chaptersexpected}\space required chapters were included.
+    A \string\RequireAndChapter{} line may have been deleted.%
+  }{}%
+\fi
 
-% --- Chapters / sections ---------------------------------------------------
-% TODO: \input{chapters/<chapter>.tex} for each approved chapter, after the
-%       Markdown drafts in ../results/generated_markdown/ have been reviewed.
+% --- Back matter -------------------------------------------------------------
+% TOC entries for nomenclature, bibliography, and index are added
+% automatically by the intoc options in preamble.tex.  No \addcontentsline
+% is needed here.
+\printnomenclature
+\printbibliography[heading=bibintoc]
+\printindex
 
-% --- At least one image ----------------------------------------------------
-% TODO: \includegraphics from figures/ once a real image is added.
-
-% --- At least one Python-generated graph -----------------------------------
-% TODO: include the Phase 8 generated graph from figures/ once the Phase 9
-%       planning chapter exists and owns the figure wrapper.
-
-% --- At least one table ----------------------------------------------------
-% TODO: real \begin{tabular}{...} ... \end{tabular} with real data.
-
-% --- At least one mathematical formula -------------------------------------
-% TODO: real \begin{equation} ... \end{equation} block.
-
-% --- At least one Hebrew-English BiDi section -----------------------------
-% TODO: demonstrate correct RTL (Hebrew) and LTR (English) rendering inside
-%       the same section or chapter. Choice of mechanism depends on the
-%       compiler (babel vs polyglossia).
-
-% --- Bibliography ----------------------------------------------------------
-% TODO: \printbibliography (biblatex) or \bibliography{references} (BibTeX)
-%       once references.bib contains real entries.
-
-% --- Linked citations ------------------------------------------------------
-% TODO: ensure hyperref renders \cite{...} as clickable links to the
-%       bibliography.
-
+% =============================================================================
 \end{document}

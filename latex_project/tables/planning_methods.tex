@@ -1,0 +1,22 @@
+% tables/planning_methods.tex — Standalone table: planning method comparison.
+% Included from chapters/planning.tex via \input{tables/planning_methods.tex}
+% inside a table environment.
+\begin{table}[ht]
+  \centering
+  \caption{Comparison of planning approaches in frontier \LLM agents.}
+  \label{tab:planning-methods}
+  \begin{tabular}{@{}llcc@{}}
+    \toprule
+    \textbf{Method} & \textbf{Strategy} & \textbf{Benchmark} & \textbf{Score} \\
+    \midrule
+    GPT-4o          & Chain-of-thought  & Blocksworld        & 74\%           \\
+    o1-preview      & Search + backtrack & Blocksworld       & 81\%           \\
+    Claude 3.5      & ReAct             & ALFWorld           & 67\%           \\
+    Gemini 1.5 Pro  & Tree-of-thought   & GSM8K              & 95\%           \\
+    \bottomrule
+  \end{tabular}
+  \smallskip
+
+  \footnotesize Scores from \cite{correa2025planningperformance}.
+  Higher is better; benchmarks are not directly comparable across rows.
+\end{table}

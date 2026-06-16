@@ -28,6 +28,7 @@ from ..providers import load_provider_config
 from ..runtime import PipelineRunContext, Registry, load_registry, verify_compatibility
 from ._existing_run import handle_existing_mode
 from ._phase6_generate import run_phase6_generate
+from ._phase9_assemble import run_phase9_assemble
 from ._smoke import OFFLINE_MODES, run_offline_smoke
 from .live_cli import LIVE_PROVIDER_CREDENTIALS, run_live_cli
 
@@ -50,6 +51,7 @@ def build_parser() -> argparse.ArgumentParser:
             "compile-only",
             "validate-only",
             "resume",
+            "assemble-phase9",
         ],
         default="offline-fixture",
     )
@@ -80,11 +82,6 @@ def _check_live_credentials(env: dict[str, str]) -> None:
             f"live mode requires {expected} for provider {provider!r}; "
             "set the variable to a non-empty key in .env"
         )
-
-
-def _check_live_ack(args: argparse.Namespace) -> None:
-    if not args.i_understand_this_makes_paid_calls:
-        raise SystemExit("live mode requires --i-understand-this-makes-paid-calls")
 
 
 def _load_registry_or_die(path: Path) -> Registry:
@@ -128,7 +125,8 @@ def run_cli(argv: Sequence[str] | None = None, *, env: dict[str, str] | None = N
     registry = _load_registry_or_die(registry_path)
     registry_fp = registry.fingerprint
     if args.mode == "live":
-        _check_live_ack(args)
+        if not args.i_understand_this_makes_paid_calls:
+            raise SystemExit("live mode requires --i-understand-this-makes-paid-calls")
         _check_live_credentials(env_map)
         return run_live_cli(args=args, env=env_map, registry=registry)
     if args.mode in {"compile-only", "validate-only", "resume"}:
@@ -151,6 +149,8 @@ def run_cli(argv: Sequence[str] | None = None, *, env: dict[str, str] | None = N
         ctx.events.append("run.completed", {"mode": ctx.mode})
         _mark_completed(ctx)
         return 0
+    if args.mode == "assemble-phase9":
+        return run_phase9_assemble(ctx, repo_root=PROJECT_ROOT)
     raise SystemExit(f"unsupported mode {args.mode!r}")
 
 

@@ -1,0 +1,44 @@
+% chapters/multimodal.tex — Multimodal chapter (narrative text only)
+\chapter{Multimodal Agentic Reasoning}
+\label{chap:multimodal}
+
+Agentic systems are increasingly required to reason over heterogeneous
+modalities — text, images, audio, and structured data — within a single
+interaction~\cite{yao2025multimodalsurvey}.
+Multimodal \LLM{}s unify these modalities in a shared representation space,
+enabling cross-modal evidence fusion.
+\index{multimodal reasoning}
+\index{cross-modal evidence}
+
+\section{Agentic Multimodal Architectures}
+\label{sec:multimodal-arch}
+
+\cite{yao2025multimodalsurvey} survey the design space of agentic multimodal
+\LLM{}s along four axes: perception (how modalities are encoded), grounding
+(how encodings are aligned to language), reasoning (how evidence from multiple
+modalities is fused), and action (how the agent produces outputs or invokes
+tools based on multimodal context).
+
+The key architectural choice is whether modalities are fused early (at the
+embedding layer), late (at the output layer), or dynamically (the model
+selects a fusion strategy per step).
+Dynamic fusion consistently outperforms static alternatives on tasks that
+require selective attention to a single modality.
+
+\section{Proactive Multimodal Retrieval}
+\label{sec:multimodal-retrieval}
+
+As discussed in Chapter~\ref{chap:retrieval}, proactive retrieval strategies
+are especially effective in multimodal settings, where the cost of
+retrieving an image is substantially higher than retrieving a text
+snippet~\cite{wang2025proactiveretrievalmedical}.
+The routing model must therefore weight the expected information gain
+against the retrieval cost when deciding whether to fetch a visual asset.
+
+\section{Open Challenges}
+\label{sec:multimodal-challenges}
+
+Key open problems include: (i)~compositional reasoning across more than two
+modalities simultaneously; (ii)~long-context multimodal memory (connecting
+Chapter~\ref{chap:memory} to this chapter); and (iii)~evaluation protocols
+that test multimodal reasoning independently of language understanding.

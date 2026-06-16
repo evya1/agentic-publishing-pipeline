@@ -1,8 +1,25 @@
 # scripts/
 
-Operator scripts for the project. The only script today is the GitHub
-milestone manifest sync tool that discharges the script-idempotency
-acceptance criterion of issue #2 (P2-I01).
+Operator scripts for the project.
+
+## render_latex_project.py — Phase 9 LaTeX inspection tool
+
+Inspect or render the Phase 9 LaTeX project without invoking a TeX compiler.
+Three mutually exclusive modes:
+
+```sh
+# Check upstream inputs (preflight validation only)
+uv run python scripts/render_latex_project.py --check-inputs
+
+# Render a source preview to a temporary directory
+uv run python scripts/render_latex_project.py --render-to /tmp/phase9-preview
+
+# Compare a rendered tree against the current plan (detect drift)
+uv run python scripts/render_latex_project.py --check-tree /tmp/phase9-preview
+```
+
+Exits 0 on success, 2 on preflight failure, 3 on tree drift.
+Config defaults to `config/latex/phase9_project.yaml`; pass `--config` to override.
 
 ## sync_milestones.py
 

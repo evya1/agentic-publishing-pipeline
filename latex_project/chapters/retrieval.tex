@@ -1,0 +1,39 @@
+% chapters/retrieval.tex — Retrieval chapter (narrative text only)
+\chapter{Retrieval-Augmented Reasoning}
+\label{chap:retrieval}
+
+Retrieval-augmented generation (\RAG) grounds \LLM{} outputs in external
+knowledge sources, reducing hallucination and enabling the agent to reason
+over information beyond its training cut-off~\cite{wu2025agenticreasoningtools}.
+\index{retrieval-augmented generation}
+\index{RAG}
+
+\section{Reactive vs.\ Proactive Retrieval}
+\label{sec:retrieval-proactive}
+
+Early \RAG systems retrieved documents only in response to an explicit
+query at inference time.
+Recent work on proactive retrieval~\cite{wang2025proactiveretrievalmedical}
+anticipates information needs before the \LLM{} formulates a query,
+pre-fetching relevant context and reducing latency on multi-step tasks.
+
+\section{Retrieval in Medical Multimodal Settings}
+\label{sec:retrieval-medical}
+
+\cite{wang2025proactiveretrievalmedical} demonstrated that proactive
+retrieval improves diagnostic accuracy when applied to multimodal medical
+\LLM{}s that must reason over both clinical text and radiological images.
+The key insight is that retrieval decisions can be made by a lightweight
+routing model that monitors agent state, rather than waiting for the base
+\LLM{} to request information explicitly.
+
+\section{Agentic Retrieval Frameworks}
+\label{sec:retrieval-agentic}
+
+\cite{wu2025agenticreasoningtools} frame retrieval as an agentic sub-policy:
+the agent learns when to retrieve, what to retrieve, and how to integrate
+retrieved content into its current reasoning chain.
+This formulation connects retrieval to the policy objective in
+Equation~\eqref{eq:planning-objective} of Chapter~\ref{chap:planning}: the
+agent maximises expected reward by selecting retrieval actions only when the
+information gain justifies the latency cost.

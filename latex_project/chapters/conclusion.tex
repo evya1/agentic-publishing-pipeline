@@ -1,0 +1,58 @@
+% chapters/conclusion.tex — Conclusion chapter (narrative text only)
+\chapter{Conclusion}
+\label{chap:conclusion}
+
+This survey has examined five core capabilities of reasoning-centric agentic
+\LLM{}s: planning, memory, retrieval, tool use, and multimodal reasoning.
+Across all five, a consistent theme emerged: agents that decompose tasks
+into bounded sub-problems, maintain explicit state, and ground decisions in
+retrieved evidence substantially outperform agents that rely on a single,
+monolithic forward pass~\cite{wei2026agenticreasoning,ke2025reasoningfrontiers}.
+\index{agentic reasoning}
+
+\section{Key Findings}
+\label{sec:conclusion-findings}
+
+\begin{enumerate}
+  \item \textbf{Planning:} Search-augmented frontier \LLM{}s approach or
+        match state-of-the-art classical planners on standard
+        benchmarks~\cite{correa2025planningperformance}, suggesting that
+        the gap between neural and symbolic planning is narrowing rapidly.
+
+  \item \textbf{Memory:} Lightweight cognitive architectures
+        (\cite{huang2025licomemory,chen2025telemem}) provide an effective
+        middle ground between context-window memory and external databases,
+        enabling long-horizon tasks without prohibitive storage overhead.
+
+  \item \textbf{Retrieval:} Proactive retrieval strategies reduce latency
+        and improve grounding accuracy, particularly in high-stakes
+        domains~\cite{wang2025proactiveretrievalmedical}.
+
+  \item \textbf{Tool use:} Bounded tool-use policies combined with
+        code-execution loops enable \LLM{}s to solve tasks that require
+        exact computation~\cite{liu2025agenticmath}.
+
+  \item \textbf{Multimodal:} Dynamic modality-fusion architectures
+        consistently outperform static alternatives, pointing toward
+        unified agentic reasoners that treat all input channels
+        symmetrically~\cite{yao2025multimodalsurvey}.
+\end{enumerate}
+
+\section{Future Directions}
+\label{sec:conclusion-future}
+
+Open problems span all five capability axes.
+For planning, learning to set task horizons adaptively remains unsolved.
+For memory, efficient forgetting — retaining task-relevant facts while
+discarding irrelevant detail — is an active research question.
+For retrieval, the alignment between retrieval relevance and downstream
+task reward deserves more theoretical treatment.
+For tool use, compositional policies that chain multiple tools in a single
+reasoning step are in their infancy.
+For multimodal reasoning, benchmarks that isolate cross-modal inference
+from language understanding are needed.
+
+Progress on each of these fronts will bring agentic \LLM{}s closer to the
+vision articulated by \cite{wei2026agenticreasoning}: systems that reason,
+plan, and act with the generality and robustness required for open-ended,
+real-world deployment.
