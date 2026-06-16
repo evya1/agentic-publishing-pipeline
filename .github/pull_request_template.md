@@ -21,7 +21,8 @@ Do not delete checklist sections.
 - PLAN phase: <!-- e.g. Phase 2 — Project management setup -->
 - TODO item: <!-- e.g. docs/TODO.md §B, "Refresh README.md…" -->
 - Milestone: <!-- e.g. Phase 2 — Project management setup -->
-- Labels applied: <!-- e.g. docs, architecture -->
+- Labels applied: <!-- e.g. docs, architecture — must match the issue labels -->
+- Assignee: <!-- same person as the issue assignee -->
 
 > Do not use closing keywords (`Closes`, `Fixes`, `Resolves`) — issue
 > closure happens only after artifacts are verified on disk per
@@ -36,6 +37,10 @@ Do not delete checklist sections.
 - [ ] Branch was created via `gh issue develop <N>` and appears in the
       issue's Development section (linked branch).
 - [ ] Milestone and labels on the issue match this PR's scope.
+- [ ] PR itself has the assignee set (same person as the issue assignee).
+- [ ] PR itself has labels matching the issue labels.
+- [ ] All commit hashes cited in this PR body use the 7-character short form
+      (e.g. `e145114`), not the full 40-character SHA.
 - [ ] Dependencies listed in the issue body are satisfied (or the
       blocker is documented and the PR is explicitly scoped to a
       preliminary step).
