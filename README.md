@@ -1,26 +1,35 @@
 # agentic-publishing-pipeline
 
-> **Status:** Phases 0 through 6 are merged into `main`. Phase 6 added
-> the Markdown-first draft pipeline, generated approved deterministic
-> Markdown candidates, and recorded the human review gate approval.
-> Phase 7 is the next implementation phase. No final PDF has been
-> generated.
+> **Status:** Phases 0 through 7 are merged into `main`. Phase 7 added
+> real-source bibliography verification, ArXiv metadata locking, citation
+> key migration, and `\cite{}` placeholder resolution (PR #83). Phase 12
+> hardened CI with coverage gates, lint, and regression-guard scripts
+> (PR #86). Phase 8 (Python graph generation) is the next implementation
+> phase. No final PDF has been generated.
 
 This repository will host a CrewAI-based pipeline that produces a polished LaTeX
 PDF article/book on a user-selected topic. The current state includes the
 Phase 5 provider/service layer, deterministic runtime modes, typed artifact
-contracts, core tools, CLI, offline fixture path, and CI foundations, plus
-the Phase 6 approved Markdown-first draft set under
-`results/generated_markdown/`. Complete CrewAI orchestration, real-source
-bibliography verification, final LaTeX assembly, deterministic final
-validation, and `results/final.pdf` remain unfinished.
+contracts, core tools, CLI, offline fixture path, Phase 6 approved
+Markdown-first draft set under `results/generated_markdown/`, and Phase 7
+verified bibliography with locked ArXiv metadata, migrated citation keys, and
+a resolved `\cite{}` map in `results/run_logs/`. Complete CrewAI
+orchestration, final LaTeX assembly, deterministic final validation, and
+`results/final.pdf` remain unfinished.
 
 ## HW3 — Article / Book Generation with CrewAI and LaTeX
 
 ### Current status
 
 - Phase 6 Markdown-first content generation is merged into `main`.
-- Phase 7 real-source and bibliography work is the next implementation phase.
+- Phase 7 real-source bibliography pipeline is merged into `main` (PR #83):
+  ArXiv metadata verified, citation keys migrated, `\cite{}` placeholders
+  resolved, untrusted-archive policy enforced.
+- Phase 12 CI hardening merged (PR #86): `ci-core.yml` with 85% coverage
+  gate, 150-line cap, and `scripts/check_*.py` regression-guard scripts.
+  Workflows are currently set to `workflow_dispatch`-only pending runner
+  verification.
+- Phase 8 (Python graph generation) is the next implementation phase.
 - No article/book topic has been selected.
 - No final PDF has been generated.
 - Complete CrewAI orchestration and live model/search adapters are **not**
@@ -115,10 +124,25 @@ supported live adapter yet; it never silently falls back to fixtures.
 `compile-only`, `validate-only`, and `resume` operate on an existing
 `--run-id` workspace and remain bounded to deterministic Phase 5 seams.
 
-Phase 5 CI runs on pull requests and pushes to `main`. It uses Python 3.11,
-`uv sync --frozen --group dev`, Ruff, the full pytest suite with an 85%
-coverage gate, the 150 measured-line production-source gate, and dry/offline
-smoke modes with temporary output roots.
+CI was overhauled in P12-I05 (PR #86). `phase5-validation.yml` was replaced
+by four workflow files under `.github/workflows/`:
+
+- **`ci-core.yml`** — lint (`ruff check`), format check, pytest with ≥85%
+  coverage gate, 150-line production-source cap, `uv build`, and dry/offline
+  smoke runs.
+- **`baseline-contracts.yml`** — Phase 1–7 regression guards: required-doc
+  presence, unique planning IDs, no tracked secrets/archives, provider and
+  gatekeeper tests, offline smoke, Phase 6 review-gate tests, Phase 7
+  bibliography tests, and phase-order protection.
+- **`artifact-pipeline.yml`** — graceful stubs for Phases 8–14.
+- **`security.yml`** — CodeQL, dependency review, and actionlint.
+
+All workflows are currently set to `workflow_dispatch`-only pending runner
+verification. Re-enable `pull_request`/`push` triggers per workflow as each
+is confirmed passing on a clean checkout.
+
+Validator scripts live in `scripts/check_*.py` and have unit tests in
+`tests/test_ci_scripts.py`.
 
 Dependencies follow a strict per-tool, no-speculative-install policy: a new
 runtime dependency is added (via `uv add <pkg>`) only inside the issue commit
