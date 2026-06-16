@@ -151,7 +151,9 @@ current state before acting.
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
 | P8-I01      | [#29](https://github.com/evya1/agentic-publishing-pipeline/issues/29) | Implement `visualization/` and ≥1 real graph under `latex_project/figures/` |
-| P8-I02      | *(planned — GitHub number TBD)* | Implement validated technical-asset specs and deterministic fallbacks |
+
+Additional Phase 8 validation/rendering scope remains under **P8-I01 / #29**
+until a dedicated follow-up issue is formally created.
 
 #### Phase 9 — LaTeX project assembly ([milestone #8](https://github.com/evya1/agentic-publishing-pipeline/milestone/8))
 
@@ -382,8 +384,8 @@ do not block the Phase 1.5 lock.
 ### C.3 Provider/service layer, configuration, and tools *(Phase 5 complete and closed through PR #79)*
 
 P5-I01 through P5-I13 are merged through PR #79, verified, and closed with
-evidence. The Phase 5 milestone is closed; Phase 6 is complete and Phase 7
-is next.
+evidence. The Phase 5 milestone is closed; Phases 6 and 7 are complete; and
+Phase 8 is next.
 
 - [x] Implement a controlled provider/service layer for model and search
       calls. [Phase 5] [NFR-23, NFR-24]
@@ -608,14 +610,15 @@ is next.
 
 ### C.6 Python graph generation pipeline
 
-- [ ] Implement `src/agentic_publishing_pipeline/visualization/` and
+- [x] Implement `src/agentic_publishing_pipeline/visualization/` and
       produce at least one graph image saved under
-      `latex_project/figures/`, consumed by a chapter via
-      `\includegraphics`. [Phase 8] [FR-29, FR-30, AC §14.2]
-- [ ] **P8-I02** — Define typed graph/table/TikZ/image specs,
-      deterministic renderers, provenance metadata, path safety, and
-      explicit failure/fallback behavior that cannot silently change
-      factual content. Ties to ADR-0002 and ADR-0003. [Phase 8]
+      `latex_project/figures/` from a versioned graph spec with strict
+      validation, deterministic rendering, and provenance beside the
+      PNG. Chapter inclusion remains Phase 9 work. [Phase 8]
+      [FR-29, FR-30, AC §14.2]
+- [x] Harden the canonical graph pipeline with safe naming, mandatory
+      validation, promotion-based canonical writes, and deterministic
+      regeneration evidence. [Phase 8] [ADR-0002, ADR-0003, FR-48]
 
 ### C.7 LaTeX project assembly (LuaLaTeX MVP)
 

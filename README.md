@@ -30,7 +30,7 @@ orchestration, final LaTeX assembly, deterministic final validation, and
   Workflows are currently set to `workflow_dispatch`-only pending runner
   verification.
 - Phase 8 (Python graph generation) is the next implementation phase.
-- No article/book topic has been selected.
+- The canonical HW3 topic is selected in `docs/PRD.md` §22.
 - No final PDF has been generated.
 - Complete CrewAI orchestration and live model/search adapters are **not**
   implemented yet.
