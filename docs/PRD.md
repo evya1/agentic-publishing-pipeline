@@ -789,7 +789,7 @@ Decision Records introduced under P4-I04 live under
 
 These additive requirements are documentation-only at this stage. They
 become implementation requirements as the Phase 5+ items in
-`docs/TODO.md` (P5-I08–P5-I13, P8-I02, P10-I03, P12-I05, P12-I06,
+`docs/TODO.md` (P5-I08–P5-I13, P8-I01, P10-I03, P12-I05, P12-I06,
 P13-I05) are scheduled. They do not invalidate FR-1..FR-40 or any
 existing NFR.
 

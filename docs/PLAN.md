@@ -329,7 +329,7 @@ in this dependency order (see [`docs/architecture/`](architecture/)):
   (existing P5-I06 / #15 amended; ADR-0007).
 - **graph and asset tooling** — typed graph/asset specs and
   deterministic rendering (existing P5-I07 / #16 amended; ties to
-  P8-I02).
+  P8-I01).
 - **P5-I13** — baseline CI on PR/main with frozen dependency sync,
   Ruff, tests, current coverage gate, automated 150-line cap, and
   offline smoke run.
