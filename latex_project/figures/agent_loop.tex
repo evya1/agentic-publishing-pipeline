@@ -1,0 +1,27 @@
+% figures/agent_loop.tex — TikZ diagram of the agentic perception-action loop.
+% Included from a chapter via \input{figures/agent_loop.tex} inside a
+% figure environment.  All paths are relative to the compilation root.
+\begin{tikzpicture}[
+  node distance=2.8cm and 2.2cm,
+  box/.style={
+    rectangle, draw=blue!60, fill=blue!8, rounded corners=4pt,
+    minimum width=2.6cm, minimum height=1.0cm, text centered,
+    font=\small\sffamily
+  },
+  env/.style={
+    ellipse, draw=green!50!black, fill=green!10,
+    minimum width=3.0cm, minimum height=1.0cm, text centered,
+    font=\small\sffamily
+  },
+  arr/.style={-{Stealth[scale=1.1]}, thick, draw=gray!70}
+]
+  \node[box] (observe) {Observe};
+  \node[box, right=of observe] (reason) {Reason};
+  \node[box, right=of reason] (act) {Act};
+  \node[env, below=1.8cm of reason] (env) {Environment};
+
+  \draw[arr] (observe) -- (reason);
+  \draw[arr] (reason) -- (act);
+  \draw[arr] (act) -- ++(0,-1.2) -| (env);
+  \draw[arr] (env) -- ++(-4.2,0) |- (observe);
+\end{tikzpicture}

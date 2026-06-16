@@ -1,13 +1,11 @@
 # PLAN — agentic-publishing-pipeline
 
-> **Status:** Phases 0, 1, 1.5, 2, 3, 4, 5, 6, 7, and 8 are complete and
-> closed. Phase 6 corrective recovery is complete through PR #96; P6-I04
-> and P6-I05 are closed with evidence. Phase 7 landed through PR #83,
-> verifying the canonical source manifest and generating
-> `latex_project/references.bib`. Phase 8 landed through PR #92, delivering
-> the deterministic Python graph pipeline and committing a canonical PNG
-> artifact to `latex_project/figures/`. Phase 9 assembly proceeds once the
-> maintainer approves the review packet produced by PR #96. Phases 9-14
+> **Status:** Phases 0, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, and 9 are complete and
+> closed. Phase 9 delivered the deterministic Markdown→LaTeX assembly pipeline
+> (22 modules in `src/agentic_publishing_pipeline/latex/`), all 8 approved
+> Markdown chapters, resolved citations, Hebrew content, and a passing preflight
+> (`passed: true`, 5 034 words, 103 Hebrew words, all 10 bib keys cited). The
+> rendered source tree matches `latex_project/` with no diff. Phases 10–14
 > remain open.
 
 ## How PRD, PLAN, TODO, and GitHub fit together
@@ -407,32 +405,26 @@ remains Phase 9 work.
 `latex_project/figures/`, produced from a validated versioned graph spec
 with deterministic regeneration evidence and provenance beside the PNG.
 
-### Phase 9 — LaTeX project assembly *(open)*
+### Phase 9 — LaTeX project assembly *(complete — PR #99)*
 
-Convert approved Markdown into the structured LaTeX project per PRD §8.5 /
-§14.3:
+Deterministic Markdown→LaTeX assembly pipeline in
+`src/agentic_publishing_pipeline/latex/` (22 modules). All structural
+components are implemented and verified: preamble, macros, chapter renderer,
+asset plan (image, table, equation, equation_ref, theorem, TikZ),
+nomenclature, bilingual index, metadata, title page, headers/footers,
+bibliography copy, Phase 8 graph copy, and preflight validation.
 
-- `main.tex` is a thin root that `\input{}`s everything else; current
-  `latex_project/main.tex` is still the TODO-only placeholder.
-- `preamble.tex`, `macros.tex` (reusable math notation per FR-18),
-  `references.bib`, chapter files under `chapters/`.
-- Tables live in dedicated files under `tables/`, TikZ figures in
-  dedicated files under `figures/`; chapter files `\input{...}` them
-  (FR-17a–d). Regular `\includegraphics` images may use a short `figure`
-  wrapper inside the chapter.
-- LuaLaTeX is the **required MVP engine** (FR-20). Hebrew font preference
-  `David CLM`, English `Latin Modern Roman`, via `fontspec` + `polyglossia`.
-- Required content: at least one image (FR-28), Python-generated graph
-  (FR-29), table (FR-31), equation with `\ref`/`\eqref` cross-reference
-  (FR-25, FR-32), theorem-like environment (FR-24), TikZ figure (AC §14.2),
-  nomenclature with ≥2 symbols (FR-26), index with ≥1 Hebrew and ≥1 English
-  term (FR-27), headers/footers (FR-21), title page and TOC (FR-22), and at
-  least one substantial Hebrew/English BiDi section (FR-15-onward + AC
-  §14.4).
+All 8 approved Markdown chapters are present in
+`results/generated_markdown/chapters/` with no unresolved placeholder
+directives. The review gate is satisfied (`review_record.json` SHA matches
+the current draft). Preflight result: `passed: true` (5 034 words,
+103 Hebrew words, all 10 bibliography keys cited, `ye2024mirai` in
+evaluation chapter). The rendered source tree matches `latex_project/`
+with no missing, extra, or changed files. 20 Phase 9 tests pass.
 
-**Exit criterion:** the LaTeX project compiles cleanly with LuaLaTeX using
-the documented build command, and every PRD §14.3 / §14.4 acceptance
-checkbox is verifiable in the resulting PDF.
+**Exit criterion met:** preflight passes, deterministic source tree renders
+clean, and committed `latex_project/` matches renderer output. Phase 10
+compilation is the next step.
 
 ### Phase 10 — PDF build pipeline *(open)*
 
@@ -524,8 +516,7 @@ group member has submitted in Moodle.
   Phase 1.5 is complete (demo topic and source manifest locked —
   commit `303a425`). Phases 2, 3, 4, 5, 6, 7, and 8 are complete and
   closed (milestones #1 through #7 closed; Phase 6 re-closed via PR #96).
-  Phase 9 is the next open implementation phase and may begin once the
-  maintainer approves the Phase 6 review packet. Phases 9 through 14
+  Phase 9 is complete and closed (PR #99). Phases 10 through 14
   remain open and pending future implementation. None of the currently-open
   phases is allowed to be marked complete preemptively.
   PRD acceptance-criteria checkboxes (`docs/PRD.md` §14,

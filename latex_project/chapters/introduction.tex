@@ -1,0 +1,67 @@
+% chapters/introduction.tex — Introduction chapter (narrative text only)
+\chapter{Introduction}
+\label{chap:introduction}
+
+The emergence of large language models (\LLM{}s) capable of autonomous,
+multi-step reasoning has opened a new research frontier: \emph{agentic
+systems} that perceive their environment, plan sequences of actions, and
+interact with external tools to accomplish complex goals~\cite{wei2026agenticreasoning}.
+Unlike single-turn question answering, agentic \LLM{}s must maintain context
+across many steps, recover from errors, and coordinate with other agents or
+subsystems~\cite{ke2025reasoningfrontiers}.
+\index{agent}
+\index{large language model}
+
+\section{Motivation}
+\label{sec:intro-motivation}
+
+Classical approaches to agent design relied on hand-crafted planners and
+symbolic state representations.  Modern \LLM{}-based agents replace the
+symbolic backbone with a pre-trained model whose internal representations
+encode broad world knowledge~\cite{wei2026agenticreasoning}.
+This shift enables rapid adaptation to novel tasks but introduces new
+challenges around reliability, memory, and grounding.
+
+\section{Scope and Contributions}
+\label{sec:intro-scope}
+
+This survey covers four core capabilities of reasoning-centric agentic
+\LLM{}s: planning and task decomposition, memory and state persistence,
+retrieval-augmented grounding, tool use, and multimodal reasoning.
+We also discuss evaluation frameworks and open research directions.
+
+\section{Overview in Hebrew / סקירה בעברית}
+\label{sec:intro-bidi}
+
+This section demonstrates correct bidirectional text rendering under
+LuaLaTeX with \texttt{polyglossia} and the David~CLM Hebrew font.
+\index{bidirectional text}
+\index{סוכן@\texthebrew{סוכן} (agent)}
+
+\medskip
+\begin{hebrew}
+מערכות \textenglish{LLM} אגנטיות מאפשרות ביצוע משימות מורכבות
+על ידי תכנון, זיכרון ושימוש בכלים חיצוניים.
+הסקר הזה סוקר את הגישות המובילות בתחום:
+\textenglish{planning}, \textenglish{memory}, \textenglish{retrieval},
+שימוש בכלים (\textenglish{tool use}), וחישוב רב-מודאלי
+(\textenglish{multimodal reasoning}).
+מחקרים כמו \textenglish{\cite{wei2026agenticreasoning}}
+מניחים את היסודות לפיתוח סוכנים חכמים יותר.
+\end{hebrew}
+\medskip
+
+The paragraph above is typeset right-to-left, with embedded English
+technical terms switching back to left-to-right rendering automatically
+via \texttt{polyglossia}.
+
+\section{Chapter Outline}
+\label{sec:intro-outline}
+
+Chapter~\ref{chap:planning} surveys planning and task decomposition.
+Chapter~\ref{chap:memory} covers memory architectures.
+Chapter~\ref{chap:retrieval} discusses retrieval-augmented reasoning.
+Chapter~\ref{chap:tooluse} examines tool-use policies.
+Chapter~\ref{chap:multimodal} addresses multimodal agentic systems.
+Chapter~\ref{chap:evaluation} reviews evaluation benchmarks.
+Chapter~\ref{chap:conclusion} summarises findings and future directions.

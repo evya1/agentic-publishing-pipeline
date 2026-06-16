@@ -1,0 +1,41 @@
+% chapters/tool_use.tex — Tool Use chapter (narrative text only)
+\chapter{Tool Use and External Interfaces}
+\label{chap:tooluse}
+
+Tool-augmented \LLM{}s extend the basic perception--action loop
+(Figure~\ref{fig:agent-loop}) with the ability to invoke external
+interfaces: calculators, code interpreters, search engines, and
+domain-specific APIs~\cite{wu2025agenticreasoningtools}.
+\index{tool use}
+\index{external interface}
+
+\section{Bounded Tool-Use Policies}
+\label{sec:tooluse-policies}
+
+A bounded tool-use policy constrains the agent to a finite, pre-declared
+set of tools $\mathcal{T}$, each with a typed schema.
+The agent selects a tool $t \in \mathcal{T}$ and supplies structured
+arguments; the tool returns an observation that is appended to the agent's
+context window.
+This keeps the action space tractable and makes the agent's behaviour
+auditable~\cite{wu2025agenticreasoningtools}.
+
+\section{Mathematical Reasoning with Tools}
+\label{sec:tooluse-math}
+
+\cite{liu2025agenticmath} showed that \LLM{}s equipped with a Python
+interpreter as a tool dramatically outperform pure chain-of-thought on
+competition-level mathematics.
+The agent generates code, executes it, observes the result, and revises
+its solution — a verify-and-revise loop that mirrors the iterative
+problem-solving strategy of human mathematicians.
+\index{mathematical reasoning}
+
+\section{Tool Use and the Planning Objective}
+\label{sec:tooluse-planning}
+
+Tool invocations can be modelled as a special class of action in the
+planning objective of Equation~\eqref{eq:planning-objective}: a tool call
+$a_t \in \mathcal{T}$ transitions the state by adding new information to
+the agent's context, yielding a high immediate reward when the retrieved
+information resolves an ambiguity or enables a correct next step.

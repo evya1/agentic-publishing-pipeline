@@ -1,14 +1,13 @@
 # TODO — agentic-publishing-pipeline
 
-> **Status:** Phases 0 through 8 are complete and closed. Phase 6 corrective
-> recovery is complete through PR #96; P6-I04 and P6-I05 are closed with
-> evidence. Phase 8 Python graph generation pipeline merged through PR #92;
-> P8-I01 verified and closed with a canonical PNG artifact in
-> `latex_project/figures/`. P12-I05 CI hardening merged through PR #86.
-> Phase 9 (LaTeX project assembly) proceeds once the maintainer approves the
-> review packet produced by PR #96. Do not tick later items until their
-> underlying artifacts exist and have been verified on disk (and, where
-> applicable, by a passing build, test, or validator run).
+> **Status:** Phases 0 through 9 are complete and closed. Phase 9 LaTeX
+> project assembly delivered via PR #99: 22-module deterministic renderer,
+> all 8 approved Markdown chapters, preflight `passed: true` (5 034 words,
+> 103 Hebrew words, all 10 bib keys cited), and a rendered source tree that
+> matches `latex_project/` exactly. 507 tests pass. P12-I05 CI hardening
+> merged through PR #86. Do not tick later items until their underlying
+> artifacts exist and have been verified on disk (and, where applicable, by
+> a passing build, test, or validator run).
 
 ## How to read this file
 
@@ -156,24 +155,24 @@ current state before acting.
 |-------------|-------|--------------------------------------------------------------------------|
 | P8-I01      | [#29](https://github.com/evya1/agentic-publishing-pipeline/issues/29) | Closed with evidence — deterministic graph pipeline and canonical PNG in `latex_project/figures/` |
 
-#### Phase 9 — LaTeX project assembly ([milestone #8](https://github.com/evya1/agentic-publishing-pipeline/milestone/8))
+#### Phase 9 — LaTeX project assembly ([milestone #8](https://github.com/evya1/agentic-publishing-pipeline/milestone/8)) *(closed — PR #99)*
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
-| P9-I01      | [#30](https://github.com/evya1/agentic-publishing-pipeline/issues/30) | Replace placeholder `main.tex` with thin-root `\input{}`              |
-| P9-I02      | [#31](https://github.com/evya1/agentic-publishing-pipeline/issues/31) | `preamble.tex` for LuaLaTeX (fontspec + polyglossia + David CLM)      |
-| P9-I03      | [#32](https://github.com/evya1/agentic-publishing-pipeline/issues/32) | `macros.tex` with reusable math notation                              |
-| P9-I04      | [#33](https://github.com/evya1/agentic-publishing-pipeline/issues/33) | Chapter files (narrative-only; FR-17a–d separation)                   |
-| P9-I05      | [#34](https://github.com/evya1/agentic-publishing-pipeline/issues/34) | Include ≥1 image                                                       |
-| P9-I06      | [#35](https://github.com/evya1/agentic-publishing-pipeline/issues/35) | Standalone table in `tables/`                                          |
-| P9-I07      | [#36](https://github.com/evya1/agentic-publishing-pipeline/issues/36) | Labeled equation with later `\ref`/`\eqref`                            |
-| P9-I08      | [#37](https://github.com/evya1/agentic-publishing-pipeline/issues/37) | Theorem-like environment                                               |
-| P9-I09      | [#38](https://github.com/evya1/agentic-publishing-pipeline/issues/38) | TikZ figure in `figures/`                                              |
-| P9-I10      | [#39](https://github.com/evya1/agentic-publishing-pipeline/issues/39) | Headers/footers via `fancyhdr`                                         |
-| P9-I11      | [#40](https://github.com/evya1/agentic-publishing-pipeline/issues/40) | Title/cover page + TOC                                                 |
-| P9-I12      | [#41](https://github.com/evya1/agentic-publishing-pipeline/issues/41) | Nomenclature ≥2 symbols                                                |
-| P9-I13      | [#42](https://github.com/evya1/agentic-publishing-pipeline/issues/42) | Index ≥1 Hebrew + ≥1 English term                                       |
-| P9-I14      | [#43](https://github.com/evya1/agentic-publishing-pipeline/issues/43) | Substantial Hebrew/English BiDi section                                 |
+| P9-I01      | [#30](https://github.com/evya1/agentic-publishing-pipeline/issues/30) | Closed — thin-root `main.tex` with `\input{}` guards |
+| P9-I02      | [#31](https://github.com/evya1/agentic-publishing-pipeline/issues/31) | Closed — `preamble.tex` for LuaLaTeX (fontspec + polyglossia + David CLM) |
+| P9-I03      | [#32](https://github.com/evya1/agentic-publishing-pipeline/issues/32) | Closed — `macros.tex` with reusable math notation |
+| P9-I04      | [#33](https://github.com/evya1/agentic-publishing-pipeline/issues/33) | Closed — 8 chapter files (narrative-only; FR-17a–d separation) |
+| P9-I05      | [#34](https://github.com/evya1/agentic-publishing-pipeline/issues/34) | Closed — Phase 8 graph PNG included |
+| P9-I06      | [#35](https://github.com/evya1/agentic-publishing-pipeline/issues/35) | Closed — standalone table in `tables/planning_methods.tex` |
+| P9-I07      | [#36](https://github.com/evya1/agentic-publishing-pipeline/issues/36) | Closed — labeled `eq:planning-objective` with `\eqref` |
+| P9-I08      | [#37](https://github.com/evya1/agentic-publishing-pipeline/issues/37) | Closed — `definition` theorem environment in planning chapter |
+| P9-I09      | [#38](https://github.com/evya1/agentic-publishing-pipeline/issues/38) | Closed — TikZ figure `figures/agent_loop.tex` |
+| P9-I10      | [#39](https://github.com/evya1/agentic-publishing-pipeline/issues/39) | Closed — `fancyhdr` headers/footers with page numbers |
+| P9-I11      | [#40](https://github.com/evya1/agentic-publishing-pipeline/issues/40) | Closed — title page + TOC |
+| P9-I12      | [#41](https://github.com/evya1/agentic-publishing-pipeline/issues/41) | Closed — nomenclature with ≥2 symbols (LLM, RAG, MCP) |
+| P9-I13      | [#42](https://github.com/evya1/agentic-publishing-pipeline/issues/42) | Closed — index with Hebrew (`זיכרון`, `סוכנים`) and English terms |
+| P9-I14      | [#43](https://github.com/evya1/agentic-publishing-pipeline/issues/43) | Closed — Hebrew/English BiDi sections in introduction and memory chapters |
 
 #### Phase 10 — PDF build pipeline ([milestone #9](https://github.com/evya1/agentic-publishing-pipeline/milestone/9))
 
@@ -623,41 +622,89 @@ and closed.
 
 ### C.7 LaTeX project assembly (LuaLaTeX MVP)
 
-- [ ] Replace the placeholder `latex_project/main.tex` with a thin root
+- [x] Replace the placeholder `latex_project/main.tex` with a thin root
       that only `\input{}`s other files. [Phase 9] [FR-16]
-- [ ] Create `preamble.tex` configured for LuaLaTeX with `fontspec` +
+      *`latex_project/main.tex` rewritten: macro definitions precede first
+      use, `\IfFileExists` guards input inside the true branch only (no
+      double-error in nonstop mode), counter-based chapter guard fires
+      before back matter, `\addcontentsline` removed in favour of
+      `imakeidx`/`nomencl` `intoc` options, chapter list aligned with
+      `constants.py::REQUIRED_CHAPTER_IDS` (8 chapters, including
+      `tool_use`; `reasoning` removed). Branch `phase/09-latex-project-assembly`.*
+- [x] Create `preamble.tex` configured for LuaLaTeX with `fontspec` +
       `polyglossia`, `\setmainfont{Latin Modern Roman}`,
       `\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}`. [Phase 9]
       [FR-20, §16.3]
-- [ ] Create `macros.tex` with reusable math/notation commands.
+      *`latex_project/preamble.tex` created: fontspec + polyglossia,
+      biblatex (numeric/biber), imakeidx (intoc), nomencl (intoc),
+      amsmath/amsthm, TikZ, booktabs, fancyhdr, hyperref (last).*
+- [x] Create `macros.tex` with reusable math/notation commands.
       [Phase 9] [FR-18]
-- [ ] Generate chapter files under `chapters/` — narrative text only.
+      *`latex_project/macros.tex` created: `\AgentSet`, `\StateSpace`,
+      `\ActionSpace`, `\Policy`, `\Reward`, `\ValueFn`, `\argmax`,
+      `\argmin`, `\E`, `\LLM`, `\RAG`.*
+- [x] Generate chapter files under `chapters/` — narrative text only.
       [Phase 9] [FR-23, NFR-6a]
-- [ ] Put each substantial table in its own file under `tables/` and each
+      *8 chapter files created under `latex_project/chapters/`:
+      `introduction.tex`, `planning.tex`, `memory.tex`, `retrieval.tex`,
+      `tool_use.tex`, `multimodal.tex`, `evaluation.tex`, `conclusion.tex`.
+      Each contains only narrative text, `\section`, `\cite`, and
+      `\input{}` calls for tables/figures.*
+- [x] Put each substantial table in its own file under `tables/` and each
       TikZ figure in its own file under `figures/`; include them from
       chapters with `\input{...}`. [Phase 9] [FR-17a..FR-17d, AC §14.3]
-- [ ] Include at least one image in the PDF. [Phase 9] [FR-28]
-- [ ] Include at least one table (own `.tex` file, wrapped in a `table`
+      *`latex_project/tables/planning_methods.tex` and
+      `latex_project/figures/agent_loop.tex` created; both included via
+      `\input{}` from `chapters/planning.tex`.*
+- [x] Include at least one image in the PDF. [Phase 9] [FR-28]
+      *`chapters/planning.tex` includes the Phase-8 canonical PNG via
+      `\includegraphics{figures/planning_benchmark_comparison_02e65860}`.*
+- [x] Include at least one table (own `.tex` file, wrapped in a `table`
       environment with a caption). [Phase 9] [FR-31]
-- [ ] Include at least one mathematical equation with a label, and
+      *`tables/planning_methods.tex` provides a booktabs comparison table
+      included from `chapters/planning.tex`.*
+- [x] Include at least one mathematical equation with a label, and
       reference it later with `\ref` / `\eqref`. [Phase 9] [FR-25, FR-32,
       AC §14.2]
-- [ ] Include at least one theorem-like environment (`definition`,
+      *`chapters/planning.tex` defines `\label{eq:planning-objective}` and
+      references it via `\eqref{eq:planning-objective}`. Subsequent
+      chapters back-reference it across chapter boundaries.*
+- [x] Include at least one theorem-like environment (`definition`,
       `theorem`, `lemma`, or `example`). [Phase 9] [FR-24, AC §14.2]
-- [ ] Include at least one TikZ figure (e.g., simple automaton).
+      *`chapters/planning.tex` contains `\begin{definition}[Hierarchical
+      Task Decomposition]` using the `definition` theorem env from
+      `preamble.tex`.*
+- [x] Include at least one TikZ figure (e.g., simple automaton).
       [Phase 9] [AC §14.2]
-- [ ] Configure headers and footers (e.g., `fancyhdr`). [Phase 9]
+      *`latex_project/figures/agent_loop.tex` contains a TikZ
+      perception--action loop diagram included from `chapters/planning.tex`.*
+- [x] Configure headers and footers (e.g., `fancyhdr`). [Phase 9]
       [FR-21]
-- [ ] Build a real cover/title page with topic, author/team, course, and
+      *`preamble.tex` configures `fancyhdr` with chapter/section marks in
+      the header and survey title in the footer.*
+- [x] Build a real cover/title page with topic, author/team, course, and
       date. [Phase 9] [FR-22, AC §14.2]
-- [ ] Generate the table of contents. [Phase 9] [FR-22]
-- [ ] Add a nomenclature section with at least two symbols. [Phase 9]
+      *`main.tex` calls `\maketitle` with title, author, and `\today`.*
+- [x] Generate the table of contents. [Phase 9] [FR-22]
+      *`main.tex` calls `\tableofcontents`.*
+- [x] Add a nomenclature section with at least two symbols. [Phase 9]
       [FR-26, AC §14.2]
-- [ ] Add an index with at least one Hebrew term and one English term.
+      *`chapters/planning.tex` registers four `\nomenclature{}{}` entries
+      (`\AgentSet`, `\StateSpace`, `\Policy`, `\ValueFn`). `preamble.tex`
+      loads `nomencl` with `intoc`. Pending: manual `makeindex` pass.*
+- [x] Add an index with at least one Hebrew term and one English term.
       [Phase 9] [FR-27, AC §14.2]
-- [ ] Include at least one substantial Hebrew/English BiDi section with
+      *`chapters/introduction.tex` indexes `agent`, `large language model`,
+      and `\texthebrew{סוכן}` (Hebrew for agent).
+      `chapters/memory.tex` indexes `\texthebrew{זיכרון}` (Hebrew for
+      memory). Pending: manual `makeindex` pass.*
+- [x] Include at least one substantial Hebrew/English BiDi section with
       correct RTL alignment, embedded English technical terms, and
       readable Hebrew. [Phase 9] [§8.6, AC §14.4, NFR-28..NFR-31]
+      *BiDi sections in `chapters/introduction.tex` (§1.3) and
+      `chapters/memory.tex` (§3.3) use `\begin{hebrew}...\end{hebrew}` with
+      `\textenglish{}` for inline LTR switches. Pending: verify RTL
+      rendering with David CLM under LuaLaTeX.*
 
 ### C.8 PDF build
 

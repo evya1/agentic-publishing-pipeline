@@ -113,20 +113,24 @@ def test_run_phase6_generate_no_api_key_needed(tmp_path: Path) -> None:
         os.environ.update(env_backup)
 
 
-def test_committed_chapter_planning_has_all_placeholders() -> None:
+def test_committed_chapter_planning_is_resolved() -> None:
+    """Phase 9 resolved planning.md: no placeholder directives, real citations present."""
     planning = GENERATED_MD / "chapters" / "planning.md"
     assert planning.exists(), "committed planning.md not found"
     body = planning.read_text(encoding="utf-8")
     for kind in ("FIGURE", "TABLE", "EQUATION", "CITATION"):
-        assert has_placeholder(body, kind=kind), f"planning.md missing {kind}"  # type: ignore[arg-type]
+        assert not has_placeholder(body, kind=kind), f"planning.md still has {kind} placeholder"  # type: ignore[arg-type]
+    assert "\\cite{" in body, "planning.md must contain resolved citation commands"
 
 
-def test_committed_chapter_memory_has_all_placeholders() -> None:
+def test_committed_chapter_memory_is_resolved() -> None:
+    """Phase 9 resolved memory.md: no placeholder directives, Hebrew content present."""
     memory = GENERATED_MD / "chapters" / "memory.md"
     assert memory.exists(), "committed memory.md not found"
     body = memory.read_text(encoding="utf-8")
     for kind in ("FIGURE", "TABLE", "EQUATION", "CITATION"):
-        assert has_placeholder(body, kind=kind), f"memory.md missing {kind}"  # type: ignore[arg-type]
+        assert not has_placeholder(body, kind=kind), f"memory.md still has {kind} placeholder"  # type: ignore[arg-type]
+    assert "\\cite{" in body, "memory.md must contain resolved citation commands"
 
 
 def test_committed_citation_keys_resolve_to_manifest() -> None:

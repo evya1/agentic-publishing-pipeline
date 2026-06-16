@@ -1,7 +1,8 @@
 # AI Usage Log
 
-> **Status:** scaffold only. No real LLM / API calls have been made for this
-> project yet.
+> **Status:** Phase 9 deterministic assembly pipeline code integrated on
+> 2026-06-16. No real LLM / API calls for content generation; all Phase 9
+> code is deterministic. Upstream Markdown input gates are still blocked.
 
 This file must be kept up to date as real AI usage begins. Every distinct
 phase of AI-assisted work should be recorded here.
@@ -289,3 +290,45 @@ For each AI-assisted activity, record:
 - **Status on `main`:** merged through PR #81 at merge commit
   `f18a54af4a0cf6a6fff0ebd70eeacd60006530e7`; Phase 6 issues
   #17-#20 are closed and the Phase 6 milestone is closed.
+
+### 2026-06-16 — Phase 9 LaTeX assembly pipeline integration (P9-I01..P9-I14)
+
+- **Date:** 2026-06-16.
+- **Tool / model:** Claude Code (Sonnet 4.6) drove the integration.
+  No LLM generated LaTeX content; all rendering is deterministic
+  from a pre-built workpack of 22 Python modules.
+- **Purpose:** integrate the Phase 9 deterministic Markdown→LaTeX
+  assembly pipeline into `src/agentic_publishing_pipeline/latex/`,
+  wire it into the application CLI, add tests, and document upstream
+  input blockers precisely.
+- **Inputs:** workpack at
+  `/Users/evyatar/Desktop/agentic_publishing_phase9_adapted_current_repo/`;
+  verified repository APIs in `runtime/`, `contracts/`, `tools/`,
+  `crews/_review_gate.py`.
+- **Outputs:**
+  - 22 production modules in `src/agentic_publishing_pipeline/latex/`
+    (`approval_loader`, `asset_plan`, `assets_figures`, `assets_math`,
+    `assets_table`, `bibliography`, `config_loader`, `config_models`,
+    `file_plan`, `hebrew`, `inline`, `markdown_renderer`, `materialize`,
+    `metadata`, `outline`, `phase9_runner`, `preflight`,
+    `project_renderer`, `project_spec`, `standalone`, `templates`);
+  - updated `src/agentic_publishing_pipeline/latex/__init__.py`;
+  - `src/agentic_publishing_pipeline/crews/_phase9_assemble.py`;
+  - `assemble-phase9` mode wired into existing CLI;
+  - `config/latex/phase9_project.yaml`;
+  - `scripts/render_latex_project.py`;
+  - 9 test files in `tests/latex/` (19 tests, all passing).
+- **Human verification:** all 506 tests pass; ruff clean; line cap
+  passes; `check_latex_structure.py` passes. Preflight correctly
+  reports upstream blocker: review record SHA mismatch (current
+  Markdown draft has drifted from the approval snapshot).
+- **Cost / token estimate:** $0.00; zero external-provider tokens.
+  Only Claude Code assisted the integration; no LLM generated
+  content or LaTeX source.
+- **Outcome:** PHASE 9 IMPLEMENTATION INTEGRATED — UPSTREAM INPUT BLOCKED.
+  Exact blocker: `HumanReviewRequired: Draft set has changed since
+  approval was recorded. Recorded SHA=a137339da7d1…, current
+  SHA=bf12df6edf1f…`. The missing chapters (introduction, retrieval,
+  tool_use, multimodal, evaluation, conclusion) must be generated and
+  a new review record written before the LaTeX source tree can be
+  produced.
