@@ -5,8 +5,10 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from enum import StrEnum
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-from ..tools.fileio import FileIO
+if TYPE_CHECKING:
+    from ..tools.fileio import FileIO
 
 
 class PipelineStage(StrEnum):

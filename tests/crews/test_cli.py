@@ -8,7 +8,11 @@ from pathlib import Path
 
 import pytest
 
-from agentic_publishing_pipeline.crews import build_parser, run_cli
+from agentic_publishing_pipeline.crews import (
+    LiveAdapterUnavailable,
+    build_parser,
+    run_cli,
+)
 from agentic_publishing_pipeline.crews._review_gate import (
     make_review_record,
     write_review_record,
@@ -144,18 +148,38 @@ def test_offline_fixture_file_contains_eight_task_responses() -> None:
     }
 
 
-def test_live_mode_refused_without_credentials() -> None:
-    with pytest.raises(SystemExit):
+def test_live_mode_refused_without_paid_call_ack() -> None:
+    with pytest.raises(SystemExit, match="i-understand-this-makes-paid-calls"):
         run_cli(
             ["--mode", "live", "--registry", str(_registry())],
+            env={"OPENAI_API_KEY": "present"},
+        )
+
+
+def test_live_mode_refused_without_credentials() -> None:
+    with pytest.raises(SystemExit, match="requires ANTHROPIC_API_KEY"):
+        run_cli(
+            [
+                "--mode",
+                "live",
+                "--registry",
+                str(_registry()),
+                "--i-understand-this-makes-paid-calls",
+            ],
             env={},
         )
 
 
 def test_live_mode_refused_without_supported_adapter() -> None:
-    with pytest.raises(SystemExit, match="no supported live adapter"):
+    with pytest.raises(LiveAdapterUnavailable, match="no supported live adapter"):
         run_cli(
-            ["--mode", "live", "--registry", str(_registry())],
+            [
+                "--mode",
+                "live",
+                "--registry",
+                str(_registry()),
+                "--i-understand-this-makes-paid-calls",
+            ],
             env={"OPENAI_API_KEY": "present"},
         )
 

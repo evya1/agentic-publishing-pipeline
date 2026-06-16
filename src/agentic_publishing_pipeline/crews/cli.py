@@ -33,6 +33,10 @@ REGISTRY_DEFAULT = Path("config/prompt_registry")
 MANIFEST_DEFAULT = Path("config/article_sources.yaml")
 
 
+class LiveAdapterUnavailable(RuntimeError):
+    """Raised when live mode cannot construct a supported provider adapter."""
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="agentic-publishing-pipeline",
@@ -55,12 +59,22 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--registry", default=str(REGISTRY_DEFAULT))
     parser.add_argument("--results-root", default="results")
     parser.add_argument("--run-id", default=None, help="for compile/validate/resume")
+    parser.add_argument(
+        "--i-understand-this-makes-paid-calls",
+        action="store_true",
+        help="required for live mode before any provider is constructed",
+    )
     return parser
 
 
 def _check_live_credentials(env: dict[str, str]) -> None:
     if not any(env.get(name) for name in ("ANTHROPIC_API_KEY", "OPENAI_API_KEY")):
         raise SystemExit("live mode requires ANTHROPIC_API_KEY or OPENAI_API_KEY in .env")
+
+
+def _check_live_ack(args: argparse.Namespace) -> None:
+    if not args.i_understand_this_makes_paid_calls:
+        raise SystemExit("live mode requires --i-understand-this-makes-paid-calls")
 
 
 def _load_registry_or_die(path: Path) -> str:
@@ -97,8 +111,9 @@ def run_cli(argv: Sequence[str] | None = None, *, env: dict[str, str] | None = N
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     env_map = dict(env if env is not None else os.environ)
     if args.mode == "live":
+        _check_live_ack(args)
         _check_live_credentials(env_map)
-        raise SystemExit("live mode has no supported live adapter in Phase 5")
+        raise LiveAdapterUnavailable("live mode has no supported live adapter")
     registry_fp = _load_registry_or_die(Path(args.registry))
     if args.mode in {"compile-only", "validate-only", "resume"}:
         if not args.run_id:
