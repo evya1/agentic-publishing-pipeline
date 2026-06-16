@@ -58,6 +58,15 @@ Thumbs.db
 *.nav
 *.snm
 *.vrb
+*.nlo
+*.nls
+*.idx
+*.ind
+*.ilg
+
+# The intermediate PDF produced in-place during build (in-place compilation).
+# The canonical output is results/final.pdf — that file is tracked.
+latex_project/main.pdf
 
 # NOTE: Do NOT ignore source LaTeX files. The following remain tracked:
 #   latex_project/main.tex
@@ -66,9 +75,6 @@ Thumbs.db
 #   latex_project/figures/
 #   latex_project/tables/
 #   latex_project/styles/
-#
-# The final compiled PDF is NOT ignored by default. If the team later decides
-# to store generated PDFs outside Git, update this file explicitly.
 
 # --- arXiv source archives ---
 # Bytes of downloaded arXiv source archives stay local. The manifest at

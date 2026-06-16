@@ -332,3 +332,78 @@ For each AI-assisted activity, record:
   tool_use, multimodal, evaluation, conclusion) must be generated and
   a new review record written before the LaTeX source tree can be
   produced.
+
+### 2026-06-17 — Phase 10 PDF build pipeline (P10-I01, P10-I02)
+
+- **Date:** 2026-06-17.
+- **Tool / model:** Claude Code (Sonnet 4.6) implemented the build
+  infrastructure. No LLM generated LaTeX content; all PDF content
+  derives from the deterministic Phase 9 LaTeX source tree.
+- **Purpose:** implement the multi-pass LuaLaTeX → biber → makeindex →
+  LuaLaTeX → LuaLaTeX build driver (`scripts/build_pdf.py`) and produce
+  `results/final.pdf` from `latex_project/`.
+- **Inputs:** `latex_project/` tree from Phase 9; LuaLaTeX (TeX Live 2025
+  with David CLM Hebrew font); biber 2.21; makeindex.
+- **Outputs:**
+  - `scripts/build_pdf.py` — multi-pass build driver with logging, fatal-error
+    detection, and structured log output to `results/run_logs/`.
+  - `results/final.pdf` — 21-page PDF produced by LuaLaTeX pass 3.
+  - `latex_project/preamble.tex` — two fixes applied: `imakeidx` option
+    `intoc` moved from package load to `\makeindex[intoc]` (TeX Live 2025
+    API change); `\headheight` raised to 14 pt to silence fancyhdr warning.
+  - `.gitignore` additions: `.nlo`, `.nls`, `.idx`, `.ind`, `.ilg` extensions
+    for nomenclature/index auxiliary files; `latex_project/main.pdf` for the
+    in-place intermediate PDF.
+- **Human verification:** `pdfinfo results/final.pdf` confirms 21 pages
+  (exceeds 15-page minimum). PDF opens cleanly. Nomenclature (4 symbols),
+  bibliography (10 entries), and index (21 terms) all render.
+- **Cost / token estimate:** $0.00; zero external-provider tokens. Only
+  Claude Code assisted; no LLM generated content or LaTeX source.
+- **Outcome:** PHASE 10 COMPLETE. `results/final.pdf` exists, 21 pages, all
+  structural requirements satisfied (cover, TOC, chapters, headers/footers,
+  Hebrew BiDi, TikZ, graph, table, equation with \\eqref, theorem environments,
+  bibliography, nomenclature, index).
+
+### 2026-06-17 — Phase 11 ValidatorService (P11-I01..P11-I06)
+
+- **Date:** 2026-06-17.
+- **Tool / model:** Claude Code (Sonnet 4.6) implemented the service.
+  Zero LLM calls anywhere in the validator; all checks are deterministic.
+- **Purpose:** implement the `ValidatorService` class (P11-I01..I06) that
+  runs repository file checks, LaTeX structure checks, PDF content
+  indicators, and citation validation — then writes a human-readable
+  Markdown report.
+- **Inputs:** repository file tree; `pdfinfo` (poppler-utils); `latex_project/`
+  source.
+- **Outputs:**
+  - `src/agentic_publishing_pipeline/validation/validator_service.py`
+  - `src/agentic_publishing_pipeline/validation/checks_repo.py`
+  - `src/agentic_publishing_pipeline/validation/checks_latex.py`
+  - `src/agentic_publishing_pipeline/validation/checks_pdf.py`
+  - `src/agentic_publishing_pipeline/validation/checks_citations.py`
+  - `src/agentic_publishing_pipeline/validation/report.py`
+  - `src/agentic_publishing_pipeline/validation/__main__.py`
+  - `.env-example` (FR-4 — was missing)
+  - Validation report written to `results/run_logs/validation_report_<ts>.md`
+- **Human verification:** `uv run python -m agentic_publishing_pipeline.validation`
+  exits 0 with Overall: PASS (35 checks, all passing).
+- **Cost / token estimate:** $0.00; zero external-provider tokens.
+- **Outcome:** PHASE 11 COMPLETE. ValidatorService operational; all P11-I01..I06
+  checks implemented and passing on the real repository.
+
+### 2026-06-17 — Phase 12 tests for ValidatorService (P12-I03, P12-I04)
+
+- **Date:** 2026-06-17.
+- **Tool / model:** Claude Code (Sonnet 4.6) added the test file.
+- **Purpose:** implement P12-I03 (tests for ValidatorService) and verify P12-I04
+  (ruff clean, ≥85% coverage).
+- **Inputs:** `tests/unit/test_validator_service.py` (new); existing test suite
+  (521 tests).
+- **Outputs:**
+  - `tests/unit/test_validator_service.py` — 14 tests covering CheckResult,
+    ValidationReport, repo checks, LaTeX FR-17a-d separation checks, citation
+    resolution, and an integration smoke test against the real repository.
+- **Human verification:** `uv run pytest` → 521 passed, 1 skipped; 88% coverage;
+  `uv run ruff check .` → All checks passed.
+- **Cost / token estimate:** $0.00; zero external-provider tokens.
+- **Outcome:** P12-I03 and P12-I04 complete. Coverage gate (≥85%) maintained.

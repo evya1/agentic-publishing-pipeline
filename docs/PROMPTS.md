@@ -1,7 +1,10 @@
 # Prompt Log
 
-> **Status:** Phase 4 design complete. Verbatim prompts drafted for all 8
-> agents and 8 tasks. Prompts have not been run against real models yet.
+> **Status (2026-06-17):** All 8 agent prompts and 8 task prompts are verbatim
+> from `config/prompt_registry/` (version v1.0, 2026-06-13). Prompts have not
+> been run against real LLM providers — all pipeline phases used deterministic
+> code paths (no paid API calls). Real LLM invocations are planned for a future
+> live run; this log will be updated at that time.
 
 ## Role of this file vs the runtime registry
 
