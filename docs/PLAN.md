@@ -1,11 +1,11 @@
 # PLAN — agentic-publishing-pipeline
 
-> **Status:** Phases 0, 1, 1.5, 2, 3, 4, 5, 6, and 7 are complete and
-> closed. Phase 6 landed through PR #81, generating the approved
-> Markdown-first candidate set and recording the human review approval.
-> Phase 7 landed through PR #83, verifying the canonical source manifest
-> and generating `latex_project/references.bib`. Phase 8 is the next
-> open implementation phase. Phases 9-14 remain open.
+> **Status:** Phases 0, 1, 1.5, 2, 3, 4, 5, 6, 7, and 8 are complete and
+> closed. Phase 7 landed through PR #83, verifying the canonical source
+> manifest and generating `latex_project/references.bib`. Phase 8 landed
+> through PR #92, delivering the deterministic Python graph pipeline and
+> committing a canonical PNG artifact to `latex_project/figures/`. Phase 9
+> is the next open implementation phase. Phases 9-14 remain open.
 
 ## How PRD, PLAN, TODO, and GitHub fit together
 
@@ -381,7 +381,7 @@ metadata-only readers (P7-I07). Full policy text is in
 **Exit criterion:** `latex_project/references.bib` contains only verified
 real entries; every `\cite{...}` in the LaTeX sources resolves.
 
-### Phase 8 — Python graph generation pipeline *(open)*
+### Phase 8 — Python graph generation pipeline *(complete and closed — PR #92)*
 
 Implement `src/agentic_publishing_pipeline/visualization/`. It must produce
 at least one graph image saved under `latex_project/figures/` (FR-29,
@@ -510,7 +510,7 @@ group member has submitted in Moodle.
 - Phase 1 is complete (mechanism PRDs reconciled — commit `4e5517c`).
   Phase 1.5 is complete (demo topic and source manifest locked —
   commit `303a425`). Phases 2, 3, 4, 5, 6, and 7 are complete and
-  closed (milestones #1 through #6 closed). Phase 8 is the next open
+  closed (milestones #1 through #7 closed). Phase 9 is the next open
   implementation phase. Phases 9 through 14 remain open and pending
   future implementation. None of the currently-open phases is allowed
   to be marked complete preemptively.

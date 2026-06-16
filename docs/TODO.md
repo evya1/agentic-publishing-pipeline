@@ -1,12 +1,12 @@
 # TODO — agentic-publishing-pipeline
 
-> **Status:** Phases 0 through 7 are complete and closed. Phase 7
-> real-source bibliography pipeline merged through PR #83; P7-I00 through
-> P7-I07 are verified and closed. P12-I05 CI hardening merged through
-> PR #86. Phase 8 (Python graph generation) is the next implementation
-> phase. Do not tick later items until their underlying artifacts exist and
-> have been verified on disk (and, where applicable, by a passing build,
-> test, or validator run).
+> **Status:** Phases 0 through 8 are complete and closed. Phase 8
+> Python graph generation pipeline merged through PR #92; P8-I01 verified
+> and closed with a canonical PNG artifact in `latex_project/figures/`.
+> P12-I05 CI hardening merged through PR #86. Phase 9 (LaTeX project
+> assembly) is the next implementation phase. Do not tick later items until
+> their underlying artifacts exist and have been verified on disk (and,
+> where applicable, by a passing build, test, or validator run).
 
 ## How to read this file
 
@@ -146,14 +146,11 @@ current state before acting.
 | P7-I06      | [#27](https://github.com/evya1/agentic-publishing-pipeline/issues/27) | Closed with evidence — `\cite{...}` placeholders wired and resolved    |
 | P7-I07      | [#28](https://github.com/evya1/agentic-publishing-pipeline/issues/28) | Closed with evidence — untrusted-archive policy codified and enforced  |
 
-#### Phase 8 — Python graph generation pipeline ([milestone #7](https://github.com/evya1/agentic-publishing-pipeline/milestone/7))
+#### Phase 8 — Python graph generation pipeline ([milestone #7](https://github.com/evya1/agentic-publishing-pipeline/milestone/7)) *(complete and closed through PR #92)*
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
-| P8-I01      | [#29](https://github.com/evya1/agentic-publishing-pipeline/issues/29) | Implement `visualization/` and ≥1 real graph under `latex_project/figures/` |
-
-Additional Phase 8 validation/rendering scope remains under **P8-I01 / #29**
-until a dedicated follow-up issue is formally created.
+| P8-I01      | [#29](https://github.com/evya1/agentic-publishing-pipeline/issues/29) | Closed with evidence — deterministic graph pipeline and canonical PNG in `latex_project/figures/` |
 
 #### Phase 9 — LaTeX project assembly ([milestone #8](https://github.com/evya1/agentic-publishing-pipeline/milestone/8))
 

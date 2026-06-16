@@ -1,21 +1,23 @@
 # agentic-publishing-pipeline
 
-> **Status:** Phases 0 through 7 are merged into `main`. Phase 7 added
-> real-source bibliography verification, ArXiv metadata locking, citation
-> key migration, and `\cite{}` placeholder resolution (PR #83). Phase 12
+> **Status:** Phases 0 through 8 are merged into `main`. Phase 8 delivered
+> a deterministic Python graph pipeline: typed grouped-bar-chart spec,
+> strict validation, Matplotlib Agg renderer, SHA-256 provenance, and a
+> canonical artifact committed to `latex_project/figures/` (PR #92). Phase 12
 > hardened CI with coverage gates, lint, and regression-guard scripts
-> (PR #86). Phase 8 (Python graph generation) is the next implementation
+> (PR #86). Phase 9 (LaTeX project assembly) is the next implementation
 > phase. No final PDF has been generated.
 
 This repository will host a CrewAI-based pipeline that produces a polished LaTeX
 PDF article/book on a user-selected topic. The current state includes the
 Phase 5 provider/service layer, deterministic runtime modes, typed artifact
 contracts, core tools, CLI, offline fixture path, Phase 6 approved
-Markdown-first draft set under `results/generated_markdown/`, and Phase 7
+Markdown-first draft set under `results/generated_markdown/`, Phase 7
 verified bibliography with locked ArXiv metadata, migrated citation keys, and
-a resolved `\cite{}` map in `results/run_logs/`. Complete CrewAI
-orchestration, final LaTeX assembly, deterministic final validation, and
-`results/final.pdf` remain unfinished.
+a resolved `\cite{}` map in `results/run_logs/`, and Phase 8 deterministic
+Python graph pipeline with a canonical PNG artifact and provenance in
+`latex_project/figures/`. Complete CrewAI orchestration, final LaTeX assembly,
+deterministic final validation, and `results/final.pdf` remain unfinished.
 
 ## HW3 — Article / Book Generation with CrewAI and LaTeX
 
@@ -25,11 +27,15 @@ orchestration, final LaTeX assembly, deterministic final validation, and
 - Phase 7 real-source bibliography pipeline is merged into `main` (PR #83):
   ArXiv metadata verified, citation keys migrated, `\cite{}` placeholders
   resolved, untrusted-archive policy enforced.
+- Phase 8 Python graph generation pipeline is merged into `main` (PR #92):
+  deterministic grouped-bar-chart renderer, typed YAML spec with strict
+  validation, SHA-256 provenance, and a canonical PNG committed to
+  `latex_project/figures/` with regeneration evidence (409 tests, 88% coverage).
 - Phase 12 CI hardening merged (PR #86): `ci-core.yml` with 85% coverage
   gate, 150-line cap, and `scripts/check_*.py` regression-guard scripts.
   Workflows are currently set to `workflow_dispatch`-only pending runner
   verification.
-- Phase 8 (Python graph generation) is the next implementation phase.
+- Phase 9 (LaTeX project assembly) is the next implementation phase.
 - The canonical HW3 topic is selected in `docs/PRD.md` §22.
 - No final PDF has been generated.
 - Complete CrewAI orchestration and live model/search adapters are **not**
