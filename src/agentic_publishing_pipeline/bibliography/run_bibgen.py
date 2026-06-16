@@ -35,9 +35,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--report", type=Path, default=Path("results/run_logs/p7i02_verification.json")
     )
-    parser.add_argument(
-        "--output", type=Path, default=Path("latex_project/references.bib")
-    )
+    parser.add_argument("--output", type=Path, default=Path("latex_project/references.bib"))
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
 

@@ -1,0 +1,84 @@
+schema_version: 1
+asset_id: planning_benchmark_comparison
+kind: bar_chart
+slot: planning_benchmark_comparison
+chapter_id: planning
+title: Planning Performance on IPC 2023 Standard Domains
+caption: >-
+  Total planning tasks solved out of 360 on the standard (non-obfuscated)
+  IPC 2023 Learning Track domains. Three classical planners (LAMA, DecStar,
+  Scorpion Maidu) are compared against seven frontier LLMs.
+x_label: System
+y_label: Tasks solved (of 360)
+metric:
+  name: total_tasks_solved
+  unit: tasks
+  direction: higher_is_better
+data:
+  categories:
+    - LAMA
+    - DecStar
+    - Scorpion Maidu
+    - DeepSeek R1
+    - GPT-3.5
+    - GPT-4.1
+    - GPT-5.0
+    - Gemini 2.5 Pro
+    - Gemini 3.0 Pro
+    - Gemini 3.1 Pro
+  values:
+    - 204
+    - 227
+    - 234
+    - 157
+    - 0
+    - 20
+    - 205
+    - 161
+    - 233
+    - 245
+  category_groups:
+    LAMA: classical_planner
+    DecStar: classical_planner
+    Scorpion Maidu: classical_planner
+    DeepSeek R1: llm
+    GPT-3.5: llm
+    GPT-4.1: llm
+    GPT-5.0: llm
+    Gemini 2.5 Pro: llm
+    Gemini 3.0 Pro: llm
+    Gemini 3.1 Pro: llm
+source:
+  citation_key: correa2025planningperformance
+  identifier: arXiv:2511.09378
+  publication_url_or_doi: https://arxiv.org/abs/2511.09378
+  locator:
+    file: table-results.tex
+    table: 'table:coverage-standard'
+    row: Sum (360)
+    columns:
+      - LAMA
+      - DecStar
+      - Maidu
+      - DeepSeek R1
+      - OpenAI GPT 3.5
+      - OpenAI GPT 4.1
+      - OpenAI GPT 5.0
+      - Gemini 2.5 Pro
+      - Gemini 3.0 Pro
+      - Gemini 3.1 Pro
+  notes: >-
+    Numbers are coverage scores (tasks solved out of 360) reported in the
+    Sum (360) row of the standard-domain results table in arXiv:2511.09378
+    (Correa, Pereira, Seipp, 2025). Scorpion Maidu is labeled "Maidu" in
+    the paper. Obfuscated-domain values from the companion table are NOT
+    plotted here.
+transformations:
+  - description: No transformation; values copied verbatim from the source row.
+render:
+  width_inches: 7.0
+  height_inches: 4.0
+  dpi: 200
+  seed: 0
+  classical_planner_color: '#4C72B0'
+  llm_color: '#DD8452'

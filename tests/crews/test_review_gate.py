@@ -24,6 +24,7 @@ GENERATED_MD = REPO_ROOT / "results" / "generated_markdown"
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _write_draft(md_root: Path, name: str = "ch.md") -> Path:
     p = md_root / "chapters" / name
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -40,6 +41,7 @@ def _human_record(md_root: Path) -> ReviewRecord:
 # ---------------------------------------------------------------------------
 # compute_draft_revision
 # ---------------------------------------------------------------------------
+
 
 def test_compute_draft_revision_is_deterministic(tmp_path: Path) -> None:
     md_root = tmp_path / "generated_markdown"
@@ -61,6 +63,7 @@ def test_compute_draft_revision_changes_when_draft_changes(tmp_path: Path) -> No
 # ---------------------------------------------------------------------------
 # write / load
 # ---------------------------------------------------------------------------
+
 
 def test_write_and_load_review_record_round_trips(tmp_path: Path) -> None:
     md_root = tmp_path / "generated_markdown"
@@ -94,6 +97,7 @@ def test_load_review_record_raises_on_unknown_verdict(tmp_path: Path) -> None:
 # enforce_review_gate — blocking cases
 # ---------------------------------------------------------------------------
 
+
 def test_missing_review_blocks(tmp_path: Path) -> None:
     md_root = tmp_path / "generated_markdown"
     _write_draft(md_root)
@@ -122,8 +126,10 @@ def test_changes_requested_blocks(tmp_path: Path) -> None:
     _write_draft(md_root)
     log_root = tmp_path / "run_logs"
     rec = make_review_record(
-        reviewer="Alice Reviewer", generated_md_root=md_root,
-        verdict="changes_requested", notes="Fix figure captions."
+        reviewer="Alice Reviewer",
+        generated_md_root=md_root,
+        verdict="changes_requested",
+        notes="Fix figure captions.",
     )
     write_review_record(rec, log_root)
     with pytest.raises(HumanReviewRequired, match="changes_requested"):
@@ -175,6 +181,7 @@ def test_empty_reviewer_blocks(tmp_path: Path) -> None:
 # enforce_review_gate — passing case
 # ---------------------------------------------------------------------------
 
+
 def test_matching_human_approval_passes(tmp_path: Path) -> None:
     md_root = tmp_path / "generated_markdown"
     _write_draft(md_root)
@@ -188,15 +195,25 @@ def test_matching_human_approval_passes(tmp_path: Path) -> None:
 # CLI gate integration (compile-only blocks without approval)
 # ---------------------------------------------------------------------------
 
+
 def test_compile_only_blocked_without_review(tmp_path: Path) -> None:
     from agentic_publishing_pipeline.crews import run_cli
+
     results = tmp_path / "results"
     REPO_ROOT = Path(__file__).resolve().parents[2]
     registry = REPO_ROOT / "config" / "prompt_registry"
     manifest = REPO_ROOT / "config" / "article_sources.yaml"
     rc = run_cli(
-        ["--mode", "offline-fixture", "--registry", str(registry),
-         "--manifest", str(manifest), "--results-root", str(results)],
+        [
+            "--mode",
+            "offline-fixture",
+            "--registry",
+            str(registry),
+            "--manifest",
+            str(manifest),
+            "--results-root",
+            str(results),
+        ],
         env={},
     )
     assert rc == 0
@@ -207,21 +224,38 @@ def test_compile_only_blocked_without_review(tmp_path: Path) -> None:
     )
     with pytest.raises(SystemExit, match="human review gate"):
         run_cli(
-            ["--mode", "compile-only", "--registry", str(registry),
-             "--results-root", str(results), "--run-id", run_id],
+            [
+                "--mode",
+                "compile-only",
+                "--registry",
+                str(registry),
+                "--results-root",
+                str(results),
+                "--run-id",
+                run_id,
+            ],
             env={},
         )
 
 
 def test_compile_only_passes_with_valid_review(tmp_path: Path) -> None:
     from agentic_publishing_pipeline.crews import run_cli
+
     results = tmp_path / "results"
     REPO_ROOT = Path(__file__).resolve().parents[2]
     registry = REPO_ROOT / "config" / "prompt_registry"
     manifest = REPO_ROOT / "config" / "article_sources.yaml"
     rc = run_cli(
-        ["--mode", "offline-fixture", "--registry", str(registry),
-         "--manifest", str(manifest), "--results-root", str(results)],
+        [
+            "--mode",
+            "offline-fixture",
+            "--registry",
+            str(registry),
+            "--manifest",
+            str(manifest),
+            "--results-root",
+            str(results),
+        ],
         env={},
     )
     assert rc == 0
@@ -237,8 +271,16 @@ def test_compile_only_passes_with_valid_review(tmp_path: Path) -> None:
     )
     write_review_record(rec, log_root)
     rc2 = run_cli(
-        ["--mode", "compile-only", "--registry", str(registry),
-         "--results-root", str(results), "--run-id", run_id],
+        [
+            "--mode",
+            "compile-only",
+            "--registry",
+            str(registry),
+            "--results-root",
+            str(results),
+            "--run-id",
+            run_id,
+        ],
         env={},
     )
     assert rc2 == 0

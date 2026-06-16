@@ -27,6 +27,7 @@ def _fake_pdf_runner(commands_observed: list[list[str]], *, fail_at: int | None 
         if cmd[0] == "lualatex":
             (cwd / "main.pdf").write_bytes(b"%PDF-1.5\n%%EOF\n")
         return 0, "Output written on main.pdf (1 page).\nLaTeX Warning: minor\n"
+
     return runner
 
 
@@ -89,6 +90,7 @@ def test_missing_binaries_refused_without_override(tmp_path: Path) -> None:
     project = _seed_project(tmp_path)
     # Default runner pathway with no runner provided AND binaries absent.
     import shutil
+
     if shutil.which("lualatex") and shutil.which("biber"):
         pytest.skip("real LaTeX toolchain present; cannot exercise missing-binaries path")
     with pytest.raises(LaTeXBuildError):

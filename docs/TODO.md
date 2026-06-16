@@ -198,7 +198,7 @@ current state before acting.
 | P12-I02     | [#53](https://github.com/evya1/agentic-publishing-pipeline/issues/53) | Tests for Markdown→LaTeX conversion                                    |
 | P12-I03     | [#54](https://github.com/evya1/agentic-publishing-pipeline/issues/54) | Tests for `ValidatorService`                                           |
 | P12-I04     | [#55](https://github.com/evya1/agentic-publishing-pipeline/issues/55) | `uv run pytest` + `uv run ruff check .` green on clean checkout         |
-| P12-I05     | *(planned — GitHub number TBD)* | Harden CI with ≥85% coverage and supported-Python matrix |
+| P12-I05     | [#85](https://github.com/evya1/agentic-publishing-pipeline/issues/85) | Harden CI with ≥85% coverage and regression guards for Phase 1–7 contracts |
 | P12-I06     | *(planned — GitHub number TBD)* | Prove genericity through a second-topic integration run |
 
 #### Phase 13 — README, AI usage, and prompt log finalization ([milestone #12](https://github.com/evya1/agentic-publishing-pipeline/milestone/12))

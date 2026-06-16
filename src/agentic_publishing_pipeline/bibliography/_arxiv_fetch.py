@@ -55,7 +55,5 @@ def fetch_arxiv_metadata(
     except urllib.error.URLError as exc:
         raise ArxivFetchError(f"arXiv fetch failed for {arxiv_id!r}: {exc}") from exc
     if status != 200:
-        raise ArxivFetchError(
-            f"arXiv fetch for {arxiv_id!r} returned status {status}"
-        )
+        raise ArxivFetchError(f"arXiv fetch for {arxiv_id!r} returned status {status}")
     return ArxivFetchResponse(url=url, status=status, body=body)

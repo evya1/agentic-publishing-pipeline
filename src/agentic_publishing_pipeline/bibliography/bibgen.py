@@ -45,9 +45,7 @@ def _author_field(authors: tuple[str, ...]) -> str:
     parts: list[str] = []
     for name in authors:
         if "," not in name:
-            raise BibGenError(
-                f"bibliography author must be in 'Family, Given' form; got {name!r}"
-            )
+            raise BibGenError(f"bibliography author must be in 'Family, Given' form; got {name!r}")
         # Preserve the manifest's already-canonical 'Family, Given' form.
         parts.append(_latex_escape(name))
     return " and ".join(parts)
@@ -57,13 +55,9 @@ def render_entry(record: SourceRecord, *, primary_category: str | None = None) -
     """Render one verified record as a single ``@online`` BibLaTeX entry."""
 
     if record.verification.status != "verified":
-        raise BibGenError(
-            f"record {record.citation_key!r} is not verified; refusing emission"
-        )
+        raise BibGenError(f"record {record.citation_key!r} is not verified; refusing emission")
     if record.arxiv_id is None or record.arxiv_url is None:
-        raise BibGenError(
-            f"record {record.citation_key!r} is missing arXiv identifiers"
-        )
+        raise BibGenError(f"record {record.citation_key!r} is missing arXiv identifiers")
     lines: list[str] = [f"@online{{{record.citation_key},"]
     lines.append(f"  author       = {{{_author_field(record.authors)}}},")
     lines.append(f"  title        = {{{_latex_escape(record.title)}}},")

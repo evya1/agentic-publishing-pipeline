@@ -58,9 +58,7 @@ def parse_arxiv_feed(xml_bytes: bytes | str, *, expected_id: str) -> ArxivMetada
     raw_id = id_node.text.strip().rsplit("/", 1)[-1]
     canonical_id = _strip_arxiv_version(raw_id)
     if canonical_id != expected_id:
-        raise ArxivParseError(
-            f"arXiv id mismatch: expected {expected_id!r}, got {canonical_id!r}"
-        )
+        raise ArxivParseError(f"arXiv id mismatch: expected {expected_id!r}, got {canonical_id!r}")
     title_node = entry.find("a:title", _NS)
     if title_node is None or not title_node.text:
         raise ArxivParseError("arXiv entry missing <title>")
@@ -78,9 +76,7 @@ def parse_arxiv_feed(xml_bytes: bytes | str, *, expected_id: str) -> ArxivMetada
         raise ArxivParseError("arXiv entry missing <published>")
     year_match = re.match(r"^(\d{4})-", published.text.strip())
     if year_match is None:
-        raise ArxivParseError(
-            f"arXiv <published> is not ISO-8601: {published.text!r}"
-        )
+        raise ArxivParseError(f"arXiv <published> is not ISO-8601: {published.text!r}")
     year = int(year_match.group(1))
     primary = entry.find("arxiv:primary_category", _NS)
     primary_category = primary.get("term") if primary is not None else None

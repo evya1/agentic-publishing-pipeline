@@ -48,8 +48,11 @@ def test_load_provider_config_rejects_bad_int() -> None:
 
 def test_fixture_model_adapter_uses_in_memory_fixture() -> None:
     response = ModelResponse(
-        text='{"ok": true}', tokens_in=12, tokens_out=34,
-        latency_ms=2.0, model_id="fixture-test",
+        text='{"ok": true}',
+        tokens_in=12,
+        tokens_out=34,
+        latency_ms=2.0,
+        model_id="fixture-test",
     )
     adapter = FixtureModelAdapter(fixtures={"research": response})
     request = ModelRequest(model_class="research", prompt="hi")
@@ -75,9 +78,7 @@ def test_fixture_model_adapter_reads_disk_fixtures(tmp_path: Path) -> None:
     payload = tmp_path / "writer.json"
     payload.write_text('{"text": "out", "tokens_in": 3, "tokens_out": 4}', encoding="utf-8")
     adapter = FixtureModelAdapter(fixture_root=tmp_path)
-    request = ModelRequest(
-        model_class="ignored", prompt="hi", metadata={"fixture_key": "writer"}
-    )
+    request = ModelRequest(model_class="ignored", prompt="hi", metadata={"fixture_key": "writer"})
     out = adapter.complete(request)
     assert out.text == "out"
     assert out.tokens_in == 3

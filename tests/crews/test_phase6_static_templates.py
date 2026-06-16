@@ -26,14 +26,18 @@ CANDIDATE_RELS = (
 
 def test_regen_in_clean_tmp_matches_committed_bytes(tmp_path: Path) -> None:
     record = run_phase6_generate(tmp_path.resolve(), MANIFEST)
-    assert sorted(record.chapters_written) == sorted([
-        f"{CANONICAL_MD}/chapters/planning.md",
-        f"{CANONICAL_MD}/chapters/memory.md",
-    ])
-    assert sorted(record.static_files_written) == sorted([
-        f"{CANONICAL_MD}/outline.md",
-        f"{CANONICAL_MD}/research_notes.md",
-    ])
+    assert sorted(record.chapters_written) == sorted(
+        [
+            f"{CANONICAL_MD}/chapters/planning.md",
+            f"{CANONICAL_MD}/chapters/memory.md",
+        ]
+    )
+    assert sorted(record.static_files_written) == sorted(
+        [
+            f"{CANONICAL_MD}/outline.md",
+            f"{CANONICAL_MD}/research_notes.md",
+        ]
+    )
     md_root = tmp_path / CANONICAL_MD
     for rel in CANDIDATE_RELS:
         regen = (md_root / rel).read_bytes()
@@ -65,6 +69,7 @@ def test_static_templates_no_latex_artifact(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 # Atomic validation across the static-template set
 # ---------------------------------------------------------------------------
+
 
 def test_invalid_later_template_writes_nothing_in_clean_root(
     tmp_path: Path,
@@ -106,12 +111,11 @@ def test_valid_generation_reports_full_citation_union(tmp_path: Path) -> None:
     from agentic_publishing_pipeline.crews._phase6_generate import (
         extract_manifest_keys,
     )
+
     keys = extract_manifest_keys(MANIFEST)
     written, cites = write_static_templates(md_root, manifest_keys=keys)
     assert written == ["outline.md", "research_notes.md"]
-    assert (md_root / "outline.md").read_bytes() == (
-        COMMITTED_MD / "outline.md"
-    ).read_bytes()
+    assert (md_root / "outline.md").read_bytes() == (COMMITTED_MD / "outline.md").read_bytes()
     assert (md_root / "research_notes.md").read_bytes() == (
         COMMITTED_MD / "research_notes.md"
     ).read_bytes()

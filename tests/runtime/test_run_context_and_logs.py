@@ -94,9 +94,16 @@ def test_register_artifact_refuses_duplicate(tmp_path: Path) -> None:
 def test_usage_log_appends_records(tmp_path: Path) -> None:
     ctx = _new_context(tmp_path)
     ctx.usage.append(
-        agent_id="A1", task_id="T1", attempt=1, model="haiku-4-5",
-        tokens_in=10, tokens_out=20, latency_ms=5.0, status="ok",
-        estimated_cost_usd=0.0001, mode="offline-fixture",
+        agent_id="A1",
+        task_id="T1",
+        attempt=1,
+        model="haiku-4-5",
+        tokens_in=10,
+        tokens_out=20,
+        latency_ms=5.0,
+        status="ok",
+        estimated_cost_usd=0.0001,
+        mode="offline-fixture",
     )
     records = ctx.usage.read_all()
     assert records[0]["agent_id"] == "A1"
@@ -107,8 +114,11 @@ def test_manifest_verify_integrity_flags_tampered(tmp_path: Path) -> None:
     ctx = _new_context(tmp_path)
     ctx.write_artifact_json("artifacts/x.v1.json", {"k": 1})
     ctx.register_artifact(
-        artifact_id="x", contract="X", contract_version="v1",
-        relative_path="artifacts/x.v1.json", produced_by_task="T1",
+        artifact_id="x",
+        contract="X",
+        contract_version="v1",
+        relative_path="artifacts/x.v1.json",
+        produced_by_task="T1",
     )
     (ctx.paths.root / "artifacts" / "x.v1.json").write_text("{}", encoding="utf-8")
     broken = ctx.manifest.verify_integrity(ctx.paths.root)

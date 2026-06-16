@@ -18,7 +18,9 @@ def _build_payload(*, dimensions: list[dict[str, object]] | None = None) -> dict
     return {
         "run_id": "RUN-TEST",
         "topic": "Reasoning",
-        "dimensions": dimensions if dimensions is not None else [
+        "dimensions": dimensions
+        if dimensions is not None
+        else [
             {"dimension": "planning", "summary": "Plans are good."},
         ],
         "candidate_references": [],

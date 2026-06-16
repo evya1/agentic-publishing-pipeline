@@ -20,9 +20,7 @@ from sync_milestones import (
 from .conftest import FakeClient, make_live
 
 
-def test_apply_creates_only_missing_milestones(
-    simple_manifest_path: Path, io_buffers
-) -> None:
+def test_apply_creates_only_missing_milestones(simple_manifest_path: Path, io_buffers) -> None:
     manifest = load_manifest(simple_manifest_path)
     client = FakeClient(live=[make_live("Phase A", "Alpha.", number=1)])
     out, err = io_buffers
@@ -30,9 +28,7 @@ def test_apply_creates_only_missing_milestones(
     assert client.create_calls == [("Phase B", "Beta.")]
 
 
-def test_second_apply_is_zero_write_no_op(
-    simple_manifest_path: Path, io_buffers
-) -> None:
+def test_second_apply_is_zero_write_no_op(simple_manifest_path: Path, io_buffers) -> None:
     manifest = load_manifest(simple_manifest_path)
     client = FakeClient(
         live=[
@@ -50,10 +46,7 @@ def test_apply_requires_confirm(simple_manifest_path: Path, io_buffers) -> None:
     manifest = load_manifest(simple_manifest_path)
     client = FakeClient(live=[])
     out, err = io_buffers
-    assert (
-        apply(manifest, client, confirm=False, out=out, err=err)
-        == EXIT_CONFIRM_REQUIRED
-    )
+    assert apply(manifest, client, confirm=False, out=out, err=err) == EXIT_CONFIRM_REQUIRED
     assert client.create_calls == []
 
 

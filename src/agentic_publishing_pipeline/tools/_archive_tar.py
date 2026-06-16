@@ -32,11 +32,7 @@ def iter_members(path: Path):
     with tf:
         for info in tf.getmembers():
             if info.issym() or info.islnk():
-                raise _TarReject(
-                    f"archive member is a symlink (rejected): {info.name!r}"
-                )
+                raise _TarReject(f"archive member is a symlink (rejected): {info.name!r}")
             if info.isdev() or info.isfifo():
-                raise _TarReject(
-                    f"archive member is a device/fifo (rejected): {info.name!r}"
-                )
+                raise _TarReject(f"archive member is a device/fifo (rejected): {info.name!r}")
             yield info.name, info.size, 0, info.isdir()

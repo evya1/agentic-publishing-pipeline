@@ -29,11 +29,16 @@ def _run_offline_fixture(tmp_path: Path) -> tuple[int, Path]:
     results = tmp_path / "results"
     rc = run_cli(
         [
-            "--mode", "offline-fixture",
-            "--registry", str(_registry()),
-            "--manifest", str(_manifest()),
-            "--results-root", str(results),
-            "--topic", "Reasoning",
+            "--mode",
+            "offline-fixture",
+            "--registry",
+            str(_registry()),
+            "--manifest",
+            str(_manifest()),
+            "--results-root",
+            str(results),
+            "--topic",
+            "Reasoning",
         ],
         env={},
     )
@@ -65,10 +70,14 @@ def test_parser_known_modes() -> None:
 def test_dry_run_creates_workspace_without_artifacts(tmp_path: Path) -> None:
     rc = run_cli(
         [
-            "--mode", "dry-run",
-            "--registry", str(_registry()),
-            "--manifest", str(_manifest()),
-            "--results-root", str(tmp_path / "results"),
+            "--mode",
+            "dry-run",
+            "--registry",
+            str(_registry()),
+            "--manifest",
+            str(_manifest()),
+            "--results-root",
+            str(tmp_path / "results"),
         ],
         env={},
     )
@@ -83,9 +92,14 @@ def test_offline_fixture_run_creates_full_workspace(tmp_path: Path) -> None:
     assert rc == 0
     artifacts = {p.name for p in (workspace / "artifacts").iterdir()}
     expected = {
-        "research_notes.v1.json", "outline.v1.json", "chapter_drafts.v1.json",
-        "asset_specs.v1.json", "bidi.v1.json", "bibliography.v1.json",
-        "latex_project_spec.v1.json", "reviewer_signal.v1.json",
+        "research_notes.v1.json",
+        "outline.v1.json",
+        "chapter_drafts.v1.json",
+        "asset_specs.v1.json",
+        "bidi.v1.json",
+        "bibliography.v1.json",
+        "latex_project_spec.v1.json",
+        "reviewer_signal.v1.json",
     }
     assert expected.issubset(artifacts)
     assert (workspace / "latex_project" / "figures" / "demo.png").exists()
@@ -102,8 +116,14 @@ def test_offline_fixture_routes_all_task_boundaries_through_gatekeeper(tmp_path:
     ]
     task_ids = {record["task_id"] for record in usage}
     assert {
-        "RESEARCH", "OUTLINE", "WRITE", "ASSET",
-        "BIDI", "BIBLIOGRAPHY", "LATEX", "REVIEW",
+        "RESEARCH",
+        "OUTLINE",
+        "WRITE",
+        "ASSET",
+        "BIDI",
+        "BIBLIOGRAPHY",
+        "LATEX",
+        "REVIEW",
     }.issubset(task_ids)
     assert all(record["estimated_cost_usd"] == 0.0 for record in usage)
     assert all(record["mode"] == "offline-fixture" for record in usage)
@@ -113,8 +133,14 @@ def test_offline_fixture_file_contains_eight_task_responses() -> None:
     fixture = REPO_ROOT / "tests" / "fixtures" / "offline" / "task_responses.json"
     payload = json.loads(fixture.read_text(encoding="utf-8"))
     assert set(payload) == {
-        "RESEARCH", "OUTLINE", "WRITE", "ASSET",
-        "BIDI", "BIBLIOGRAPHY", "LATEX", "REVIEW",
+        "RESEARCH",
+        "OUTLINE",
+        "WRITE",
+        "ASSET",
+        "BIDI",
+        "BIBLIOGRAPHY",
+        "LATEX",
+        "REVIEW",
     }
 
 
@@ -147,10 +173,14 @@ def test_validate_only_reuses_workspace_and_updates_snapshot(tmp_path: Path) -> 
     assert rc == 0
     rc = run_cli(
         [
-            "--mode", "validate-only",
-            "--registry", str(_registry()),
-            "--results-root", str(tmp_path / "results"),
-            "--run-id", workspace.name,
+            "--mode",
+            "validate-only",
+            "--registry",
+            str(_registry()),
+            "--results-root",
+            str(tmp_path / "results"),
+            "--run-id",
+            workspace.name,
         ],
         env={},
     )
@@ -168,10 +198,14 @@ def test_compile_only_reports_missing_project_input(tmp_path: Path) -> None:
     with pytest.raises(SystemExit, match="requires existing latex_project/main.tex"):
         run_cli(
             [
-                "--mode", "compile-only",
-                "--registry", str(_registry()),
-                "--results-root", str(tmp_path / "results"),
-                "--run-id", workspace.name,
+                "--mode",
+                "compile-only",
+                "--registry",
+                str(_registry()),
+                "--results-root",
+                str(tmp_path / "results"),
+                "--run-id",
+                workspace.name,
             ],
             env={},
         )
@@ -188,10 +222,14 @@ def test_compile_only_reruns_build_and_validation_when_project_exists(tmp_path: 
     )
     rc = run_cli(
         [
-            "--mode", "compile-only",
-            "--registry", str(_registry()),
-            "--results-root", str(tmp_path / "results"),
-            "--run-id", workspace.name,
+            "--mode",
+            "compile-only",
+            "--registry",
+            str(_registry()),
+            "--results-root",
+            str(tmp_path / "results"),
+            "--run-id",
+            workspace.name,
         ],
         env={},
     )
@@ -208,10 +246,14 @@ def test_resume_reenters_at_validation_when_no_pass_report(tmp_path: Path) -> No
     assert rc == 0
     rc = run_cli(
         [
-            "--mode", "resume",
-            "--registry", str(_registry()),
-            "--results-root", str(tmp_path / "results"),
-            "--run-id", workspace.name,
+            "--mode",
+            "resume",
+            "--registry",
+            str(_registry()),
+            "--results-root",
+            str(tmp_path / "results"),
+            "--run-id",
+            workspace.name,
         ],
         env={},
     )
@@ -233,10 +275,14 @@ def test_offline_fixture_makes_no_network_calls(
     try:
         rc = run_cli(
             [
-                "--mode", "offline-fixture",
-                "--registry", str(_registry()),
-                "--manifest", str(_manifest()),
-                "--results-root", str(tmp_path / "results"),
+                "--mode",
+                "offline-fixture",
+                "--registry",
+                str(_registry()),
+                "--manifest",
+                str(_manifest()),
+                "--results-root",
+                str(tmp_path / "results"),
             ],
             env={},
         )
@@ -245,9 +291,7 @@ def test_offline_fixture_makes_no_network_calls(
     assert rc == 0
 
 
-def test_dry_run_makes_no_network_calls(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_dry_run_makes_no_network_calls(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     original = socket.socket.connect
 
     def fail(self, *args, **kwargs):  # type: ignore[no-untyped-def]
@@ -257,10 +301,14 @@ def test_dry_run_makes_no_network_calls(
     try:
         rc = run_cli(
             [
-                "--mode", "dry-run",
-                "--registry", str(_registry()),
-                "--manifest", str(_manifest()),
-                "--results-root", str(tmp_path / "results"),
+                "--mode",
+                "dry-run",
+                "--registry",
+                str(_registry()),
+                "--manifest",
+                str(_manifest()),
+                "--results-root",
+                str(tmp_path / "results"),
             ],
             env={},
         )

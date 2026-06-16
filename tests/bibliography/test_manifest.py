@@ -125,16 +125,12 @@ def test_arxiv_id_without_url_rejected(tmp_path: Path) -> None:
 
 def test_unsafe_archive_path_rejected(tmp_path: Path) -> None:
     with pytest.raises(SourceManifestError, match="safe repo-relative"):
-        load_source_manifest(
-            _write(tmp_path, _minimal_yaml(source_archive="../../etc/passwd"))
-        )
+        load_source_manifest(_write(tmp_path, _minimal_yaml(source_archive="../../etc/passwd")))
 
 
 def test_absolute_archive_path_rejected(tmp_path: Path) -> None:
     with pytest.raises(SourceManifestError, match="safe repo-relative"):
-        load_source_manifest(
-            _write(tmp_path, _minimal_yaml(source_archive="/etc/passwd"))
-        )
+        load_source_manifest(_write(tmp_path, _minimal_yaml(source_archive="/etc/passwd")))
 
 
 def test_invalid_verification_status_rejected(tmp_path: Path) -> None:

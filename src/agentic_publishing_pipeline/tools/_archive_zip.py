@@ -36,11 +36,7 @@ def iter_members(path: Path):
     with zf:
         for info in zf.infolist():
             if is_symlink_member(info):
-                raise _ZipReject(
-                    f"archive member is a symlink (rejected): {info.filename!r}"
-                )
+                raise _ZipReject(f"archive member is a symlink (rejected): {info.filename!r}")
             if info.flag_bits & 0x1:
-                raise _ZipReject(
-                    f"archive member is encrypted (rejected): {info.filename!r}"
-                )
+                raise _ZipReject(f"archive member is encrypted (rejected): {info.filename!r}")
             yield info.filename, info.file_size, info.CRC, info.is_dir()

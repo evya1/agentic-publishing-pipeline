@@ -139,9 +139,7 @@ def run_phase6_generate(
     manifest_keys = extract_manifest_keys(manifest_path)
     drafts = _parse_write_fixture()
     citation_descs = [
-        ph.description
-        for ph in drafts.placeholder_index
-        if str(ph.kind) == "CITATION"
+        ph.description for ph in drafts.placeholder_index if str(ph.kind) == "CITATION"
     ]
     _validate_citation_keys(citation_descs, manifest_keys)
     md_root = results_root / CANONICAL_MD

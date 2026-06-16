@@ -43,9 +43,7 @@ class MilestoneClient(Protocol):
     def create_milestone(self, title: str, description: str) -> LiveMilestone: ...
 
 
-def verify(
-    manifest: Manifest, client: MilestoneClient, *, out: TextIO, err: TextIO
-) -> int:
+def verify(manifest: Manifest, client: MilestoneClient, *, out: TextIO, err: TextIO) -> int:
     diff = compute_diff(manifest, client.list_milestones())
     print(format_diff(diff), file=out)
     if diff.is_clean:
@@ -55,9 +53,7 @@ def verify(
     return EXIT_DIVERGED
 
 
-def dry_run(
-    manifest: Manifest, client: MilestoneClient, *, out: TextIO, err: TextIO
-) -> int:
+def dry_run(manifest: Manifest, client: MilestoneClient, *, out: TextIO, err: TextIO) -> int:
     diff = compute_diff(manifest, client.list_milestones())
     print(format_diff(diff), file=out)
     for em in diff.missing:
@@ -69,8 +65,12 @@ def dry_run(
 
 
 def apply(
-    manifest: Manifest, client: MilestoneClient, *,
-    confirm: bool, out: TextIO, err: TextIO,
+    manifest: Manifest,
+    client: MilestoneClient,
+    *,
+    confirm: bool,
+    out: TextIO,
+    err: TextIO,
 ) -> int:
     if not confirm:
         print("apply requires --confirm", file=err)
@@ -137,9 +137,7 @@ def main(argv: list[str] | None = None) -> int:
             return verify(manifest, client, out=sys.stdout, err=sys.stderr)
         if args.command == "dry-run":
             return dry_run(manifest, client, out=sys.stdout, err=sys.stderr)
-        return apply(
-            manifest, client, confirm=args.confirm, out=sys.stdout, err=sys.stderr
-        )
+        return apply(manifest, client, confirm=args.confirm, out=sys.stdout, err=sys.stderr)
     except GhError as exc:
         print(f"gh error: {exc}", file=sys.stderr)
         return EXIT_GH_ERROR

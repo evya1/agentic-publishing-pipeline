@@ -28,9 +28,7 @@ def test_all_locked_manifest_records_verify_against_committed_fixtures() -> None
         assert fixture.is_file(), f"missing fixture for {record.citation_key!r}"
         metadata = parse_arxiv_feed(fixture.read_bytes(), expected_id=record.arxiv_id)
         result = verify_record(record, metadata)
-        assert result.status == "verified", (
-            f"{record.citation_key!r}: {result.mismatches}"
-        )
+        assert result.status == "verified", f"{record.citation_key!r}: {result.mismatches}"
         assert result.populated_authors, record.citation_key
 
 
@@ -124,9 +122,7 @@ def test_run_verification_does_not_import_during_unit_tests() -> None:
 
     import importlib
 
-    module = importlib.import_module(
-        "agentic_publishing_pipeline.bibliography.run_verification"
-    )
+    module = importlib.import_module("agentic_publishing_pipeline.bibliography.run_verification")
     assert hasattr(module, "main")
 
 
@@ -149,7 +145,5 @@ def test_apply_verification_is_idempotent() -> None:
     assert verified_at is not None and verified_by is not None
     # apply_verification joins on arxiv_id (stable across P7-I05 rekey).
     results = {r["arxiv_id"]: r for r in report["results"]}
-    rewritten = _apply(
-        text, results, verified_at=verified_at, verified_by=verified_by
-    )
+    rewritten = _apply(text, results, verified_at=verified_at, verified_by=verified_by)
     assert rewritten == text

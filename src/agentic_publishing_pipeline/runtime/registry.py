@@ -126,6 +126,5 @@ def verify_compatibility(
     missing = [name for name in required if name not in declared]
     if missing:
         raise RegistryError(
-            "Registry compatibility check failed; missing contract versions: "
-            + ", ".join(missing)
+            "Registry compatibility check failed; missing contract versions: " + ", ".join(missing)
         )

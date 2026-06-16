@@ -15,9 +15,7 @@ from sync_milestones import EXIT_DIVERGED, EXIT_OK, dry_run, verify
 from .conftest import FakeClient, make_live
 
 
-def test_verify_returns_ok_when_state_matches(
-    simple_manifest_path: Path, io_buffers
-) -> None:
+def test_verify_returns_ok_when_state_matches(simple_manifest_path: Path, io_buffers) -> None:
     manifest = load_manifest(simple_manifest_path)
     client = FakeClient(
         live=[
@@ -31,9 +29,7 @@ def test_verify_returns_ok_when_state_matches(
     assert "matches: 2" in out.getvalue()
 
 
-def test_verify_returns_diverged_when_state_differs(
-    simple_manifest_path: Path, io_buffers
-) -> None:
+def test_verify_returns_diverged_when_state_differs(simple_manifest_path: Path, io_buffers) -> None:
     manifest = load_manifest(simple_manifest_path)
     client = FakeClient(live=[make_live("Phase A", "Alpha.", number=1)])
     out, err = io_buffers
@@ -41,9 +37,7 @@ def test_verify_returns_diverged_when_state_differs(
     assert client.create_calls == []
 
 
-def test_dry_run_performs_zero_writes(
-    simple_manifest_path: Path, io_buffers
-) -> None:
+def test_dry_run_performs_zero_writes(simple_manifest_path: Path, io_buffers) -> None:
     manifest = load_manifest(simple_manifest_path)
     client = FakeClient(live=[make_live("Phase A", "Alpha.", number=1)])
     out, err = io_buffers
@@ -52,9 +46,7 @@ def test_dry_run_performs_zero_writes(
     assert "Would create: Phase B" in out.getvalue()
 
 
-def test_dry_run_succeeds_when_state_matches(
-    simple_manifest_path: Path, io_buffers
-) -> None:
+def test_dry_run_succeeds_when_state_matches(simple_manifest_path: Path, io_buffers) -> None:
     manifest = load_manifest(simple_manifest_path)
     client = FakeClient(
         live=[

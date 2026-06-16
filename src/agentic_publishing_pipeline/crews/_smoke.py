@@ -51,6 +51,7 @@ TASK_BOUNDARIES = {
     "REVIEW": ("reviewer_signal", "ReviewerSignal", ReviewerSignal),
 }
 
+
 def _build_gatekeeper(ctx: PipelineRunContext, manifest_path: Path) -> ApiGatekeeper:
     hits = load_source_manifest_hits(manifest_path)
     config = load_provider_config({})
@@ -82,8 +83,12 @@ def _load_model_fixtures(path: Path) -> dict[str, ModelResponse]:
 def _render_demo_graph(ctx: PipelineRunContext) -> None:
     fio = FileIO(ctx)
     spec = LinePlotSpec(
-        series_label="accuracy", x_values=[1.0, 2.0, 3.0], y_values=[0.6, 0.75, 0.82],
-        x_label="round", y_label="accuracy", title="Demo accuracy",
+        series_label="accuracy",
+        x_values=[1.0, 2.0, 3.0],
+        y_values=[0.6, 0.75, 0.82],
+        x_label="round",
+        y_label="accuracy",
+        title="Demo accuracy",
     )
     render_line_plot(spec, fileio=fio, relative_target="latex_project/figures/demo.png")
 
@@ -108,8 +113,11 @@ def _persist(ctx: PipelineRunContext, *, contract: str, artifact_id: str, model)
     rel = f"artifacts/{artifact_id}.v1.json"
     ctx.write_artifact_json(rel, model.model_dump(mode="json"))
     ctx.register_artifact(
-        artifact_id=artifact_id, contract=contract, contract_version="v1",
-        relative_path=rel, produced_by_task=artifact_id,
+        artifact_id=artifact_id,
+        contract=contract,
+        contract_version="v1",
+        relative_path=rel,
+        produced_by_task=artifact_id,
     )
 
 

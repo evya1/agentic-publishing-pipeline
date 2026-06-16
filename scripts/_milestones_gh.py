@@ -48,10 +48,13 @@ class GhClient:
         stdout = self._run(
             [
                 "api",
-                "--method", "POST",
+                "--method",
+                "POST",
                 f"repos/{self.repo}/milestones",
-                "-f", f"title={title}",
-                "-f", f"description={description}",
+                "-f",
+                f"title={title}",
+                "-f",
+                f"description={description}",
             ]
         )
         try:
@@ -74,8 +77,7 @@ class GhClient:
             raise GhError(f"gh timed out after {self.timeout}s") from exc
         if proc.returncode != 0:
             raise GhError(
-                f"gh {' '.join(args)} failed (exit {proc.returncode}): "
-                f"{proc.stderr.strip()}"
+                f"gh {' '.join(args)} failed (exit {proc.returncode}): {proc.stderr.strip()}"
             )
         return proc.stdout
 

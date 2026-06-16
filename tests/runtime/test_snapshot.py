@@ -57,8 +57,12 @@ def test_build_snapshot_includes_mode_and_topic() -> None:
 
 def test_write_snapshot_persists_json(tmp_path: Path) -> None:
     snap = build_snapshot(
-        run_id="RUN-X", mode="dry-run", topic=None, manifest_path=None,
-        registry_version=None, env={}
+        run_id="RUN-X",
+        mode="dry-run",
+        topic=None,
+        manifest_path=None,
+        registry_version=None,
+        env={},
     )
     target = tmp_path / "out" / "snap.json"
     write_snapshot(target, snap)

@@ -25,10 +25,12 @@ from typing import Literal
 
 REVIEW_RECORD_FILENAME = "review_record.json"
 ALLOWED_VERDICTS: frozenset[str] = frozenset({"approved", "changes_requested"})
+# fmt: off
 _LLM_IDENTITIES: frozenset[str] = frozenset({
     "llm", "ai", "claude", "codex", "gpt", "gemini", "agent",
     "reviewer_agent", "reviewer-agent", "reviewer agent", "llm reviewer",
 })
+# fmt: on
 
 
 class HumanReviewRequired(RuntimeError):

@@ -84,9 +84,7 @@ def test_render_python_graph_asset_rejects_wrong_kind(tmp_path: Path) -> None:
 def test_render_emits_audit_event(tmp_path: Path) -> None:
     ctx = _ctx(tmp_path)
     fio = FileIO(ctx)
-    spec = LinePlotSpec(
-        series_label="x", x_values=[0.0, 1.0], y_values=[0.0, 1.0]
-    )
+    spec = LinePlotSpec(series_label="x", x_values=[0.0, 1.0], y_values=[0.0, 1.0])
     render_line_plot(spec, fileio=fio, relative_target="latex_project/figures/x.png")
     events = [e for e in ctx.events.read_all() if e["kind"] == "graph.rendered"]
     assert events

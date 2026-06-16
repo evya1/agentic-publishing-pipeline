@@ -62,9 +62,7 @@ def make_live(
 
 def write_manifest(tmp_path: Path, milestones: list[dict], *, version: int = 1) -> Path:
     path = tmp_path / "milestones.json"
-    path.write_text(
-        json.dumps({"version": version, "milestones": milestones}), encoding="utf-8"
-    )
+    path.write_text(json.dumps({"version": version, "milestones": milestones}), encoding="utf-8")
     return path
 
 

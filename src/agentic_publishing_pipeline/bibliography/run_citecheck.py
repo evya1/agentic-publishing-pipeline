@@ -17,9 +17,7 @@ from .cite import CitationResolutionError, CitationResolver
 
 def _markdown_files(root: Path) -> list[Path]:
     return sorted(
-        p
-        for p in root.rglob("*.md")
-        if p.name != "README.md" and "__pycache__" not in p.parts
+        p for p in root.rglob("*.md") if p.name != "README.md" and "__pycache__" not in p.parts
     )
 
 
@@ -52,9 +50,7 @@ def main(argv: list[str] | None = None) -> int:
         "markdown_root": str(args.markdown_root),
         "manifest_path": str(args.manifest),
         "files": [str(p) for p in coverage.files],
-        "citations_per_file": {
-            str(p): n for p, n in coverage.citations_per_file.items()
-        },
+        "citations_per_file": {str(p): n for p, n in coverage.citations_per_file.items()},
         "cited_keys": list(coverage.cited_keys),
         "uncited_verified_keys": list(coverage.uncited_verified_keys),
         "summary": {
@@ -67,9 +63,7 @@ def main(argv: list[str] | None = None) -> int:
     args.report.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
     print(json.dumps(payload["summary"], sort_keys=True))
     if args.require_full_coverage and coverage.uncited_verified_keys:
-        print(
-            "uncited verified keys: " + ", ".join(coverage.uncited_verified_keys)
-        )
+        print("uncited verified keys: " + ", ".join(coverage.uncited_verified_keys))
         return 1
     return 0
 
