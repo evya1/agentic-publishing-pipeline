@@ -1,13 +1,14 @@
 # TODO — agentic-publishing-pipeline
 
-> **Status:** Phases 0 through 5, 7, and 8 are complete and closed. Phase 6
-> is re-opened for corrective recovery under P6-I04 and P6-I05. Phase 8
-> Python graph generation pipeline merged through PR #92; P8-I01 verified
-> and closed with a canonical PNG artifact in `latex_project/figures/`.
-> P12-I05 CI hardening merged through PR #86. Phase 9 (LaTeX project
-> assembly) waits on the fresh Phase 6 manuscript approval. Do not tick later
-> items until their underlying artifacts exist and have been verified on disk
-> (and, where applicable, by a passing build, test, or validator run).
+> **Status:** Phases 0 through 8 are complete and closed. Phase 6 corrective
+> recovery is complete through PR #96; P6-I04 and P6-I05 are closed with
+> evidence. Phase 8 Python graph generation pipeline merged through PR #92;
+> P8-I01 verified and closed with a canonical PNG artifact in
+> `latex_project/figures/`. P12-I05 CI hardening merged through PR #86.
+> Phase 9 (LaTeX project assembly) proceeds once the maintainer approves the
+> review packet produced by PR #96. Do not tick later items until their
+> underlying artifacts exist and have been verified on disk (and, where
+> applicable, by a passing build, test, or validator run).
 
 ## How to read this file
 
@@ -125,7 +126,7 @@ current state before acting.
 | P5-I12      | [#77](https://github.com/evya1/agentic-publishing-pipeline/issues/77) | Closed with evidence | Implement versioned prompt/config registry and compatibility checks |
 | P5-I13      | [#78](https://github.com/evya1/agentic-publishing-pipeline/issues/78) | Closed with evidence | Add baseline CI, lockfile, line-cap, and offline smoke gates |
 
-#### Phase 6 — Markdown-first content pipeline ([milestone #5](https://github.com/evya1/agentic-publishing-pipeline/milestone/5)) *(re-opened for corrective recovery)*
+#### Phase 6 — Markdown-first content pipeline ([milestone #5](https://github.com/evya1/agentic-publishing-pipeline/milestone/5)) *(complete and closed — P6-I04/P6-I05 via PR #96)*
 
 | Internal ID | Issue | Title (abridged)                                                         |
 |-------------|-------|--------------------------------------------------------------------------|
@@ -133,8 +134,8 @@ current state before acting.
 | P6-I01      | [#18](https://github.com/evya1/agentic-publishing-pipeline/issues/18) | Closed with evidence — generated Markdown drafts                        |
 | P6-I02      | [#19](https://github.com/evya1/agentic-publishing-pipeline/issues/19) | Closed with evidence — human review gate approval                       |
 | P6-I03      | [#20](https://github.com/evya1/agentic-publishing-pipeline/issues/20) | Closed with evidence — Phase 6 AI usage recorded                        |
-| P6-I04      | [#94](https://github.com/evya1/agentic-publishing-pipeline/issues/94) | Open — real CrewAI manuscript-generation orchestration                  |
-| P6-I05      | [#95](https://github.com/evya1/agentic-publishing-pipeline/issues/95) | Open — complete canonical Markdown manuscript and review packet         |
+| P6-I04      | [#94](https://github.com/evya1/agentic-publishing-pipeline/issues/94) | Closed with evidence — real CrewAI manuscript-generation orchestration (PR #96) |
+| P6-I05      | [#95](https://github.com/evya1/agentic-publishing-pipeline/issues/95) | Closed with evidence — complete canonical Markdown manuscript and review packet (PR #96) |
 
 #### Phase 7 — Real-source and bibliography pipeline ([milestone #6](https://github.com/evya1/agentic-publishing-pipeline/milestone/6)) *(complete and closed through PR #83)*
 
@@ -384,8 +385,8 @@ do not block the Phase 1.5 lock.
 ### C.3 Provider/service layer, configuration, and tools *(Phase 5 complete and closed through PR #79)*
 
 P5-I01 through P5-I13 are merged through PR #79, verified, and closed with
-evidence. The Phase 5 milestone is closed; Phases 6 and 7 are complete; and
-Phase 8 is next.
+evidence. The Phase 5 milestone is closed; Phases 6, 7, and 8 are complete
+and closed.
 
 - [x] Implement a controlled provider/service layer for model and search
       calls. [Phase 5] [NFR-23, NFR-24]
