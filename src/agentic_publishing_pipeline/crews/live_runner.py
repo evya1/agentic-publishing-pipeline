@@ -8,10 +8,13 @@ from ..agents.factory import AGENT_PROMPT_IDS, build_agents
 from ..runtime import PipelineRunContext, Registry
 from ..runtime.stage_state import PipelineStage, StageState, transition, write_stage
 from ..services.crewai_llm import ControlledCrewLlm
+from ..services.source_context import SourceContext
 from ..tasks.completeness import ManuscriptPreflightReport, run_manuscript_preflight
+from ..tasks.constants import TASK_PROMPT_IDS
 from ..tasks.factory import REQUIRED_CHAPTER_IDS, build_manuscript_tasks
 from ..tools.fileio import FileIO
 from ..tools.gatekeeper import ApiGatekeeper
+from .composition import compose_manuscript_outputs
 from .manuscript_crew import build_manuscript_crew
 from .persistence import persist_manuscript_outputs
 from .result_parser import ManuscriptOutputs, parse_manuscript_outputs
@@ -32,6 +35,9 @@ def run_live_manuscript(
     target_pages: int,
     target_words: int,
     min_words_per_chapter: int,
+    min_hebrew_tokens: int = 40,
+    min_embedded_english_terms: int = 1,
+    source_context: SourceContext | None = None,
     llm_builder: Callable[..., ControlledCrewLlm] = ControlledCrewLlm,
 ) -> tuple[ManuscriptOutputs, ManuscriptPreflightReport]:
     """Kick off the real Crew, persist candidates, and await human review."""
@@ -56,22 +62,48 @@ def run_live_manuscript(
         target_pages=target_pages,
         target_words=target_words,
     )
-    result = build_manuscript_crew(agents=agents, tasks=tasks).kickoff(
-        inputs={"topic": topic, "run_id": context.run_id}
-    )
-    outputs = parse_manuscript_outputs(result)
-    persist_manuscript_outputs(context=context, outputs=outputs)
-    report = run_manuscript_preflight(
-        outputs.chapters,
-        bidi=outputs.bidi,
-        required_chapter_ids=REQUIRED_CHAPTER_IDS,
-        manifest_keys=tuple(citation_keys),
-        min_words_per_chapter=min_words_per_chapter,
-        min_total_words=target_words,
-    )
+    try:
+        result = build_manuscript_crew(agents=agents, tasks=tasks).kickoff(
+            inputs={"topic": topic, "run_id": context.run_id}
+        )
+    except Exception as exc:
+        transition(io, state, PipelineStage.GENERATION_FAILED, detail=str(exc))
+        raise
+    _write_raw_result(context, result)
+    try:
+        outputs = compose_manuscript_outputs(parse_manuscript_outputs(result))
+    except Exception as exc:
+        transition(io, state, PipelineStage.PARSING_FAILED, detail=str(exc))
+        raise
+    state = transition(io, state, PipelineStage.GENERATED)
+    try:
+        persist_manuscript_outputs(context=context, outputs=outputs)
+    except Exception as exc:
+        transition(io, state, PipelineStage.PERSISTENCE_FAILED, detail=str(exc))
+        raise
+    state = transition(io, state, PipelineStage.PREFLIGHT)
+    try:
+        report = run_manuscript_preflight(
+            outputs.chapters,
+            bidi=outputs.bidi,
+            required_chapter_ids=REQUIRED_CHAPTER_IDS,
+            manifest_keys=tuple(citation_keys),
+            min_words_per_chapter=min_words_per_chapter,
+            min_total_words=target_words,
+            min_hebrew_tokens=min_hebrew_tokens,
+            min_embedded_english_terms=min_embedded_english_terms,
+            assets=outputs.assets,
+            bibliography=outputs.bibliography,
+            source_context=source_context,
+        )
+    except Exception as exc:
+        transition(io, state, PipelineStage.PREFLIGHT_FAILED, detail=str(exc))
+        raise
     if not report.passed:
+        _write_preflight_report(context, report)
         transition(io, state, PipelineStage.PREFLIGHT_FAILED, detail="; ".join(report.errors))
         raise ManuscriptPreflightFailed("; ".join(report.errors))
+    _write_preflight_report(context, report)
     transition(io, state, PipelineStage.AWAITING_HUMAN_REVIEW)
     return outputs, report
 
@@ -86,6 +118,8 @@ def _llm_factory(
     def build(agent_id: str, task_id: str, model_class: str) -> ControlledCrewLlm:
         prompt_id = AGENT_PROMPT_IDS[agent_id]
         prompt_version = registry.get_agent(prompt_id).version
+        task_config = registry.get_task(TASK_PROMPT_IDS.get(task_id, TASK_PROMPT_IDS["review"]))
+        max_repairs = int(task_config.config.get("repair_attempts_allowed", 1))
         return llm_builder(
             gatekeeper=gatekeeper,
             agent_id=agent_id,
@@ -93,6 +127,32 @@ def _llm_factory(
             model_class=model_class,
             run_id=run_id,
             prompt_version=prompt_version,
+            max_attempts=max_repairs + 1,
+            max_repairs=max_repairs,
         )
 
     return build
+
+
+def _write_raw_result(context: PipelineRunContext, result: object) -> None:
+    text = repr(result)
+    context.write_artifact_json("raw_outputs/crew_result.json", {"repr": text})
+    context.write_artifact_json("raw/crew_result.json", {"repr": text})
+
+
+def _write_preflight_report(
+    context: PipelineRunContext,
+    report: ManuscriptPreflightReport,
+) -> None:
+    context.write_artifact_json(
+        "preflight_report.json",
+        {
+            "passed": report.passed,
+            "word_counts": report.word_counts,
+            "total_words": report.total_words,
+            "cited_keys": list(report.cited_keys),
+            "missing_source_keys": list(report.missing_source_keys),
+            "errors": list(report.errors),
+            "warnings": list(report.warnings),
+        },
+    )

@@ -34,6 +34,12 @@ def test_build_agents_constructs_all_eight_without_model_call() -> None:
     assert len(calls) == 8
 
 
+def test_phase6_locked_context_profile_wires_no_live_agent_tools() -> None:
+    registry = load_registry(REPO_ROOT / "config" / "prompt_registry")
+    agents = build_agents(registry=registry, llm_factory=lambda a, t, m: "fixture")
+    assert all(list(agent.tools) == [] for agent in agents.values())
+
+
 def test_missing_registry_entry_fails_clearly() -> None:
     registry = load_registry(REPO_ROOT / "config" / "prompt_registry")
     broken = registry.__class__(

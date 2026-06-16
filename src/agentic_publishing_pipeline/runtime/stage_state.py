@@ -15,6 +15,11 @@ class PipelineStage(StrEnum):
     """Allowed manuscript run stages."""
 
     GENERATING = "generating"
+    GENERATED = "generated"
+    PREFLIGHT = "preflight"
+    GENERATION_FAILED = "generation_failed"
+    PARSING_FAILED = "parsing_failed"
+    PERSISTENCE_FAILED = "persistence_failed"
     PREFLIGHT_FAILED = "preflight_failed"
     AWAITING_HUMAN_REVIEW = "awaiting_human_review"
     APPROVED = "approved"
@@ -24,8 +29,21 @@ class PipelineStage(StrEnum):
 
 _ALLOWED: dict[PipelineStage, frozenset[PipelineStage]] = {
     PipelineStage.GENERATING: frozenset(
-        {PipelineStage.PREFLIGHT_FAILED, PipelineStage.AWAITING_HUMAN_REVIEW}
+        {
+            PipelineStage.GENERATED,
+            PipelineStage.GENERATION_FAILED,
+            PipelineStage.PARSING_FAILED,
+        }
     ),
+    PipelineStage.GENERATED: frozenset(
+        {PipelineStage.PREFLIGHT, PipelineStage.PERSISTENCE_FAILED}
+    ),
+    PipelineStage.PREFLIGHT: frozenset(
+        {PipelineStage.AWAITING_HUMAN_REVIEW, PipelineStage.PREFLIGHT_FAILED}
+    ),
+    PipelineStage.GENERATION_FAILED: frozenset({PipelineStage.GENERATING}),
+    PipelineStage.PARSING_FAILED: frozenset({PipelineStage.GENERATING}),
+    PipelineStage.PERSISTENCE_FAILED: frozenset({PipelineStage.GENERATING}),
     PipelineStage.PREFLIGHT_FAILED: frozenset({PipelineStage.GENERATING}),
     PipelineStage.AWAITING_HUMAN_REVIEW: frozenset(
         {PipelineStage.APPROVED, PipelineStage.CHANGES_REQUESTED}

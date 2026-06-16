@@ -20,6 +20,7 @@ class ProviderConfig:
     gatekeeper_max_requests: int
     gatekeeper_max_cost_usd: float
     gatekeeper_timeout_seconds: float
+    llm_model_id: str = "gpt-4.1-mini"
 
     @property
     def is_offline_fixture(self) -> bool:
@@ -54,6 +55,7 @@ def load_provider_config(env: Mapping[str, str]) -> ProviderConfig:
     return ProviderConfig(
         llm_provider=env.get("APP_LLM_PROVIDER", "fixture"),
         llm_model_class=env.get("APP_LLM_MODEL_CLASS", "research"),
+        llm_model_id=env.get("APP_LLM_MODEL_ID", "gpt-4.1-mini"),
         search_provider=env.get("APP_SEARCH_PROVIDER", "fixture"),
         gatekeeper_max_requests=_as_int(
             env.get("APP_GATEKEEPER_MAX_REQUESTS"),

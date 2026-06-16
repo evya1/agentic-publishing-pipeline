@@ -34,10 +34,15 @@ def test_context_bootstrap_creates_workspace_layout(tmp_path: Path) -> None:
     root = ctx.paths.root
     assert root.is_dir()
     assert (root / "artifacts").is_dir()
+    assert (root / "generated_markdown" / "chapters").is_dir()
+    assert (root / "typed_outputs").is_dir()
+    assert (root / "raw_outputs").is_dir()
+    assert (root / "logs").is_dir()
     assert (root / "raw").is_dir()
     assert (root / "latex_project" / "chapters").is_dir()
     assert (root / "config_snapshot.json").is_file()
     assert (root / "manifest.v1.json").is_file()
+    assert (root / "manifest.json").is_file()
 
 
 def test_context_snapshot_is_redacted_on_disk(tmp_path: Path) -> None:
@@ -108,6 +113,7 @@ def test_usage_log_appends_records(tmp_path: Path) -> None:
     records = ctx.usage.read_all()
     assert records[0]["agent_id"] == "A1"
     assert records[0]["tokens_in"] == 10
+    assert (ctx.paths.root / "logs" / "usage.jsonl").is_file()
 
 
 def test_manifest_verify_integrity_flags_tampered(tmp_path: Path) -> None:

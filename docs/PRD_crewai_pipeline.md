@@ -564,6 +564,13 @@ is binding.
   maintainer-owned human review gate. LaTeX planning/rendering remains
   downstream of the fresh approval boundary and must not consume stale or
   unapproved Markdown bytes.
+- **Phase 6 locked-context/tool-free profile — DECISION RECORDED
+  (P6-I04/P6-I05, 2026-06-16).** The corrective live manuscript run consumes
+  only the verified `config/article_sources.yaml` source context. No live
+  Phase 6 agent receives CrewAI tools, no search adapter may return fixture
+  data, and any attempted live search raises immediately. This does not claim
+  completion of the broader PRD tools contract; safe tool wiring remains
+  downstream work for phases that need tool execution.
 - **`content/markdown_drafts/` disposition — DECISION RECORDED (P6-I00,
   2026-06-15).** The directory is **retired**. Rationale: a survey of
   every tracked file confirmed that `content/markdown_drafts/` had zero

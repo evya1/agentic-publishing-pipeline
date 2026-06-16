@@ -38,6 +38,7 @@ class EventLog:
         with self._path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(record, sort_keys=True))
             handle.write("\n")
+        self._mirror_to_logs(record)
         return record
 
     def read_all(self) -> list[dict[str, object]]:
@@ -49,3 +50,12 @@ class EventLog:
                 continue
             records.append(json.loads(line))
         return records
+
+    def _mirror_to_logs(self, record: dict[str, object]) -> None:
+        mirror = self._path.parent / "logs" / self._path.name
+        if mirror == self._path:
+            return
+        mirror.parent.mkdir(parents=True, exist_ok=True)
+        with mirror.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(record, sort_keys=True))
+            handle.write("\n")

@@ -41,6 +41,7 @@ class UsageLog:
         status: UsageStatus,
         estimated_cost_usd: float,
         mode: str,
+        purpose: str = "",
     ) -> dict[str, object]:
         assert attempt >= 1, "attempt must be >= 1"
         assert tokens_in >= 0 and tokens_out >= 0, "token counts must be non-negative"
@@ -58,11 +59,13 @@ class UsageLog:
             "status": status,
             "estimated_cost_usd": estimated_cost_usd,
             "mode": mode,
+            "purpose": purpose,
         }
         self._path.parent.mkdir(parents=True, exist_ok=True)
         with self._path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(record, sort_keys=True))
             handle.write("\n")
+        self._mirror_to_logs(record)
         return record
 
     def read_all(self) -> list[dict[str, object]]:
@@ -73,3 +76,12 @@ class UsageLog:
             for line in self._path.read_text(encoding="utf-8").splitlines()
             if line.strip()
         ]
+
+    def _mirror_to_logs(self, record: dict[str, object]) -> None:
+        mirror = self._path.parent / "logs" / self._path.name
+        if mirror == self._path:
+            return
+        mirror.parent.mkdir(parents=True, exist_ok=True)
+        with mirror.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(record, sort_keys=True))
+            handle.write("\n")

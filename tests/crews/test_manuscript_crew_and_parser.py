@@ -17,9 +17,14 @@ from agentic_publishing_pipeline.contracts import (
     ResearchNotes,
     ReviewerSignal,
 )
+from agentic_publishing_pipeline.crews.composition import (
+    ManuscriptCompositionError,
+    compose_manuscript_outputs,
+)
 from agentic_publishing_pipeline.crews.manuscript_crew import build_manuscript_crew
 from agentic_publishing_pipeline.crews.result_parser import (
     CrewResultError,
+    ManuscriptOutputs,
     parse_manuscript_outputs,
 )
 from agentic_publishing_pipeline.runtime import load_registry
@@ -85,3 +90,72 @@ def test_parse_manuscript_outputs_validates_order_and_types() -> None:
 def test_parse_manuscript_outputs_rejects_missing_output() -> None:
     with pytest.raises(CrewResultError):
         parse_manuscript_outputs(SimpleNamespace(tasks_output=[]))
+
+
+def test_composition_merges_bidi_into_memory_chapter() -> None:
+    hebrew = " ".join(["זיכרון", "סוכן", "תכנון", "הקשר"] * 12) + " reasoning"
+    outputs = ManuscriptOutputs(
+        research=ResearchNotes(
+            run_id="r",
+            topic="t",
+            dimensions=[{"dimension": "memory", "summary": "s"}],
+        ),
+        outline=Outline(
+            run_id="r",
+            chapters=[{"chapter_id": "memory", "title": "Memory", "summary": "s"}],
+            target_total_pages=1,
+        ),
+        chapters=ChapterDrafts(
+            run_id="r",
+            chapters=[
+                ChapterDraft(
+                    chapter_id="memory",
+                    heading="Memory",
+                    body_markdown="# Memory\n\nWriter-only body.",
+                )
+            ],
+        ),
+        assets=AssetSpecs(run_id="r"),
+        bidi=BiDiSection(
+            run_id="r",
+            chapter_id="memory",
+            hebrew_body=hebrew,
+            inline_english_terms=["reasoning"],
+        ),
+        bibliography=BibliographyBundle(run_id="r"),
+        reviewer=ReviewerSignal(run_id="r", signal="pass"),
+    )
+    composed = compose_manuscript_outputs(outputs)
+    assert hebrew in composed.chapters.chapters[0].body_markdown
+    assert hebrew not in outputs.chapters.chapters[0].body_markdown
+
+
+def test_composition_rejects_missing_memory_chapter() -> None:
+    hebrew = " ".join(["זיכרון"] * 40) + " reasoning"
+    outputs = ManuscriptOutputs(
+        research=ResearchNotes(
+            run_id="r",
+            topic="t",
+            dimensions=[{"dimension": "memory", "summary": "s"}],
+        ),
+        outline=Outline(
+            run_id="r",
+            chapters=[{"chapter_id": "planning", "title": "Planning", "summary": "s"}],
+            target_total_pages=1,
+        ),
+        chapters=ChapterDrafts(
+            run_id="r",
+            chapters=[ChapterDraft(chapter_id="planning", heading="Planning", body_markdown="# P")],
+        ),
+        assets=AssetSpecs(run_id="r"),
+        bidi=BiDiSection(
+            run_id="r",
+            chapter_id="memory",
+            hebrew_body=hebrew,
+            inline_english_terms=["reasoning"],
+        ),
+        bibliography=BibliographyBundle(run_id="r"),
+        reviewer=ReviewerSignal(run_id="r", signal="pass"),
+    )
+    with pytest.raises(ManuscriptCompositionError, match="missing memory"):
+        compose_manuscript_outputs(outputs)

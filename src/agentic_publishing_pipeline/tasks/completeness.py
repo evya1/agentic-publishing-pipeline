@@ -2,13 +2,31 @@
 
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass, field
 
-from ..contracts import BiDiSection, ChapterDrafts
-from ..tools.markdown import parse_placeholders
+from ..contracts import AssetSpecs, BibliographyBundle, BiDiSection, ChapterDrafts
+from ..contracts._common import PlaceholderKind
+from ..services.source_context import SourceContext
+from ._preflight_assets import check_asset_specs
+from ._preflight_sources import (
+    check_bibliography,
+    check_citation_set,
+    check_source_provenance,
+)
+from ._preflight_text import (
+    check_bidi_embedding,
+    check_chapter_set,
+    check_placeholder_requirements,
+    check_placeholder_slots,
+    collect_chapter_text,
+)
 
-_CITE_RE = re.compile(r"\\cite\{(?P<keys>[^}]+)\}")
+_DEFAULT_PLACEHOLDER_KINDS: tuple[PlaceholderKind, ...] = (
+    "FIGURE",
+    "TABLE",
+    "EQUATION",
+    "CITATION",
+)
 
 
 @dataclass(frozen=True)
@@ -32,6 +50,12 @@ def run_manuscript_preflight(
     manifest_keys: tuple[str, ...],
     min_words_per_chapter: int,
     min_total_words: int,
+    min_hebrew_tokens: int = 40,
+    min_embedded_english_terms: int = 1,
+    required_placeholder_kinds: tuple[PlaceholderKind, ...] = _DEFAULT_PLACEHOLDER_KINDS,
+    assets: AssetSpecs | None = None,
+    bibliography: BibliographyBundle | None = None,
+    source_context: SourceContext | None = None,
 ) -> ManuscriptPreflightReport:
     """Reject incomplete, unsafe, or source-drifting manuscript output."""
     errors: list[str] = []
@@ -39,28 +63,32 @@ def run_manuscript_preflight(
     by_id = {chapter.chapter_id: chapter for chapter in drafts.chapters}
     if len(by_id) != len(drafts.chapters):
         errors.append("duplicate chapter_id in ChapterDrafts")
-    _check_chapter_set(by_id, required_chapter_ids, errors, warnings)
-    word_counts: dict[str, int] = {}
-    cited: set[str] = set()
-    placeholder_slots: set[str] = set()
-    for chapter_id in required_chapter_ids:
-        chapter = by_id.get(chapter_id)
-        if chapter is None:
-            continue
-        body = chapter.body_markdown
-        count = _word_count(body)
-        word_counts[chapter_id] = count
-        if count < min_words_per_chapter:
-            errors.append(f"chapter {chapter_id} has {count} words")
-        if not body.lstrip().startswith("# "):
-            errors.append(f"chapter {chapter_id} must begin with one H1 heading")
-        _collect_placeholders(chapter_id, body, placeholder_slots, cited, errors)
-        cited.update(_cite_commands(body))
+    check_chapter_set(by_id, required_chapter_ids, errors, warnings)
+    word_counts, cited, placeholders = collect_chapter_text(
+        by_id,
+        required_chapter_ids,
+        min_words_per_chapter=min_words_per_chapter,
+        errors=errors,
+    )
     total_words = sum(word_counts.values())
     if total_words < min_total_words:
         errors.append(f"manuscript has {total_words} words")
-    missing_keys = _check_citation_set(cited, manifest_keys, errors)
-    _check_bidi_embedding(bidi, by_id.get("memory"), errors, warnings)
+    check_placeholder_requirements(placeholders, required_placeholder_kinds, errors)
+    check_placeholder_slots(placeholders, errors)
+    if assets is not None:
+        check_asset_specs(placeholders, assets, errors)
+    missing_keys = check_citation_set(cited, manifest_keys, errors)
+    if bibliography is not None:
+        check_bibliography(cited, manifest_keys, bibliography, errors)
+    if source_context is not None:
+        check_source_provenance(manifest_keys, bibliography, source_context, errors)
+    check_bidi_embedding(
+        bidi,
+        by_id.get("memory"),
+        min_hebrew_tokens=min_hebrew_tokens,
+        min_embedded_english_terms=min_embedded_english_terms,
+        errors=errors,
+    )
     return ManuscriptPreflightReport(
         passed=not errors,
         word_counts=word_counts,
@@ -70,73 +98,3 @@ def run_manuscript_preflight(
         errors=tuple(errors),
         warnings=tuple(warnings),
     )
-
-
-def _check_chapter_set(
-    by_id: dict[str, object],
-    required: tuple[str, ...],
-    errors: list[str],
-    warnings: list[str],
-) -> None:
-    missing = [value for value in required if value not in by_id]
-    extra = [value for value in by_id if value not in required]
-    if missing:
-        errors.append(f"missing required chapters: {missing}")
-    if extra:
-        warnings.append(f"unexpected chapters: {extra}")
-
-
-def _collect_placeholders(
-    chapter_id: str,
-    body: str,
-    seen_slots: set[str],
-    cited: set[str],
-    errors: list[str],
-) -> None:
-    for placeholder in parse_placeholders(body, chapter_id=chapter_id):
-        if placeholder.slot in seen_slots:
-            errors.append(f"duplicate placeholder slot: {placeholder.slot}")
-        seen_slots.add(placeholder.slot)
-        if placeholder.kind == "CITATION":
-            cited.update(key.strip() for key in placeholder.description.split(","))
-
-
-def _check_citation_set(
-    cited: set[str],
-    manifest_keys: tuple[str, ...],
-    errors: list[str],
-) -> tuple[str, ...]:
-    allowed = set(manifest_keys)
-    unknown = sorted(cited - allowed)
-    if unknown:
-        errors.append(f"unknown citation keys: {unknown}")
-    missing = tuple(sorted(allowed - cited))
-    if missing:
-        errors.append(f"locked sources not cited: {list(missing)}")
-    return missing
-
-
-def _check_bidi_embedding(
-    bidi: BiDiSection,
-    memory_chapter: object | None,
-    errors: list[str],
-    warnings: list[str],
-) -> None:
-    if bidi.chapter_id != "memory":
-        errors.append("BiDi section must target the Memory chapter")
-    memory_body = getattr(memory_chapter, "body_markdown", "")
-    if bidi.hebrew_body not in memory_body:
-        warnings.append("BiDi contract text is not embedded verbatim in memory.md")
-
-
-def _cite_commands(markdown: str) -> set[str]:
-    keys: set[str] = set()
-    for match in _CITE_RE.finditer(markdown):
-        keys.update(key.strip() for key in match.group("keys").split(","))
-    return keys
-
-
-def _word_count(markdown: str) -> int:
-    without_comments = re.sub(r"<!--.*?-->", " ", markdown, flags=re.DOTALL)
-    without_commands = _CITE_RE.sub(" ", without_comments)
-    return len(re.findall(r"\b[\w'-]+\b", without_commands, flags=re.UNICODE))

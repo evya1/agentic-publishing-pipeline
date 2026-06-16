@@ -8,14 +8,14 @@ from ..runtime import PipelineRunContext
 from ..tools.fileio import FileIO
 from .result_parser import ManuscriptOutputs
 
-_TYPED_OUTPUTS: tuple[tuple[str, str, str], ...] = (
-    ("research", "ResearchNotes.v1", "research"),
-    ("outline", "Outline.v1", "outline"),
-    ("chapters", "ChapterDrafts.v1", "write"),
-    ("assets", "AssetSpecs.v1", "asset"),
-    ("bidi", "BiDiSection.v1", "bidi"),
-    ("bibliography", "BibliographyBundle.v1", "bibliography"),
-    ("reviewer", "ReviewerSignal.v1", "review"),
+_TYPED_OUTPUTS: tuple[tuple[str, str, str, str], ...] = (
+    ("research", "research_notes", "ResearchNotes.v1", "research"),
+    ("outline", "outline", "Outline.v1", "outline"),
+    ("chapters", "chapter_drafts", "ChapterDrafts.v1", "write"),
+    ("assets", "asset_specs", "AssetSpecs.v1", "asset"),
+    ("bidi", "bidi_section", "BiDiSection.v1", "bidi"),
+    ("bibliography", "bibliography", "BibliographyBundle.v1", "bibliography"),
+    ("reviewer", "reviewer_signal", "ReviewerSignal.v1", "review"),
 )
 
 
@@ -27,10 +27,11 @@ def persist_manuscript_outputs(
     """Write validated Pydantic models and candidate Markdown."""
     io = FileIO(context)
     written: dict[str, Path] = {}
-    for name, contract, task_id in _TYPED_OUTPUTS:
+    for name, filename, contract, task_id in _TYPED_OUTPUTS:
         model = getattr(outputs, name)
-        rel = f"artifacts/typed_outputs/{name}.json"
+        rel = f"typed_outputs/{filename}.json"
         written[f"typed:{name}"] = io.write_json(rel, model.model_dump(mode="json"))
+        io.write_json(f"artifacts/typed_outputs/{filename}.json", model.model_dump(mode="json"))
         context.register_artifact(
             artifact_id=f"typed:{name}",
             contract=contract,
@@ -40,13 +41,15 @@ def persist_manuscript_outputs(
         )
     _write_chapters(context, io, outputs, written)
     written["outline"] = io.write_text(
-        "artifacts/generated_markdown/outline.md",
+        "generated_markdown/outline.md",
         _outline_markdown(outputs),
     )
+    io.write_text("artifacts/generated_markdown/outline.md", _outline_markdown(outputs))
     written["research_notes"] = io.write_text(
-        "artifacts/generated_markdown/research_notes.md",
+        "generated_markdown/research_notes.md",
         _research_markdown(outputs),
     )
+    io.write_text("artifacts/generated_markdown/research_notes.md", _research_markdown(outputs))
     return written
 
 
@@ -57,9 +60,13 @@ def _write_chapters(
     written: dict[str, Path],
 ) -> None:
     for chapter in outputs.chapters.chapters:
-        rel = f"artifacts/generated_markdown/chapters/{chapter.chapter_id}.md"
+        rel = f"generated_markdown/chapters/{chapter.chapter_id}.md"
         written[f"chapter:{chapter.chapter_id}"] = io.write_text(
             rel,
+            chapter.body_markdown.rstrip() + "\n",
+        )
+        io.write_text(
+            f"artifacts/generated_markdown/chapters/{chapter.chapter_id}.md",
             chapter.body_markdown.rstrip() + "\n",
         )
         context.register_artifact(
